@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="container-fluid" style="border-radius: 3px;" id="mainContainer">
+    <div id="popup">
+        <div class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="justify-content: center;">
+        <div id="darkMode" style="z-index: 2;cursor:pointer;">
+            <i class="fa-regular fa-moon fa-2x me-5 p-1 mt-5"
+               style="color: #09d4e3;border: 1px solid #09d4e3;border-radius: 4px;position: absolute;right: 0;"
+               onclick="darkMode()" id="darkmodeBtn"></i>
+        </div>
+        <div class=" col-sm-12 col-md-12 col-lg-12 col-xl-12" style="height: 100vh;" id="mainDiv">
+            <div class="rightLogin  col-sm-10 col-md-10 col-lg-6 col-xl-6">
+                <div class="mb-5 d-none d-md-block"><img src="/images/docLogo.png" alt="reload"></div>
+                <div id="rightIn">
+                    <form class="login-form-control">
+                        <div class="login-button mb-3">
+                            <a href="#" class="btn btn-primary mb-3"
+                               style="background-color: #09d4e3;border: 0;padding: 14px 0px;font-size: 1.2rem;">
+                                Submit
+                                A Request
+                            </a>
+                        </div>
+                        <div class="login-button mb-5">
+                            <a href="patientLogin.html" class="btn btn-primary mb-3"
+                               style="background-color: #0010c4;border: 0;padding: 14px 0px;font-size: 1.2rem;">
+                                Registered
+                                Patients
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-5" id="footerDiv">
+                    <div class="me-3 termsAndPrivacy">Terms of Conditions</div>
+                    <div style="border-left: 1px solid gray;" class="ps-3 termsAndPrivacy">Privacy Policy</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />

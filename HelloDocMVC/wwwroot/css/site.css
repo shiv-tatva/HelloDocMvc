@@ -1,0 +1,239 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+#platFormLoginImage {
+    height: 100vh;
+}
+
+/* .rightLogin {
+    background-image: url(/HelloDoc/images/patientPhoto.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: rgba(0, 0, 0, 0.5)
+} */
+.rightLogin {
+    position: relative;
+    z-index: 1;
+}
+
+    .rightLogin:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-repeat: no-repeat !important;
+        background-size: 100% 100% !important;
+        opacity: .3;
+        z-index: -1;
+        background: url(/images/loginMain.jpg);
+    }
+
+.rightLogin {
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: auto;
+}
+
+/* .login-form-control {
+    width: 45%;
+} */
+
+.login-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .login-button a {
+        width: 100%;
+        text-align: center;
+    }
+
+.rightLogin div p {
+    font-size: 2.15rem;
+    font-weight: 400;
+}
+
+#darkMode {
+    width: 100%;
+    top: 0px;
+    right: 0;
+    position: absolute;
+}
+
+.show-password {
+    width: 50px;
+    position: absolute;
+    top: 10px;
+    right: 4px;
+}
+
+#footerDiv {
+    display: flex;
+    position: absolute;
+    bottom: 5px;
+}
+
+    #footerDiv div {
+        color: gray;
+        padding: 5px;
+    }
+
+button:focus {
+    outline: 0 !important;
+    border: none;
+}
+
+#rightIn {
+    margin: 0 !important;
+    width: 55%;
+}
+
+#loginBack {
+    width: 80%;
+    margin: auto;
+}
+
+/* @media only screen and (max-width: 576px) {
+
+    .rightLogin div p { 
+       font-weight: 600;
+    }
+ 
+ }
+@media only screen and (max-width: 768px) {
+
+    .rightLogin div p { 
+       font-weight: 600;
+    }
+ 
+ }
+
+@media only screen and (max-width: 1200px) {
+
+    .rightLogin div p { 
+       font-size: 1.7rem; 
+       font-weight: 600;
+    }
+ 
+ }
+@media only screen and (max-width: 1400px) {
+
+    .rightLogin div p { 
+       font-size: 2.15rem!important; 
+       font-weight: 600;
+    }
+ 
+ } */
+@media only screen and (max-width: 367px) {
+
+    .rightLogin div p {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    #rightIn {
+        margin: auto;
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 367px) {
+
+    .rightLogin div p {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    #rightIn {
+        margin: auto;
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+
+    .rightLogin div p {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    #rightIn {
+        margin: auto;
+        width: 70%;
+    }
+
+    .rightLogin {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+
+    .rightLogin div p {
+        font-size: 1.19rem;
+        font-weight: 600;
+    }
+
+    #rightIn {
+        margin: auto;
+        width: 80%;
+    }
+
+    .rightLogin {
+        width: 50%;
+    }
+
+        .rightLogin:before {
+            width: 0;
+        }
+}
+
+@media only screen and (min-width: 992px) {
+
+    .rightLogin div p {
+        font-size: 1.7rem;
+        font-weight: 600;
+    }
+
+    #rightIn {
+        margin: auto;
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+
+    .rightLogin div p {
+        font-size: 1.7rem;
+        font-weight: 600;
+    }
+
+    #rightIn {
+        margin: auto;
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+
+    .rightLogin div p {
+        font-size: 1.9rem;
+        font-weight: 600;
+    }
+
+    #rightIn {
+        margin: auto;
+        width: 60%;
+    }
+}
