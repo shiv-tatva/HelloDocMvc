@@ -43,20 +43,25 @@
         function darkMode() {
             console.log("hiii")
             let a = document.getElementById("MainDiv")
-            let b = document.getElementById("mainContainer")
+            let b = document.getElementsByTagName("h4")
+            console.log(b)
             let c = document.getElementById("navMain")
        
 
             if (a.classList.contains("active")) {
                 a.classList.remove("active")
                 a.style.backgroundColor = "white"
-                b.style.color = "black"
+                for (let i = 0; i < b.length; i++) {
+                    b[i].style.color = "black"
+                }
                 c.classList.remove("bg-black")
                 c.classList.add("bg-white")
             } else {
                 a.classList.add("active")
                 a.style.backgroundColor = "black"
-                b.style.color = "white"
+                for (let i = 0; i < b.length; i++) {
+                    b[i].style.color = "white"
+                }
                 c.classList.remove("bg-white")
                 c.classList.add("bg-dark")
             }

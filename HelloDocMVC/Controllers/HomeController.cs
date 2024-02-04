@@ -23,7 +23,7 @@ namespace HelloDocMVC.Controllers
         {
             return View();
         }
-        public IActionResult BusinesstInfo()
+        public IActionResult BusinessInfo()
         {
             return View();
         }
