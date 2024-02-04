@@ -1,0 +1,333 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#mainContainer {
+    padding: 0;
+    position: relative;
+}
+
+#mainDown {
+    width: 340px;
+    margin: auto;
+}
+
+/* #backDiv{
+    position: absolute;
+    top: 17%;
+    right: 17%;
+} */
+/* .popUp{
+    background-color: red;
+    width: 33%;
+    z-index: 3;
+    height: 24%;
+    top: 14%;
+    position: absolute;
+    left: 34%;
+} */
+/* #popUp:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat!important;
+    background-size: 100% 100%!important;
+    opacity: .3;
+    z-index: -1;
+    background: url(/HelloDoc/images/loginMain.jpg);
+} */
+#backDivTwo a {
+    color: #09d4e3;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600 !important;
+    border: 1px solid #09d4e3;
+    border-radius: 8px;
+    padding: 9px 17px;
+}
+
+#backDivThree a {
+    color: #09d4e3;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600 !important;
+    border: 1px solid #09d4e3;
+    border-radius: 8px;
+    padding: 9px 17px;
+}
+
+#footerDiv {
+    width: 100%;
+    /* left: 0; */
+    display: flex;
+    justify-content: end;
+    /* position: absolute; */
+    /* bottom: 0px; */
+    /* background-color: #2c2e33; */
+}
+
+    #footerDiv div {
+        color: #c0c3cc;
+        padding: 5px;
+        margin: 10px 0px;
+    }
+
+#firstDiv:hover {
+    background-color: rgba(109, 66, 227,0.4) !important;
+}
+
+#secondDiv:hover {
+    background-color: rgba(92, 196, 237,0.4) !important;
+}
+
+#thirdDiv:hover {
+    background-color: rgba(17, 209, 158,0.4) !important;
+}
+
+#fourthDiv:hover {
+    background-color: rgba(232, 16, 203,0.4) !important;
+}
+
+.select-box {
+    position: relative;
+    width: 26rem;
+    /* margin: 7rem auto; */
+}
+
+    .select-box input {
+        width: 100%;
+        padding: 1rem .6rem;
+        font-size: 1.1rem;
+        border: .1rem solid transparent;
+        outline: none;
+    }
+
+input[type="tel"] {
+    border-radius: 0 .5rem .5rem 0;
+}
+
+.select-box input:focus {
+    border: .1rem solid var(--primary);
+}
+
+.selected-option {
+    background-color: #eee;
+    border-radius: .5rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .selected-option div {
+        position: relative;
+        width: 6rem;
+        padding: 0 2.8rem 0 .5rem;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .selected-option div::after {
+            position: absolute;
+            content: "";
+            right: .8rem;
+            top: 30%;
+            /* transform: translateY(-50%) rotate(45deg); */
+            width: .8rem;
+            height: .8rem;
+            border-right: .12rem solid var(--primary);
+            border-bottom: .12rem solid var(--primary);
+            transition: .2s;
+            background-image: url(/HelloDoc/images/downward-arrow.svg);
+        }
+
+/* .selected-option div.active::after{
+    transform: translateY(-50%) rotate(225deg);
+} */
+
+.select-box .options {
+    position: absolute;
+    top: 4rem;
+    width: 100%;
+    background-color: #fff;
+    border-radius: .5rem;
+    display: none;
+}
+
+    .select-box .options.active {
+        display: block;
+    }
+
+    .select-box .options::before {
+        position: absolute;
+        content: "";
+        left: 1rem;
+        top: -1.2rem;
+        width: 0;
+        height: 0;
+        border: .6rem solid transparent;
+        border-bottom-color: var(--primary);
+    }
+
+input.search-box {
+    background-color: var(--primary);
+    color: #fff;
+    border-radius: .5rem .5rem 0 0;
+    padding: 1.4rem 1rem;
+}
+
+.select-box ol {
+    list-style: none;
+    max-height: 23rem;
+    overflow: overlay;
+    position: absolute;
+    z-index: 3;
+    background-color: white;
+}
+
+    .select-box ol::-webkit-scrollbar {
+        width: 0.6rem;
+    }
+
+    .select-box ol::-webkit-scrollbar-thumb {
+        width: 0.4rem;
+        height: 3rem;
+        background-color: #ccc;
+        border-radius: .4rem;
+    }
+
+    .select-box ol li {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+
+        .select-box ol li.hide {
+            display: none;
+        }
+
+        .select-box ol li:not(:last-child) {
+            border-bottom: .1rem solid #eee;
+        }
+
+        .select-box ol li:hover {
+            background-color: lightcyan;
+        }
+
+        .select-box ol li .country-name {
+            margin-left: .4rem;
+        }
+
+
+.file-content {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    justify-content: space-between;
+    display: flex;
+    border-radius: 5px;
+}
+
+.file-upload {
+    position: relative;
+}
+
+.file-content span {
+    color: #ADADAD;
+    padding-left: 10px;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.inner-page-form .file-upload .file-content {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.input-group > .form-control,
+.input-group > .form-select {
+    position: absolute;
+    width: 35%;
+}
+
+.file-upload .form-control {
+    border: none;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+}
+
+.file-upload .btn-outline-primary {
+    background-color: #fff;
+    border-color: #C8242F;
+    color: black;
+    padding: .9rem 26px;
+    font-size: 17px;
+    line-height: 18px;
+    /* border-radius: 0px; */
+    border: 0;
+    border-radius: 0;
+    border-left: 1px solid #dee2e6;
+}
+
+    .file-upload .btn-outline-primary img {
+        vertical-align: middle;
+        margin-right: 6px;
+        width: 20px;
+        height: 20px;
+    }
+
+
+/* #popUp::before{
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat!important;
+    background-size: 100% 100%!important;
+    opacity: .3;
+    z-index: -1;
+    background: url(/HelloDoc/images/loginMain.jpg);
+} */
+@media only screen and (max-width: 576px) {
+    #backDiv {
+        top: 19%;
+        right: 10%;
+    }
+
+    .login-button a {
+        text-align: center !important;
+    }
+}
+
+@media only screen and (max-width: 368px) {
+    #mainDown {
+        width: 320px;
+        margin: auto;
+    }
+
+    #backDiv {
+        top: 19%;
+        right: 5%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    h4 {
+        font-size: 1.2rem !important;
+    }
+}

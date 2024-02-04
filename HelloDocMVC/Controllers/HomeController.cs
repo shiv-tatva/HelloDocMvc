@@ -19,6 +19,23 @@ namespace HelloDocMVC.Controllers
             return View();
         }
 
+        public IActionResult PatientInfo()
+        {
+            return View();
+        }
+        public IActionResult BusinesstInfo()
+        {
+            return View();
+        }
+        public IActionResult ConciergeInfo()
+        {
+            return View();
+        } 
+        public IActionResult FamilyFriendInfo()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
