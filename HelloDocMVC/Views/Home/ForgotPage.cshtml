@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Forgot Page";
+}
+<div class="row" style="justify-content: center;">
+    <div id="darkMode" style="z-index: 2;">
+        <i class="fa-regular fa-moon fa-2x me-5 p-1 mt-5"
+           style="color: #09d4e3;border: 1px solid #09d4e3;border-radius: 4px;position: absolute;right: 0;"
+           onclick="darkMode()" id="darkmodeBtn"></i>
+    </div>
+<div class=" col-sm-12 col-md-12 col-lg-12 col-xl-12" style="height: 100vh;" id="mainDiv">
+    <div class="rightLogin  col-sm-10 col-md-10 col-lg-6 col-xl-6">
+        <div class="mb-5 d-none d-md-block"><img src="/images/docLogo.png" alt="reload"></div>
+        <div id="rightIn">
+            <div id="loginBack">
+                <!-- <div style="width: 45%;" class="mb-3 mt-5">
+                    <a href="/HelloDoc/patientLoginPage.html" title="Forgot password" class="link-default ps-3"
+                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;"><i
+                            class="fa-solid fa-chevron-left me-2" style="color: #09d4e3;"></i>Back</a>
+                </div> -->
+                <div style="text-align: center;">
+                    <p id="loginHeading">Reset Your Password</p>
+                </div>
+            </div>
+            <form class="login-form-control" id="formMain">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput"
+                           placeholder="name@example.com" style="background: transparent;border: 1px solid gray;">
+                    <label for="floatingInput">Email</label>
+                    <button class="btn show-password" type="button">
+                        <img src="/images/person-circle-outline.svg" alt="password">
+                    </button>
+                </div>
+                <div class="login-button mb-5">
+                    <a href="#" class="btn btn-primary mb-3"
+                       style="background-color: #09d4e3;border: 0;padding: 10px 0px;">Reset Password</a>
+                    <a title="Forgot password" class="link-default ps-3" asp-controller="Home" asp-action="LoginPage"
+                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;">
+                        <i class="fa-solid fa-chevron-left me-2" style="color: #09d4e3;"></i>Back To Login
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="mt-5" id="footerDiv">
+            <div class="me-3">Terms of Conditions</div>
+            <div style="border-left: 1px solid gray;" class="ps-3">Privacy Policy</div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<link rel="stylesheet" href="~/css/ForgotPage.css" asp-append-version="true" />
+
+<script>
+
+    function darkMode() {
+        let a = document.getElementById("mainContainer")
+        let b = document.getElementById("loginHeading")
+        let c = document.getElementById("formMain")
+        // a.classList.toggle("active")
+        console.log(a)
+        console.log(a.classList)
+
+        if (a.classList.contains("active")) {
+            a.classList.remove("active")
+            a.style.backgroundColor = "white"
+            b.style.color = "black"
+            c.style.color = "gray"
+        } else {
+            a.classList.add("active")
+            a.style.backgroundColor = "black"
+            b.style.color = "white"
+            c.style.color = "grey"
+        }
+
+    }
+    function passwordVisible() {
+        let a = document.getElementById("passHide")
+        console.log(a)
+        if (a.classList.contains("fa-eye")) {
+            a.classList.remove("fa-eye")
+            a.classList.add("fa-eye-slash")
+        } else {
+            a.classList.remove("fa-eye-slash")
+            a.classList.add("fa-eye")
+        }
+
+        var x = document.getElementById("floatingPassword");
+        if (x.type === "password") {
+            x.type = "text";
+            console.log("hi1")
+        } else {
+            x.type = "password";
+            console.log("hi2")
+        }
+    }
+</script>

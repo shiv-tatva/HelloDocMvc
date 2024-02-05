@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Patient Information";
+}
+
+<div class="row p-0 m-0">
+    <div class="col-12">
+        <div class="col-sm-11 col-md-8 col-lg-8 mt-5" style="margin: auto;">
+            <div id="backDiv" class="mb-5 mt-5" style="text-align: end;">
+                <a title="Forgot password" class="link-default ps-3" asp-controller="Home" asp-action="SubmitRequest"
+                   style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
+                    <i class="fa-solid fa-chevron-left me-2 " style="color: #09d4e3;"></i>Back
+                </a>
+            </div>
+            <h4 class="h4Head">Patient Information</h4>
+            <div class="form-floating mt-3 col-12" style="overflow: hidden;">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                          style="height: 130px;"></textarea>
+                <label for="floatingTextarea">Enter Brief Details Of Symptoms(Optional)</label>
+            </div>
+            <div class="row ">
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Name">
+                        <label>First Name</label>
+                    </div>
+                </div>
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Name">
+                        <label>Last Name</label>
+                    </div>
+                </div>
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" placeholder="Name">
+                        <label>Date of Birth</label>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mt-5 h4Head">Patient Contact Information</h4>
+            <div class="row">
+                <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" placeholder="Name">
+                        <label>Email</label>
+                    </div>
+                </div>
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <input id="phone"
+                           class="form-control contact"
+                           aria-label="Contact"
+                           type="tel"
+                           name="phone" />
+                </div>
+            </div>
+
+            <h4 class="mt-5 h4Head">Patient Location</h4>
+
+            <div class="row ">
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Name">
+                        <label>Street</label>
+                    </div>
+                </div>
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Name">
+                        <label>City</label>
+                    </div>
+                </div>
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Name">
+                        <label>State</label>
+                    </div>
+                </div>
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Name">
+                        <label>Zip code</label>
+                    </div>
+                </div>
+                <div class="mt-3 col-sm-6 col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Name" pattern="[0-9]{6}"
+                               title="Five digit zip code" />
+                        <label>Room # / suite (Optional)</label>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mt-5 h4Head">(Optional) Upload Photo or Document</h4>
+
+            <div class="file-upload  input-group col-12 mt-5">
+                <div class="file-content" style="border-radius: 7px;">
+                    <div style="display: flex;align-items: center;">
+                        <span>Select File</span>
+                    </div>
+                    <button class="btn btn-outline-primary" type="file" id="button-addon1"
+                            style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                        <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i><span class="d-none d-sm-none d-md-none d-lg-inline-block"
+                                                                                                     style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
+                    </button>
+                </div>
+                <input class="form-control" placeholder="" type="file"
+                       aria-label="Example text with button addon" aria-describedby="button-addon1" style="width: 80%;">
+            </div>
+
+            <div class="mt-5 d-flex justify-content-end">
+                <div id="backDivTwo" class="me-2">
+                    <a href="#" title="Forgot password" class="link-default ps-3"
+                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">Submit</a>
+                </div>
+                <div id="backDivThree">
+                    <a href="#" title="Forgot password" class="link-default ps-3"
+                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;"></i>Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/patientInfo.css">
+
+<script>
+    // function darkMode() {
+    //     let a = document.getElementById("mainContainer")
+    //     let b = document.getElementsByClassName("h4Head")
+    //     let c = document.getElementById("navMain")
+        
+    //     console.log(b.length)
+    //     console.log(a.classList)
+
+    //     if (a.classList.contains("active")) {
+    //         a.classList.remove("active")
+    //         a.style.backgroundColor = "white"
+    //         for (let i = 0; i < b.length; i++) {
+    //             b[i].style.color = "black"
+    //         }
+    //         c.classList.remove("bg-black")
+    //         c.classList.add("bg-white")
+    //     } else {
+    //         a.classList.add("active")
+    //         a.style.backgroundColor = "black"
+    //         for (let i = 0; i < b.length; i++) {
+    //             b[i].style.color = "white"
+    //         }
+    //         c.classList.remove("bg-white")
+    //         c.classList.add("bg-dark")
+    //     }
+
+    // }
+        const phoneInputPatient = document.querySelector("#phone");
+        const phoneInputP = window.intlTelInput(phoneInputPatient, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+</script>

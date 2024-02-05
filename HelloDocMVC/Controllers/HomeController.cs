@@ -18,6 +18,33 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 1;
             return View();
         }
+        public IActionResult LoginPage()
+        {
+            ViewBag.Admin = 1;
+            return View();
+        }
+        public IActionResult ForgotPage()
+        {
+            ViewBag.Admin = 1;
+            return View();
+        }
+
+        public IActionResult PatientInfo()
+        {
+            return View();
+        }
+        public IActionResult BusinessInfo()
+        {
+            return View();
+        }
+        public IActionResult ConciergeInfo()
+        {
+            return View();
+        } 
+        public IActionResult FamilyFriendInfo()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

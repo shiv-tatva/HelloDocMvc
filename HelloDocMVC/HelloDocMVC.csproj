@@ -14,6 +14,7 @@
   <ItemGroup>
     <Content Remove="Views\Shared\loginSubmit.cshtml" />
     <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
+    <Content Remove="wwwroot\js\darkTheme.cs" />
   </ItemGroup>
 
 </Project>
