@@ -60,3 +60,15 @@ C:\Users\Shiv Santoki\Desktop\Web D\HelloDocMVC\HelloDocMvc\HelloDocMVC\obj\Debu
 C:\Users\Shiv Santoki\Desktop\Web D\HelloDocMVC\HelloDocMvc\HelloDocMVC\obj\Debug\net7.0\HelloDocMVC.pdb
 C:\Users\Shiv Santoki\Desktop\Web D\HelloDocMVC\HelloDocMvc\HelloDocMVC\obj\Debug\net7.0\HelloDocMVC.genruntimeconfig.cache
 C:\Users\Shiv Santoki\Desktop\Web D\HelloDocMVC\HelloDocMvc\HelloDocMVC\obj\Debug\net7.0\ref\HelloDocMVC.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Humanizer.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Mono.TextTemplating.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Npgsql.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\System.CodeDom.dll
+D:\Project\HelloDocMVC\HelloDocMVC\obj\Debug\net7.0\HelloDocMVC.csproj.AssemblyReference.cache
+D:\Project\HelloDocMVC\HelloDocMVC\obj\Debug\net7.0\HelloDocMVC.csproj.CopyComplete

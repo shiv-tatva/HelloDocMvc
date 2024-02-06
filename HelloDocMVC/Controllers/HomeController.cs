@@ -46,10 +46,12 @@ namespace HelloDocMVC.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //public IActionResult Privacy()
+        //{
+        //    HelloDocContext helloDocContext = new HelloDocContext();
+           
+        //    return View(helloDocContext.Admins);
+        //}
 
         public IActionResult SubmitRequest()
         {
