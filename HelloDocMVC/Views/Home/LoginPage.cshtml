@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HelloDocMVC.DataModels.Aspnetuser;
+
+@{
     ViewData["Title"] = "Login Page";
 }
 
@@ -23,35 +25,36 @@
                     <h4 id="loginHeading" class="ps-3 h2">Login To Your Acoount</h4>
                 </div>
             </div>
-            <form class="login-form-control" id="formMain">
+            <form class="login-form-control" id="formMain" method="post">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput"
+                    <input asp-for="Email" type="email" class="form-control" id="floatingInput"
                            placeholder="name@example.com"
                            style="background: transparent;border: 1px solid gray;">
-                    <label for="floatingInput">Email</label>
+                        <label asp-for="Email" for="floatingInput">Email</label>
                     <button class="btn show-password" type="button">
                         <img src="/images/person-circle-outline.svg" alt="password">
                     </button>
                 </div>
                 <div class="form-floating mb-3" style="position: relative;">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                        <input asp-for="Passwordhash" type="password" class="form-control" id="floatingPassword" placeholder="Password"
                            style="background: transparent;border: 1px solid gray;">
-                    <label for="floatingPassword">Password</label>
+                        <label asp-for="Passwordhash" for="floatingPassword">Password</label>
                     <button class="btn show-password" type="button" id="userBtn">
                         <i class="fa-regular fa-eye" onclick="passwordVisible()"
                            id="passHide"></i>
                     </button>
                 </div>
                 <div class="login-button mb-5">
-                    <a  class="btn btn-primary mb-3"
-                       style="background-color: #09d4e3;border: 0;padding: 10px 0px;"
-                       onclick="login()">Login</a>
+                    <button type="submit" class="btn btn-primary mb-3"
+                       style="background-color: #09d4e3;border: 0;padding: 10px 0px;width:100%">Login</button>
+                        <p style="color:red;font-size:1.2rem!important;">@ViewBag.LoginMessage</p>
                     <a title="Forgot password" class="link-default" asp-controller="Home" asp-action="ForgotPage"
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;">
                         Forgot
                         Password?
                     </a>
                 </div>
+                    
             </form>
         </div>
         <div class="mt-5" id="footerDiv">

@@ -1,13 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using HelloDocMVC.Models;
+using HelloDocMVC.DataContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<HelloDocContext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<HelloDocContext>(options =>
+//options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 var app = builder.Build();
 

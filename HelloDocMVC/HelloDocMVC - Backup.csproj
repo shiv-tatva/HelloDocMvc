@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\SubmitRequest.cs" />
+    <Compile Remove="Models\Admin.cs" />
+    <Compile Remove="Models\Adminregion.cs" />
+    <Compile Remove="Models\Aspnetrole.cs" />
+    <Compile Remove="Models\Aspnetuser.cs" />
+    <Compile Remove="Models\Blockrequest.cs" />
+    <Compile Remove="Models\Business.cs" />
+    <Compile Remove="Models\Businesstype.cs" />
+    <Compile Remove="Models\Casetag.cs" />
+    <Compile Remove="Models\Concierge.cs" />
+    <Compile Remove="Models\Emaillog.cs" />
+    <Compile Remove="Models\Healthprofessional.cs" />
+    <Compile Remove="Models\Healthprofessionaltype.cs" />
+    <Compile Remove="Models\HelloDocContext.cs" />
+    <Compile Remove="Models\Menu.cs" />
+    <Compile Remove="Models\Orderdetail.cs" />
+    <Compile Remove="Models\Physician.cs" />
+    <Compile Remove="Models\Physicianlocation.cs" />
+    <Compile Remove="Models\Physiciannotification.cs" />
+    <Compile Remove="Models\Physicianregion.cs" />
+    <Compile Remove="Models\Region.cs" />
+    <Compile Remove="Models\Request.cs" />
+    <Compile Remove="Models\Requestbusiness.cs" />
+    <Compile Remove="Models\Requestclient.cs" />
+    <Compile Remove="Models\Requestclosed.cs" />
+    <Compile Remove="Models\Requestconcierge.cs" />
+    <Compile Remove="Models\Requestnote.cs" />
+    <Compile Remove="Models\Requeststatuslog.cs" />
+    <Compile Remove="Models\Requesttype.cs" />
+    <Compile Remove="Models\Requestwisefile.cs" />
+    <Compile Remove="Models\Role.cs" />
+    <Compile Remove="Models\Rolemenu.cs" />
+    <Compile Remove="Models\Shift.cs" />
+    <Compile Remove="Models\Shiftdetail.cs" />
+    <Compile Remove="Models\Shiftdetailregion.cs" />
+    <Compile Remove="Models\Smslog.cs" />
+    <Compile Remove="Models\User.cs" />
+    <Compile Remove="Views\Shared\loginSubmit.cshtml.cs" />
+    <Compile Remove="Views\Shared\_layoutLoginSubmit.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\loginSubmit.cshtml" />
+    <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
+    <Content Remove="wwwroot\js\darkTheme.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+  </ItemGroup>
+
+</Project>

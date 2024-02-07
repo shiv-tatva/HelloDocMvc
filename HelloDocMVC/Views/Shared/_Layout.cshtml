@@ -43,44 +43,44 @@
         </footer>
     </div>
     <script>
-        // function darkMode() {
-        //     let a = document.getElementById("mainContainer")
-        //     let b = document.getElementsByTagName("h4")
-        //     let c = document.getElementById("navMain")
-        //     let d = document.getElementById("mainRow")
+        function darkMode() {
+            let a = document.getElementById("mainContainer")
+            let b = document.getElementsByTagName("h4")
+            let c = document.getElementById("navMain")
+            let d = document.getElementById("mainRow")
        
 
-        //     if (a.classList.contains("active")) {
-        //         a.classList.remove("active")
-        //         a.style.backgroundColor = "white"
-        //         for (let i = 0; i < b.length; i++) {
-        //             b[i].style.color = "black"
-        //         }
-        //         c.classList.remove("bg-black")
-        //         c.classList.add("bg-white")
-        //         d.classList.remove("active")
-        //         d.style.backgroundColor = "white"
-        //     } else {
-        //         a.classList.add("active")
-        //         a.style.backgroundColor = "black"
+            if (a.classList.contains("active")) {
+                a.classList.remove("active")
+                a.style.backgroundColor = "white"
+                for (let i = 0; i < b.length; i++) {
+                    b[i].style.color = "black"
+                }
+                c.classList.remove("bg-black")
+                c.classList.add("bg-white")
+                d.classList.remove("active")
+                d.style.backgroundColor = "white"
+            } else {
+                a.classList.add("active")
+                a.style.backgroundColor = "black"
                 
-        //         for (let i = 0; i < b.length; i++) {
-        //             b[i].style.color = "white"
-        //         }
-        //         c.classList.remove("bg-white")
-        //         c.classList.add("bg-dark")
-        //         d.classList.add("active")
-        //         d.style.backgroundColor = "black"
-        //     }
+                for (let i = 0; i < b.length; i++) {
+                    b[i].style.color = "white"
+                }
+                c.classList.remove("bg-white")
+                c.classList.add("bg-dark")
+                d.classList.add("active")
+                d.style.backgroundColor = "black"
+            }
 
-        // }
+        }
     
 
   
 
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-     <script src="~/js/darkTheme.js"></script> 
+     @* <script src="~/js/darkTheme.js"></script>  *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
