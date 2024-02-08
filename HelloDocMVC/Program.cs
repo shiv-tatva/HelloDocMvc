@@ -1,15 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using HelloDocMVC.Models;
-using HelloDocMVC.DataContext;
+//using HelloDocMVC.DataContext;
+using DAL_Data_Access_Layer_.DataContext;
+using BLL_Business_Logic_Layer_.Interface;
+using BLL_Business_Logic_Layer_.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddDbContext<HelloDocContext>(options =>
-//options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<ApplicationDbContext>();
+
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IPatientRequest, PatientRequest>();
 
 var app = builder.Build();
 

@@ -1,0 +1,15 @@
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\bin\Debug\net7.0\BLL(Business Logic Layer).deps.json
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\bin\Debug\net7.0\BLL(Business Logic Layer).dll
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\bin\Debug\net7.0\BLL(Business Logic Layer).pdb
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\bin\Debug\net7.0\DAL(Data Access Layer).dll
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\bin\Debug\net7.0\DAL(Data Access Layer).pdb
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).csproj.AssemblyReference.cache
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).AssemblyInfoInputs.cache
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).AssemblyInfo.cs
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).csproj.CoreCompileInputs.cache
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).csproj.CopyComplete
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).dll
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\refint\BLL(Business Logic Layer).dll
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).pdb
+D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\ref\BLL(Business Logic Layer).dll

@@ -263,3 +263,7 @@ D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\runtimes\win\lib\net6.0\Syst
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\bundleconfig.json
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\BLL(Business Logic Layer).dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\DAL(Data Access Layer).dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\BLL(Business Logic Layer).pdb
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\DAL(Data Access Layer).pdb

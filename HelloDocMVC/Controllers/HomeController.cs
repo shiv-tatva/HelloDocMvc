@@ -1,21 +1,27 @@
 ﻿using HelloDocMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using HelloDocMVC.DataContext;
-using HelloDocMVC.DataModels;
+//using HelloDocMVC.DataContext;
+//using HelloDocMVC.DataModels;
+using DAL_Data_Access_Layer_.DataContext;
+using DAL_Data_Access_Layer_.DataModels;
+using BLL_Business_Logic_Layer_.Interface;
 
 namespace HelloDocMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+
+        private readonly ILoginService _login;
 
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILoginService _login )
         {
-            _logger = logger;
+          this._login = _login;
         }
+        
+      
 
         public IActionResult Index()
         {
@@ -29,25 +35,23 @@ namespace HelloDocMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginPage(string Email, string Passwordhash)
+        public IActionResult LoginPage(Aspnetuser obj)
         {
-           
 
-
-            var data = db.Aspnetusers.FirstOrDefault(x => x.Email == Email && x.Passwordhash == Passwordhash);
+            var data = _login.login(obj);
 
             ViewBag.Admin = 1;
 
             if (data != null)
             {
-                return Content("hello");
+                return RedirectToAction("Privacy2");
             }
             else
             {
                 ViewBag.LoginMessage = "Can't Login";
             }
 
-            
+
             return View();
 
         }
@@ -61,6 +65,14 @@ namespace HelloDocMVC.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //public IActionResult PatientInfo(User obj)
+        //{
+        //    patientRequest.userDetail(obj);
+
+        //    return View();
+        //}
         public IActionResult BusinessInfo()
         {
             return View();
@@ -68,7 +80,7 @@ namespace HelloDocMVC.Controllers
         public IActionResult ConciergeInfo()
         {
             return View();
-        } 
+        }
         public IActionResult FamilyFriendInfo()
         {
             return View();
@@ -76,7 +88,7 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult Privacy()
         {
-            
+
             var data = db.Aspnetroles.ToList();
             return View(data);
         }
@@ -94,7 +106,7 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult Create(Aspnetrole a)
         {
-            if(ModelState.IsValid == true)
+            if (ModelState.IsValid == true)
             {
                 db.Aspnetroles.Add(a);
                 int b = db.SaveChanges();
@@ -111,55 +123,7 @@ namespace HelloDocMVC.Controllers
             return View();
         }
 
-        public IActionResult Edit(string id)
-        {
-            var row = db.Aspnetroles.Where(model => model.Id == id).FirstOrDefault();
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Aspnetrole a)
-        {
-            db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            int b = db.SaveChanges();
-
-            if(b > 0)
-            {
-                TempData["UpdateMessage"] = "<script>alert('Data Updated')</script>";
-                return RedirectToAction("Privacy2", "Home");
-            }
-            else
-            {
-                ViewBag.UpdateMessage = "<script>alert('Data Not Updated')</script>";
-            }
-
-            return View();
-        }
-        public IActionResult Delete(string id)
-        {
-            var row = db.Aspnetroles.Where(model => model.Id == id).FirstOrDefault();
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Delete(Aspnetrole a)
-        {
-            db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-            int b = db.SaveChanges();
-
-            if(b > 0)
-            {
-                TempData["DeleteMessage"] = "<script>alert('Data Deleted')</script>";
-                return RedirectToAction("Privacy2", "Home");
-            }
-            else
-            {
-                ViewBag.DeleteMessage = "<script>alert('Data Not Deleted')</script>";
-            }
-
-            return View();
-        }
-
+      
 
         public IActionResult SubmitRequest()
         {

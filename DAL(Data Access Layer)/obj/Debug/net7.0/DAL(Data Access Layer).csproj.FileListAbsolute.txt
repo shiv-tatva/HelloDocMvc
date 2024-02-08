@@ -1,0 +1,14 @@
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).deps.json
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).dll
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).pdb
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).AssemblyInfoInputs.cache
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).AssemblyInfo.cs
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).csproj.CoreCompileInputs.cache
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).dll
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\refint\DAL(Data Access Layer).dll
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).pdb
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\ref\DAL(Data Access Layer).dll
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).runtimeconfig.json
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).csproj.AssemblyReference.cache
+D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).genruntimeconfig.cache

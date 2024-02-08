@@ -3547,6 +3547,34 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "BLL(Business Logic Layer)/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "DAL(Data Access Layer)": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BLL(Business Logic Layer).dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BLL(Business Logic Layer).dll": {}
+        }
+      },
+      "DAL(Data Access Layer)/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.15",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.11",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
+        },
+        "compile": {
+          "bin/placeholder/DAL(Data Access Layer).dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL(Data Access Layer).dll": {}
+        }
       }
     }
   },
@@ -10414,10 +10442,23 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "BLL(Business Logic Layer)/1.0.0": {
+      "type": "project",
+      "path": "../BLL(Business Logic Layer)/BLL(Business Logic Layer).csproj",
+      "msbuildProject": "../BLL(Business Logic Layer)/BLL(Business Logic Layer).csproj"
+    },
+    "DAL(Data Access Layer)/1.0.0": {
+      "type": "project",
+      "path": "../DAL(Data Access Layer)/DAL(Data Access Layer).csproj",
+      "msbuildProject": "../DAL(Data Access Layer)/DAL(Data Access Layer).csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "BLL(Business Logic Layer) >= 1.0.0",
+      "DAL(Data Access Layer) >= 1.0.0",
+      "Microsoft.EntityFrameworkCore >= 7.0.15",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.15",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 7.0.11",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.11"
@@ -10449,7 +10490,14 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Project\\HelloDocMVC\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj": {
+              "projectPath": "D:\\Project\\HelloDocMVC\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj"
+            },
+            "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj": {
+              "projectPath": "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -10462,6 +10510,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.15, )"
+          },
           "Microsoft.EntityFrameworkCore.Tools": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
