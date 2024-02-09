@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HelloDocMVC.Views.Shared
+namespace HelloDocMVC.Views.Home
 {
-    public class loginSubmitModel : PageModel
+    public class CreateAccModel : PageModel
     {
         public void OnGet()
         {

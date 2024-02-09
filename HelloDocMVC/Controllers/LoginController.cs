@@ -1,61 +1,54 @@
 ﻿using HelloDocMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using HelloDocMVC.DataContext;
+using DAL_Data_Access_Layer_.DataContext;
+using DAL_Data_Access_Layer_.DataModels;
+using BLL_Business_Logic_Layer_.Interface;
 
 namespace HelloDocMVC.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ILogger<LoginController> _logger;
+        private readonly ILoginService _login;
+     
+        ApplicationDbContext db = new ApplicationDbContext();
 
-        public LoginController(ILogger<LoginController> logger)
+        public LoginController(ILoginService _login)
         {
-            _logger = logger;
+            this._login = _login;
         }
 
-        public IActionResult Index()
-        {
-            ViewBag.Admin = 1;
-            return View();
-        }
+
         public IActionResult LoginPage()
         {
             ViewBag.Admin = 1;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult LoginPage(Aspnetuser obj)
+        {
+
+            var data = _login.login(obj);
+
+            ViewBag.Admin = 1;
+
+            if (data != null)
+            {
+                return Content("Hello");
+            }
+            else
+            {
+                ViewBag.LoginMessage = "Can't Login";
+            }
+
+
+            return View();
+
+        }
         public IActionResult ForgotPage()
         {
             ViewBag.Admin = 1;
-            return View();
-        }
-
-        public IActionResult PatientInfo()
-        {
-            return View();
-        }
-        public IActionResult BusinessInfo()
-        {
-            return View();
-        }
-        public IActionResult ConciergeInfo()
-        {
-            return View();
-        }
-        public IActionResult FamilyFriendInfo()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var data = db.Admins.ToList();
-            return View(data);
-        }
-
-        public IActionResult SubmitRequest()
-        {
             return View();
         }
 

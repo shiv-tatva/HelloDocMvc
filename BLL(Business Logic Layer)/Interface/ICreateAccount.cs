@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL_Business_Logic_Layer_.Interface
-{ 
-    public interface ILoginService
+{
+    public interface ICreateAccount
     {
-        Aspnetuser login(Aspnetuser obj);
+        public void createAccount(Aspnetuser obj);
     }
 }

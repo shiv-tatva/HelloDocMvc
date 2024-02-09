@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HelloDocMvc.CustomeModel.Custome;
 
 namespace BLL_Business_Logic_Layer_.Interface
 {
     public interface IPatientRequest
     {
-        public void userDetail(User obj);
+        public void userDetail(Custome obj);
     }
 }

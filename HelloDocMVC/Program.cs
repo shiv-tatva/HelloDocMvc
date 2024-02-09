@@ -4,6 +4,7 @@ using HelloDocMVC.Models;
 using DAL_Data_Access_Layer_.DataContext;
 using BLL_Business_Logic_Layer_.Interface;
 using BLL_Business_Logic_Layer_.Services;
+using HelloDocMvc.CustomeModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IPatientRequest, PatientRequest>();
+builder.Services.AddScoped<ICreateAccount, CreateAccount>();
 
 var app = builder.Build();
 
