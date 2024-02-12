@@ -4,7 +4,8 @@ using System.Diagnostics;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using BLL_Business_Logic_Layer_.Interface;
-using HelloDocMvc.CustomeModel.Custome;
+using HelloDocMVC.CustomeModel;
+using DAL_Data_Access_Layer_.CustomeModel;
 
 namespace HelloDocMVC.Controllers
 {
@@ -16,27 +17,44 @@ namespace HelloDocMVC.Controllers
             return View();
         }
 
+       
+
         private readonly IPatientRequest patientRequest;
+        private readonly IConcierge conciergeRequest;
 
-        ApplicationDbContext db = new ApplicationDbContext();
-
-        public PatientController(IPatientRequest patientRequest)
+            ApplicationDbContext db = new ApplicationDbContext();
+     
+        public IActionResult checkEmailAvailibility(string email) //action
         {
-            this.patientRequest = patientRequest;
+           
+            int codefordata = patientRequest.UserExist(email) ;
+            return Json(new { code = codefordata });
+
         }
 
-        public IActionResult PatientInfo()
-        {
-            return View();
-        }
+        public PatientController(IPatientRequest patientRequest, IConcierge conciergeRequest)
+            {
+                this.patientRequest = patientRequest;
+                this.conciergeRequest = conciergeRequest;
+            }
 
-        [HttpPost]
-        public IActionResult PatientInfo(Custome obj)
-        {
-            patientRequest.userDetail(obj);
+            public IActionResult PatientInfo()
+            {
+                return View();
+            }
 
-            return View();
-        }
+            [HttpPost]
+            public IActionResult PatientInfo(Custom obj)
+            {
+                patientRequest.userDetail(obj);
+
+                return View();
+            }
+
+        
+       
+   
+       
         public IActionResult BusinessInfo()
         {
             return View();
@@ -45,6 +63,16 @@ namespace HelloDocMVC.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult ConciergeInfo(ConciergeCustom obj)
+        {
+            conciergeRequest.ConciergeDetail(obj);
+
+            return View();
+        }
+
+
         public IActionResult FamilyFriendInfo()
         {
             return View();

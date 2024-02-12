@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\IActionResult.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DAL(Data Access Layer)\DAL(Data Access Layer).csproj" />
   </ItemGroup>
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloDocMvc.CustomeModel.Custome
+namespace HelloDocMVC.CustomeModel
 {
-    public class Custome
+    public class Custom
     { 
         public string? symptoms { get; set; }
 
@@ -31,6 +31,8 @@ namespace HelloDocMvc.CustomeModel.Custome
         public string? room { get; set; }
 
         public string? password { get; set; }
+
+        public string? confirmPassword { get; set; }
 
     }
 }

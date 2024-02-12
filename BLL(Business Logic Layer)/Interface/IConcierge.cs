@@ -5,14 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HelloDocMVC.CustomeModel;
+using DAL_Data_Access_Layer_.CustomeModel;
 
 namespace BLL_Business_Logic_Layer_.Interface
 {
-    public interface IPatientRequest
+    public interface IConcierge
     {
-        public void userDetail(Custom obj);
-        public int UserExist(string email);
+        public void ConciergeDetail(ConciergeCustom obj);
 
     }
 }
