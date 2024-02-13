@@ -267,3 +267,4 @@ D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\BLL(Business Logic Layer).dl
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\DAL(Data Access Layer).dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\BLL(Business Logic Layer).pdb
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\DAL(Data Access Layer).pdb
+D:\Project\HelloDocMVC\HelloDocMVC\obj\Debug\net7.0\scopedcss\Views\Shared\_LayoutThree.cshtml.rz.scp.css

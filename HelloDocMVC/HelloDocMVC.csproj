@@ -7,14 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\NewFolder1\**" />
     <Compile Remove="Views\Shared\NewFolder\**" />
+    <Content Remove="Views\NewFolder1\**" />
     <Content Remove="Views\Shared\NewFolder\**" />
+    <EmbeddedResource Remove="Views\NewFolder1\**" />
     <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
+    <None Remove="Views\NewFolder1\**" />
     <None Remove="Views\Shared\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Controllers\HomeController1.cs" />
+    <Compile Remove="Controllers\patientDashboard.cs" />
     <Compile Remove="Controllers\SubmitRequest.cs" />
     <Compile Remove="Controllers\SubmitRequestController.cs" />
     <Compile Remove="Models\Admin.cs" />
@@ -60,8 +65,10 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\CreateAcc.cshtml" />
+    <Content Remove="Views\patientDashboard\patienDashboard.cshtml" />
     <Content Remove="Views\Shared\loginSubmit.cshtml" />
     <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
+    <Content Remove="wwwroot\css\Class.cs" />
     <Content Remove="wwwroot\css\privacy.cs" />
     <Content Remove="wwwroot\js\darkTheme.cs" />
   </ItemGroup>
@@ -106,10 +113,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\NewFolder1\" />
-    <Folder Include="Views\NewFolder\" />
-    <Folder Include="Views\Shared\" />
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />

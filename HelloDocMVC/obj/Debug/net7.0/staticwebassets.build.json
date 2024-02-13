@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "G//WGdirPjFYlwt4z8ZDNOVb63gWAfkeDvJit+7vInM=",
+  "Hash": "hxttQOzJ4Dne45xz1p/3ry1snX/B0GZqRaPc+TIlmDI=",
   "Source": "HelloDocMVC",
   "BasePath": "_content/HelloDocMVC",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\LoginPage.css"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\patientDashboard.css",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "css/patientDashboard.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\patientDashboard.css"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\patientInfo.css",

@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Submit Request Page";
+}
+
+<h4 class="medical-text mt-5">Medical History</h4>
+<div class="createreq">
+    <button type="button" class="btn ms-auto createnewreq" data-bs-toggle="modal"
+            data-bs-target="#newRequestModal">
+        <Span class=" d-none d-md-block">
+            Create New
+            Request
+        </Span><i class="bi bi-plus-lg d-block d-md-none"></i>
+    </button>
+    <!-- Modal -->
+    <div class="modal fade " id="newRequestModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="exampleModalLabel">Create New Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    Here , i want to Create new Request for..
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-primary">me</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            Some one
+                            else
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Continue</button>
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-none d-md-block">
+    <table class="table data_table ">
+
+        <thead class="table-active">
+            <tr>
+                <th scope="col">Created Date</th>
+                <th scope="col">Current Status</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Createdate</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <button type="button" class="btn documents ">
+                            <span>(@item.filename) Documents</span>
+                            <i class="bi bi-plus-lg d-block d-md-none"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                    aria-controls="flush-collapseOne">
+                Created Date: Dec 5, 2023
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse"
+             aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Placeholder content for this accordion, which is intended to demonstrate the
+                <code>.accordion-flush</code> class. This is the first item's accordion body.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                    aria-controls="flush-collapseTwo">
+                Created Date:
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+             aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Placeholder
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                    aria-controls="flush-collapseThree">
+                Created Date:
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse"
+             aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Placeholder
+            </div>
+        </div>
+    </div>
+</div>

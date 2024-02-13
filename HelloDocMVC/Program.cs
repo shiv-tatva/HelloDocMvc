@@ -6,6 +6,7 @@ using BLL_Business_Logic_Layer_.Interface;
 using BLL_Business_Logic_Layer_.Services;
 using HelloDocMVC.CustomeModel;
 using DAL_Data_Access_Layer_.CustomeModel;
+using DAL_Data_Access_Layer_.DataModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IPatientRequest, PatientRequest>();
 builder.Services.AddScoped<ICreateAccount, CreateAccount>();
 builder.Services.AddScoped<IConcierge, ConciergeReq>();
+builder.Services.AddScoped<IFamilyFriend, FamilyFriend>();
+builder.Services.AddScoped<IBusiness, BusinessService>();
 
 
 var app = builder.Build();

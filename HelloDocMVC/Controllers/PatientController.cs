@@ -14,6 +14,7 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult SubmitRequest()
         {
+            ViewBag.Admin = 3;
             return View();
         }
 
@@ -21,6 +22,8 @@ namespace HelloDocMVC.Controllers
 
         private readonly IPatientRequest patientRequest;
         private readonly IConcierge conciergeRequest;
+        private readonly IFamilyFriend familyFriend;
+        private readonly IBusiness businessRequest;
 
             ApplicationDbContext db = new ApplicationDbContext();
      
@@ -32,22 +35,25 @@ namespace HelloDocMVC.Controllers
 
         }
 
-        public PatientController(IPatientRequest patientRequest, IConcierge conciergeRequest)
+        public PatientController(IPatientRequest patientRequest, IConcierge conciergeRequest, IFamilyFriend familyFriend, IBusiness businessRequest)
             {
                 this.patientRequest = patientRequest;
                 this.conciergeRequest = conciergeRequest;
+                this.familyFriend = familyFriend;
+                this.businessRequest = businessRequest;
             }
 
             public IActionResult PatientInfo()
             {
-                return View();
+            ViewBag.Admin = 3;
+            return View();
             }
 
             [HttpPost]
             public IActionResult PatientInfo(Custom obj)
             {
                 patientRequest.userDetail(obj);
-
+                ViewBag.Admin = 3;
                 return View();
             }
 
@@ -57,10 +63,20 @@ namespace HelloDocMVC.Controllers
        
         public IActionResult BusinessInfo()
         {
+            ViewBag.Admin = 3;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult BusinessInfo(BusinessCustome obj)
+        {
+            businessRequest.businessInfo(obj);
+            ViewBag.Admin = 3;
             return View();
         }
         public IActionResult ConciergeInfo()
         {
+            ViewBag.Admin = 3;
             return View();
         }
 
@@ -68,13 +84,22 @@ namespace HelloDocMVC.Controllers
         public IActionResult ConciergeInfo(ConciergeCustom obj)
         {
             conciergeRequest.ConciergeDetail(obj);
-
+            ViewBag.Admin = 3;
             return View();
         }
 
 
         public IActionResult FamilyFriendInfo()
         {
+            ViewBag.Admin = 3;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult FamilyFriendInfo(FamilyFriendData data)
+        {
+            familyFriend.FamilyFriendInfo(data);
+            ViewBag.Admin = 3;
             return View();
         }
 

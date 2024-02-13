@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\css\\SubmitRequest.css"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\patientDashboard.css",
+      "PackagePath": "staticwebassets\\css\\patientDashboard.css"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\patientInfo.css",
       "PackagePath": "staticwebassets\\css\\patientInfo.css"
     },
