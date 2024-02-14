@@ -15,26 +15,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 
-
-
 </head>
 <body>
-    <div data-bs-theme="light" id="mainContainer">
+    <div data-bs-theme="light" id="mainContainer" style="height:100vh;">
 
         <div class="container-fluid mx-0 px-0 ">
 
 
-            <nav class="navbar navbar-expand navbar-light rounded py-0" aria-label="">
+            <nav class="navbar navbar-expand  rounded py-0" aria-label="">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center">
-                       @*  <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
+                        <button id="menuMain" class="navbar-toggler d-block d-sm-none me-3" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation" style="height: 50%;">
-                            <span class="navbar-toggler-icon"></span>
-                        </button> *@
-                        <button type="button" class="btn logout-btn d-block d-sm-none me-3">
-                            <i class="fa-solid fa-bars bi bi-box-arrow-right" style="width: 0.7em;height: 1.1em;font-size: 1.4em;"></i>
+                                aria-expanded="false" aria-label="Toggle navigation" style="height: 50%;outline:0;">
+                            <i class="fa-solid fa-bars bi bi-box-arrow-right " style="width: 1.5em;height: 1.5em;border: 2px solid skyblue;color: skyblue;border-radius: 4px;font-size: 1.4em;padding-top: 4px;"></i>
                         </button>
+                      @*   <button type="button" class="btn logout-btn d-block d-sm-none me-3">
+                            <i class="fa-solid fa-bars bi bi-box-arrow-right " style="width: 0.7em;height: 1.1em;font-size: 1.4em;"></i>
+                        </button> *@
                         <a class="navbar-brand" href="#">
                             <img src="~/images/docLogo.png" alt="doctor-logo"
                                  class="doctor-img logo" width="130px">
@@ -47,7 +45,7 @@
                                 <a class="nav-link " aria-current="page" href="#">Welcome</a>
                             </li>
                             <li class="nav-item p-2 fw-bolder">
-                                Tests Testing 
+                                    @ViewBag.Mysession
                             </li>
                     </div>
                     <li class="nav-item">

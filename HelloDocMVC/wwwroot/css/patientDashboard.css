@@ -55,3 +55,8 @@ th:nth-child(2), td:nth-child(2) {
 .data_table {
     box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
 }
+
+
+#menuMain:focus{
+    outline:0!important;
+}

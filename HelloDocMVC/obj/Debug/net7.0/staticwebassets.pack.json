@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\HelloDocMVC.bundle.scp.css"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\dashboard-default.svg",
+      "PackagePath": "staticwebassets\\Documents\\dashboard-default.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\new-product.svg",
+      "PackagePath": "staticwebassets\\Documents\\new-product.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\BusinessInfo.css",
       "PackagePath": "staticwebassets\\css\\BusinessInfo.css"
     },

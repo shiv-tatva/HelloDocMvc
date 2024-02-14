@@ -4,6 +4,7 @@ using System.Diagnostics;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using BLL_Business_Logic_Layer_.Interface;
+using Microsoft.AspNetCore.Http;
 
 namespace HelloDocMVC.Controllers
 {
@@ -11,7 +12,7 @@ namespace HelloDocMVC.Controllers
     {
         private readonly ILoginService _login;
      
-        ApplicationDbContext db = new ApplicationDbContext();
+        //ApplicationDbContext db = new ApplicationDbContext();
 
         public LoginController(ILoginService _login)
         {
@@ -31,11 +32,14 @@ namespace HelloDocMVC.Controllers
 
             var data = _login.login(obj);
 
+            var sessionUser  = obj.Email.Substring(0, obj.Email.IndexOf('@'));
+
             ViewBag.Admin = 1;
 
             if (data != null)
             {
-                return Content("Hello");
+                HttpContext.Session.SetString("UserSession", sessionUser);
+                return RedirectToAction("patientDashboard", "patientDashboard", new {emaill=obj.Email});
             }
             else
             {

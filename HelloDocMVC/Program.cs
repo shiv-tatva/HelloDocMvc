@@ -21,6 +21,9 @@ builder.Services.AddScoped<ICreateAccount, CreateAccount>();
 builder.Services.AddScoped<IConcierge, ConciergeReq>();
 builder.Services.AddScoped<IFamilyFriend, FamilyFriend>();
 builder.Services.AddScoped<IBusiness, BusinessService>();
+builder.Services.AddScoped<IPatientDash, PatientDash>();
+
+builder.Services.AddSession();//For Session
 
 
 var app = builder.Build();
@@ -32,6 +35,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSession();//For Session
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

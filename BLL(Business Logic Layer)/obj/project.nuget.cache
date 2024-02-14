@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WqHpfm7iloW4cnZASIWsU0Pr4/tfgGyOMH92EzuURLuhI7Vyy0ngqLd4dtZmzq48Ligil+CYHK57bGtMZ+NvYQ==",
+  "dgSpecHash": "SJi96QQRvQbz06PLHEbep0ec8OK8l8kbXG4trUEe45EJ+TupQEqPQCN9LV9S9apeSo+iBJgCGYSZXEZwTcyi7Q==",
   "success": true,
   "projectFilePath": "D:\\Project\\HelloDocMVC\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj",
   "expectedPackageFiles": [
@@ -54,6 +54,7 @@
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core.zh-cn\\2.14.1\\humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "C:\\Users\\pce151\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.32\\microsoft.aspnetcore.http.features.3.1.32.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",

@@ -2,6 +2,7 @@
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using HelloDocMVC.CustomeModel;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -169,7 +170,35 @@ namespace BLL_Business_Logic_Layer_.Services
 
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
-            
+
+            if(obj.upload != null)
+            {
+                string filename = obj.upload.FileName;
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", filename);
+                IFormFile file = obj.upload;
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                Request? req = _context.Requests.FirstOrDefault(i => i.Email == obj.email);
+                int ReqId = req.Requestid;
+
+                var data3 = new Requestwisefile()
+                {
+                    Requestid = ReqId,
+                    Filename = filename,
+                    Createddate = DateTime.Now,
+                };
+                _context.Requestwisefiles.Add(data3);
+                _context.SaveChanges();
+            }
+
+           
+
+           
+
         }
     }
 }

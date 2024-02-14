@@ -1,4 +1,4 @@
-﻿@model IEnumerable< DAL_Data_Access_Layer_.DataModels.Request>
+﻿@* @model IEnumerable< DAL_Data_Access_Layer_.CustomeModel.PatientDashboard> *@
 
 @{
     ViewData["Title"] = "Submit Request Page";
@@ -58,14 +58,14 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Createddate</td>
-                    <td>@item.Status</td>
-                   @*  <td>
+                    <td>@item.CreatedDate</td>
+                    <td>@item.RequestTypeId</td>
+                    <td>
                         <button type="button" class="btn documents ">
-                            <span>(@item.filename) Documents</span>
+                            <span>(@item.FileCount) Documents</span>
                             <i class="bi bi-plus-lg d-block d-md-none"></i>
                         </button>
-                    </td> *@
+                    </td> 
                 </tr>
             }
         </tbody>
@@ -127,13 +127,13 @@
 <script>
 
   
-   @*  var links = document.querySelectorAll('.links');
+    var links = document.querySelectorAll('.links');
     links.forEach(link => {
         link.addEventListener("click", function () {
             links.forEach(link => link.classList.remove('active'));
             this.classList.add('active');
         })
-    }) *@
+    })
 
 
 </script>

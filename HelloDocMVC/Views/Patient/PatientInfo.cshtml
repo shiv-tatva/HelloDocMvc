@@ -5,7 +5,7 @@
 
 <div class="row p-0 m-0">
     <div class="col-12">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
         <div class="col-sm-11 col-md-8 col-lg-8 mt-5" style="margin: auto;">
             <div id="backDiv" class="mb-5 mt-5" style="text-align: end;">
                     <a title="Forgot password" class="link-default ps-3" asp-controller="Patient" asp-action="SubmitRequest"
@@ -126,16 +126,16 @@
             <div class="file-upload  input-group col-12 mt-5">
                 <div class="file-content" style="border-radius: 7px;">
                     <div style="display: flex;align-items: center;">
-                        <span>Select File</span>
+                        <span id="demo" style="color:black;">Select File</span>
                     </div>
-                    <button class="btn btn-outline-primary" type="file" id="button-addon1"
+                        <div class="btn btn-outline-primary" type="file" id="button-addon1" 
                             style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
-                        <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i><span class="d-none d-sm-none d-md-none d-lg-inline-block"
-                                                                                                     style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
-                    </button>
+                            <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
+                            <input asp-for="upload" class="form-control d-block" multiple="multiple" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
+                            <span class="d-none d-sm-none d-md-none d-lg-inline-block"style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
+                    </div>
                 </div>
-                <input class="form-control" placeholder="" type="file"
-                       aria-label="Example text with button addon" aria-describedby="button-addon1" style="width: 80%;">
+                
             </div>
 
             <div class="mt-5 d-flex justify-content-end">
@@ -163,7 +163,10 @@
 
 <script>
 
-   
+    function myFunction() {
+        var x = document.getElementById("myFile").value;
+        document.getElementById("demo").innerHTML = x;
+    }    
 
     function passwordVisible() {
         let a = document.getElementById("passHide")

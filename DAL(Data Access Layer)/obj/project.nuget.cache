@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rEWkqWQjEucC47LohCcQTYM3CHcOJLGcDjpJ8ps0fHMNeQsDf3PR5g7pCsjLq+sZW1jvTEdTvQgQaF06iEuADg==",
+  "dgSpecHash": "8+O6G+FzMhyAPqpzs7VHeVyxZKffduXDwnTsZh0Cvv4PZ72q7BTAsjDg5XTyFjQ79st8SYtzSZPZ6gTtCWJiTg==",
   "success": true,
   "projectFilePath": "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj",
   "expectedPackageFiles": [
@@ -54,6 +54,7 @@
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core.zh-cn\\2.14.1\\humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "C:\\Users\\pce151\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.32\\microsoft.aspnetcore.http.features.3.1.32.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace HelloDocMVC.CustomeModel
         public string? zipcode { get; set; }
 
         public string? room { get; set; }
+
+        public IFormFile? upload { get; set; }
 
 
         [StringLength(15,MinimumLength = 4 , ErrorMessage = "Password Have 4 to 15 Char")]
