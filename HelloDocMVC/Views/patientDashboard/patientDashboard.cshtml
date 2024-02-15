@@ -1,7 +1,13 @@
-﻿@* @model IEnumerable< DAL_Data_Access_Layer_.CustomeModel.PatientDashboard> *@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.PatientDashboard;
 
 @{
     ViewData["Title"] = "Submit Request Page";
+}
+
+@{
+    string[] Enum = { "Unassigned", "Accepted" , "Cancelled" , "Reserving" , "MDEnRoute" , "MDOnSite" ,
+                "FollowUp" , "Closed" , "Locked" , "Declined" , "Consult" , "Clear" , "CancelledByProvider" ,
+                "CUploadedByClient" , "CCApprovedByAdmin"  };
 }
 
 <h4 class="medical-text mt-5">Medical History</h4>
@@ -48,78 +54,110 @@
     <table class="table data_table ">
 
         <thead class="table-active">
-            <tr>
-                <th scope="col">Created Date</th>
+            <tr >
+                <th scope="col" >Created Date</th>
                 <th scope="col">Current Status</th>
                 <th scope="col">Document</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.data)
+
             {
-                <tr>
-                    <td>@item.CreatedDate</td>
-                    <td>@item.RequestTypeId</td>
+                <tr >
                     <td>
-                        <button type="button" class="btn documents ">
-                            <span>(@item.FileCount) Documents</span>
+                        @item.created_date.Day
+                        @item.created_date.ToString("MMM")
+                        @item.created_date.Year
+                    </td>
+                    <td>@Enum[(int)item.req_type_id]</td>
+                    @if(@item.doc_Count > 0){
+                    <td>
+                            <button type="button" class="btn documents " style="width:9em;float:left;" onclick="document.location ='viewDetail'">
+                            <span>(@item.doc_Count) Documents</span>
                             <i class="bi bi-plus-lg d-block d-md-none"></i>
                         </button>
-                    </td> 
+                    </td>
+                    }
+                    
                 </tr>
             }
         </tbody>
     </table>
 </div> 
-<div class="accordion accordion-flush d-block d-sm-none" id="accordionFlushExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseOne" aria-expanded="false"
-                    aria-controls="flush-collapseOne">
-                Created Date: Dec 5, 2023
-            </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse"
-             aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                Placeholder content for this accordion, which is intended to demonstrate the
-                <code>.accordion-flush</code> class. This is the first item's accordion body.
+@* @foreach(var item in Model.data)
+{
+    <div class="accordion accordion-flush d-block d-sm-none" id="accordionFlushExample">
+        @{
+            var myid = 
+        }
+        <div class="accordion-item" id="@myid">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                        aria-controls="flush-collapseOne">
+                    Created Date:  @item.created_date.Day
+                                    @item.created_date.ToString("MMM")
+                                    @item.created_date.Year
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                 aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                   <div>
+                        <i class="fa-solid fa-user me-2"></i><span>@item.phy_fname</span>
+                        
+                   </div>
+                   <div>
+                        <i class="fa-solid fa-check me-2"></i><span>@Enum[(int)item.req_type_id]</span>
+                   </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                    aria-controls="flush-collapseTwo">
-                Created Date:
-            </button>
-        </h2>
-        <div id="flush-collapseTwo" class="accordion-collapse collapse"
-             aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                Placeholder
-            </div>
-        </div>
-    </div>
-    <div class="accordion-item"> 
-        <h2 class="accordion-header" id="flush-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseThree" aria-expanded="false"
-                    aria-controls="flush-collapseThree">
-                Created Date:
-            </button>
-        </h2>
-        <div id="flush-collapseThree" class="accordion-collapse collapse"
-             aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                Placeholder
-            </div>
-        </div>
-    </div>
-</div>
 
+}
+
+ *@
+<div class="accordion accordion-flush d-block d-sm-none" id="accordionFlushExample">
+
+
+    @{
+        var count = 0;
+
+        @foreach (var item in Model.data)
+        {
+            var myidheader = "item" + count;
+            var myidbody = "itembody" + count;
+            count += 1;
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="@myidheader">
+                               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#@myidbody" aria-expanded="false"
+                                       aria-controls="flush-collapseOne">
+                                   Created Date:  @item.created_date.Day
+                                   @item.created_date.ToString("MMM")
+                                   @item.created_date.Year
+                               </button>
+                           </h2>
+                           <div id="@myidbody" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                               <div class="accordion-body">
+                                   <div>
+                                       <i class="fa-solid fa-user me-2"></i><span>@item.phy_fname</span>
+
+                                   </div>
+                                   <div>
+                                       <i class="fa-solid fa-check me-2"></i><span>@Enum[(int)item.req_type_id]</span>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+
+}
+}
+
+</div>
 
 <link rel="stylesheet" href="/css/patientDashboard.css">
 
@@ -134,6 +172,8 @@
             this.classList.add('active');
         })
     })
+
+   
 
 
 </script>

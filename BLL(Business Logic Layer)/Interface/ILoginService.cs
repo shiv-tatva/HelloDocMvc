@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL_Business_Logic_Layer_.Interface
 { 
-    public interface ILoginService
+    public interface ILoginService 
     {
         Aspnetuser login(Aspnetuser obj);
     }

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Compile Remove="CustomeModel\BusinessCutome.cs" />
+    <Compile Remove="CustomeModel\Enum.cs" />
   </ItemGroup>
 
   <ItemGroup>

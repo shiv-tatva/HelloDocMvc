@@ -13,6 +13,5 @@ namespace BLL_Business_Logic_Layer_.Interface
     {
         //IEnumerable<Request> patientDashInfo(Request obj);
 
-        List<PatientDashboard> patientDashInfo();
-    }
+        public List<PatientDashboardData> patientDashInfo(string email);    }
 }

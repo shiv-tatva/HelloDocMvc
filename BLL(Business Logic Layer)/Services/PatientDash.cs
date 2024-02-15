@@ -2,9 +2,11 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,14 +26,31 @@ namespace BLL_Business_Logic_Layer_.Services
         //    IEnumerable<Request> list = db.Requests.ToList();
         //    return list;
         //}
-        public List<PatientDashboard> patientDashInfo()
-        {
-            var user = db.Requests.Where(x => x.Requestid == 19).FirstOrDefault();
 
-            return new List<PatientDashboard>()
+        //string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+
+        public List<PatientDashboardData> patientDashInfo(string email)
+        {
+
+            var request = db.Requests.Where(r => r.Email == email).AsNoTracking().Select(r => new PatientDashboardData()
             {
-                new PatientDashboard {created_date = user.Createddate.ToString(), current_status = user.Status.ToString() , document = "DOC"}
-            };
+                created_date = r.Createddate,
+                current_status = r.Status,
+                doc_Count = r.Requestwisefiles.Select(f => f.Filename).Count(),
+                //docC = db.Requestwisefiles.Where(x => x.Requestid == r.Requestid).Select(x => x.Filename).Count(),
+                reqid = r.Requestid,
+                cnf_number = r.Confirmationnumber,
+                fname = r.Firstname,
+                lname = r.Lastname,
+                req_type_id = r.Requesttypeid,
+                //phy_fname = db.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).ToList()[0]
+                phy_fname = db.Physicians.Single(x => x.Physicianid == r.Physicianid).Firstname
+            }).ToList(); ;
+           
+
+            return request;
+
+
         }
     }
 }

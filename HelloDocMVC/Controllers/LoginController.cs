@@ -4,7 +4,7 @@ using System.Diagnostics;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using BLL_Business_Logic_Layer_.Interface;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http; 
 
 namespace HelloDocMVC.Controllers
 {
@@ -27,19 +27,20 @@ namespace HelloDocMVC.Controllers
         }
 
         [HttpPost]
+        //[Route("home/User-Profile", Name = "DownloadFile")]
         public IActionResult LoginPage(Aspnetuser obj)
         {
 
             var data = _login.login(obj);
-
-            var sessionUser  = obj.Email.Substring(0, obj.Email.IndexOf('@'));
+            //TempData["email"] = obj.Email;
+            var sessionUser  = obj.Email;
 
             ViewBag.Admin = 1;
 
             if (data != null)
             {
                 HttpContext.Session.SetString("UserSession", sessionUser);
-                return RedirectToAction("patientDashboard", "patientDashboard", new {emaill=obj.Email});
+                return RedirectToAction("patientDashboard", "patientDashboard");
             }
             else
             {

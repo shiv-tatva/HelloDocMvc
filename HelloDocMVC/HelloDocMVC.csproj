@@ -70,6 +70,7 @@
     <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
     <Content Remove="wwwroot\css\Class.cs" />
     <Content Remove="wwwroot\css\privacy.cs" />
+    <Content Remove="wwwroot\css\viewDetail.cshtml" />
     <Content Remove="wwwroot\js\darkTheme.cs" />
   </ItemGroup>
 

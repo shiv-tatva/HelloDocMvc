@@ -27,7 +27,8 @@ namespace HelloDocMVC.Controllers
             _db = db;
         }
 
-        public IActionResult patientDashboard(string emaill)
+
+        public IActionResult patientDashboard()
         {
 
             if(HttpContext.Session.GetString("UserSession") != null)
@@ -39,37 +40,26 @@ namespace HelloDocMVC.Controllers
                 return RedirectToAction("LoginPage","Login");
             }
 
-            //IEnumerable<Request> list = _patientDashInfo.patientDashInfo(obj);
+          
 
-            // var list = _patientDashInfo.patientDashInfo();
-            //var viewmodel = new PatidashboardInfo { patientDashboardItem = list };
-
-            var result = from r1 in _db.Requests
-                         join r2 in _db.Requestwisefiles on r1.Requestid equals r2.Requestid
-                         group r1 by r2.Requestid into g
-                         select new 
-                         {
-                             CreatedDate = g.Min(r => r.Createddate),
-                             RequestTypeId = g.Min(r => r.Requesttypeid),
-                             RequestId = g.Key,
-                             FileCount = g.Count()
-                         };            //var result = from r1 in dbContext.Requests
-            //             join r2 in dbContext.RequestWiseFiles on r1.RequestId equals r2.RequestId
-            //             group r2 by r1.RequestId into g
-            //             select new
-            //             {
-            //                 CreatedDate = g.Min(r => r.CreatedDate),
-            //                 RequestTypeId = g.Min(r => r.RequestTypeId),
-            //                 RequestId = g.Key,
-            //                 FileCount = g.Count()
-            //             };            //var result=from t1 in _db.Requests join t2 in _db.Requestwisefiles on t1.Requestid equals t2.Requestid where t1.Email 
-
-            //List<PatientDashboard> viewmodel = _patientDashInfo.patientDashInfo();
-
+            PatientDashboard patientDashboard = new PatientDashboard();
+            string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+            patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
+          
             ViewBag.Admin = 2; 
-            return View(result);
+            return View(patientDashboard);
         }
         
+        public IActionResult viewDetail()
+        {
+            PatientDashboard patientDashboard = new PatientDashboard();
+            string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+            patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
+
+            ViewBag.Admin = 2;
+            return View(patientDashboard);
+
+        }
 
         
     }

@@ -1,0 +1,97 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.PatientDashboard;
+
+@{
+    ViewData["Title"] = "View Detail";
+}
+<div >
+
+    
+
+    <main class=" main-class">
+        
+
+        <div class="container bg-light px-5 mt-1 d-flex flex-column">
+            <div class="d-flex  mt-4 justify-content-between">
+
+                <h4 class="medical-text">Documents</h4>
+                <div id="backDiv" class="mb-5 mt-5" style="text-align: end;">
+                    <a title="Forgot password" class="link-default ps-3" asp-controller="Patient" asp-action="SubmitRequest"
+                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
+                        <i class="fa-solid fa-chevron-left me-2 " style="color: #09d4e3;"></i>Back
+                    </a>
+                </div>
+            </div>
+            <h6 class="mt-3">Patient Name</h6>
+            <h4> @ViewBag.UserName </h4>
+            <h6 class="mt-3">Cilck here to for only files you are the doctors  of your subsequesnts requestor have  attached for you to review</h6>
+            <div class="file-upload  input-group col-12 mt-5">
+                <div class="file-content" style="border-radius: 7px;">
+                    <div style="display: flex;align-items: center;">
+                        <span id="demo" style="color:black;">Select File</span>
+                    </div>
+                    <div class="btn btn-outline-primary" type="file" id="button-addon1"
+                         style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                        <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
+                        <input  class="form-control d-block" multiple="multiple" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
+                        <span class="d-none d-sm-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="d-flex mt-4 justify-content-between p-0">
+                <h6>Documents</h6>
+                <div class="btn" type="file" id="button-addon1"
+                     style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                    <i class="fa-solid fa-cloud-arrow-down pe-2" style="color: #ffffff;"></i>
+                    <span class="d-none d-sm-inline-block " style="color: #ffffff;padding-left: 0;font-size: 20px;">Download All</span>
+                </div>
+               @*  <button class="btn btn-outline-primary " style="margin-left:auto">
+                    Download All
+                </button> *@
+            </div>
+            <table class="table data_table mt-3 ">
+
+                <thead class="table-active d-none d-sm-block">
+                    <tr>
+                        <th scope="col" ><input type="checkbox"></th>
+                        <th scope="col" ></th>
+                        <th scope="col" class="text-end" style="width:25%"> Uploader</th>
+                        <th scope="col" class="text-end" style="width:25%">Upload Date</th>
+                        <th scope="col" class="text-end" style="width:25%"> Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @foreach (var item in Model.data)
+                        {
+                        <tr>
+                            <td><input type="checkbox"></td>
+
+                            <td>@item.reqid</td>
+                            <td>
+                                    @ViewBag.UserName
+                            </td>
+                            <td>
+                                @item.created_date.Day
+                                @item.created_date.ToString("MMM")
+                                @item.created_date.Year
+                            </td>
+                            <td>
+                                <a asp-controller="home" asp-action="Patient_viewcase">
+                                    <button type="button" class="btn documents ">
+                                        <i class="fa-solid fa-cloud-arrow-down " style="font-size: 20px;"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+    </main>
+</div>
+
+<link rel="stylesheet" href="/css/viewDetail.css">
