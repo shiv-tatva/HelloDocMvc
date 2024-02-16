@@ -8,6 +8,7 @@ using HelloDocMVC.CustomeModel;
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataModels;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,7 +22,8 @@ builder.Services.AddScoped<ICreateAccount, CreateAccount>();
 builder.Services.AddScoped<IConcierge, ConciergeReq>();
 builder.Services.AddScoped<IFamilyFriend, FamilyFriend>();
 builder.Services.AddScoped<IBusiness, BusinessService>();
-builder.Services.AddScoped<IPatientDash, PatientDash>();
+builder.Services.AddScoped<IPatientDash, PatientDash>(); 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddSession();//For Session
 

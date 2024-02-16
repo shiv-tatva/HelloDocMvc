@@ -1,4 +1,7 @@
-﻿@model DAL_Data_Access_Layer_.CustomeModel.PatientDashboard;
+﻿@inject IHttpContextAccessor Accessor
+@using Microsoft.AspNetCore.Http
+
+@model DAL_Data_Access_Layer_.CustomeModel.PatientDashboard;
 
 @{
     ViewData["Title"] = "View Detail";
@@ -9,20 +12,19 @@
 
     <main class=" main-class">
         
-
         <div class="container bg-light px-5 mt-1 d-flex flex-column">
             <div class="d-flex  mt-4 justify-content-between">
 
                 <h4 class="medical-text">Documents</h4>
                 <div id="backDiv" class="mb-5 mt-5" style="text-align: end;">
-                    <a title="Forgot password" class="link-default ps-3" asp-controller="Patient" asp-action="SubmitRequest"
+                    <a title="Forgot password" class="link-default ps-3" asp-controller="patientDashboard" asp-action="patientDashboard"
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
                         <i class="fa-solid fa-chevron-left me-2 " style="color: #09d4e3;"></i>Back
                     </a>
                 </div>
             </div>
             <h6 class="mt-3">Patient Name</h6>
-            <h4> @ViewBag.UserName </h4>
+            <h4>  @Accessor.HttpContext.Session.GetString("UserSessionName") (@Accessor.HttpContext.Session.GetInt32("UserSession"))</h4>
             <h6 class="mt-3">Cilck here to for only files you are the doctors  of your subsequesnts requestor have  attached for you to review</h6>
             <div class="file-upload  input-group col-12 mt-5">
                 <div class="file-content" style="border-radius: 7px;">
@@ -49,46 +51,65 @@
                     Download All
                 </button> *@
             </div>
-            <table class="table data_table mt-3 ">
+            <table class="table table-striped mt-5" id="DataTable" >
+                <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>Documents</th>
+                    <th>Uploader</th>
+                    <th width="15%">Uploaded Date</th>
+                    <th>Actions</th>
 
-                <thead class="table-active d-none d-sm-block">
-                    <tr>
-                        <th scope="col" ><input type="checkbox"></th>
-                        <th scope="col" ></th>
-                        <th scope="col" class="text-end" style="width:25%"> Uploader</th>
-                        <th scope="col" class="text-end" style="width:25%">Upload Date</th>
-                        <th scope="col" class="text-end" style="width:25%"> Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        @foreach (var item in Model.data)
-                        {
-                        <tr>
-                            <td><input type="checkbox"></td>
+                </tr>
 
-                            <td>@item.reqid</td>
-                            <td>
-                                    @ViewBag.UserName
-                            </td>
-                            <td>
-                                @item.created_date.Day
-                                @item.created_date.ToString("MMM")
-                                @item.created_date.Year
-                            </td>
-                            <td>
-                                <a asp-controller="home" asp-action="Patient_viewcase">
-                                    <button type="button" class="btn documents ">
-                                        <i class="fa-solid fa-cloud-arrow-down " style="font-size: 20px;"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                        }
-                </tbody>
-            </table>
+              
+                 <form method="post">
+                @foreach (var item in Model.data)
+                {
+                    @if (@ViewBag.paramValue == item.reqid)
+                    {         
+                           @for (int i = 0; i < @item.documentsname.Count(); i++)
+                              {
+                                <tr>
+                                    <td> <input type="checkbox" name="selectedFiles" /></td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <p class="col-auto me-2">
+                                                <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
+                                            </p>
+                                            <div class="d-flex">
+                                                @item.documentsname[i]
+                                            </div>
+                                        </div>
+                                    </td>
 
+                                    <td>
+                                        @item.fname
+                                    </td>
+                                    <td class>
+                                        @item.created_date.Day
+                                        @item.created_date.ToString("MMM")
+                                        @item.created_date.Year
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <div class="col-auto">
+                                                <div class="btn" type="submit" id="button-addon1" onclick="location.href = '@Url.Action("DownloadFile","patientDashboard",new {data = item.documentsname})' "
+                                                     style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                                                    <i class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i>
+                                                </div>
+                                            </div>
 
+                                        </div>
+                                    </td>
 
+                                </tr>
+                           }
+                                  
+                    }
+                }
+                </form>
+
+              </table>
         </div>
 
     </main>

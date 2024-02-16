@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor Accessor
+@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,7 +15,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        .iti {
+            display: block;
+        }
 
+
+        .iti__country-list {
+            z-index: 10;
+        }
+    </style>
 
 </head>
 <body>
@@ -46,7 +57,7 @@
                             </li>
                                
                             <li class="nav-item p-2 fw-bolder">
-                                    @ViewBag.Mysession
+                                @Accessor.HttpContext.Session.GetString("UserSessionName")
                             </li>
                     </div>
                     <li class="nav-item">
@@ -71,10 +82,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link links active" aria-current="page" href="#">Dashboard</a>
+                            <a class="nav-link links active" aria-current="page" asp-controller="patientDashboard" asp-action="patientDashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link links" href="#" style="color:black;">Profile</a>
+                            <a class="nav-link links"  style="color:black;" asp-controller="patientDashboard" asp-action="profileMain">Profile</a>
                         </li>
                     </ul>
                 </div>

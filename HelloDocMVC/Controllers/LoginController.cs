@@ -27,19 +27,20 @@ namespace HelloDocMVC.Controllers
         }
 
         [HttpPost]
-        //[Route("home/User-Profile", Name = "DownloadFile")]
         public IActionResult LoginPage(Aspnetuser obj)
         {
 
             var data = _login.login(obj);
             //TempData["email"] = obj.Email;
             var sessionUser  = obj.Email;
+            var userName = obj.Email.Substring(0, obj.Email.IndexOf('@'));
 
             ViewBag.Admin = 1;
 
             if (data != null)
             {
                 HttpContext.Session.SetString("UserSession", sessionUser);
+                HttpContext.Session.SetString("UserSessionName", userName);
                 return RedirectToAction("patientDashboard", "patientDashboard");
             }
             else

@@ -187,17 +187,13 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 var data3 = new Requestwisefile()
                 {
-                    Requestid = ReqId,
+                    Requestid = _request.Requestid,
                     Filename = filename,
                     Createddate = DateTime.Now,
                 };
                 _context.Requestwisefiles.Add(data3);
                 _context.SaveChanges();
             }
-
-           
-
-           
 
         }
     }

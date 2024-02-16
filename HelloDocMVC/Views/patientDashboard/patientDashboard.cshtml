@@ -51,6 +51,7 @@
     </div>
 </div>
  <div class="d-none d-sm-block">
+
     <table class="table data_table ">
 
         <thead class="table-active">
@@ -73,7 +74,8 @@
                     <td>@Enum[(int)item.req_type_id]</td>
                     @if(@item.doc_Count > 0){
                     <td>
-                            <button type="button" class="btn documents " style="width:9em;float:left;" onclick="document.location ='viewDetail'">
+                            <button type="button" class="btn documents " style="width:9em;float:left;"  onclick="location.href='@Url.Action("viewDetail","patientDashboard",new {
+                            param = item.reqid})' ">
                             <span>(@item.doc_Count) Documents</span>
                             <i class="bi bi-plus-lg d-block d-md-none"></i>
                         </button>
@@ -173,6 +175,10 @@
         })
     })
 
+    function redirectToDetail(value) {
+        var url = '/PatientDashboard/ViewDetail?param=' + encodeURIComponent(value);
+        document.location = url;
+    }
    
 
 

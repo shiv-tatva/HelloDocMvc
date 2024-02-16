@@ -30,9 +30,24 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string phy_fname { get; set; }
 
+        public string? email { get; set; }
+
         public string lname { get; set; }
 
+        public int? user_id_param { get; set; }
+
+        public string phone_no { get; set; }
+
+        public string street { get; set; }
+
+        public string city { get; set; }
+
+        public string state { get; set; }
+
+        public string zipcode { get; set; }
+
         public List<string> documentsname { get; set; }
+
     }
 
     public class PatientDashboard {

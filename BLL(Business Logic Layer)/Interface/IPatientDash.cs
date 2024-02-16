@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DAL_Data_Access_Layer_.DataModels;
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
+using HelloDocMVC.CustomeModel;
 
 namespace BLL_Business_Logic_Layer_.Interface
 {
@@ -13,5 +14,8 @@ namespace BLL_Business_Logic_Layer_.Interface
     {
         //IEnumerable<Request> patientDashInfo(Request obj);
 
-        public List<PatientDashboardData> patientDashInfo(string email);    }
+        public List<PatientDashboardData> patientDashInfo(string email);
+
+        PatientDashboardData UserProfile(string email);
+    }
 }
