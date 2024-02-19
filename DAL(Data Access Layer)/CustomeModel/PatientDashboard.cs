@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,10 +49,13 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public List<string> documentsname { get; set; }
 
+
     }
 
     public class PatientDashboard {
     public List<PatientDashboardData> data{  get; set; }
+
+        public IFormFile Upload { get; set; }
 
     }
 

@@ -66,7 +66,7 @@
                                style="background: transparent;border: 1px solid gray;">
                         <label asp-for="password" for="floatingPassword">Password</label>
                             <span asp-validation-for="password" class="text-danger"></span>
-                            <button class="btn show-password" type="button" id="userBtn" style="position: absolute;top: 10px;right: 5px;">
+                            <button class="btn show-password" type="button"  style="position: absolute;top: 10px;right: 5px;">
                             <i class="fa-regular fa-eye" onclick="passwordVisible()"
                                id="passHide"></i>
                         </button>
@@ -78,7 +78,7 @@
                                style="background: transparent;border: 1px solid gray;">
                         <label asp-for="confirmPassword" for="floatingPassword">Confirm Password</label>
                             <span asp-validation-for="confirmPassword" class="text-danger"></span>
-                            <button class="btn show-password" type="button" id="userBtn" style="position: absolute;top: 10px;right: 5px;">
+                            <button class="btn show-password" type="button"  style="position: absolute;top: 10px;right: 5px;">
                             <i class="fa-regular fa-eye" onclick="passwordVisible2()"
                                id="passHide2"></i>
                         </button>
@@ -123,20 +123,20 @@
 
             <h4 class="mt-5 h4Head">(Optional) Upload Photo or Document</h4>
 
-            <div class="file-upload  input-group col-12 mt-5">
-                <div class="file-content" style="border-radius: 7px;">
-                    <div style="display: flex;align-items: center;">
-                        <span id="demo" style="color:black;">Select File</span>
-                    </div>
-                        <div class="btn btn-outline-primary" type="file" id="button-addon1" 
-                            style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                <div class="file-upload  input-group col-12 mt-5">
+                    <div class="file-content" style="border-radius: 7px;background-color:White">
+                        <div style="display: flex;align-items: center;">
+                            <span id="demo" style="color:black;">Select File</span>
+                        </div>
+                        <div class="btn btn-outline-primary" type="file" id="button-addon1"
+                             style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
                             <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
                             <input asp-for="upload" class="form-control d-block" multiple="multiple" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
-                            <span class="d-none d-sm-none d-md-none d-lg-inline-block"style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
+                            <span class="d-none d-sm-none d-md-none d-lg-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
+                        </div>
                     </div>
+
                 </div>
-                
-            </div>
 
             <div class="mt-5 d-flex justify-content-end">
                 <div id="backDivTwo" class="me-2">
@@ -145,7 +145,7 @@
                 </div>
                 <div id="backDivThree">
                     <button href="#" title="Forgot password" class="link-default ps-3"
-                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">Cancel</button>
+                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;" onclick="clearAll()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@
 
 @section scripts{
                 @{
-                    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
                 }
             }
 
@@ -210,6 +210,17 @@
         }
     }
 
+    function clearAll(){
+        let a = document.getElementsByTagName("input")
+        for (let i = 0; i < a.length;i++){
+            a[i].value = "";
+        }
+        
+        let b = document.getElementsByTagName("textarea")
+        for (let i = 0; i < b.length;i++){
+            b[i].value = "";
+        }
+    }
 
     function checkEmailAvail() {
         let email = document.getElementById("emailMain").value;

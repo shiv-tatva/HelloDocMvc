@@ -1,6 +1,8 @@
-﻿namespace HelloDocMVC.Views.Shared
-{
-    public class patientDashboard
-    {
-    }
+﻿.dark-mode {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label {
+    color: black;
 }

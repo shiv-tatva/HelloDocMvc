@@ -4,16 +4,13 @@
     box-sizing: border-box;
 }
 
-#mainRow {
-    background: #b6b6b6;
-    opacity: 0.4;
+.dark-mode {
+    background-color: #333 !important;
+    color: #fff;
 }
 
-#popUp {
-    box-shadow: 0 1rem 3rem rgb(0 0 0 / 40%) !important;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
+label {
+    color: black;
 }
 
 #mainContainer {
@@ -49,6 +46,19 @@
     border-radius: 8px;
     padding: 9px 17px;
 }
+#mainRow {
+    opacity: 0.4;
+}
+
+#popUp {
+    box-shadow: 0 1rem 3rem rgb(0 0 0 / 40%) !important;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: black;
+}
+
+
 
 #footerDiv {
     width: 100%;
@@ -305,6 +315,15 @@ input.search-box {
         width: 20px;
         height: 20px;
     }
+
+.dark-mode {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label {
+    color: black;
+}
 
 @media only screen and (max-width: 367px) {
 

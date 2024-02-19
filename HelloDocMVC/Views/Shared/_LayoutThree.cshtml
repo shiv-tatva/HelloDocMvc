@@ -104,41 +104,67 @@
 
        
     <script>
+        // function darkMode() {
+        //     let a = document.getElementById("mainContainer")
+        //     let b = document.getElementsByTagName("h4")
+        //     let c = document.getElementsByClassName("nav-link")
+        //     let e = document.getElementById("innerContainer")
+
+
+        //     if (a.classList.contains("active")) {
+        //         a.classList.remove("active")
+        //         a.style.backgroundColor = "white"
+        //         for (let i = 0; i < b.length; i++) {
+        //             b[i].style.color = "black"
+        //         }
+        //         for (let i = 0; i < c.length; i++) {
+        //             c[i].style.color = "black"
+        //         }
+        //         e.classList.remove("active")
+        //         e.style.backgroundColor = "white"
+                
+        //     } else {
+        //         a.classList.add("active")
+        //         a.style.backgroundColor = "black"
+
+        //         for (let i = 0; i < b.length; i++) {
+        //             b[i].style.color = "white"
+        //         }
+        //         for (let i = 0; i < c.length; i++) {
+        //             c[i].style.color = "white"
+        //         }
+        //         e.classList.remove("active")
+        //         e.style.backgroundColor = "black"
+                
+        //     }
+
+        // }
+
         function darkMode() {
-            let a = document.getElementById("mainContainer")
-            let b = document.getElementsByTagName("h4")
-            let c = document.getElementsByClassName("nav-link")
-            let e = document.getElementById("innerContainer")
 
+            const body = document.body;
+            body.classList.toggle('dark-mode');
 
-            if (a.classList.contains("active")) {
-                a.classList.remove("active")
-                a.style.backgroundColor = "white"
-                for (let i = 0; i < b.length; i++) {
-                    b[i].style.color = "black"
-                }
-                for (let i = 0; i < c.length; i++) {
-                    c[i].style.color = "black"
-                }
-                e.classList.remove("active")
-                e.style.backgroundColor = "white"
-                
-            } else {
-                a.classList.add("active")
-                a.style.backgroundColor = "black"
+            let nav = document.getElementById("navMain");
+            nav.classList.toggle("dark-mode")
 
-                for (let i = 0; i < b.length; i++) {
-                    b[i].style.color = "white"
-                }
-                for (let i = 0; i < c.length; i++) {
-                    c[i].style.color = "white"
-                }
-                e.classList.remove("active")
-                e.style.backgroundColor = "black"
-                
-            }
+            const isDarkMode = body.classList.contains('dark-mode');
+
+            localStorage.setItem('darkMode', isDarkMode);
 
         }
+
+        window.onload = function () {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            let nav = document.getElementById("navMain");
+
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                nav.classList.add('dark-mode');
+            }
+        }
+
+
 
 
 

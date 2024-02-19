@@ -146,7 +146,7 @@
 
 
     #mainRow {
-        background: #b6b6b6;
+        /*background: #b6b6b6;*/
         opacity: 0.4;
     }
 
@@ -155,6 +155,7 @@
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
+    color: black;
 }
 
 /*  mainRow
@@ -189,7 +190,14 @@ input[type = 'tel'] {
         z-index: 10;
     }
 
-   
+.dark-mode {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label {
+    color: black;
+}
 
 /* .selected-option div.active::after{
     transform: translateY(-50%) rotate(225deg);

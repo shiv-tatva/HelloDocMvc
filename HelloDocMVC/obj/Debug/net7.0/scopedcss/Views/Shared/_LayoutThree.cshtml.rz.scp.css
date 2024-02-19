@@ -1,6 +1,8 @@
-namespace HelloDocMVC.Views.Shared[b-hnehwflsk8]
-{
-    public class patientDashboard
-    {
-    }
+.dark-mode[b-hnehwflsk8] {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label[b-hnehwflsk8] {
+    color: black;
 }

@@ -8,11 +8,13 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 /* _content/HelloDocMVC/Views/Shared/_LayoutThree.cshtml.rz.scp.css */
-namespace HelloDocMVC.Views.Shared[b-hnehwflsk8]
-{
-    public class patientDashboard
-    {
-    }
+.dark-mode[b-hnehwflsk8] {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label[b-hnehwflsk8] {
+    color: black;
 }
 /* _content/HelloDocMVC/Views/Shared/_LayoutTwo.cshtml.rz.scp.css */
 body[b-nfw7nv4ehx] {

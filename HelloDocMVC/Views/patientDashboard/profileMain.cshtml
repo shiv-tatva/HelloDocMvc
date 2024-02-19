@@ -2,7 +2,7 @@
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
         <h4>User Profile</h4>
-        <a asp-controller="Patient" asp-action="patient_dashboard"
+        <a asp-controller="patientDashboard" asp-action="patientDashboard"
            class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
             <i class="fa-solid fa-angle-left"></i> Back
         </a>
@@ -53,7 +53,7 @@
                     <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                         <input type="email" class="dclass form-control " id="floatingInputemail" asp-for="email"
                                placeholder="Email" aria-label="Email" value="@Model.email" >
-                        <label class="ms-2 " for="floatingInputemail">Email</label>
+                        <label class="ms-2 " for="floatingInputemail" >Email</label>
                     </div>
 
                 </div>
@@ -121,6 +121,7 @@
     function enableFields() {
         document.querySelectorAll('.dclass').forEach(function (element) {
             element.disabled = false;
+            document.getElementById("floatingInputemail").disabled = true;
         });
         // Show the submit and cancel buttons, hide the edit button
         document.getElementById('submitBtn').style.display = 'block';

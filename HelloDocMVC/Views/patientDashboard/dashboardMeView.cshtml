@@ -1,0 +1,275 @@
+﻿@model HelloDocMVC.CustomeModel.Custom;
+@{
+    ViewData["Title"] = "Patient Information";
+}
+
+<div class="row p-0 m-0">
+    <div class="col-12">
+        <form method="post" enctype="multipart/form-data">
+            <div class="col-sm-11 col-md-8 col-lg-8 mt-5" style="margin: auto;">
+                <div id="backDiv" class="mb-5 mt-5" style="text-align: end;">
+                    <a title="Forgot password" class="link-default ps-3" asp-controller="patientDashboard" asp-action="patientDashboard"
+                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
+                        <i class="fa-solid fa-chevron-left me-2 " style="color: #09d4e3;"></i>Back
+                    </a>
+                </div>
+                <h4 class="h4Head">Patient Information</h4>
+                <div class="form-floating mt-3 col-12" style="overflow: hidden;">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                              style="height: 130px;"></textarea>
+                    <label for="floatingTextarea">Enter Brief Details Of Symptoms(Optional)</label>
+                </div>
+                <div class="row ">
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="firstname" type="text" class="form-control" placeholder="Name">
+                            <label asp-for="firstname">First Name</label>
+                            <span asp-validation-for="firstname" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="lastname" class="form-control" placeholder="Name">
+                            <label asp-for="lastname">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="dateofbirth" type="date" class="form-control" placeholder="Name">
+                            <label asp-for="dateofbirth">Date of Birth</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-5 h4Head">Patient Contact Information</h4>
+                <div class="row">
+                    <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-floating">
+                            
+                            <input asp-for="email" type="email" class="form-control emailCheck" placeholder="Name" onblur="checkEmailAvail()" id="emailMain" value="@Model.email">
+                            <label asp-for="email">Email</label>
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <input asp-for="phone" id="phone"
+                               class="form-control contact"
+                               aria-label="Contact"
+                               type="tel"
+                               name="phone" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-floating mb-3 ConfirmMain" style="position: relative; display:none;">
+                            <input asp-for="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                                   style="background: transparent;border: 1px solid gray;">
+                            <label asp-for="password" for="floatingPassword">Password</label>
+                            <span asp-validation-for="password" class="text-danger"></span>
+                            <button class="btn show-password" type="button" id="userBtn" style="position: absolute;top: 10px;right: 5px;">
+                                <i class="fa-regular fa-eye" onclick="passwordVisible()"
+                                   id="passHide"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-floating mb-3 ConfirmMain" style="position: relative; display:none">
+                            <input asp-for="confirmPassword" type="password" class="form-control" id="floatingPassword2" placeholder="Password"
+                                   style="background: transparent;border: 1px solid gray;">
+                            <label asp-for="confirmPassword" for="floatingPassword">Confirm Password</label>
+                            <span asp-validation-for="confirmPassword" class="text-danger"></span>
+                            <button class="btn show-password" type="button" id="userBtn" style="position: absolute;top: 10px;right: 5px;">
+                                <i class="fa-regular fa-eye" onclick="passwordVisible2()"
+                                   id="passHide2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-5 h4Head">Patient Location</h4>
+
+                <div class="row ">
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="street" type="text" class="form-control" placeholder="Name">
+                            <label asp-for="street">Street</label>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="city" type="text" class="form-control" placeholder="Name">
+                            <label asp-for="city">City</label>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="state" type="text" class="form-control" placeholder="Name">
+                            <label asp-for="state">State</label>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="zipcode" type="text" class="form-control" placeholder="Name">
+                            <label asp-for="zipcode">Zip code</label>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Name">
+                            <label>Room # / suite (Optional)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-5 h4Head">(Optional) Upload Photo or Document</h4>
+
+                <div class="file-upload  input-group col-12 mt-5">
+                    <div class="file-content" style="border-radius: 7px;">
+                        <div style="display: flex;align-items: center;">
+                            <span id="demo" style="color:black;">Select File</span>
+                        </div>
+                        <div class="btn btn-outline-primary" type="file" id="button-addon1"
+                             style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                            <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
+                            <input asp-for="upload" class="form-control d-block" multiple="multiple" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
+                            <span class="d-none d-sm-none d-md-none d-lg-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-5 d-flex justify-content-end">
+                    <div id="backDivTwo" class="me-2">
+                        <button type="submit" title="Forgot password" class="link-default ps-3"
+                                style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
+                            Submit
+                        </button>
+                    </div>
+                    <div id="backDivThree">
+                        <button href="#" title="Forgot password" class="link-default ps-3"
+                                style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+            }
+
+<link rel="stylesheet" href="/css/patientInfo.css">
+
+<script>
+
+    function myFunction() {
+        var x = document.getElementById("myFile").value;
+        document.getElementById("demo").innerHTML = x;
+    }
+
+    function passwordVisible() {
+        let a = document.getElementById("passHide")
+        console.log(a)
+        if (a.classList.contains("fa-eye")) {
+            a.classList.remove("fa-eye")
+            a.classList.add("fa-eye-slash")
+        } else {
+            a.classList.remove("fa-eye-slash")
+            a.classList.add("fa-eye")
+        }
+
+        var x = document.getElementById("floatingPassword");
+        if (x.type === "password") {
+            x.type = "text";
+            console.log("hi1")
+        } else {
+            x.type = "password";
+            console.log("hi2")
+        }
+    }
+
+    function passwordVisible2() {
+        let a = document.getElementById("passHide2")
+        console.log(a)
+        if (a.classList.contains("fa-eye")) {
+            a.classList.remove("fa-eye")
+            a.classList.add("fa-eye-slash")
+        } else {
+            a.classList.remove("fa-eye-slash")
+            a.classList.add("fa-eye")
+        }
+
+        var x = document.getElementById("floatingPassword2");
+        if (x.type === "password") {
+            x.type = "text";
+            console.log("hi1")
+        } else {
+            x.type = "password";
+            console.log("hi2")
+        }
+    }
+
+
+    function checkEmailAvail() {
+        let email = document.getElementById("emailMain").value;
+        $.ajax({
+            method: "POST",
+            url: "/Patient/checkEmailAvailibility",
+            data: { email: email },
+
+            success: function (resp) {
+                if (resp.code == 401) {
+                    $(".ConfirmMain").css("display", "none");
+                }
+                else if (resp.code == 402) {
+                    $(".ConfirmMain").css("display", "block");
+                }
+            },
+
+            error: function () {
+                console.log(" ");
+            }
+        })
+    }
+
+
+    // function darkMode() {
+    //     let a = document.getElementById("mainContainer")
+    //     let b = document.getElementsByClassName("h4Head")
+    //     let c = document.getElementById("navMain")
+
+    //     console.log(b.length)
+    //     console.log(a.classList)
+
+    //     if (a.classList.contains("active")) {
+    //         a.classList.remove("active")
+    //         a.style.backgroundColor = "white"
+    //         for (let i = 0; i < b.length; i++) {
+    //             b[i].style.color = "black"
+    //         }
+    //         c.classList.remove("bg-black")
+    //         c.classList.add("bg-white")
+    //     } else {
+    //         a.classList.add("active")
+    //         a.style.backgroundColor = "black"
+    //         for (let i = 0; i < b.length; i++) {
+    //             b[i].style.color = "white"
+    //         }
+    //         c.classList.remove("bg-white")
+    //         c.classList.add("bg-dark")
+    //     }
+
+    // }
+    const phoneInputPatient = document.querySelector("#phone");
+    const phoneInputP = window.intlTelInput(phoneInputPatient, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+</script>

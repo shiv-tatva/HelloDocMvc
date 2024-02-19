@@ -26,26 +26,32 @@
             <h6 class="mt-3">Patient Name</h6>
             <h4>  @Accessor.HttpContext.Session.GetString("UserSessionName") (@Accessor.HttpContext.Session.GetInt32("UserSession"))</h4>
             <h6 class="mt-3">Cilck here to for only files you are the doctors  of your subsequesnts requestor have  attached for you to review</h6>
+            <form method="post" id="upload" enctype="multipart/form-data">
             <div class="file-upload  input-group col-12 mt-5">
                 <div class="file-content" style="border-radius: 7px;">
+                   
                     <div style="display: flex;align-items: center;">
                         <span id="demo" style="color:black;">Select File</span>
+                            <input asp-for="Upload" class="form-control d-block" style="width:60%;" multiple="multiple" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
                     </div>
+                  
                     <div class="btn btn-outline-primary" type="file" id="button-addon1"
                          style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
                         <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
-                        <input  class="form-control d-block" multiple="multiple" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
-                        <span class="d-none d-sm-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
-                    </div>
+                            <button type="submit" style="border:0;background:transparent;"><span class="d-none d-sm-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;" onchange="myFunction()">Upload</span></button>
+                        </div>
+                    
+                    
                 </div>
 
             </div>
+           
             <div class="d-flex mt-4 justify-content-between p-0">
                 <h6>Documents</h6>
                 <div class="btn" type="file" id="button-addon1"
                      style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
                     <i class="fa-solid fa-cloud-arrow-down pe-2" style="color: #ffffff;"></i>
-                    <span class="d-none d-sm-inline-block " style="color: #ffffff;padding-left: 0;font-size: 20px;">Download All</span>
+                    <span class="d-none d-sm-inline-block " style="color: #ffffff;padding-left: 0;font-size: 20px;" onclick="downloadAll()">Download All</span>
                 </div>
                @*  <button class="btn btn-outline-primary " style="margin-left:auto">
                     Download All
@@ -60,9 +66,9 @@
                     <th>Actions</th>
 
                 </tr>
-
+                
               
-                 <form method="post">
+               
                 @foreach (var item in Model.data)
                 {
                     @if (@ViewBag.paramValue == item.reqid)
@@ -93,7 +99,7 @@
                                     <td>
                                         <div class="d-flex flex-row">
                                             <div class="col-auto">
-                                                <div class="btn" type="submit" id="button-addon1" onclick="location.href = '@Url.Action("DownloadFile","patientDashboard",new {data = item.documentsname})' "
+                                                <div class="btn"  id="button-addon1" onclick="location.href = '@Url.Action("DownloadFile","patientDashboard",new {data = item.documentsname})' "
                                                      style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
                                                     <i class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i>
                                                 </div>
@@ -116,3 +122,15 @@
 </div>
 
 <link rel="stylesheet" href="/css/viewDetail.css">
+
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myFile").value;
+        document.getElementById("demo").innerHTML = x;
+    }
+
+    
+</script>
+
+                                                 

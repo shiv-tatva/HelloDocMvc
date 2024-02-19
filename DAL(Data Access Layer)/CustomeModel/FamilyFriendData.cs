@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -42,5 +43,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? phone { get; set; }
 
         public string? room { get; set; }
+
+        public string? relation { get; set; }
+
+        public IFormFile? upload { get; set; }
     }
 }

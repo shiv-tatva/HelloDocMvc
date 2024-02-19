@@ -32,6 +32,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW5QYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/dashboardMeView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFxkYXNoYm9hcmRNZVZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/dashboardSomeOneView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFxkYXNoYm9hcmRTb21lT25lVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/patientDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFxwYXRpZW50RGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

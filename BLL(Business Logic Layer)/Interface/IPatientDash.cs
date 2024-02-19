@@ -17,5 +17,15 @@ namespace BLL_Business_Logic_Layer_.Interface
         public List<PatientDashboardData> patientDashInfo(string email);
 
         PatientDashboardData UserProfile(string email);
+
+        Custom userMeDetail(string email);
+
+        FamilyFriendData userSomeDetail(string email);
+
+        public void userDetail(Custom obj);
+
+        public void userSomeOneDetail(FamilyFriendData obj);
+
+
     }
 }

@@ -35,6 +35,8 @@ namespace HelloDocMVC.CustomeModel
 
         public string? room { get; set; }
 
+
+
         public IFormFile? upload { get; set; }
 
 

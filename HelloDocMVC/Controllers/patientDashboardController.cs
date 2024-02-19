@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Reflection.Emit;
 using System.Xml.Linq;
+using BLL_Business_Logic_Layer_.Services;
 
 namespace HelloDocMVC.Controllers
 {
@@ -56,14 +57,22 @@ namespace HelloDocMVC.Controllers
         public IActionResult viewDetail(int param)
         {
             PatientDashboard patientDashboard = new PatientDashboard();
+
             string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+
+            //int idMain = param;
+
             patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
             ViewBag.paramValue = param;
+
 
             ViewBag.Admin = 2;
             return View(patientDashboard);
 
         }
+
+
+      
 
         public IActionResult DownloadFile(string data)
         {
@@ -75,7 +84,7 @@ namespace HelloDocMVC.Controllers
                 string fileName = data;
                 return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, data);
             }
-            else
+            else 
             {
                 return RedirectToAction("Login", "Home");
             }
@@ -137,6 +146,49 @@ namespace HelloDocMVC.Controllers
 
         }
 
+       
+        public IActionResult dashboardMeView()
+        {
+
+
+            var userEmail = HttpContext.Session.GetString("UserSession").ToString();
+            Custom data = _patientDashInfo.userMeDetail(userEmail);
+
+            ViewBag.Admin = 2;
+            return View(data);
+        }
+
+
+        [HttpPost]
+        public IActionResult dashboardMeView(Custom obj)
+        {
+            _patientDashInfo.userDetail(obj);
+            ViewBag.Admin = 2;
+            return RedirectToAction("patientDashboard");
+        }
+        
+        
+        public IActionResult dashboardSomeOneView()
+        {
+
+
+            var userEmail = HttpContext.Session.GetString("UserSession").ToString();
+            FamilyFriendData data = _patientDashInfo.userSomeDetail(userEmail);
+
+            ViewBag.Admin = 2;
+            return View(data);
+        }
+
+
+        [HttpPost]
+        public IActionResult dashboardSomeOneView(FamilyFriendData obj)
+        {
+            _patientDashInfo.userSomeOneDetail(obj);
+            ViewBag.Admin = 2;
+            return RedirectToAction("patientDashboard");
+        }
+
+       
 
     }
 }
