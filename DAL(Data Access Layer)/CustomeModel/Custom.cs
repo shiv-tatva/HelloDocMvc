@@ -23,6 +23,8 @@ namespace HelloDocMVC.CustomeModel
         [Required(ErrorMessage = "Please Enter Email")]
         public string? email { get; set; }
 
+
+        [StringLength(10,  ErrorMessage = "Mobile Number should less than 10 char")]
         public string? phone { get; set; }
 
         public string? street { get; set; }

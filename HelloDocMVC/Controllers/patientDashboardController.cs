@@ -53,7 +53,17 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 2; 
             return View(patientDashboard);
         }
-        
+
+
+
+        //public IActionResult logoutSession()
+        //{
+
+        //    HttpContext.Session.Clear();
+        //    return RedirectToAction("LoginPage", "Login");
+
+        //}
+
         public IActionResult viewDetail(int param)
         {
             PatientDashboard patientDashboard = new PatientDashboard();
@@ -157,6 +167,9 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 2;
             return View(data);
         }
+        
+        
+       
 
 
         [HttpPost]

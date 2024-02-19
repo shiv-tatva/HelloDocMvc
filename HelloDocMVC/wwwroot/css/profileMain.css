@@ -5,7 +5,7 @@
 }
 
 .doctor-img {
-    width: 6em; 
+    width: 6em;
 }
 
 .active {
@@ -57,8 +57,8 @@ th:nth-child(2), td:nth-child(2) {
 }
 
 
-#menuMain:focus{
-    outline:0!important;
+#menuMain:focus {
+    outline: 0 !important;
 }
 
 .dark-mode {

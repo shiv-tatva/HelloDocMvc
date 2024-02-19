@@ -79,6 +79,17 @@
 
         function darkMode() {
 
+            let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
+            let moon = document.getElementById("darkmodeBtn");
+
+            if (isDarkModeTwo) {
+                moon.classList.remove("fa-sun")
+                moon.classList.add("fa-moon")
+            } else {
+                moon.classList.add("fa-sun")
+                moon.classList.remove("fa-moon")
+            }
+
             const body = document.body;
             body.classList.toggle('dark-mode');
 
@@ -94,10 +105,13 @@
         window.onload = function () {
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             let nav = document.getElementById("navMain");
+            let moon = document.getElementById("darkmodeBtn");
 
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
                 nav.classList.add('dark-mode');
+                moon.classList.remove("fa-moon")
+                moon.classList.add("fa-sun")
             }
         }
     
