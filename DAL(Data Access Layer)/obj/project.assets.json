@@ -10460,19 +10460,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pce151\\.nuget\\packages\\": {}
+    "C:\\Users\\Shiv Santoki\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj",
+      "projectUniqueName": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj",
       "projectName": "DAL(Data Access Layer)",
-      "projectPath": "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj",
-      "packagesPath": "C:\\Users\\pce151\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\obj\\",
+      "projectPath": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj",
+      "packagesPath": "C:\\Users\\Shiv Santoki\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\DAL(Data Access Layer)\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pce151\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Shiv Santoki\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

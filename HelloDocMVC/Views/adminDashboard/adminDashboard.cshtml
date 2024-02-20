@@ -1,7 +1,7 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
 <link href="~/css/adminDashboard.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
 <nav class="navbar header bg-white shadow position-sticky top-0 z-3">
     <div class="container-fluid ">
         <div class="d-flex justify-content-center ">
@@ -21,7 +21,7 @@
                     Welcome
                     <strong>
                         Admin admin2
-                           
+                           @*  @ @Accessor.HttpContext.Session.GetString("UserName") @ *@
                     </strong>
                 </h5>
                 </p>
@@ -35,12 +35,10 @@
                     </span>
                 </a>
             </div>
-            <div class="me-2">
-                <button  type="button" class="btn shadow border-info"
-                    style="border-radius: 10px; border-color: aqua" id="colorButton">
-                    <i id="moon" class="bi bi-moon text-info fs-4"></i>
-                    <i id="sun" class="bi bi-sun text-info fs-4 d-none"></i>
-                </button>
+            <div id="darkMode" style="z-index: 2;">
+                <i class="fa-regular fa-moon fa-2x me-5 p-1 "
+                   style="color: #09d4e3;border: 1px solid #09d4e3;border-radius: 4px;"
+                   onclick="darkMode()" id="darkmodeBtn"></i>
             </div>
         </div>
     </div>
@@ -105,15 +103,15 @@
 
 <div class="p-sm-2 p-md-5">
     <div class="tab-content" id="myTabContent">
-       
-        @* @await Html.PartialAsync("Admin_Dash_Partials/_Admin_ProviderLocation")
+        @* @await Html.PartialAsync("Admin_Dash_Partials/_Admin_Dashboard")
+        @await Html.PartialAsync("Admin_Dash_Partials/_Admin_ProviderLocation")
         @await Html.PartialAsync("Admin_Dash_Partials/_Admin_MyProfile")
         @await Html.PartialAsync("Admin_Dash_Partials/_Admin_Providers")
         @await Html.PartialAsync("Admin_Dash_Partials/_Admin_Partners")
         @await Html.PartialAsync("Admin_Dash_Partials/_Admin_Access")
         @await Html.PartialAsync("Admin_Dash_Partials/_Admin_Records") *@
         @* <partial name="Admin_Dash_Partials/_Admin_Dashboard" />
-        <partial name="_adminDash" />
+        <partial name="Admin_Dash_Partials/_Admin_ProviderLocation" />
         <partial name="Admin_Dash_Partials/_Admin_MyProfile" />
         <partial name="Admin_Dash_Partials/_Admin_Providers" />
         <partial name="Admin_Dash_Partials/_Admin_Partners" />

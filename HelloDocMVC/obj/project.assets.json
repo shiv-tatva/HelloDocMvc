@@ -10641,19 +10641,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pce151\\.nuget\\packages\\": {}
+    "C:\\Users\\Shiv Santoki\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\HelloDocMVC.csproj",
+      "projectUniqueName": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\HelloDocMVC\\HelloDocMVC.csproj",
       "projectName": "HelloDocMVC",
-      "projectPath": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\HelloDocMVC.csproj",
-      "packagesPath": "C:\\Users\\pce151\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\obj\\",
+      "projectPath": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\HelloDocMVC\\HelloDocMVC.csproj",
+      "packagesPath": "C:\\Users\\Shiv Santoki\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\HelloDocMVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pce151\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Shiv Santoki\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10667,11 +10667,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Project\\HelloDocMVC\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj": {
-              "projectPath": "D:\\Project\\HelloDocMVC\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj"
+            "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj": {
+              "projectPath": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj"
             },
-            "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj": {
-              "projectPath": "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj"
+            "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj": {
+              "projectPath": "C:\\Users\\Shiv Santoki\\Desktop\\Web D\\helloMain\\HelloDocMvc\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj"
             }
           }
         }

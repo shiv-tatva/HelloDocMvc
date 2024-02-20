@@ -1,11 +1,9 @@
-﻿<link href="~/css/adminDashboard.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+﻿
 
 <div class="tab-pane fade show active show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
      tabindex="0">
     <div class="container-fluid">
         <div class="row nav" id="myTab" role="tablist">
-
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mb-3 nav-item" role="presentation">
                 <div class="border rounded p-1 p-sm-3 active new" id="new-tab" data-bs-toggle="tab"
                      data-bs-target="#new-tab-pane" type="button" role="tab" aria-controls="new-tab-pane"
@@ -299,7 +297,7 @@
         </div>
     </div>
 </div>
-@* <script>
+<script>
     document.getElementById("new-tab").addEventListener('click', function () {
         if (document.getElementById("new-tab").classList.contains("active")) {
             document.getElementById("triangle1").style.display = "block"
@@ -360,8 +358,8 @@
             document.getElementById("triangle1").style.display = "none"
         }
     })
-</script> *@
-<script>
+</script>
+@* <script>
     function handleTabClick(tabId, triangleId) {
         var tabs = document.querySelectorAll(".tab");
         var triangles = document.querySelectorAll(".triangle");
@@ -392,4 +390,4 @@
     document.getElementById("Unpaid-tab").addEventListener('click', function () {
         handleTabClick("Unpaid-tab", "triangle6");
     });
-</script>
+</script> *@

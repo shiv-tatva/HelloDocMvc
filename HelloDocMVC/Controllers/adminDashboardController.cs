@@ -6,6 +6,7 @@ namespace HelloDocMVC.Controllers
     {
         public IActionResult adminDashboard()
         {
+            ViewBag.Admin = 1;
             return View();
         }
     }

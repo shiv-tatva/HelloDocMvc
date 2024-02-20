@@ -9,109 +9,109 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HelloDocMVC
 build_property.RootNamespace = HelloDocMVC
-build_property.ProjectDir = D:\Project\HelloDocMVC\HelloDocMVC\
+build_property.ProjectDir = C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Project\HelloDocMVC\HelloDocMVC
+build_property.MSBuildProjectDirectory = C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/adminDashboard/adminDashboard.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/adminDashboard/adminDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcYWRtaW5EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/AdminLogin/forgotPage.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/AdminLogin/forgotPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Mb2dpblxmb3Jnb3RQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/AdminLogin/loginPage.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/AdminLogin/loginPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Mb2dpblxsb2dpblBhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Home/CreateAccount.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Home/CreateAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGVBY2NvdW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Home/Index.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Login/ForgotPage.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Login/ForgotPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRm9yZ290UGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Login/LoginPage.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Login/LoginPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW5QYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/dashboardMeView.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/patientDashboard/dashboardMeView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFxkYXNoYm9hcmRNZVZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/dashboardSomeOneView.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/patientDashboard/dashboardSomeOneView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFxkYXNoYm9hcmRTb21lT25lVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/patientDashboard.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/patientDashboard/patientDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFxwYXRpZW50RGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/profileMain.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/patientDashboard/profileMain.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFxwcm9maWxlTWFpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/patientDashboard/viewDetail.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/patientDashboard/viewDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NccGF0aWVudERhc2hib2FyZFx2aWV3RGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Patient/BusinessInfo.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Patient/BusinessInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxCdXNpbmVzc0luZm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Patient/ConciergeInfo.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Patient/ConciergeInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxDb25jaWVyZ2VJbmZvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Patient/FamilyFriendInfo.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Patient/FamilyFriendInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxGYW1pbHlGcmllbmRJbmZvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Patient/PatientInfo.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Patient/PatientInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxQYXRpZW50SW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Patient/SubmitRequest.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Patient/SubmitRequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxTdWJtaXRSZXF1ZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Error.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDash.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Shared/_adminDash.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/_ViewImports.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/_ViewStart.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_Layout.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kbvnv9hzj2
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_LayoutThree.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Shared/_LayoutThree.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRUaHJlZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-hnehwflsk8
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_LayoutTwo.cshtml]
+[C:/Users/Shiv Santoki/Desktop/Web D/helloMain/HelloDocMvc/HelloDocMVC/Views/Shared/_LayoutTwo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRUd28uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-nfw7nv4ehx
