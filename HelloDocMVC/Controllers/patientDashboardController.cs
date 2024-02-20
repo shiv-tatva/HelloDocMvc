@@ -53,23 +53,18 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 2; 
             return View(patientDashboard);
         }
-        
-        public IActionResult viewDetail(int param)
-        {
-            PatientDashboard patientDashboard = new PatientDashboard();
-
-            string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
-
-            //int idMain = param;
-
-            patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
-            ViewBag.paramValue = param;
 
 
-            ViewBag.Admin = 2;
-            return View(patientDashboard);
 
-        }
+        //public IActionResult logoutSession()
+        //{
+
+        //    HttpContext.Session.Clear();
+        //    return RedirectToAction("LoginPage", "Login");
+
+        //}
+
+       
 
 
       
@@ -157,6 +152,9 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 2;
             return View(data);
         }
+        
+        
+       
 
 
         [HttpPost]
@@ -188,7 +186,26 @@ namespace HelloDocMVC.Controllers
             return RedirectToAction("patientDashboard");
         }
 
-       
+        public IActionResult viewDetail(int param)
+        {
+            PatientDashboard patientDashboard = new PatientDashboard();
+
+            string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+            patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
+            ViewBag.paramValue = param;
+
+
+            ViewBag.Admin = 2;
+            return View(patientDashboard);
+
+        }
+
+        [HttpPost]
+        public IActionResult viewDetail(PatientDashboard obj) {
+            _patientDashInfo.viewDocumentUpload(obj);
+            ViewBag.Admin = 2;
+            return RedirectToAction("viewDetail");
+        }
 
     }
 }

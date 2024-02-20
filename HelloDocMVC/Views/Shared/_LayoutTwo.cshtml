@@ -24,32 +24,70 @@
     </div>
 
     <script>
+        // function darkMode() {
+        //     let a = document.getElementById("mainContainer")
+        //     let c = document.getElementsByClassName("termsAndPrivacy")
+        //     let d = document.getElementsByTagName("h4")
+
+        //     if (a.classList.contains("active")) {
+        //         console.log("success")
+        //         a.classList.remove("active")
+        //         a.style.backgroundColor = "white"
+        //         c[0].style.color = "gray"
+        //         c[1].style.color = "gray"
+        //         for (let i = 0; i < d.length; i++) {
+        //             d[i].style.color = "black"
+        //         }
+
+        //     } else {
+        //         a.classList.add("active")
+        //         console.log("error")
+        //         a.style.backgroundColor = "black"
+        //         c[0].style.color = "lightgrey"
+        //         c[1].style.color = "lightgrey"
+        //         for (let i = 0; i < d.length; i++) {
+        //             d[i].style.color = "black"
+        //         }
+        //     }
+
+        // }
+
         function darkMode() {
-            let a = document.getElementById("mainContainer")
-            let c = document.getElementsByClassName("termsAndPrivacy")
-            let d = document.getElementsByTagName("h4")
 
-            if (a.classList.contains("active")) {
-                console.log("success")
-                a.classList.remove("active")
-                a.style.backgroundColor = "white"
-                c[0].style.color = "gray"
-                c[1].style.color = "gray"
-                for (let i = 0; i < d.length; i++) {
-                    d[i].style.color = "black"
-                }
+            let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
+            let moon = document.getElementById("darkmodeBtn");
 
+            if (isDarkModeTwo) {
+                moon.classList.remove("fa-sun")
+                moon.classList.add("fa-moon")
             } else {
-                a.classList.add("active")
-                console.log("error")
-                a.style.backgroundColor = "black"
-                c[0].style.color = "lightgrey"
-                c[1].style.color = "lightgrey"
-                for (let i = 0; i < d.length; i++) {
-                    d[i].style.color = "black"
-                }
+                moon.classList.add("fa-sun")
+                moon.classList.remove("fa-moon")
             }
 
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+
+            let nav = document.getElementById("navMain");
+            nav.classList.toggle("dark-mode")
+
+            const isDarkMode = body.classList.contains('dark-mode');
+
+            localStorage.setItem('darkMode', isDarkMode);
+
+        }
+
+        window.onload = function () {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            let nav = document.getElementById("navMain");
+            let moon = document.getElementById("darkmodeBtn");
+
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                nav.classList.add('dark-mode');
+                moon.classList.remove("fa-moon")
+                moon.classList.add("fa-sun")
+            }
         }
 
     </script>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KTwI65+P3KwYf8y9VuE9Fi6qwrXp1P94wNmrEn4kBiY=",
+  "Hash": "qz91ajQyPRUwr0kRdfM8XK7NwUjLsCrlDshmm9DuZ54=",
   "Source": "HelloDocMVC",
   "BasePath": "_content/HelloDocMVC",
   "Mode": "Default",
@@ -187,6 +187,23 @@
       "OriginalItemSpec": "wwwroot\\css\\privacy.css"
     },
     {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\profileMain.css",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "css/profileMain.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\profileMain.css"
+    },
+    {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\site.css",
       "SourceId": "HelloDocMVC",
       "SourceType": "Discovered",
@@ -338,6 +355,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Documents\\dollar-filled.svg"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\downward-arrow.svg",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Documents/downward-arrow.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Documents\\downward-arrow.svg"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\eye.svg",

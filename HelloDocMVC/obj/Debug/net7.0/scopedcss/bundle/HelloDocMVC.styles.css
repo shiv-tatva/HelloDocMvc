@@ -7,6 +7,14 @@ for details on configuring this project to bundle and minify static web assets. 
     right: 20%;
 }
 
+.dark-mode[b-kbvnv9hzj2] {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label[b-kbvnv9hzj2] {
+    color: black;
+}
 /* _content/HelloDocMVC/Views/Shared/_LayoutThree.cshtml.rz.scp.css */
 .dark-mode[b-hnehwflsk8] {
     background-color: #333 !important;
@@ -23,4 +31,13 @@ body[b-nfw7nv4ehx] {
     position: absolute;
     top: 19%;
     right: 20%;
+}
+
+.dark-mode[b-nfw7nv4ehx] {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label[b-nfw7nv4ehx] {
+    color: black;
 }

@@ -26,6 +26,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void userSomeOneDetail(FamilyFriendData obj);
 
+        public void viewDocumentUpload(PatientDashboard obj);
 
     }
 }

@@ -11,5 +11,7 @@ namespace BLL_Business_Logic_Layer_.Interface
     public interface IFamilyFriend
     {
         public void FamilyFriendInfo(FamilyFriendData data);
+
+        public Task EmailSendar(string email, string subject, string message);
     }
 }

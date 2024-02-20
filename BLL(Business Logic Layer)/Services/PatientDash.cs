@@ -373,8 +373,38 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
-       
-       
+
+        Request _request = new Request();
+
+        public void viewDocumentUpload(PatientDashboard obj)
+        {
+            if (obj.Upload != null)
+            {
+                string filename = obj.Upload.FileName;
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", filename);
+                IFormFile file = obj.Upload;
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                Request? req = db.Requests.FirstOrDefault(i => i.Requestid == obj.data[0].reqid);
+                int ReqId = req.Requestid;
+
+                var data3 = new Requestwisefile()
+                {
+                    Requestid = db.Requests.FirstOrDefault(i => i.Requestid == obj.data[0].reqid).Requestid,
+                    Filename = filename,
+                    Createddate = DateTime.Now,
+                };
+                db.Requestwisefiles.Add(data3);
+                db.SaveChanges();
+            }
+        }
+
+
+
     }
 }
 

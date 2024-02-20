@@ -5,3 +5,12 @@ body[b-nfw7nv4ehx] {
     top: 19%;
     right: 20%;
 }
+
+.dark-mode[b-nfw7nv4ehx] {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label[b-nfw7nv4ehx] {
+    color: black;
+}

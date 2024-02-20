@@ -33,7 +33,7 @@
         <div class="container-fluid mx-0 px-0 ">
 
 
-            <nav class="navbar navbar-expand  rounded py-0" aria-label="">
+            <nav class="navbar navbar-expand  rounded py-0" aria-label="" id="navMain">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center">
                         <button id="menuMain" class="navbar-toggler d-block d-sm-none me-3" type="button" data-bs-toggle="collapse"
@@ -61,15 +61,15 @@
                             </li>
                     </div>
                     <li class="nav-item">
-                        <button type="button" class="btn logout-btn ">
+                        <button type="button" class="btn logout-btn " >
                             <span class=" d-none d-md-block">Logout</span><i class="fa-solid fa-arrow-right-from-bracket bi bi-box-arrow-right d-md-none d-block" style="width: 0.7em;height: 1.1em;font-size: 1.4em;"></i>
                         </button>
                     </li>
                   
                     <li class="nav-item">
                         <button type="button" class="btn moonicon" onclick="darkMode()">
-                            <i class="fa-regular fa-moon bi bi-moon switch1" style="font-size:1.4em"></i><i class="bi bi-brightness-high switch2"
-                                                                 style="display:none"></i>
+                            <i class="fa-regular fa-moon bi bi-moon switch1" style="font-size:1.4em" id="darkModeMoon"></i><i class="bi bi-brightness-high switch2"
+                                                                 style="display:none" ></i>
                         </button>
                     </li>
                     </ul>
@@ -82,10 +82,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link links active" aria-current="page" asp-controller="patientDashboard" asp-action="patientDashboard">Dashboard</a>
+                            <a class="nav-link links active" onclick="dashboardBtn()" aria-current="page" asp-controller="patientDashboard" asp-action="patientDashboard" id="dashboardMain">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link links"  style="color:black;" asp-controller="patientDashboard" asp-action="profileMain">Profile</a>
+                            <a class="nav-link links" onclick="profileBtn()" asp-controller="patientDashboard" asp-action="profileMain" id="profileMain">Profile</a>
                         </li>
                     </ul>
                 </div>
@@ -94,7 +94,7 @@
         <div style=" width:100%; box-shadow: 0 1px 10px 3px rgba(0, 0, 0, 0.2);"></div>
 
 
-        <main class="bg-light main-class">
+        <main class="main-class">
             <div class="container-fluid px-5 d-flex flex-column" id="innerContainer">
                     @RenderBody()
             </div>
@@ -142,11 +142,25 @@
 
         function darkMode() {
 
+            let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
+            let moon = document.getElementById("darkModeMoon");
+
+            if (isDarkModeTwo) {
+                moon.classList.remove("fa-sun")
+                moon.classList.add("fa-moon")
+            }else{
+                moon.classList.add("fa-sun")
+                moon.classList.remove("fa-moon")
+            }
+
             const body = document.body;
             body.classList.toggle('dark-mode');
 
             let nav = document.getElementById("navMain");
             nav.classList.toggle("dark-mode")
+
+            let profileBtn = document.getElementById("profileMain")
+            profileBtn.classList.toggle("dark-mode")
 
             const isDarkMode = body.classList.contains('dark-mode');
 
@@ -157,15 +171,34 @@
         window.onload = function () {
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             let nav = document.getElementById("navMain");
+            let profileBtn = document.getElementById("profileMain");
+            let moon = document.getElementById("darkModeMoon");
 
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
                 nav.classList.add('dark-mode');
+                profileBtn.classList.add('dark-mode');
+                moon.classList.remove("fa-moon")
+                moon.classList.add("fa-sun")
             }
         }
 
 
+        function profileBtn() {
+            let a = document.getElementById("profileMain");
+            let b = document.getElementById("dashboardMain")
 
+            a.style.color = "skyblue";
+            b.style.color = "white"
+        }
+        
+        function dashboardBtn() {
+            let a = document.getElementById("dashboardMain");
+            let b = document.getElementById("profileMain")
+
+            a.style.color = "white";
+            b.style.color = "skyblue"
+        }
 
 
 

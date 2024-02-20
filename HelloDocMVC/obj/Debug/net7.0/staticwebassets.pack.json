@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\Documents\\dollar-filled.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\downward-arrow.svg",
+      "PackagePath": "staticwebassets\\Documents\\downward-arrow.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\eye.svg",
       "PackagePath": "staticwebassets\\Documents\\eye.svg"
     },
@@ -87,6 +91,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\privacy.css",
       "PackagePath": "staticwebassets\\css\\privacy.css"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\profileMain.css",
+      "PackagePath": "staticwebassets\\css\\profileMain.css"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\site.css",

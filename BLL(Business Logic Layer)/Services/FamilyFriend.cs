@@ -6,6 +6,8 @@ using HelloDocMVC.CustomeModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +20,22 @@ namespace BLL_Business_Logic_Layer_.Services
         public FamilyFriend  (ApplicationDbContext context)
         {
             _context = context;
+        }
+
+
+        public Task EmailSendar(string email, string subject, string message)
+        {
+            var mail = "shivsantoki@gmail.com";
+            var password = "qrmi ubhn iuvq gujh";
+
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+
+            return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
+
         }
 
 
@@ -69,7 +87,9 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.Requests.Add(_request);
             _context.SaveChanges();
 
-            if(_request.Requestid != null)
+            var userexist = _context.Aspnetusers.FirstOrDefault(x => x.Email == data.email);
+
+            if (_request.Requestid != null)
             {
                 _requestclient.Requestid = _request.Requestid;
             }
@@ -92,7 +112,19 @@ namespace BLL_Business_Logic_Layer_.Services
             } 
             if(data.email != null)
             {
-                _requestclient.Email = data.email;
+                if(userexist == null)
+                {
+                    var receiver = data.email;
+                    var subject = "Create Your Account";
+                    var message = "Tap on link for Create Account: https://localhost:7173/Home/CreateAccount";
+
+                    EmailSendar(receiver, subject, message);
+                }
+                else
+                {
+                    _requestclient.Email = data.email;
+                }
+                
             }
            
             //_requestclient.Strmonth = data.dateofbirth.Substring(5, 2);

@@ -49,7 +49,7 @@
 </div>
  <div class="d-none d-sm-block">
 
-    <table class="table data_table ">
+    <table class="table data_table " style="background:white;">
 
         <thead class="table-active">
             <tr >
@@ -124,7 +124,7 @@
     @{
         var count = 0;
 
-                            @foreach (var item in Model.data)
+      @foreach (var item in Model.data)
         {
             var myidheader = "item" + count;
             var myidbody = "itembody" + count;

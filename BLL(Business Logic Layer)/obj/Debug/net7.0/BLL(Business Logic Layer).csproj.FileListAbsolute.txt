@@ -13,3 +13,18 @@ D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business L
 D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\refint\BLL(Business Logic Layer).dll
 D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).pdb
 D:\Project\HelloDocMVC\BLL(Business Logic Layer)\obj\Debug\net7.0\ref\BLL(Business Logic Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\bin\Debug\net7.0\BLL(Business Logic Layer).deps.json
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\bin\Debug\net7.0\BLL(Business Logic Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\bin\Debug\net7.0\BLL(Business Logic Layer).pdb
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\bin\Debug\net7.0\DAL(Data Access Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\bin\Debug\net7.0\DAL(Data Access Layer).pdb
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).csproj.AssemblyReference.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).AssemblyInfoInputs.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).AssemblyInfo.cs
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).csproj.CoreCompileInputs.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).csproj.CopyComplete
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\refint\BLL(Business Logic Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\BLL(Business Logic Layer).pdb
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\BLL(Business Logic Layer)\obj\Debug\net7.0\ref\BLL(Business Logic Layer).dll

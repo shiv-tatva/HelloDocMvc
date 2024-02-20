@@ -6,3 +6,11 @@ for details on configuring this project to bundle and minify static web assets. 
     right: 20%;
 }
 
+.dark-mode {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label {
+    color: black;
+}

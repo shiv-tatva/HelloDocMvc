@@ -12,3 +12,17 @@ D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\ref\DAL(Data Acce
 D:\Project\HelloDocMVC\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).runtimeconfig.json
 D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).csproj.AssemblyReference.cache
 D:\Project\HelloDocMVC\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).genruntimeconfig.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).deps.json
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).runtimeconfig.json
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\bin\Debug\net7.0\DAL(Data Access Layer).pdb
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).csproj.AssemblyReference.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).AssemblyInfoInputs.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).AssemblyInfo.cs
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).csproj.CoreCompileInputs.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\refint\DAL(Data Access Layer).dll
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).pdb
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\DAL(Data Access Layer).genruntimeconfig.cache
+C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\DAL(Data Access Layer)\obj\Debug\net7.0\ref\DAL(Data Access Layer).dll
