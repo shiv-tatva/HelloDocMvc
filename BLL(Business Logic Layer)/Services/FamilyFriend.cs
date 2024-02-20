@@ -117,8 +117,14 @@ namespace BLL_Business_Logic_Layer_.Services
                     var receiver = data.email;
                     var subject = "Create Your Account";
                     var message = "Tap on link for Create Account: https://localhost:7173/Home/CreateAccount";
-
-                    EmailSendar(receiver, subject, message);
+                    try
+                    {
+                        EmailSendar(receiver, subject, message);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                 }
                 else
                 {
