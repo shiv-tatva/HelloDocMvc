@@ -68,9 +68,6 @@
             const body = document.body;
             body.classList.toggle('dark-mode');
 
-            let nav = document.getElementById("navMain");
-            nav.classList.toggle("dark-mode")
-
             const isDarkMode = body.classList.contains('dark-mode');
 
             localStorage.setItem('darkMode', isDarkMode);
@@ -79,12 +76,12 @@
 
         window.onload = function () {
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            let nav = document.getElementById("navMain");
+           
             let moon = document.getElementById("darkmodeBtn");
 
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
-                nav.classList.add('dark-mode');
+              
                 moon.classList.remove("fa-moon")
                 moon.classList.add("fa-sun")
             }

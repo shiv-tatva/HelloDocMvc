@@ -14,6 +14,8 @@ using System.IO;
 using System.Reflection.Emit;
 using System.Xml.Linq;
 using BLL_Business_Logic_Layer_.Services;
+using NuGet.Protocol;
+
 
 namespace HelloDocMVC.Controllers
 {
@@ -38,20 +40,18 @@ namespace HelloDocMVC.Controllers
             if(HttpContext.Session.GetString("UserSession") != null)
             {
                 ViewBag.Mysession = HttpContext.Session.GetString("UserSession").ToString();
+                PatientDashboard patientDashboard = new PatientDashboard();
+                string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+                patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
+
+                ViewBag.Admin = 2;
+                return View(patientDashboard);
             }
             else
             {
-                return RedirectToAction("LoginPage","Login");
+                return RedirectToAction("LoginPage", "Login");
             }
 
-          
-
-            PatientDashboard patientDashboard = new PatientDashboard();
-            string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
-            patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
-          
-            ViewBag.Admin = 2; 
-            return View(patientDashboard);
         }
 
 
@@ -81,7 +81,7 @@ namespace HelloDocMVC.Controllers
             }
             else 
             {
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
 
         }
@@ -89,12 +89,20 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult profileMain()
         {
-            PatientDashboardData patientDashboard = new PatientDashboardData();
-            string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
-            PatientDashboardData data = _patientDashInfo.UserProfile(emailpatient);
-           
-            ViewBag.Admin = 2;
-            return View(data);
+
+            if (HttpContext.Session.GetString("UserSession").ToString() != null)
+            {
+                PatientDashboardData patientDashboard = new PatientDashboardData();
+                string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+                PatientDashboardData data = _patientDashInfo.UserProfile(emailpatient);
+
+                ViewBag.Admin = 2;
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
 
         }
 
@@ -144,13 +152,19 @@ namespace HelloDocMVC.Controllers
        
         public IActionResult dashboardMeView()
         {
+            if (HttpContext.Session.GetString("UserSession").ToString() != null)
+            {
 
+                var userEmail = HttpContext.Session.GetString("UserSession").ToString();
+                Custom data = _patientDashInfo.userMeDetail(userEmail);
 
-            var userEmail = HttpContext.Session.GetString("UserSession").ToString();
-            Custom data = _patientDashInfo.userMeDetail(userEmail);
-
-            ViewBag.Admin = 2;
-            return View(data);
+                ViewBag.Admin = 2;
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
         }
         
         
@@ -168,13 +182,19 @@ namespace HelloDocMVC.Controllers
         
         public IActionResult dashboardSomeOneView()
         {
+            if (HttpContext.Session.GetString("UserSession").ToString() != null)
+            {
 
+                var userEmail = HttpContext.Session.GetString("UserSession").ToString();
+                FamilyFriendData data = _patientDashInfo.userSomeDetail(userEmail);
 
-            var userEmail = HttpContext.Session.GetString("UserSession").ToString();
-            FamilyFriendData data = _patientDashInfo.userSomeDetail(userEmail);
-
-            ViewBag.Admin = 2;
-            return View(data);
+                ViewBag.Admin = 2;
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
         }
 
 
@@ -188,24 +208,43 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult viewDetail(int param)
         {
-            PatientDashboard patientDashboard = new PatientDashboard();
 
-            string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
-            patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
-            ViewBag.paramValue = param;
+            if (HttpContext.Session.GetString("UserSession").ToString() != null)
+            {
+
+                PatientDashboard patientDashboard = new PatientDashboard();
+
+                string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+                patientDashboard.data = _patientDashInfo.patientDashInfoTwo(emailpatient, param);
+                ViewData["id"] = param;
 
 
-            ViewBag.Admin = 2;
-            return View(patientDashboard);
+                ViewBag.Admin = 2;
+                return View(patientDashboard);
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
 
         }
 
         [HttpPost]
-        public IActionResult viewDetail(PatientDashboard obj) {
+        public IActionResult viewDetail(PatientDashboard obj)
+        {
             _patientDashInfo.viewDocumentUpload(obj);
             ViewBag.Admin = 2;
-            return RedirectToAction("viewDetail");
+            var param = obj.data[0].reqid;
+            return RedirectToAction("viewDetail", new {param = param});
         }
+        public IActionResult logoutSession()
+        {
+
+            HttpContext.Session.Clear();
+            return RedirectToAction("LoginPage", "Login");
+        }
+
+
 
     }
 }

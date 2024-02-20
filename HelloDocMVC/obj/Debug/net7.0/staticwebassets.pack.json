@@ -17,6 +17,14 @@
       "PackagePath": "staticwebassets\\Documents\\clock-default.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-icon.svg",
+      "PackagePath": "staticwebassets\\Documents\\cloud-upload-icon.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\dashboard-active.svg",
+      "PackagePath": "staticwebassets\\Documents\\dashboard-active.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\dashboard-default.svg",
       "PackagePath": "staticwebassets\\Documents\\dashboard-default.svg"
     },
@@ -37,6 +45,18 @@
       "PackagePath": "staticwebassets\\Documents\\eye.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\favicon.ico",
+      "PackagePath": "staticwebassets\\Documents\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\menu-bar.svg",
+      "PackagePath": "staticwebassets\\Documents\\menu-bar.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\money-bag.svg",
+      "PackagePath": "staticwebassets\\Documents\\money-bag.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\new-product.svg",
       "PackagePath": "staticwebassets\\Documents\\new-product.svg"
     },
@@ -45,8 +65,16 @@
       "PackagePath": "staticwebassets\\Documents\\pie-chart.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\profile.png",
+      "PackagePath": "staticwebassets\\Documents\\profile.png"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\search-icon.svg",
       "PackagePath": "staticwebassets\\Documents\\search-icon.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\select-downward.svg",
+      "PackagePath": "staticwebassets\\Documents\\select-downward.svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\star.svg",
@@ -79,6 +107,18 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\SubmitRequest.css",
       "PackagePath": "staticwebassets\\css\\SubmitRequest.css"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\adminDashboard.css",
+      "PackagePath": "staticwebassets\\css\\adminDashboard.css"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\adminForgot.css",
+      "PackagePath": "staticwebassets\\css\\adminForgot.css"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\adminLoginPage.css",
+      "PackagePath": "staticwebassets\\css\\adminLoginPage.css"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\patientDashboard.css",

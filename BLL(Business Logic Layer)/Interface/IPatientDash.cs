@@ -28,5 +28,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void viewDocumentUpload(PatientDashboard obj);
 
+        public List<PatientDashboardData> patientDashInfoTwo(string email, int param);
+
     }
 }

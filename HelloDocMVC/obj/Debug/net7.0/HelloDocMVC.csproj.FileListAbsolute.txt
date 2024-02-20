@@ -506,3 +506,5 @@ C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\obj\Debug\
 C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\obj\Debug\net7.0\HelloDocMVC.pdb
 C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\obj\Debug\net7.0\HelloDocMVC.genruntimeconfig.cache
 C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\obj\Debug\net7.0\ref\HelloDocMVC.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Azure.Core.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\System.Memory.Data.dll

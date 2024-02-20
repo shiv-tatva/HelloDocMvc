@@ -70,12 +70,18 @@
   <ItemGroup>
     <Content Remove="Views\Home\CreateAcc.cshtml" />
     <Content Remove="Views\patientDashboard\patienDashboard.cshtml" />
+    <Content Remove="Views\Shared\adminDashboardShared.cshtml" />
     <Content Remove="Views\Shared\loginSubmit.cshtml" />
+    <Content Remove="Views\Shared\_LayoutFour.cshtml" />
     <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
     <Content Remove="wwwroot\css\Class.cs" />
     <Content Remove="wwwroot\css\privacy.cs" />
     <Content Remove="wwwroot\css\viewDetail.cshtml" />
     <Content Remove="wwwroot\js\darkTheme.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Shared\_LayoutFour.cshtml.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -106,6 +112,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Core" Version="1.37.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.32" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15">

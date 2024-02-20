@@ -31,12 +31,14 @@
                     <div class="form-floating">
                             <input asp-for="lastname" class="form-control" placeholder="Name">
                             <label asp-for="lastname">Last Name</label>
+                            <span asp-validation-for="lastname" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
-                            <input asp-for="dateofbirth" type="date" class="form-control" placeholder="Name">
+                            <input id="DateOfBirth" asp-for="dateofbirth" type="date" class="form-control" placeholder="Name">
                             <label asp-for="dateofbirth">Date of Birth</label>
+                            <span asp-validation-for="dateofbirth" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -64,7 +66,7 @@
                     <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-floating mb-3 ConfirmMain" style="position: relative; display:none;">
                         <input asp-for="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                               style="background: transparent;border: 1px solid gray;">
+                               style="border: 1px solid gray;">
                         <label asp-for="password" for="floatingPassword">Password</label>
                             <span asp-validation-for="password" class="text-danger"></span>
                             <button class="btn show-password" type="button"  style="position: absolute;top: 10px;right: 5px;">
@@ -76,7 +78,7 @@
                     <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-floating mb-3 ConfirmMain" style="position: relative; display:none">
                         <input asp-for="confirmPassword" type="password" class="form-control" id="floatingPassword2" placeholder="Password"
-                               style="background: transparent;border: 1px solid gray;">
+                               style="border: 1px solid gray;">
                         <label asp-for="confirmPassword" for="floatingPassword">Confirm Password</label>
                             <span asp-validation-for="confirmPassword" class="text-danger"></span>
                             <button class="btn show-password" type="button"  style="position: absolute;top: 10px;right: 5px;">
@@ -94,24 +96,28 @@
                     <div class="form-floating">
                         <input asp-for="street" type="text" class="form-control" placeholder="Name">
                         <label asp-for="street">Street</label>
+                         <span asp-validation-for="street" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
                         <input asp-for="city" type="text" class="form-control" placeholder="Name">
                         <label asp-for="city">City</label>
+                        <span asp-validation-for="city" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
                         <input asp-for="state" type="text" class="form-control" placeholder="Name">
                         <label asp-for="state">State</label>
+                        <span asp-validation-for="state" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
                         <input asp-for="zipcode" type="text" class="form-control" placeholder="Name">
                         <label asp-for="zipcode">Zip code</label>
+                        <span asp-validation-for="zipcode" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
@@ -132,7 +138,7 @@
                         <div class="btn btn-outline-primary" type="file" id="button-addon1"
                              style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
                             <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
-                            <input asp-for="upload" class="form-control d-block" multiple="multiple" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
+                            <input asp-for="upload" class="form-control d-block" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
                             <span class="d-none d-sm-none d-md-none d-lg-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
                         </div>
                     </div>
@@ -145,7 +151,7 @@
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">Submit</button>
                 </div>
                 <div id="backDivThree">
-                    <button href="#" title="Forgot password" class="link-default ps-3"
+                    <button  title="Forgot password" class="link-default ps-3"
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;" onclick="clearAll()">Cancel</button>
                 </div>
             </div>
@@ -245,34 +251,12 @@
         })
     }
 
+    //date validation
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    document.getElementById('DateOfBirth').setAttribute('max', currentDate);
     
-    // function darkMode() {
-    //     let a = document.getElementById("mainContainer")
-    //     let b = document.getElementsByClassName("h4Head")
-    //     let c = document.getElementById("navMain")
-        
-    //     console.log(b.length)
-    //     console.log(a.classList)
-
-    //     if (a.classList.contains("active")) {
-    //         a.classList.remove("active")
-    //         a.style.backgroundColor = "white"
-    //         for (let i = 0; i < b.length; i++) {
-    //             b[i].style.color = "black"
-    //         }
-    //         c.classList.remove("bg-black")
-    //         c.classList.add("bg-white")
-    //     } else {
-    //         a.classList.add("active")
-    //         a.style.backgroundColor = "black"
-    //         for (let i = 0; i < b.length; i++) {
-    //             b[i].style.color = "white"
-    //         }
-    //         c.classList.remove("bg-white")
-    //         c.classList.add("bg-dark")
-    //     }
-
-    // }
+ 
         const phoneInputPatient = document.querySelector("#phone");
         const phoneInputP = window.intlTelInput(phoneInputPatient, {
             utilsScript:

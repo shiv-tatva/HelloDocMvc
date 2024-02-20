@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Admin Forgot Password";
+}
+<link rel="stylesheet" href="~/css/adminForgot.css" asp-append-version="true" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-6 col-md-12 col-sm-12 ">
+            <img src="~/images/loginMain.jpg"
+                 alt="doc login img"
+                 class="img-fluid"
+                 style="width: 100%; height: 100vh" />
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12" style="height: 100vh">
+            <div id="darkMode">
+                <i class="fa-regular fa-moon fa-2x me-5 p-1 mt-5"
+                   style="color: #09d4e3;border: 1px solid #09d4e3;border-radius: 4px;position: absolute;right: 0;"
+                   onclick="darkMode()" id="darkmodeBtn"></i>
+            </div>
+
+            <div class="mx-lg-1 px-lg-1 mx-md-3 px-md-3 mx-sm-2 px-sm-2 pt-2 d-flex flex-column justify-content-between"
+                 style="height: 100%">
+                <div class="text-center mt-5 pt-5">
+                    <img src="~/images/docLogo.png"
+                         class="img-fluid"
+                         alt="Image Not Available" />
+                </div>
+                <div class="form1">
+                    <h2 class="mb-3 text-center mt-4 mb-4">Reset Your Password</h2>
+                    <form class="mb-3">
+                        <div class="mb-4 form-floating">
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Username"
+                                   id="exampleInputUsername" />
+                            <label for="exampleInputUsername" class="innertext small">Username</label>
+                            <button class="btn show-password" type="button"><img src="~/images/person-circle-outline.svg" alt="password"></button>
+                        </div>
+                        <div class="mb-4 pt-4 d-grid">
+                            <button type="submit"
+                                    class="btn btn-primary"
+                                    style="background-color: aqua;aqua;padding: 10px 0px">
+                                Reset Password
+                            </button>
+                        </div>
+                        <div class="mb-4 text-center">
+                            <a asp-controller="Home" asp-action="Admin_login"
+                               class="text-primary"
+                               style="text-decoration: none; color: aqua !important">< Back To Login</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="mb-3 pt-lg-2 d-flex justify-content-center">
+                    <a href="#"
+                       class="text-secondary mx-2"
+                       style="text-decoration: none">
+                        Terms of Condition
+                    </a>
+                    <span>|</span>
+                    <a href="#"
+                       class="text-secondary mx-2"
+                       style="text-decoration: none">
+                        Privacy Policy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>

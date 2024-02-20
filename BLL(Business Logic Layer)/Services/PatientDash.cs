@@ -56,6 +56,33 @@ namespace BLL_Business_Logic_Layer_.Services
 
 
         }
+        
+        
+        public List<PatientDashboardData> patientDashInfoTwo(string email,int param)
+        {
+
+            var request = db.Requests.Where(r => r.Email == email).AsNoTracking().Select(r => new PatientDashboardData()
+            {
+                created_date = r.Createddate,
+                current_status = r.Status,
+                doc_Count = r.Requestwisefiles.Select(f => f.Filename).Count(),
+                //docC = db.Requestwisefiles.Where(x => x.Requestid == r.Requestid).Select(x => x.Filename).Count(),
+                reqid = r.Requestid,
+                cnf_number = r.Confirmationnumber,
+                fname = r.Firstname,
+                lname = r.Lastname,
+                req_type_id = r.Requesttypeid,
+                //phy_fname = db.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).ToList()[0]
+                documentsname = r.Requestwisefiles.Select(f => f.Filename).ToList(),
+                phy_fname = db.Physicians.Single(x => x.Physicianid == r.Physicianid).Firstname,
+                user_id_param = param
+            }).ToList(); ;
+
+
+            return request;
+
+
+        }
 
         public PatientDashboardData UserProfile(string email)
         {
