@@ -753,6 +753,10 @@
       "PackagePath": "staticwebassets\\images\\warning-icon.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\adminDashboard.js",
+      "PackagePath": "staticwebassets\\js\\adminDashboard.js"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\darkTheme.js",
       "PackagePath": "staticwebassets\\js\\darkTheme.js"
     },

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interface\Interface1.cs" />
     <Compile Remove="Services\IActionResult.cs" />
   </ItemGroup>
 

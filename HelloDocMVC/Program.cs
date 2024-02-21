@@ -25,6 +25,7 @@ builder.Services.AddScoped<IFamilyFriend, FamilyFriend>();
 builder.Services.AddScoped<IBusiness, BusinessService>();
 builder.Services.AddScoped<IPatientDash, PatientDash>(); 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IAdminDash, AdminDash>();
 
 builder.Services.AddSession();//For Session
 

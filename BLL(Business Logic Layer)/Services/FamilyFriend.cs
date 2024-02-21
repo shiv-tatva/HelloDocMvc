@@ -46,7 +46,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var user = _context.Aspnetusers.FirstOrDefault(x => x.Email == data.email);
 
-            _request.Requesttypeid = 3;
+            _request.Requesttypeid = 2;
             if (user != null)
             {
                 _request.Userid = user.Id;

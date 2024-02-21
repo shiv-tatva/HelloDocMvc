@@ -1,0 +1,135 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+
+<div class="my-4" id="patients_flex_box">
+    <span id="patient_txt">
+        Patients <span id="patient_sub">(Pending)</span>
+    </span>
+
+    <span id="patiens_five-link-mediaquerry" style="display:flex;">
+        <a href="#" class="btn btn-info patient_five_button mx-1 " role="button">
+            <img src="images/send.svg">
+            <span>
+                Send link
+            </span>
+        </a>
+        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+            <img src="images/admin_profile_pencil.svg">
+            <span>
+                create request
+            </span>
+        </a>
+        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+            <img src="images/admin_export-96.svg">
+            <span>
+                Export
+            </span>
+        </a>
+        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+            <img src="images/admin_export-96.svg">
+            <span>
+                Export All
+            </span>
+        </a>
+        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+            <img src="images/admindashboard_request_diy.svg">
+            <span>
+                Request DTY support
+            </span>
+        </a>
+    </span>
+</div>
+<div class="mt-2 mb-2 container-fluid" style="box-shadow: 0px 0px 5px grey;">
+
+    <div class="container-fluid p-0">
+        <div id="tablehead-container">
+
+            <div id="tablehead-left">
+                <!-- <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients"> -->
+                <!-- <img src=""> -->
+                <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients">
+
+                <!-- <img src=""> -->
+                <div class="form-floating col-md-6 ">
+                    <select type="search" id="gfg" class="form-select">
+                        <!-- <option selected ></option> -->
+                        <option hidden value="google">All Region</option>
+                        <option value="apple">Apple</option>
+                        <option value="microsoft">Microsoft</option>
+                        <option value="meta">Meta</option>
+                        <option value="netflix">Netflix</option>
+                    </select>
+                    <!-- <label for="gfg">Narrow Search by Region</label> -->
+                </div>
+
+            </div>
+            <span id="tablehead-right">
+                <span class="table_head_five" id="all">
+                    All
+                </span>
+                <span class="table_head_five">
+
+                    <span class="patient_circle"></span>
+                    <span>
+                        Patients
+                    </span>
+                </span>
+                <span class="table_head_five">
+
+                    <span class="family_circle"></span>
+
+                    <span>
+                        Family/Friends
+                    </span>
+                </span>
+                <span class="table_head_five">
+
+                    <span class="Bussiness_circle"></span>
+                    <span>
+                        Bussiness
+                    </span>
+                </span>
+                <span class="table_head_five">
+
+                    <span class="Concierge_circle"></span>
+
+                    <span>
+                        Concierge
+                    </span>
+                </span>
+                <span class="table_head_five">
+
+                    <span class="vip_circle"></span>
+
+
+                    <span>
+                        VIP
+                    </span>
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <div id="table_tabview">
+        <div class="table-responsive d-none d-sm-block">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date Of Birth</th>
+                        <th scope="col">Requestor</th>
+                        <th scope="col">Physician Name</th>
+                        <th scope="col">Date Of Service</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Notes</th>
+                        <th scope="col">Chat With</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
