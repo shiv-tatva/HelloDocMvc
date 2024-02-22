@@ -1,7 +1,11 @@
 ﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+@* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /> *@
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
+<link href="~/css/adminDashboard.css" rel="stylesheet" type="text/css" />
+
 
 <div class="tab-pane fade show active " id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
      tabindex="0">
@@ -12,11 +16,16 @@
                      data-bs-target="#new-tab-pane" type="button" role="tab" aria-controls="new-tab-pane"
                      aria-selected="true">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-plus-circle px-1 d-md-block d-none"></i>
+                        <i class="bi bi-person-plus me-2 d-none d-sm-inline" style="font-size: 1.5em;"></i>
                         <h6 class="px-1 m-0">New</h6>
                     </div>
                     <div class="ps-1 pt-3">
-                        <h4>1452</h4>
+                        <h4>
+                            @{
+                                var countOne = Model.data.Count(rf => rf.status == 1);
+                            }
+                            @countOne
+                        </h4>
                     </div>
                 </div>
                 <div class="triangle " id="triangle1"></div>
@@ -27,11 +36,16 @@
                      data-bs-target="#Pending-tab-pane" type="button" role="tab" aria-controls="Pending-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-plus-circle px-1 d-md-block d-none"></i>
+                        <i class="bi bi-person me-2 d-none d-sm-inline" style="font-size: 1.5em;"></i>
                         <h6 class="px-1 m-0">Pending</h6>
                     </div>
                     <div class="ps-1 pt-3">
-                        <h4>266</h4>
+                        <h4>
+                            @{
+                                var countTwo = Model.data.Count(rf => rf.status == 2 );
+                            }
+                            @countTwo
+                        </h4>
                     </div>
                 </div>
                 <div class="triangle " id="triangle2"></div>
@@ -42,11 +56,16 @@
                      data-bs-target="#Active-tab-pane" type="button" role="tab" aria-controls="Active-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-plus-circle px-1 d-md-block d-none"></i>
+                        <i class="bi bi-check2-circle me-2 d-none d-sm-inline" style="font-size: 1.5em;"></i>
                         <h6 class="px-1 m-0">Active</h6>
                     </div>
                     <div class="ps-1 pt-3">
-                        <h4>26</h4>
+                        <h4>
+                            @{
+                                var countThree = Model.data.Count(rf => rf.status == 4 || rf.status == 5);
+                            }
+                            @countThree
+                        </h4>
                     </div>
                 </div>
                 <div class="triangle " id="triangle3"></div>
@@ -57,11 +76,16 @@
                      data-bs-target="#Conclude-tab-pane" type="button" role="tab" aria-controls="Conclude-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-plus-circle px-1 d-md-block d-none"></i>
+                        <i class="bi bi-clock-history me-2 d-none d-sm-inline" style="font-size: 1.5em;"></i>
                         <h6 class="px-1 m-0">Conclude</h6>
                     </div>
                     <div class="ps-1 pt-3">
-                        <h4>1078</h4>
+                        <h4>
+                            @{
+                                var countFour = Model.data.Count(rf => rf.status == 6);
+                            }
+                            @countFour
+                        </h4>
                     </div>
                 </div>
                 <div class="triangle " id="triangle4"></div>
@@ -72,11 +96,16 @@
                      data-bs-target="#ToClose-tab-pane" type="button" role="tab" aria-controls="ToClose-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-plus-circle px-1 d-md-block d-none"></i>
+                        <i class="bi bi-person-x me-2 d-none d-sm-inline" style="font-size: 1.5em;"></i>
                         <h6 class="px-1 m-0">To Close</h6>
                     </div>
                     <div class="ps-1 pt-3">
-                        <h4>519</h4>
+                        <h4>
+                            @{
+                                var countFive = Model.data.Count(rf => rf.status == 3 || rf.status == 7 || rf.status == 8);
+                            }
+                            @countFive
+                        </h4>
                     </div>
                 </div>
                 <div class="triangle " id="triangle5"></div>
@@ -87,11 +116,16 @@
                      data-bs-target="#Unpaid-tab-pane" type="button" role="tab" aria-controls="Unpaid-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-plus-circle px-1 d-md-block d-none"></i>
+                        <i class="bi bi-currency-dollar  me-2 d-none d-sm-inline" style="font-size: 1.5em;"></i>
                         <h6 class="px-1 m-0">Unpaid</h6>
                     </div>
                     <div class="ps-1 pt-3">
-                        <h4>16</h4>
+                        <h4>
+                            @{
+                                var countSix = Model.data.Count(rf => rf.status == 9);
+                            }
+                            @countSix
+                        </h4>
                     </div>
                 </div>
                 <div class="triangle " id="triangle6"></div>
@@ -108,28 +142,28 @@
 
         <div class="tab-content" id="myTabContent1">
             <div class="tab-pane fade show active" id="new-tab-pane" role="tabpanel" aria-labelledby="new-tab"
-                 tabindex="0">
+                 tabindex="0" style="background:white">
                 <partial name="_adminDashNew" />
             </div>
 
-            <div class="tab-pane fade" id="Pending-tab-pane" role="tabpanel" aria-labelledby="Pending-tab" tabindex="0">
+            <div class="tab-pane fade" id="Pending-tab-pane" role="tabpanel" aria-labelledby="Pending-tab" tabindex="0" style="background:white">
                     <partial name="_adminDashPending" />
             </div>
 
-            <div class="tab-pane fade" id="Active-tab-pane" role="tabpanel" aria-labelledby="Active-tab" tabindex="0">
+            <div class="tab-pane fade" id="Active-tab-pane" role="tabpanel" aria-labelledby="Active-tab" tabindex="0" style="background:white">
                     <partial name="_adminDashActive" />
             </div>
 
             <div class="tab-pane fade" id="Conclude-tab-pane" role="tabpanel" aria-labelledby="Conclude-tab"
-                 tabindex="0">
+                 tabindex="0" style="background:white">
                     <partial name="_adminDashConclude" />
             </div>
 
-            <div class="tab-pane fade" id="ToClose-tab-pane" role="tabpanel" aria-labelledby="ToClose-tab" tabindex="0">
+            <div class="tab-pane fade" id="ToClose-tab-pane" role="tabpanel" aria-labelledby="ToClose-tab" tabindex="0" style="background:white">
                     <partial name="_adminDashToclose" />
             </div>
 
-            <div class="tab-pane fade" id="Unpaid-tab-pane" role="tabpanel" aria-labelledby="Unpaid-tab" tabindex="0">
+            <div class="tab-pane fade" id="Unpaid-tab-pane" role="tabpanel" aria-labelledby="Unpaid-tab" tabindex="0" style="background:white">
                     <partial name="_adminDashUnpaid" />
             </div>
         </div>
@@ -138,6 +172,8 @@
 @* </div>
 </div> *@
 <script>
+    
+
     document.getElementById("new-tab").addEventListener('click', function () {
         if (document.getElementById("new-tab").classList.contains("active")) {
             document.getElementById("triangle1").style.display = "block"
@@ -230,8 +266,8 @@
     })
 
         
-    $(document).ready(function () {
-        $('#tableDataMain').DataTable({ "searching": false, "lengthChange": false, "pageLength": 7 });
-    });
+    // $(document).ready(function () {
+    //     $('#tableDataMain').DataTable({ "searching": false, "lengthChange": false, "pageLength": 7 });
+    // });
 
 </script>

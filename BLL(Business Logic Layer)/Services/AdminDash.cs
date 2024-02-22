@@ -41,6 +41,9 @@ namespace BLL_Business_Logic_Layer_.Services
                             zipcode = rc.Zipcode,
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
+                            phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
+                            region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
+                            
                         }; 
 
             var result = query.ToList();
@@ -48,5 +51,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return result;
         }
+
+        
     }
 }

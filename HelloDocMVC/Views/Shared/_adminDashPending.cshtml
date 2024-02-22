@@ -46,7 +46,7 @@
             <div id="tablehead-left">
                 <!-- <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients"> -->
                 <!-- <img src=""> -->
-                <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients">
+                <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients" id="my-search-input-pending">
 
                 <!-- <img src=""> -->
                 <div class="form-floating col-md-6 ">
@@ -111,7 +111,7 @@
 
     <div id="table_tabview">
         <div class="table-responsive d-none d-sm-block">
-            <table class="table">
+            <table class="table" id="tableDataMainPending">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -127,9 +127,453 @@
                     </tr>
                 </thead>
                 <tbody>
+                     @foreach (var item in Model.data)
+                    {
+                        if (item.status == 2)
+                        {
+                            var bgColor = "He";
+                            var role = "hello";
+
+                            @if (item.request_type_id == 1)
+                            {
+                                bgColor = "#60be5e";
+                                role = "patientLayout";
+                            }
+                            else if (item.request_type_id == 2)
+                            {
+                                bgColor = "#e69232";
+                                role = "familyFriendLayout";
+                            }
+                            else if (item.request_type_id == 3)
+                            {
+                                bgColor = "#0b7ebf";
+
+                                role = "conciergeLayout";
+                            }
+                            else if (item.request_type_id == 4)
+                            {
+                                bgColor = "#d76879";
+                                role = "businessLayout";
+                            }
+
+
+                            <tr class="tablerows @role">
+                                <td style="background:@bgColor">
+                                    <div class="table_name_email">
+
+                                        @item.first_name, @item.last_name
+                                        <a href="">
+                                            <img src="images/email.svg">
+                                        </a>
+                                    </div>
+                                </td>
+                                <td style="background:@bgColor">Jun 16, 2023(0)</td>
+                                <td style="background:@bgColor">@item.requestor_fname , @item.responseor_lname</td>
+                                <td style="background:@bgColor">@item.phy_name</td>
+                                <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                                <td style="background:@bgColor">
+                                    <div class="table_phone">
+                                        <a href="">
+                                            <img src="images/phone_Admindashboard.svg">
+                                            @item.mobile_num
+                                        </a>
+                                    </div>
+                                    (patients)
+
+
+                                </td>
+                                <td style="background:@bgColor">Room Location:101</td>
+                                <td style="background:@bgColor">-</td>
+                                <td style="background:@bgColor">
+
+                                    <div>
+                                        <div class="dropdown mb-1">
+                                            <button class="btn text-white border border-white py-1 "
+                                            id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                                <img src="images/admin_dashboard_Provider.svg">
+                                                <span>
+                                                    Dropdown button
+                                                </span>
+                                            </button>
+                                            <ul class="dropdown-menu table_dropdowns">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="dropdown">
+                                            <button class="btn text-white border border-white py-1 "
+                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                                <img src="images/admin_dashboard_Provider.svg">
+                                                <span>
+                                                    Dropdown button
+                                                </span>
+                                            </button>
+                                            <ul class="dropdown-menu table_dropdowns">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="background:@bgColor">
+                                    <div>
+                                        <div class="dropdown">
+                                            <button class="btn text-white border border-white py-1 "
+                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                                <span>
+                                                    Action
+                                                </span>
+                                            </button>
+                                            <ul class="dropdown-menu table_dropdowns">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <img src="images/coin.svg">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                     }
                 </tbody>
             </table>
         </div>
     </div>
 
+    @{
+        var count = 0;
+        @foreach (var item in Model.data)
+        {
+            if (item.status == 2)
+            {
+                var bgColor = "He";
+                var role = "hello";
+
+                @if (item.request_type_id == 1)
+                {
+                    bgColor = "#60be5e";
+                    role = "Patient";
+                }
+                else if (item.request_type_id == 2)
+                {
+                    bgColor = "#e69232";
+                    role = "FamilyFriend";
+                }
+                else if (item.request_type_id == 3)
+                {
+                    bgColor = "#0b7ebf";
+
+                    role = "Concierge";
+                }
+                else if (item.request_type_id == 4)
+                {
+                    bgColor = "#d76879";
+                    role = "Business";
+                }
+
+
+                <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
+
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <span class="d-flex flex-column" style="width:100%">
+                                <span class="d-flex justify-content-between">
+                                    <span class="mb-3">@item.first_name @item.last_name</span>
+                                    <span>
+                                        <div class="d-flex align-items-center">
+                                            <div class="pe-2">@role</div>
+                                            <i class="fa-solid fa-circle" style="color:@bgColor"></i>
+                                        </div>
+                                    </span>
+                                </span>
+                                <span class="d-flex align-items-center justify-content-between mb-3">
+                                    <span>
+                                        @item.street,<br>
+                                        @item.city
+                                    </span>
+                                    <span class="btn btn-outline-primary" style="font-size:12px;cursor:pointer">Map Location</span>
+
+                                </span>
+                                
+                            </span>
+
+                        </button>
+                    </h2>
+                    <div id="div-@count" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body mt-1">
+                            <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
+                        </div>
+                        <div class="accordion-body mt-1">
+                            <i class="fa-regular fa-envelope"></i> Email: @item.email
+                        </div>
+                        <div class="accordion-body mt-1">
+                            <i class="fa-solid fa-phone"></i> Patient: @item.mobile_num
+                        </div>
+                        <div class="accordion-body mt-1">
+                            <i class="fa-solid fa-phone"></i> Transfer: @item.notes
+                        </div>
+                        <div class="accordion-body mt-1">
+                            <i class="fa-solid fa-phone"></i> Date of Service: @item.created_date
+                        </div>
+                        <div class="accordion-body mt-1">
+                            <i class="fa-regular fa-user"></i> Physician: @item.phy_name
+                        </div>
+                        <div class="accordion-body mt-1">
+                            <i class="fa-regular fa-user"></i> Requestor: @item.requestor_fname
+                        </div>
+                        <div class="accordion-body">
+                            <span class="d-flex flex-column">
+                                <span class="d-flex justify-content-between mt-1">
+                                    <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;">Send Agreement</button>
+                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">View Notes</button>
+                                </span>
+                                <span class="d-flex justify-content-between mt-1">
+                                    <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Transfer</button>
+                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">View Uploads</button>
+                                </span>
+                                <span class="d-flex justify-content-between mt-1">
+                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Clear Case</button>
+                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
+                                </span>
+                            </span>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                count++;
+            }
+        }
+
+    }
+
 </div>
+
+
+<script>
+
+
+    function allLayout() {
+        let a = document.getElementsByClassName("patientLayout");
+
+        for (let i = 0; i < a.length; i++) {
+            a[i].style.display = "table-row";
+        }
+
+        let b = document.getElementsByClassName("familyFriendLayout");
+
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "table-row";
+        }
+
+        let c = document.getElementsByClassName("conciergeLayout");
+
+        for (let i = 0; i < c.length; i++) {
+            c[i].style.display = "table-row";
+        }
+
+
+        let d = document.getElementsByClassName("businessLayout");
+
+
+        for (let i = 0; i < d.length; i++) {
+            d[i].style.display = "table-row";
+        }
+    }
+
+    function patientLayout() {
+        let b = document.getElementsByClassName("familyFriendLayout");
+        let c = document.getElementsByClassName("conciergeLayout");
+        let d = document.getElementsByClassName("businessLayout");
+
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "none";
+        }
+
+        for (let i = 0; i < c.length; i++) {
+            c[i].style.display = "none";
+        }
+
+        for (let i = 0; i < d.length; i++) {
+            d[i].style.display = "none";
+        }
+
+
+        let a = document.getElementsByClassName("patientLayout");
+
+        for (let i = 0; i < a.length; i++) {
+            a[i].style.display = "table-row";
+        }
+
+
+    }
+
+
+    function familyFriendLayout() {
+        let a = document.getElementsByClassName("patientLayout");
+        let c = document.getElementsByClassName("conciergeLayout");
+        let d = document.getElementsByClassName("businessLayout");
+
+        for (let i = 0; i < a.length; i++) {
+            a[i].style.display = "none";
+        }
+
+        for (let i = 0; i < c.length; i++) {
+            c[i].style.display = "none";
+        }
+
+        for (let i = 0; i < d.length; i++) {
+            d[i].style.display = "none";
+        }
+
+        let b = document.getElementsByClassName("familyFriendLayout");
+
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "table-row";
+        }
+
+    }
+
+
+    function conciergeLayout() {
+        let a = document.getElementsByClassName("patientLayout");
+        let b = document.getElementsByClassName("familyFriendLayout");
+        let d = document.getElementsByClassName("businessLayout");
+
+        for (let i = 0; i < a.length; i++) {
+            a[i].style.display = "none";
+        }
+
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "none";
+        }
+
+        for (let i = 0; i < d.length; i++) {
+            d[i].style.display = "none";
+        }
+
+
+        let c = document.getElementsByClassName("conciergeLayout");
+
+        for (let i = 0; i < c.length; i++) {
+            c[i].style.display = "table-row";
+        }
+
+    }
+
+    function businessLayout() {
+
+        let a = document.getElementsByClassName("patientLayout");
+        let b = document.getElementsByClassName("familyFriendLayout");
+        let c = document.getElementsByClassName("conciergeLayout");
+
+        for (let i = 0; i < a.length; i++) {
+            a[i].style.display = "none";
+        }
+
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "none";
+        }
+
+        for (let i = 0; i < c.length; i++) {
+            c[i].style.display = "none";
+        }
+
+
+
+        let d = document.getElementsByClassName("businessLayout");
+
+
+        for (let i = 0; i < d.length; i++) {
+            d[i].style.display = "table-row";
+        }
+
+
+    }
+
+    $(document).ready(function () {
+
+        $('#tableDataMainPending').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input-pending').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input-pending').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            }
+        });
+        // $('.dataTables_length').hide();
+        $('.dataTables_filter').hide();
+    });
+
+
+
+
+
+
+</script>

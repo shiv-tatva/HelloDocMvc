@@ -10,5 +10,6 @@ namespace BLL_Business_Logic_Layer_.Interface
     public interface IAdminDash
     {
         public List<adminDash> adminData();
+        
     }
 }

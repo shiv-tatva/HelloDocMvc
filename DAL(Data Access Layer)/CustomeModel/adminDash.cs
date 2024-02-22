@@ -12,10 +12,14 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? last_name { get; set; }
 
+
+        public string? fulldateofbirth { get; set; }
+
         public string str_month { get; set; }
         public int? int_year { get; set; }
         public int? int_date { get; set; }
 
+        public string? phy_name { get; set; }
         public string? requestor_fname { get; set;}
 
         public string? responseor_lname { get;set;} 
@@ -34,9 +38,14 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? notes { get; set; }
 
+        public string? region { get; set; }
+
         public int? request_type_id { get; set; }
 
         public int? status { get; set; }
+
+        public string? email { get; set; }
+
 
 
     }

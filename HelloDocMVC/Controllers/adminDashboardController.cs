@@ -20,12 +20,14 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 1;
             return View(adminDashObj);
         }
-
+        
+       
 
         public IActionResult LoadPartialDashboard( )
         {
             adminDashData adminDashObj = new adminDashData();
             adminDashObj.data = _IAdminDash.adminData();
+            
 
             return PartialView("_adminDash", adminDashObj);
         }
