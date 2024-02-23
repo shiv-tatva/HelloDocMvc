@@ -17,6 +17,7 @@
 
 
 
+
 </head>
 <body>
     <div class="container-fluid" id="MainDiv" style="height:100vh;position:relative;padding:0">
@@ -30,34 +31,6 @@
     </div>
 
     <script>
-        // function darkMode() {
-        //     let a = document.getElementById("mainContainer")
-        //     let c = document.getElementsByClassName("termsAndPrivacy")
-        //     let d = document.getElementsByTagName("h4")
-
-        //     if (a.classList.contains("active")) {
-        //         console.log("success")
-        //         a.classList.remove("active")
-        //         a.style.backgroundColor = "white"
-        //         c[0].style.color = "gray"
-        //         c[1].style.color = "gray"
-        //         for (let i = 0; i < d.length; i++) {
-        //             d[i].style.color = "black"
-        //         }
-
-        //     } else {
-        //         a.classList.add("active")
-        //         console.log("error")
-        //         a.style.backgroundColor = "black"
-        //         c[0].style.color = "lightgrey"
-        //         c[1].style.color = "lightgrey"
-        //         for (let i = 0; i < d.length; i++) {
-        //             d[i].style.color = "black"
-        //         }
-        //     }
-
-        // }
-
         function darkMode() {
 
             let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
@@ -94,6 +67,9 @@
         }
 
     </script>
+    
+
+    
 
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
@@ -102,4 +78,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script> 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+<script>
+   
+
+</script>
 </html>

@@ -4,14 +4,14 @@
  @* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> *@
 @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />  *@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
-<link href="~/css/adminDashboard.css" rel="stylesheet" type="text/css" />
+
 
 <div class="my-4" id="patients_flex_box">
     <span id="patient_txt">
         Patients <span id="patient_sub">(New)</span>
     </span>
 
-    <span id="patiens_five-link-mediaquerry" style="display:flex;">
+    <span id="patiens_five-link-mediaquerry" style="display:flex;" class="mt-3">
         <a href="#" class="btn btn-info patient_five_button mx-1 " role="button">
             <i class="bi bi-send"></i>
             <span>
@@ -50,36 +50,34 @@
         <div id="tablehead-container">
 
             <div id="tablehead-left">
-                <!-- <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients"> -->
-                <!-- <img src=""> -->
-                <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients" id="my-search-input">
+               <div class="d-md-flex gap-1">
+                <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
+                    <!-- <i class="bi bi-search"></i> -->
+                    <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad"></i>
+                    <input class="form-control border-0" id="my-search-input" type="search" placeholder="Search" aria-label="Search">
+                </form>
 
-                <!-- <img src=""> -->
-                <div class="form-floating col-md-6 ">
-                    <select type="search" id="gfg" class="form-select">
-                        <!-- <option selected ></option> -->
-                        <option hidden value="google">All Region</option>
-                        <option value="apple">Apple</option>
-                        <option value="microsoft">Microsoft</option>
-                        <option value="meta">Meta</option>
-                        <option value="netflix">Netflix</option>
-                    </select>
-                    <!-- <label for="gfg">Narrow Search by Region</label> -->
-                </div>
+                <select class="form-select  mb-2" aria-label="Default select example">
+                    <option selected="">All Region</option>
+                    <option value="1">Gujarat</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
 
             </div>
             <span id="tablehead-right">
-                <span class="table_head_five" id="all" onclick="allLayout()" style="cursor:pointer">
+                <span class="table_head_five" id="all" type="button" onclick="allElements()" style="cursor:pointer">
                     All
                 </span>
-                <span class="table_head_five" onclick="patientLayout()" style="cursor:pointer">
+                <span class="table_head_five" onclick="patientElements()" style="cursor:pointer">
 
                     <span class="patient_circle"></span>
                     <span>
                         Patients
                     </span>
                 </span>
-                <span class="table_head_five" onclick="familyFriendLayout()" style="cursor:pointer">
+                <span class="table_head_five" onclick="familyFriendElements()" style="cursor:pointer">
 
                     <span class="family_circle"></span>
 
@@ -87,14 +85,14 @@
                         Family/Friends
                     </span>
                 </span>
-                <span class="table_head_five" onclick="businessLayout()" style="cursor:pointer">
+                <span class="table_head_five" onclick="businessElements()" style="cursor:pointer">
 
                     <span class="Bussiness_circle"></span>
                     <span>
                         Bussiness
                     </span>
                 </span>
-                <span class="table_head_five" onclick="conciergeLayout()" style="cursor:pointer">
+                <span class="table_head_five" onclick="conciergeElements()" style="cursor:pointer">
 
                     <span class="Concierge_circle"></span>
 
@@ -144,28 +142,27 @@
                             @if (item.request_type_id == 1)
                             {
                                 bgColor = "#60be5e";
-                                role = "patientLayout";
+                                role = "Patient";
                             }
                             else if (item.request_type_id == 2)
                             {
                                 bgColor = "#e69232";
-                                role = "familyFriendLayout";
+                                role = "FamilyFriend";
                             }
                             else if (item.request_type_id == 3)
                             {
                                 bgColor = "#0b7ebf";
-
-                                role = "conciergeLayout";
+                                role = "Concierge";
                             }
                             else if (item.request_type_id == 4)
                             {
                                 bgColor = "#d76879";
-                                role = "businessLayout";
+                                role = "Business";
                             }
 
                             <tr class="tablerows @role"  >
                                 <td  style="background:@bgColor">
-                                    <div class="table_name_email">
+                                    <div class="table_name_email ps-1">
 
                                         @item.first_name, @item.last_name
                                         <a href="">
@@ -184,10 +181,22 @@
                                         </a>
                                     </div>
                                     <div style="color:white">
-                                        (patients)
+                                        (Patient)
                                     </div>
+                                    @if(item.request_type_id != 1)
+                                    {
+                                        <div class="table_phone">
+                                            <a href="">
+                                                <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                @item.requestor_mobile_num
+                                            </a>
+                                        </div>
+                                        <div style="color:white">
+                                            (@role)
+                                        </div>
+                                    }
                                 </td>
-                                <td  style="background:@bgColor">Room Location:101</td>
+                                <td  style="background:@bgColor">@item.address</td>
                                 <td  style="background:@bgColor">-</td>
                                 <td  style="background:@bgColor; " >
 
@@ -224,24 +233,36 @@
                                                     Action
                                                 </span>
                                             </button>
-                                            <ul class="dropdown-menu table_dropdowns">
+                                            <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
                                                 <li>
-                                                    <a class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" >
                                                         <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
+                                                        Asign Case
+                                                    </button>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" onclick="viewCaseClick(@item.reqid)">
                                                         <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
+                                                        View Case
+                                                    </button>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" >
                                                         <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
+                                                        Cancel Case
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" >
+                                                        <img src="images/coin.svg">
+                                                        View Notes
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" >
+                                                        <img src="images/coin.svg">
+                                                        Block Patient
+                                                    </button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -364,28 +385,29 @@
 
 <script>
 
+    function allElements() {
 
-    function allLayout() {
-        let a = document.getElementsByClassName("patientLayout");
+        let a = document.getElementsByClassName("Patient");
+        console.log(a)
 
         for (let i = 0; i < a.length; i++) {
             a[i].style.display = "table-row";
         }
 
-        let b = document.getElementsByClassName("familyFriendLayout");
+        let b = document.getElementsByClassName("FamilyFriend");
 
         for (let i = 0; i < b.length; i++) {
             b[i].style.display = "table-row";
         }
 
-        let c = document.getElementsByClassName("conciergeLayout");
+        let c = document.getElementsByClassName("Concierge");
 
         for (let i = 0; i < c.length; i++) {
             c[i].style.display = "table-row";
         }
 
 
-        let d = document.getElementsByClassName("businessLayout");
+        let d = document.getElementsByClassName("Business");
 
 
         for (let i = 0; i < d.length; i++) {
@@ -393,10 +415,10 @@
         }
     }
 
-    function patientLayout(){
-        let b = document.getElementsByClassName("familyFriendLayout");
-        let c = document.getElementsByClassName("conciergeLayout");
-        let d = document.getElementsByClassName("businessLayout");
+    function patientElements(){
+        let b = document.getElementsByClassName("FamilyFriend");
+        let c = document.getElementsByClassName("Concierge");
+        let d = document.getElementsByClassName("Business");
 
         for (let i = 0; i < b.length; i++) {
             b[i].style.display = "none";
@@ -411,7 +433,7 @@
         }
 
 
-        let a = document.getElementsByClassName("patientLayout");
+        let a = document.getElementsByClassName("Patient");
 
         for (let i = 0; i < a.length;i++){
             a[i].style.display = "table-row";
@@ -421,10 +443,10 @@
     }
 
 
-    function familyFriendLayout(){
-        let a = document.getElementsByClassName("patientLayout");
-        let c = document.getElementsByClassName("conciergeLayout");
-        let d = document.getElementsByClassName("businessLayout");
+    function familyFriendElements() {
+        let a = document.getElementsByClassName("Patient");
+        let c = document.getElementsByClassName("Concierge");
+        let d = document.getElementsByClassName("Business");
 
         for (let i = 0; i < a.length; i++) {
             a[i].style.display = "none";
@@ -438,7 +460,7 @@
             d[i].style.display = "none";
         }
        
-        let b = document.getElementsByClassName("familyFriendLayout");
+        let b = document.getElementsByClassName("FamilyFriend");
 
         for (let i = 0; i < b.length; i++) {
             b[i].style.display = "table-row";
@@ -447,10 +469,10 @@
     }
     
     
-    function conciergeLayout() {
-        let a = document.getElementsByClassName("patientLayout");
-        let b = document.getElementsByClassName("familyFriendLayout");
-        let d = document.getElementsByClassName("businessLayout");
+    function conciergeElements() {
+        let a = document.getElementsByClassName("Patient");
+        let b = document.getElementsByClassName("FamilyFriend");
+        let d = document.getElementsByClassName("Business");
 
         for (let i = 0; i < a.length; i++) {
             a[i].style.display = "none";
@@ -465,7 +487,7 @@
         }
 
 
-        let c = document.getElementsByClassName("conciergeLayout");
+        let c = document.getElementsByClassName("Concierge");
 
         for (let i = 0; i < c.length; i++) {
             c[i].style.display = "table-row";
@@ -473,11 +495,11 @@
 
     }
     
-    function businessLayout() {
+    function businessElements() {
         
-        let a = document.getElementsByClassName("patientLayout");
-        let b = document.getElementsByClassName("familyFriendLayout");
-        let c = document.getElementsByClassName("conciergeLayout");
+        let a = document.getElementsByClassName("Patient");
+        let b = document.getElementsByClassName("FamilyFriend");
+        let c = document.getElementsByClassName("Concierge");
 
         for (let i = 0; i < a.length; i++) {
             a[i].style.display = "none";
@@ -493,7 +515,7 @@
 
 
 
-        let d = document.getElementsByClassName("businessLayout");
+        let d = document.getElementsByClassName("Business");
 
 
         for (let i = 0; i < d.length; i++) {
@@ -531,7 +553,22 @@
     });
 
 
+    function viewCaseClick(a){
 
+        console.log(a)
+        let action = "/adminDashboard" + "/" + "newViewCase"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: a },
+            success: function (result) {
+                $('#content').html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
     
 
 

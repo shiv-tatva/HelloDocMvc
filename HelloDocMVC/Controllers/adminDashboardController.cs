@@ -1,6 +1,8 @@
 ﻿using BLL_Business_Logic_Layer_.Interface;
 using DAL_Data_Access_Layer_.CustomeModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace HelloDocMVC.Controllers
 {
@@ -20,9 +22,10 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 1;
             return View(adminDashObj);
         }
-        
-       
 
+
+
+        
         public IActionResult LoadPartialDashboard( )
         {
             adminDashData adminDashObj = new adminDashData();
@@ -30,6 +33,16 @@ namespace HelloDocMVC.Controllers
             
 
             return PartialView("_adminDash", adminDashObj);
+        }
+
+
+        public IActionResult newViewCase(int req)
+        {
+            
+            HttpContext.Session.SetInt32("requestIdView", req);
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminDataViewCase(req);
+            return PartialView("_adminDashNewViewCase", adminDashObj);
         }
     }
 }

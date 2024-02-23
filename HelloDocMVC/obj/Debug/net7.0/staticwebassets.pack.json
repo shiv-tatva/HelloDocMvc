@@ -109,6 +109,10 @@
       "PackagePath": "staticwebassets\\css\\SubmitRequest.css"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\adminDashViewCase.css",
+      "PackagePath": "staticwebassets\\css\\adminDashViewCase.css"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\adminDashboard.css",
       "PackagePath": "staticwebassets\\css\\adminDashboard.css"
     },

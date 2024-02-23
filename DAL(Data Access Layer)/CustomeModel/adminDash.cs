@@ -26,6 +26,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public DateTime created_date { get; set; }
 
+        public string? requestor_mobile_num { get; set; }
+
         public string? mobile_num { get; set; }
 
         public string? city { get; set;  }
@@ -35,6 +37,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? zipcode { get; set;  }
 
         public string? state { get; set;  }
+
+        public string? address { get; set;  }
 
         public string? notes { get; set; }
 
@@ -46,6 +50,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? email { get; set; }
 
+        public int reqid { get; set; }
+
+        public string? cnf_number { get; set; }
 
 
     }

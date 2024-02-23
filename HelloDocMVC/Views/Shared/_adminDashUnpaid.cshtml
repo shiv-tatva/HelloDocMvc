@@ -1,4 +1,15 @@
 ﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+<style>
+th{
+        color: #575757;
+        font-size: 14px;
+        font-weight: 500;
+        background-color: #f0f0f0;
+        padding-top: 22px;
+        padding-bottom: 22px;
+}
+</style>
+
 
 <div class="my-4" id="patients_flex_box">
     <span id="patient_txt">
@@ -44,21 +55,19 @@
         <div id="tablehead-container">
 
             <div id="tablehead-left">
-                <!-- <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients"> -->
-                <!-- <img src=""> -->
-                <input type="search" name="search" class="col-md-6 searchbar" placeholder="Search Patients" id="my-search-input-unpaid">
+                <div class="d-md-flex gap-1">
+                    <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
+                        <!-- <i class="bi bi-search"></i> -->
+                        <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad"></i>
+                        <input class="form-control border-0" id="my-search-input" type="search" placeholder="Search" aria-label="Search">
+                    </form>
 
-                <!-- <img src=""> -->
-                <div class="form-floating col-md-6 ">
-                    <select type="search" id="gfg" class="form-select">
-                        <!-- <option selected ></option> -->
-                        <option hidden value="google">All Region</option>
-                        <option value="apple">Apple</option>
-                        <option value="microsoft">Microsoft</option>
-                        <option value="meta">Meta</option>
-                        <option value="netflix">Netflix</option>
+                    <select class="form-select  mb-2" aria-label="Default select example">
+                        <option selected="">All Region</option>
+                        <option value="1">Gujarat</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
                     </select>
-                    <!-- <label for="gfg">Narrow Search by Region</label> -->
                 </div>
 
             </div>
@@ -155,7 +164,7 @@
 
 
                             <tr class="tablerows @role">
-                                <td style="background:@bgColor">
+                                <td class="text-white" style="background:@bgColor">
                                     <div class="table_name_email">
 
                                         @item.first_name, @item.last_name
@@ -164,21 +173,33 @@
                                         </a>
                                     </div>
                                 </td>
-                                <td style="background:@bgColor">@item.phy_name</td>
-                                <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
-                                <td style="background:@bgColor">
+                                <td class="text-white" style="background:@bgColor">@item.phy_name</td>
+                                <td class="text-white" style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                                <td class="text-white" style="background:@bgColor">
                                     <div class="table_phone">
                                         <a href="">
-                                            <img src="images/phone_Admindashboard.svg">
+                                            <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
                                             @item.mobile_num
                                         </a>
                                     </div>
-                                    (patients)
-
-
+                                    <div style="color:white">
+                                        (Patient)
+                                    </div>
+                                    @if (item.request_type_id != 1)
+                                    {
+                                        <div class="table_phone">
+                                            <a href="">
+                                                <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                @item.requestor_mobile_num
+                                            </a>
+                                        </div>
+                                        <div style="color:white">
+                                            (@role)
+                                        </div>
+                                    }
                                 </td>
-                                <td style="background:@bgColor">Room Location:101</td>
-                                <td style="background:@bgColor">
+                                <td class="text-white" style="background:@bgColor">Room Location:101</td>
+                                <td class="text-white" style="background:@bgColor">
 
                                     <div>
                                         <div class="dropdown mb-1">
@@ -245,7 +266,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td style="background:@bgColor">
+                                <td class="text-white" style="background:@bgColor">
                                     <div>
                                         <div class="dropdown">
                                             <button class="btn text-white border border-white py-1 "
