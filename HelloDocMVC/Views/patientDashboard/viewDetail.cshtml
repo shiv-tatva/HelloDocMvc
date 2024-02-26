@@ -62,7 +62,7 @@
             </div>
             <table class="table table-striped mt-5" id="DataTable" >
                 <tr>
-                    <th><input type="checkbox" /></th>
+                        <th onclick="selectAllCheckbox()"><input type="checkbox" /></th>
                     <th>Documents</th>
                     <th>Uploader</th>
                     <th width="15%">Uploaded Date</th>
@@ -79,7 +79,7 @@
                            @for (int i = 0; i < @item.documentsname.Count(); i++)
                               {
                                 <tr>
-                                    <td> <input type="checkbox" value="@item.documentsname[i]" /></td>
+                                    <td> <input type="checkbox" name="chk" value="@item.documentsname[i]" id="selectall" /></td>
                                     <td>
                                         <div class="d-flex flex-row">
                                             <p class="col-auto me-2">
@@ -157,6 +157,27 @@
             });
         }
 
+
+    function selectAllCheckbox() {
+        var ele = document.getElementsByName('chk');
+        var checkBtn = ele[0].checked
+
+        if (checkBtn) {
+            for (var i = 0; i < ele.length; i++) {
+                if (ele[i].type == 'checkbox')
+                    ele[i].checked = false;
+
+            }
+        }else{
+            for (var i = 0; i < ele.length; i++) {
+                if (ele[i].type == 'checkbox') {
+                    ele[i].checked = true;
+                }
+            }
+        }
+
+       
+    }
     
 </script>
 

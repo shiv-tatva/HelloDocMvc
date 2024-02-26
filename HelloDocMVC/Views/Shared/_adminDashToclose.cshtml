@@ -18,31 +18,31 @@
 
     <span id="patiens_five-link-mediaquerry" style="display:flex;">
         <a href="#" class="btn btn-info patient_five_button mx-1 " role="button">
-            <img src="images/send.svg">
+            <i class="bi bi-send"></i>
             <span>
                 Send link
             </span>
         </a>
         <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
-            <img src="images/admin_profile_pencil.svg">
+            <i class="bi bi-pencil-square"></i>
             <span>
                 create request
             </span>
         </a>
         <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
-            <img src="images/admin_export-96.svg">
+            <i class="bi bi-arrow-up-right"></i>
             <span>
                 Export
             </span>
         </a>
         <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
-            <img src="images/admin_export-96.svg">
+            <i class="bi bi-box-arrow-up-right"></i>
             <span>
                 Export All
             </span>
         </a>
         <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
-            <img src="images/admindashboard_request_diy.svg">
+            <i class="bi bi-person-plus"></i>
             <span>
                 Request DTY support
             </span>
@@ -72,17 +72,17 @@
 
             </div>
             <span id="tablehead-right">
-                <span class="table_head_five" id="all">
+                <span class="table_head_five" id="all" type="button" onclick="allElements()" style="cursor:pointer">
                     All
                 </span>
-                <span class="table_head_five">
+                <span class="table_head_five" onclick="patientElements()" style="cursor:pointer">
 
                     <span class="patient_circle"></span>
                     <span>
                         Patients
                     </span>
                 </span>
-                <span class="table_head_five">
+                <span class="table_head_five" onclick="familyFriendElements()" style="cursor:pointer">
 
                     <span class="family_circle"></span>
 
@@ -90,14 +90,14 @@
                         Family/Friends
                     </span>
                 </span>
-                <span class="table_head_five">
+                <span class="table_head_five" onclick="businessElements()" style="cursor:pointer">
 
                     <span class="Bussiness_circle"></span>
                     <span>
                         Bussiness
                     </span>
                 </span>
-                <span class="table_head_five">
+                <span class="table_head_five" onclick="conciergeElements()" style="cursor:pointer">
 
                     <span class="Concierge_circle"></span>
 
@@ -105,7 +105,7 @@
                         Concierge
                     </span>
                 </span>
-                <span class="table_head_five">
+                <span class="table_head_five" style="cursor:pointer">
 
                     <span class="vip_circle"></span>
 
@@ -170,7 +170,7 @@
 
                                         @item.first_name, @item.last_name
                                         <a href="">
-                                            <img src="images/email.svg">
+                                            <i class="bi bi-envelope me-3  rounded-5 border p-1 text-info" style="color:white!important"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -182,68 +182,26 @@
                                 <td class="text-white" style="background:@bgColor">-</td>
                                 <td class="text-white" style="background:@bgColor">
 
-                                    <div>
+                                    <div style="display:flex;">
                                         <div class="dropdown mb-1">
                                             <button class="btn text-white border border-white py-1 "
                                                     id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                <img src="images/admin_dashboard_Provider.svg">
+                                                <i class="bi bi-person me-2 d-none d-sm-inline"></i>
                                                 <span>
-                                                    Dropdown button
+                                                    Patient
                                                 </span>
                                             </button>
-                                            <ul class="dropdown-menu table_dropdowns">
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                    <div>
                                         <div class="dropdown">
                                             <button class="btn text-white border border-white py-1 "
                                                     id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                <img src="images/admin_dashboard_Provider.svg">
+                                                <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
                                                 <span>
-                                                    Dropdown button
+                                                    Provider
                                                 </span>
                                             </button>
-                                            <ul class="dropdown-menu table_dropdowns">
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </td>
@@ -259,22 +217,52 @@
                                             </button>
                                             <ul class="dropdown-menu table_dropdowns">
                                                 <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
+                                                    <button class="dropdown-item" href="#" onclick="viewCaseClick(@item.reqid)">
+                                                        <i class="fa-brands fa-searchengin"></i>
+                                                        View Case
+                                                    </button>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
+                                                    <button class="dropdown-item" href="#">
+                                                        <i class="fa-solid fa-file-arrow-up"></i>
+                                                        View Uploads
+                                                    </button>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <img src="images/coin.svg">
-                                                        Action
-                                                    </a>
+                                                    <button class="dropdown-item" href="#">
+                                                        <i class="fa-solid fa-book"></i>
+                                                        View Notes
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" href="#">
+                                                        <i class="fa-solid fa-file-circle-check"></i>
+                                                        Orders
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" href="#">
+                                                        <i class="fa-regular fa-circle-xmark"></i>
+                                                        Close Case
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" href="#">
+                                                        <i class="fa-regular fa-file-lines"></i>
+                                                        Doctors Note
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" href="#">
+                                                        <i class="fa-regular fa-circle-xmark"></i>
+                                                        Clear Case
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" href="#">
+                                                        <i class="fa-regular fa-file-lines"></i>
+                                                        Encounter
+                                                    </button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -288,8 +276,24 @@
         </div>
     </div>
 
-    @{
-        var count = 0;
+    <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
+        <table class="table" id="tableDataMainToCloseTwo" width="100%">
+
+            <thead>
+                <tr>
+                    <th class="d-none">
+
+                    </th>
+                    <th class="d-none">
+
+                    </th>
+                </tr>
+            </thead>
+
+        @{
+            var count = 0;
+
+        }
         @foreach (var item in Model.data)
         {
             if (item.status == 3 || item.status == 7 || item.status == 8)
@@ -320,9 +324,9 @@
                 }
 
 
-                <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
-
-                    <h2 class="accordion-header">
+                    <tr style="display: flex;flex-direction: column" class="@role">
+                    <td>
+                        <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
                             <span class="d-flex flex-column" style="width:100%">
                                 <span class="d-flex justify-content-between">
@@ -350,7 +354,9 @@
 
                         </button>
                     </h2>
-                    <div id="div-@count" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    </td>
+                    <td>
+                        <div id="div-@count" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body mt-1">
                             <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
                         </div>
@@ -392,12 +398,17 @@
 
 
                     </div>
-                </div>
+                    </td>
+                </tr>
+                
                 count++;
             }
         }
 
-    }
+        </table>
+    </div>
+
+  
 </div>
 
 
@@ -568,11 +579,53 @@
         });
         // $('.dataTables_length').hide();
         $('.dataTables_filter').hide();
+    }); 
+    
+    $(document).ready(function () {
+
+        $('#tableDataMainToCloseTwo').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input-toclose').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input-toclose').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            }
+        });
+        // $('.dataTables_length').hide();
+        $('.dataTables_filter').hide();
     });
 
 
 
+    function viewCaseClick(a) {
 
+        console.log(a)
+        let action = "/adminDashboard" + "/" + "newViewCase"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: a },
+            success: function (result) {
+                $('#content').html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
 
 </script>

@@ -96,6 +96,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 city = r.City,
                 zipcode = r.Zipcode,
                 email = email,
+                fulldateofbirth = new DateTime(Convert.ToInt16(r.Intyear), Convert.ToInt16(r.Strmonth), Convert.ToInt16(r.Intdate)).ToString("yyyy-MM-dd"),
+
 
             }).ToList()[0];
 

@@ -43,14 +43,38 @@
             {
                 bgColor = "#d76879";
                 role = "Business";
-            }
-        <div class="container">
-            <div class=" mt-5 d-flex justify-content-between align-items-center">
-                <h4> Profile <span class="badge  rounded-5 Reqtyp" style="background:@bgColor">@role</span></h4>
+    }
 
-                <button asp-controller="Admin" asp-action="Admin_dashboard"
+    var RequestType = "RequestTypeStatus";
+
+    if(item.status == 1)
+    {
+        RequestType = "New";
+    }else if(item.status == 2)
+    {
+        RequestType = "Pending";
+    }else if(item.status == 4 || item.status == 5)
+    {
+        RequestType = "Active";
+    }else if(item.status == 6)
+    {
+        RequestType = "Conclude";
+    }else if(item.status == 3 || item.status == 7 || item.status == 8)
+    {
+        RequestType = "To Close";
+    }else if(item.status == 9)
+    {
+        RequestType = "Unpaid";
+    }
+
+
+    <div class="container">
+            <div class=" mt-5 d-flex justify-content-between align-items-center">
+            <h4> @RequestType Request<span class="badge  rounded-5 Reqtyp" style="background:@bgColor">@role</span></h4>
+
+            <button onclick="location.href = '@Url.Action("adminDashboard","adminDashboard")'"
                    class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
-                    <i class="fa-solid fa-angle-left"></i> Back
+                <i class="fa-solid fa-angle-left"></i> Back
                 </button>
             </div>
             <form action="" class="shadow border rounded my-3" method="post">
@@ -96,7 +120,7 @@
                                 </div>
 
                                 <div class="form-floating mb-3 col-12 col-sm-1 ">
-                                    <button type="button" class="dclass btn btn-outline-dark border-info p-3 text-info w-100" style="height: 100%;">
+                                    <button type="button" class="dclass btn btn-outline-dark border-info p-3 text-info w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
                                         <i class="bi bi-telephone"></i>
                                     </button>
                                 </div>
@@ -145,9 +169,10 @@
 
 
                             <div class="form-floating mb-3 col-12 col-sm-1 ">
-                                <button type="button" class="dclass btn btn-outline-dark border-info p-3 text-info w-100 " style="height: 100%;">
+                            <a href="https://www.google.com/maps/search/?api=1&query= @item.street @item.city , @item.state"
+                               ;" target="_blank" onclick="map_init()" type="button" class="dclass btn btn-outline-dark border-info p-3 text-info w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
                                     <i class="bi bi-geo-alt"></i>
-                                </button>
+                                </a>
                             </div>
 
                             <div class="form-floating mb-3 col-12 col-sm-6">
