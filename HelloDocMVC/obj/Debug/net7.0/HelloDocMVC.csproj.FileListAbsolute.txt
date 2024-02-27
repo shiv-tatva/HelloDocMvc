@@ -510,3 +510,4 @@ D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Azure.Core.dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\System.Memory.Data.dll
 C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\bin\Debug\net7.0\Azure.Core.dll
 C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\bin\Debug\net7.0\System.Memory.Data.dll
+D:\Project\HelloDocMVC\HelloDocMVC\obj\Debug\net7.0\scopedcss\Views\Shared\_LayoutFour.cshtml.rz.scp.css

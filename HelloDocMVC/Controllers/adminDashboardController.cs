@@ -36,13 +36,28 @@ namespace HelloDocMVC.Controllers
         }
 
 
-        public IActionResult newViewCase(int req)
+        public IActionResult newViewCase(int data)
         {
-            
-            HttpContext.Session.SetInt32("requestIdView", req);
+            ViewBag.Admin = 4;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminDataViewCase(req);
-            return PartialView("_adminDashNewViewCase", adminDashObj);
+            adminDashObj.data = _IAdminDash.adminDataViewCase(data);
+            return View(adminDashObj);
+        }
+        
+        
+        public IActionResult newViewNote(int data)
+        {
+            ViewBag.Admin = 4;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj._viewNote = _IAdminDash.adminDataViewNote(data);
+            return View(adminDashObj);
+        }
+
+        [HttpPost]
+        public IActionResult newViewNote(adminDashData obj)
+        {
+            _IAdminDash.adminDataViewNote(obj);
+            return RedirectToAction("newViewNote", "adminDashboard", new {data=obj._viewNote.reqid});
         }
     }
 }

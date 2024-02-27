@@ -226,11 +226,11 @@
                                                 <li>
                                                     <button class="dropdown-item" >
                                                         <i class="fa-regular fa-building"></i>
-                                                        Asign Case
+                                                        Assign Case
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" onclick="viewCaseClick(@item.reqid)">
+                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewCase","adminDashboard", new {data = item.reqid})'">
                                                         <i class="fa-brands fa-searchengin"></i>
                                                         View Case
                                                     </button>
@@ -242,7 +242,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewNote","adminDashboard", new {data = item.reqid})'">
                                                         <i class="fa-solid fa-book"></i>
                                                         View Notes
                                                     </button>
@@ -602,24 +602,7 @@
     });
 
 
-    function viewCaseClick(a){
-
-        console.log(a)
-        let action = "/adminDashboard" + "/" + "newViewCase"
-        $.ajax({
-            url: action,
-            type: 'GET',
-            data: { req: a },
-            success: function (result) {
-                $('#content').html(result);
-            },
-            error: function () {
-                alert('Error loading partial view');
-            }
-        });
-    }
     
-
 
 </script>
 

@@ -15,6 +15,16 @@ for details on configuring this project to bundle and minify static web assets. 
 label[b-kbvnv9hzj2] {
     color: black;
 }
+/* _content/HelloDocMVC/Views/Shared/_LayoutFour.cshtml.rz.scp.css */
+.dark-mode[b-pen2mirmzm] {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+label[b-pen2mirmzm] {
+    color: black;
+}
+
 /* _content/HelloDocMVC/Views/Shared/_LayoutThree.cshtml.rz.scp.css */
 .dark-mode[b-hnehwflsk8] {
     background-color: #333 !important;

@@ -237,37 +237,37 @@
                                             </button>
                                             <ul class="dropdown-menu table_dropdowns">
                                                 <li>
-                                                    <button class="dropdown-item" href="#" onclick="viewCaseClick(@item.reqid)">
+                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewCase","adminDashboard", new {data = item.reqid})'">
                                                         <i class="fa-brands fa-searchengin"></i>
                                                         View Case
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" >
                                                         <i class="fa-solid fa-file-arrow-up"></i>
                                                         View Uploads
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewNote","adminDashboard", new {data = item.reqid})'">
                                                         <i class="fa-solid fa-book"></i>
                                                         View Notes
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" >
                                                         <i class="fa-solid fa-file-circle-check"></i>
                                                         Orders
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" >
                                                         <i class="fa-regular fa-file-lines"></i>
                                                         Doctor Note
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" href="#">
+                                                    <button class="dropdown-item" >
                                                         <i class="fa-regular fa-file-lines"></i>
                                                         Encounter
                                                     </button>

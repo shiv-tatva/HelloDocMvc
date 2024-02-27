@@ -1,6 +1,8 @@
 ﻿using BLL_Business_Logic_Layer_.Interface;
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
+using DAL_Data_Access_Layer_.DataModels;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -94,6 +96,52 @@ namespace BLL_Business_Logic_Layer_.Services
 
 
             return result;
+        } 
+        
+        
+        
+        public viewNotes adminDataViewNote(int reqId)
+        {
+            var a = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId);
+
+            viewNotes viewNotes = new viewNotes();
+            Requestnote _reqNote = new Requestnote();
+            
+
+             if(a != null)
+             {
+                viewNotes.AdminNotes = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId).Adminnotes;
+                viewNotes.PhysicianNotes = _context.Requestnotes.FirstOrDefault(p => p.Requestid == reqId).Physiciannotes;
+             }else
+             {
+                _reqNote.Createddate = DateTime.Now.Date;
+                _reqNote.Createdby = (int)_context.Requests.Where(x => x.Requestid == reqId).Select(x => x.User.Aspnetuserid).First();
+                _reqNote.Requestid = _context.Requests.FirstOrDefault(r => r.Requestid == reqId).Requestid;
+                _context.Add(_reqNote);
+                _context.SaveChanges();
+            }
+
+            viewNotes.reqid = reqId;
+            return viewNotes;
+        }
+        
+        
+        
+        public void adminDataViewNote(adminDashData obj)
+        {
+            var reqNoteId = _context.Requestnotes.FirstOrDefault(r => r.Requestid == obj._viewNote.reqid);
+
+            if(reqNoteId != null)
+            {
+                reqNoteId.Adminnotes = obj._viewNote.AdminNotes;
+                reqNoteId.Modifiedby = (int)_context.Requests.Where(x => x.Requestid == obj._viewNote.reqid).Select(x => x.User.Aspnetuserid).First();
+                reqNoteId.Modifieddate = DateTime.Now.Date;
+                //_reqNote.Physiciannotes = obj._viewNote.PhysicianNotes;
+                _context.SaveChanges();
+
+
+            }
+
         }
 
         

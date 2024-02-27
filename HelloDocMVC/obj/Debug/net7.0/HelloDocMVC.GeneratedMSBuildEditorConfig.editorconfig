@@ -20,6 +20,14 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcYWRtaW5EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/adminDashboard/newViewCase.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcbmV3Vmlld0Nhc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/adminDashboard/newViewNote.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcbmV3Vmlld05vdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/AdminLogin/forgotPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Mb2dpblxmb3Jnb3RQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -104,10 +112,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hOZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDashNewViewCase.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hOZXdWaWV3Q2FzZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDashPending.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hQZW5kaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -139,6 +143,10 @@ build_metadata.AdditionalFiles.CssScope =
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kbvnv9hzj2
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_LayoutFour.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRGb3VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-pen2mirmzm
 
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_LayoutThree.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRUaHJlZS5jc2h0bWw=

@@ -138,15 +138,16 @@
             // Get all checkboxes
             const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 
+          
             if (checkboxes.length === 0) {
                 alert("Please select at least one file to download.");
                 return;
             }
 
+            
             // Create an anchor element for each selected file
             checkboxes.forEach((checkbox) => {
                 const fileName = checkbox.value;
-                console.log(fileName)
                 const downloadLink = document.createElement('a');
                 downloadLink.href = '/patientDashboard/DownloadFile?data=' + encodeURIComponent(fileName);
                 downloadLink.download = fileName;

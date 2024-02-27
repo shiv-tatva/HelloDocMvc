@@ -54,12 +54,23 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? cnf_number { get; set; }
 
+    }
 
+    public class viewNotes
+    {
+        public int reqid { get; set; }
+        public string? TransferNotes { get; set; }
+        public string? PhysicianNotes { get; set; }
+        public string? AdminNotes { get; set; }
+        public string? AdminCancleNotes { get; set; }
+        public string? PatientCancleNotes { get; set; }
     }
 
 
     public class adminDashData
     {
         public List<adminDash> data { get; set;}
+
+        public viewNotes? _viewNote { get; set; }
     }
 }
