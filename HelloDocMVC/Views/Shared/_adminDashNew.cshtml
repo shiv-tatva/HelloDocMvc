@@ -224,7 +224,7 @@
                                             </button>
                                             <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="assignCase(@item.reqid)">
                                                         <i class="fa-regular fa-building"></i>
                                                         Assign Case
                                                     </button>
@@ -236,7 +236,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button id="CancleCase" class="dropdown-item"  onclick="calcelCase(@item.reqid)">
                                                         <i class="fa-regular fa-circle-xmark"></i>
                                                         Cancel Case
                                                     </button>
@@ -396,13 +396,16 @@
             }
          </tbody>
         
-
-           
-        
      </table>
     </div>
 </div>
 
+<div id="contentCancelNote">
+
+</div>
+<div id="contentAssignNote">
+
+</div>
 
 
 <script>
@@ -546,6 +549,50 @@
        
        
     }
+
+   
+    function calcelCase(reqid) {
+
+        console.log("CLicked")
+
+        let action = "/adminDashboard" + "/" + "cancelCase"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: reqid },
+            success: function (result) {
+                console.log(result)
+                $('#contentCancelNote').html(result);
+                $('#newRequestModal').modal('show');
+              
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    function assignCase(reqid) {
+        let action = "/adminDashboard" + "/" + "assignCase"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: reqid },
+            success: function (result) {
+                console.log(result)
+                $('#contentAssignNote').html(result);
+                $('#newRequestModalTwo').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
     
     $(document).ready(function () {
 
@@ -573,7 +620,8 @@
         // $('.dataTables_length').hide();
         $('.dataTables_filter').hide();
     });
-    
+
+
     $(document).ready(function () {
 
         $('#tableDataMainTwo').DataTable({
@@ -602,7 +650,7 @@
     });
 
 
-    
+   
 
 </script>
 

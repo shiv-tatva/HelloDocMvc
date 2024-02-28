@@ -59,11 +59,30 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class viewNotes
     {
         public int reqid { get; set; }
+        public int cashtagId { get; set; }
+        public string? aditional_notes { get; set; }
         public string? TransferNotes { get; set; }
         public string? PhysicianNotes { get; set; }
         public string? AdminNotes { get; set; }
         public string? AdminCancleNotes { get; set; }
         public string? PatientCancleNotes { get; set; }
+    }
+    
+    
+    public class CloseCase
+    {
+        public int reqid { get; set; }
+        public int cashtagId { get; set; }
+        public string? aditional_notes { get; set; }
+        public string? first_name { get; set; }
+        public string? last_name { get; set; }
+        public int? status { get; set; }
+    }
+    public class casetageNote
+    {
+        public int reqid { get; set; }
+        public string? reasons { get; set; }
+      
     }
 
 
@@ -72,5 +91,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<adminDash> data { get; set;}
 
         public viewNotes? _viewNote { get; set; }
+
+        public CloseCase? closeCase { get; set; }
+
+        public List<casetageNote> casetagNote { get; set; }
+
     }
 }

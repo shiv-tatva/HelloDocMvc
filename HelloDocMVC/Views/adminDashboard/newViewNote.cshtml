@@ -82,6 +82,38 @@
 
                 </div>
 
+                @if (Model._viewNote.cashtagId != 0)
+                {
+                    <div class="form-floating mb-3 col-12 col-sm-6 ">
+                        <div class="border shadow rounded d-flex">
+
+                            <div class="m-3">
+                                <i class="bi bi-person fs-5"></i>
+
+                            </div>
+                            <div class="mt-2">
+                                <h6> Admin Cancellation notes</h6>
+                                @{
+                                    if (Model._viewNote.aditional_notes != null)
+                                    {
+                                        <small class="text-secondary">
+                                            @Model._viewNote.aditional_notes
+                                        </small>
+                                    }
+                                    else
+                                    {
+                                        <small class="text-secondary">
+                                            -
+                                        </small>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                }
+                
+
             </div>
 
 

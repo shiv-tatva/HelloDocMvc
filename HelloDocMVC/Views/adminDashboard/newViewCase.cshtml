@@ -16,6 +16,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
 
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 
 @foreach (var item in Model.data)
 {
@@ -126,7 +129,7 @@
 
                             <div class="form-floating mb-3 col-12 col-sm-1 ">
                                 <button type="button" class="dclass btn btn-outline-dark border-info p-3 text-info w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
-                                    <i class="bi bi-telephone"></i>
+                                    <i class="fa-solid fa-phone" style="font-size:1.2em;"></i>
                                 </button>
                             </div>
 
@@ -176,7 +179,7 @@
                         <div class="form-floating mb-3 col-12 col-sm-1 ">
                             <a href="https://www.google.com/maps/search/?api=1&query= @item.street @item.city , @item.state"
                                ;" target="_blank" onclick="map_init()" type="button" class="dclass btn btn-outline-dark border-info p-3 text-info w-100 d-flex justify-content-center align-items-center" style="height: 100%;">
-                                <i class="bi bi-geo-alt"></i>
+                                <i class="fa-solid fa-location-dot" style="font-size:1.5em"></i>
                             </a>
                         </div>
 
@@ -187,11 +190,20 @@
 
                     </div>
                     <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
-                        <button type="button" class="btn text-white btn-info">Assign</button>
+                        @if(item.status == 1)
+                        {
+                            <button type="button" class="btn text-white btn-info">Assign</button>
+                        }
+                        
 
                         <button type="button" class="btn text-white btn-info">View Notes</button>
 
-                        <button type="button" class="btn text-white btn-danger">Cancel</button>
+                        @if(item.status == 1)
+                        {
+                            <button type="button" class="btn text-white btn-danger" onclick="viewCaseCancel(@item.reqid)">Cancel</button>
+                        }
+
+                       
 
                     </div>
 
@@ -214,28 +226,32 @@
 
 }
 
+<div id="ViewCaseCancelNote">
+
+</div>
+
+<script>
+    function viewCaseCancel(reqid) {
+
+        console.log("CLicked")
+
+        let action = "/adminDashboard" + "/" + "cancelCase"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: reqid },
+            success: function (result) {
+                console.log(result)
+                $('#ViewCaseCancelNote').html(result);
+                $('#newRequestModal').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+</script>
 
 
-
-@* <script>
-function disableFields() {
-document.querySelectorAll('.dclass').forEach(function (element) {
-element.disabled = true;
-});
-// Hide the submit and cancel buttons, show the edit button
-document.getElementById('submitBtn').style.display = 'none';
-document.getElementById('cancelBtn').style.display = 'none';
-document.getElementById('editBtn').style.display = 'block';
-}
-
-function enableFields() {
-document.querySelectorAll('.dclass').forEach(function (element) {
-element.disabled = false;
-});
-// Show the submit and cancel buttons, hide the edit button
-document.getElementById('submitBtn').style.display = 'block';
-document.getElementById('cancelBtn').style.display = 'block';
-document.getElementById('editBtn').style.display = 'none';
-}
-disableFields();
-</script>  *@

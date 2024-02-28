@@ -1,0 +1,57 @@
+﻿@* @model DAL_Data_Access_Layer_.CustomeModel.adminDashData *@
+
+
+<form method="post" asp-action="cancelCase" asp-controller="adminDashboard">
+    <div class="modal fade " id="newRequestModalTwo" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header " style="background-color:#0dcaf0">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Asign Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close" style="color:white"></button>
+                </div>
+
+               @*  <input value="@Model.closeCase.reqid" asp-for="@Model.closeCase.reqid" type="hidden" />
+                <input value="@Model.closeCase.status" asp-for="@Model.closeCase.status" type="hidden" /> *@
+                <div class="modal-body ">
+
+                    <input hidden class="reqId" type="text" value="" id="id" name="id" />
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="">to assign this request,search and select another Physician. </div>
+
+                        <p class="name mb-0" style="font-size:18px;color:#0dcaf0;margin-left:8px;"></p>
+                    </div>
+                    <select class="form-select mb-2" aria-label="Default select example" @* asp-for="closeCase.cashtagId" *@>
+                        <option name="reason" id="reason" disabled selected>Reasons for Cancellation</option>
+                       @*  @foreach (var item in Model.casetagNote)
+                        {
+                            <option value="@item.reqid">@item.reasons</option>
+                        } *@
+                    </select>
+                    
+                    <select class="form-select mb-2" aria-label="Default select example" @* asp-for="closeCase.cashtagId" *@>
+                        <option name="reason" id="reason" disabled selected>Reasons for Cancellation</option>
+                       @*  @foreach (var item in Model.casetagNote)
+                        {
+                            <option value="@item.reqid">@item.reasons</option>
+                        } *@
+                    </select>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px" @* asp-for="@Model.closeCase.aditional_notes" *@></textarea>
+                        <label for="floatingTextarea2" class="input">Provide Additional Notes</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-info text-white" type="submit">confirm</button>
+                    <button class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

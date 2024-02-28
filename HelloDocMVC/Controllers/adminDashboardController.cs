@@ -2,6 +2,7 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace HelloDocMVC.Controllers
@@ -58,6 +59,30 @@ namespace HelloDocMVC.Controllers
         {
             _IAdminDash.adminDataViewNote(obj);
             return RedirectToAction("newViewNote", "adminDashboard", new {data=obj._viewNote.reqid});
+        }
+
+        public IActionResult cancelCase(int req) {
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.closeCase = _IAdminDash.closeCaseNote(req);
+            adminDashObj.casetagNote = _IAdminDash.casetag();
+            return PartialView("_adminDashNewCancelCase", adminDashObj);
+        }
+
+
+        [HttpPost]
+        public IActionResult cancelCase(adminDashData obj) {
+            _IAdminDash.closeCaseNote(obj);
+            return RedirectToAction("adminDashboard");
+        }
+
+
+        public IActionResult assignCase(int req)
+        {
+            //adminDashData adminDashObj = new adminDashData();
+            //adminDashObj.closeCase = _IAdminDash.closeCaseNote(req);
+            //adminDashObj.casetagNote = _IAdminDash.casetag();
+            //return PartialView("_adminDashNewAssignCase", adminDashObj);
+            return PartialView("_adminDashNewAsignCase");
         }
     }
 }

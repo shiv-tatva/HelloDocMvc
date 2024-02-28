@@ -4,6 +4,7 @@ using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,11 +108,18 @@ namespace BLL_Business_Logic_Layer_.Services
             viewNotes viewNotes = new viewNotes();
             Requestnote _reqNote = new Requestnote();
             
+            var b = _context.Requeststatuslogs.FirstOrDefault(r => r.Requestid == reqId);
 
-             if(a != null)
+            if (a != null)
              {
                 viewNotes.AdminNotes = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId).Adminnotes;
                 viewNotes.PhysicianNotes = _context.Requestnotes.FirstOrDefault(p => p.Requestid == reqId).Physiciannotes;
+                viewNotes.cashtagId = Convert.ToInt16(_context.Requests.FirstOrDefault(r => r.Requestid == reqId).Casetag);
+                if(b != null)
+                {
+                    viewNotes.aditional_notes = _context.Requeststatuslogs.FirstOrDefault(r => r.Requestid == reqId).Notes;
+                }
+                
              }else
              {
                 _reqNote.Createddate = DateTime.Now.Date;
@@ -139,11 +147,53 @@ namespace BLL_Business_Logic_Layer_.Services
                 //_reqNote.Physiciannotes = obj._viewNote.PhysicianNotes;
                 _context.SaveChanges();
 
-
             }
 
         }
 
-        
+        public CloseCase closeCaseNote(int reqId)
+        {
+          
+            CloseCase _closeCase = new CloseCase();
+
+            _closeCase.first_name = _context.Requestclients.FirstOrDefault(r => r.Requestid == reqId).Firstname;
+            _closeCase.reqid = reqId;
+            _closeCase.status = _context.Requests.FirstOrDefault(r => r.Requestid == reqId).Status;
+           
+            return _closeCase;
+        }
+
+        public List<casetageNote> casetag()
+        {
+            var query = from r in _context.Casetags
+                        select (new casetageNote()
+                        {
+                            reasons = r.Name,
+                            reqid = r.Casetagid,
+                        });
+            return query.ToList();
+        }
+
+        public void closeCaseNote(adminDashData obj)
+        {
+            Requeststatuslog _log = new Requeststatuslog();
+
+            _log.Requestid = obj.closeCase.reqid;
+            _log.Status = (short)obj.closeCase.status;
+            _log.Notes = obj.closeCase.aditional_notes;
+            _log.Createddate = DateTime.Now;
+
+            _context.Add(_log);
+            _context.SaveChanges();
+
+            //var req = _context.Requests.Where(_req => _req.Requestid == obj.closeCase.reqid).Select(r => r).First();
+            //req.Casetag = obj.closeCase.cashtagId.ToString();
+
+            var req = _context.Requests.FirstOrDefault(x => x.Requestid == obj.closeCase.reqid);
+            req.Casetag = obj.closeCase.cashtagId.ToString();
+            req.Status = 3;
+            _context.SaveChanges();
+
+        }
     }
 }
