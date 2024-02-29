@@ -1,20 +1,20 @@
-﻿@* @model DAL_Data_Access_Layer_.CustomeModel.adminDashData *@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
 
 
-<form method="post" asp-action="cancelCase" asp-controller="adminDashboard">
+<form method="post" asp-action="assignCase" asp-controller="adminDashboard">
     <div class="modal fade " id="newRequestModalTwo" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
 
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header " style="background-color:#0dcaf0">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Asign Request</h5>
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Assign Request</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close" style="color:white"></button>
                 </div>
 
-               @*  <input value="@Model.closeCase.reqid" asp-for="@Model.closeCase.reqid" type="hidden" />
-                <input value="@Model.closeCase.status" asp-for="@Model.closeCase.status" type="hidden" /> *@
+                 <input value="@Model.assignCase.reqid" asp-for="@Model.assignCase.reqid" type="hidden" />
+                @* <input value="@Model.closeCase.status" asp-for="@Model.closeCase.status" type="hidden" />  *@
                 <div class="modal-body ">
 
                     <input hidden class="reqId" type="text" value="" id="id" name="id" />
@@ -23,16 +23,18 @@
 
                         <p class="name mb-0" style="font-size:18px;color:#0dcaf0;margin-left:8px;"></p>
                     </div>
-                    <select class="form-select mb-2" aria-label="Default select example" @* asp-for="closeCase.cashtagId" *@>
-                        <option name="reason" id="reason" disabled selected>Reasons for Cancellation</option>
-                       @*  @foreach (var item in Model.casetagNote)
+                    <select id="regionDropdown" class="form-select mb-2"  aria-label="Default select example" @* asp-for="closeCase.cashtagId" *@>
+                        <option name="reason" id="reason" disabled selected>
+                            Narrow search by region
+                        </option>
+                        @foreach (var item in Model.assignCase.regions)
                         {
-                            <option value="@item.reqid">@item.reasons</option>
-                        } *@
+                            <option value="@item.Regionid">@item.Name</option>
+                        }
                     </select>
                     
-                    <select class="form-select mb-2" aria-label="Default select example" @* asp-for="closeCase.cashtagId" *@>
-                        <option name="reason" id="reason" disabled selected>Reasons for Cancellation</option>
+                    <select id="doctorDropdown" class="form-select mb-2" aria-label="Default select example" asp-for="assignCase.phy_id_main" >
+                         <option name="reason" id="reason" disabled selected>Select Physician</option> 
                        @*  @foreach (var item in Model.casetagNote)
                         {
                             <option value="@item.reqid">@item.reasons</option>
@@ -40,8 +42,8 @@
                     </select>
 
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px" @* asp-for="@Model.closeCase.aditional_notes" *@></textarea>
-                        <label for="floatingTextarea2" class="input">Provide Additional Notes</label>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px"  asp-for="@Model.assignCase.description"></textarea>
+                        <label for="floatingTextarea2" class="input">Description</label>
                     </div>
 
                 </div>
@@ -55,3 +57,103 @@
         </div>
     </div>
 </form>
+
+
+<script>
+    $("#regionDropdown").on("change", function () {
+        doctorsName($(this).val());
+    })
+
+
+                 // <select id="regionDropdown" >
+                 // <option value="1" > Region 1 < /option>
+                 // < option value = "2" > Region 2 < /option>
+                 // < !--Add more options as needed -->
+                 // </select>
+
+                 // < select id = "doctorDropdown" > </select>
+
+
+
+
+    // function assignCase(reqid) {
+    //     let action = "/adminDashboard" + "/" + "assignCase"
+    //     event.preventDefault();
+    //     $.ajax({
+    //         url: action,
+    //         type: 'GET',
+    //         data: { req: reqid },
+    //         success: function (result) {
+    //             console.log(result)
+    //             $('#contentAssignNote').html(result);
+    //             $('#newRequestModalTwo').modal('show');
+
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+
+
+
+    function doctorsName(reg_id) {
+        let action = "/adminDashboard" + "/" + "GetDoctors"
+            event.preventDefault();
+            $.ajax({
+                url: action,
+                type: 'GET',
+            data: { regionId: reg_id },
+            success: function (data) {
+                console.log("data_phy" + data.dataPhyId)
+                $('#doctorDropdown').html("<option>" + "Select Physician" + "</option>");
+                for (var i = 0; i < data.dataid.length; i++) {
+                    $("#doctorDropdown").append('<option value = "' + data.dataPhyId[i] + '" >' + data.dataid[i] + '</option>')
+
+                }
+                    
+              },
+                error: function () {
+                    alert('Error loading partial view');
+                }
+            });
+    }
+
+
+    // $('#doctorDropdown').empty();
+    // for (let i = 0; i < data.length; i++) {
+    //     $('#doctorDropdown').append('<option>' + data[i] + '</option>')
+    // }
+
+
+    // $(document).ready(function () {
+    //     $('#regionDropdown').change(function () {
+    //         var regionId = $(this).val();
+    //         $.ajax({
+    //             url: '/YourController/GetDoctors',
+    //             type: 'GET',
+    //             data: { regionId: regionId },
+    //             success: function (data) {
+    //                 $('#doctorDropdown').empty();
+    //                 $.each(data, function (index, doctor) {
+    //                     $('#doctorDropdown').append('<option value="' + doctor.id + '">' + doctor.name + '</option>');
+    //                 });
+    //             },
+    //             error: function () {
+    //                 alert('Error loading doctors.');
+    //             }
+    //         });
+    //     });
+    // });
+
+
+        // public ActionResult GetDoctors(int regionId)
+        // {
+        //     // Retrieve doctors based on regionId from your database
+        //     var doctors = _context.Doctors.Where(d => d.RegionId == regionId).ToList();
+
+        //     // Return JSON data
+        //     return Json(doctors);
+        // }
+
+</script>

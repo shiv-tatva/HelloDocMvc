@@ -82,9 +82,14 @@ namespace BLL_Business_Logic_Layer_.Services
             if(obj.phone != null)
             {
                 _requestclient.Phonenumber = obj.phone;
-            }        
-           
-           
+            }
+
+            if (obj.email != null)
+            {
+                _requestclient.Email = obj.email;
+            }
+
+
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
 

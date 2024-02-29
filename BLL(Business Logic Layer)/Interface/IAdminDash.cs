@@ -19,5 +19,11 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<casetageNote> casetag();
 
+        public AssignCase adminDataAssignCase(int req);
+        public void adminDataAssignCase(adminDashData assignObj);
+        
+        
+        public AssignCase adminDataAssignCaseDocList(int regionId);
+
     }
 }

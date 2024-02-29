@@ -192,7 +192,7 @@
                     <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
                         @if(item.status == 1)
                         {
-                            <button type="button" class="btn text-white btn-info">Assign</button>
+                            <button type="button" class="btn text-white btn-info" onclick="assignCase(@item.reqid)">Assign</button>
                         }
                         
 
@@ -245,6 +245,27 @@
                 console.log(result)
                 $('#ViewCaseCancelNote').html(result);
                 $('#newRequestModal').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+
+
+    function assignCase(reqid){
+        let action = "/adminDashboard" + "/" + "assignCase"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: reqid },
+            success: function (result) {
+                $('#ViewCaseCancelNote').html(result);
+                $('#newRequestModalTwo').modal('show');
 
             },
             error: function () {

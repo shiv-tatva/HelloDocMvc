@@ -126,10 +126,9 @@ namespace BLL_Business_Logic_Layer_.Services
                         Console.WriteLine(e.Message);
                     }
                 }
-                else
-                {
+                
                     _requestclient.Email = data.email;
-                }
+                
                 
             }
            

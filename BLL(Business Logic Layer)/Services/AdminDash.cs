@@ -114,6 +114,7 @@ namespace BLL_Business_Logic_Layer_.Services
              {
                 viewNotes.AdminNotes = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId).Adminnotes;
                 viewNotes.PhysicianNotes = _context.Requestnotes.FirstOrDefault(p => p.Requestid == reqId).Physiciannotes;
+                //viewNotes.TransferNotes = _context.Requeststatuslogs.Where()
                 viewNotes.cashtagId = Convert.ToInt16(_context.Requests.FirstOrDefault(r => r.Requestid == reqId).Casetag);
                 if(b != null)
                 {
@@ -179,7 +180,7 @@ namespace BLL_Business_Logic_Layer_.Services
             Requeststatuslog _log = new Requeststatuslog();
 
             _log.Requestid = obj.closeCase.reqid;
-            _log.Status = (short)obj.closeCase.status;
+            _log.Status = 3;
             _log.Notes = obj.closeCase.aditional_notes;
             _log.Createddate = DateTime.Now;
 
@@ -195,5 +196,54 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
 
         }
+
+
+        public AssignCase adminDataAssignCase(int req)
+        {
+            AssignCase assignCase = new AssignCase();
+
+            assignCase.region_name = _context.Regions.Select(x => x.Name).ToList();
+            assignCase.region_id = _context.Regions.Select(y => y.Regionid).ToList();
+            assignCase.regions = _context.Regions.ToList();
+            assignCase.reqid = req;
+            
+            //assignCase.phy_req = _context.Physicianregions.ToList();
+            return assignCase;
+        }
+
+        public AssignCase adminDataAssignCaseDocList(int regionId)
+        {
+            AssignCase assignCase = new AssignCase();
+
+            assignCase.phy_name = _context.Physicianregions.Where(x=>x.Regionid == regionId).Select(x=>x.Physician.Firstname).ToList();
+            assignCase.phy_id = _context.Physicianregions.Where(x=>x.Regionid == regionId).Select(x=>x.Physician.Physicianid).ToList();
+            
+            return assignCase;
+        }
+
+        public void adminDataAssignCase(adminDashData assignObj)
+        {
+            Requeststatuslog requeststatuslog = new Requeststatuslog();
+            Request _req = new Request();
+            
+                var requestedRowPatient = _context.Requests.Where(x => x.Requestid == assignObj.assignCase.reqid).Select(r => r).First();
+
+                requeststatuslog.Requestid = assignObj.assignCase.reqid;
+                requeststatuslog.Notes = assignObj.assignCase.description;
+                requeststatuslog.Createddate = DateTime.Now;
+                requeststatuslog.Status = 2;
+
+                _context.Add(requeststatuslog);
+                _context.SaveChanges();
+
+                requestedRowPatient.Physicianid = assignObj.assignCase.phy_id_main;
+                requestedRowPatient.Status = 2;
+                _context.Add(_req);
+
+                _context.SaveChanges();
+            
+
+        }
+
     }
 }

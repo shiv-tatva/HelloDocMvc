@@ -123,7 +123,8 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 _requestclient.Email = obj.email;
             }
-             
+
+
             //_requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
             //_requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
             //_requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DAL_Data_Access_Layer_.DataModels;
+using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +56,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? cnf_number { get; set; }
 
+        
+
     }
 
     public class viewNotes
@@ -61,7 +65,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int reqid { get; set; }
         public int cashtagId { get; set; }
         public string? aditional_notes { get; set; }
-        public string? TransferNotes { get; set; }
+        public List<char> TransferNotes { get; set; }
         public string? PhysicianNotes { get; set; }
         public string? AdminNotes { get; set; }
         public string? AdminCancleNotes { get; set; }
@@ -77,7 +81,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? first_name { get; set; }
         public string? last_name { get; set; }
         public int? status { get; set; }
+
     }
+    
+    
+   
     public class casetageNote
     {
         public int reqid { get; set; }
@@ -85,6 +93,25 @@ namespace DAL_Data_Access_Layer_.CustomeModel
       
     }
 
+    public class AssignCase
+    {
+        public int reqid { get; set; }
+        public string? description { get; set; }
+        public int phy_id_main { get; set; }
+        public List<int> phy_id { get; set; }
+        public List<int> region_id { get; set; }
+        public List<string> region_name { get; set; }
+
+        public List<Region> regions { get; set; }
+
+        public List<string> phy_name { get; set; }
+
+        //public List<Physicianregion> phy_req { get; set; }
+
+    }
+
+
+   
 
     public class adminDashData
     {
@@ -95,6 +122,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public CloseCase? closeCase { get; set; }
 
         public List<casetageNote> casetagNote { get; set; }
+
+        public AssignCase assignCase { get; set; }
 
     }
 }

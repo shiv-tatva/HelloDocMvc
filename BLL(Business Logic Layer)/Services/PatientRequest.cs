@@ -162,6 +162,10 @@ namespace BLL_Business_Logic_Layer_.Services
                 _requestclient.Phonenumber = obj.phone;
             }
 
+            if (obj.email != null)
+            {
+                _requestclient.Email = obj.email;
+            }
 
             //_requestclient.Strmonth = data.dateofbirth.Substring(5, 2);
             //_requestclient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));

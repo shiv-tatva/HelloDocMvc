@@ -2,6 +2,7 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -78,11 +79,26 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult assignCase(int req)
         {
-            //adminDashData adminDashObj = new adminDashData();
-            //adminDashObj.closeCase = _IAdminDash.closeCaseNote(req);
-            //adminDashObj.casetagNote = _IAdminDash.casetag();
-            //return PartialView("_adminDashNewAssignCase", adminDashObj);
-            return PartialView("_adminDashNewAsignCase");
+           adminDashData obj = new adminDashData();
+            obj.assignCase = _IAdminDash.adminDataAssignCase(req);
+            return PartialView("_adminDashNewAsignCase",obj);
+        }
+
+        public ActionResult GetDoctors(int regionId)
+        {
+            adminDashData obj = new adminDashData();
+
+            obj.assignCase = _IAdminDash.adminDataAssignCaseDocList(regionId);
+           
+            return Json(new {dataid=obj.assignCase.phy_name, dataPhyId = obj.assignCase.phy_id});
+        }
+
+        [HttpPost]
+        public IActionResult assignCase(adminDashData assignObj)
+        {
+            adminDashData obj = new adminDashData();
+            _IAdminDash.adminDataAssignCase(assignObj);
+            return RedirectToAction("adminDashboard");
         }
     }
 }
