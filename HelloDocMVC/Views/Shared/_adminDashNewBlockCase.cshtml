@@ -1,0 +1,42 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+
+
+<form method="post" asp-action="blockCase" asp-controller="adminDashboard">
+    <div class="modal fade " id="newRequestModalThree" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header " style="background-color:#0dcaf0">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Confirm Cancellation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close" style="color:white"></button>
+                </div>
+
+               <input value="@Model._blockCaseModel.reqid" asp-for="@Model._blockCaseModel.reqid" type="hidden" />
+                @* <input value="@Model.closeCase.status" asp-for="@Model.closeCase.status" type="hidden" /> *@
+                <div class="modal-body ">
+
+                    <input hidden class="reqId" type="text" value="" id="id" name="id" />
+                    <div class="d-flex align-items-center mb-4">
+                        <h4 class="">Patient Name : @Model._blockCaseModel.first_name </h4>
+
+                        <p class="name mb-0" style="font-size:18px;color:#0dcaf0;margin-left:8px;"></p>
+                    </div>
+                   
+
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px"  asp-for="@Model._blockCaseModel.description" ></textarea>
+                        <label for="floatingTextarea2" class="input">Provide Additional Notes</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info text-white" type="submit">confirm</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

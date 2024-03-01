@@ -110,7 +110,12 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     }
 
-
+    public class blockCaseModel
+    {
+        public int reqid { get; set; }
+        public string? first_name { get; set; }
+        public string? description { get; set; }
+    }
    
 
     public class adminDashData
@@ -124,6 +129,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<casetageNote> casetagNote { get; set; }
 
         public AssignCase assignCase { get; set; }
+
+        public blockCaseModel _blockCaseModel { get; set; }
 
     }
 }

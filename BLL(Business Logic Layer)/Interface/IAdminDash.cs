@@ -22,8 +22,11 @@ namespace BLL_Business_Logic_Layer_.Interface
         public AssignCase adminDataAssignCase(int req);
         public void adminDataAssignCase(adminDashData assignObj);
         
-        
         public AssignCase adminDataAssignCaseDocList(int regionId);
+
+        public blockCaseModel blockcase(int req);
+
+        public void blockcase(adminDashData obj);
 
     }
 }

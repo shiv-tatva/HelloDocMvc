@@ -100,5 +100,23 @@ namespace HelloDocMVC.Controllers
             _IAdminDash.adminDataAssignCase(assignObj);
             return RedirectToAction("adminDashboard");
         }
+
+
+        public IActionResult blockCase(int req)
+        {
+            adminDashData obj = new adminDashData();
+            obj._blockCaseModel = _IAdminDash.blockcase(req);
+
+            return PartialView("_adminDashNewBlockCase", obj);
+        }
+
+
+        [HttpPost]
+        public IActionResult blockCase(adminDashData obj)
+        {
+             _IAdminDash.blockcase(obj);
+
+            return RedirectToAction("adminDashboard");
+        }
     }
 }

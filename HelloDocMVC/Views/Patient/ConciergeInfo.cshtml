@@ -46,18 +46,20 @@
                            aria-label="Contact"
                                type="number"
                             />
-                        
+                        <span asp-validation-for="concierge_phone" class="text-danger"></span>
                 </div>
                 <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
                     <div class="form-floating">
                         <input asp-for="concierge_email" type="email" class="form-control" placeholder="Name">
                         <label asp-for="concierge_email">Your Email</label>
+                            <span asp-validation-for="concierge_email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
                         <input asp-for="concierge_hotelname" type="text" class="form-control" placeholder="Name">
                         <label asp-for="concierge_hotelname">Hotel/Property Name</label>
+                            <span asp-validation-for="concierge_hotelname" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -107,18 +109,21 @@
                     <div class="form-floating">
                         <input asp-for="firstname" type="text" class="form-control" placeholder="Name">
                         <label asp-for="firstname">First Name</label>
+                            <span asp-validation-for="firstname" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
                         <input asp-for="lastname" type="text" class="form-control" placeholder="Name">
                         <label asp-for="lastname">Last Name</label>
+                            <span asp-validation-for="lastname" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
                             <input id="DateOfBirth" asp-for="dateofbirth" type="date" class="form-control" placeholder="Name">
                         <label asp-for="dateofbirth">Date of Birth</label>
+                            <span asp-validation-for="dateofbirth" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -130,6 +135,7 @@
                     <div class="form-floating">
                         <input asp-for="email" type="email" class="form-control" placeholder="Name">
                         <label asp-for="email">Email</label>
+                            <span asp-validation-for="email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
@@ -138,6 +144,7 @@
                            aria-label="Contact"
                                type="number"
                            />
+                        <span asp-validation-for="phone" class="text-danger"></span>
                 </div>
             </div>
 
@@ -157,7 +164,7 @@
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">Submit</button>
                 </div>
                 <div id="backDivThree">
-                    <button href="#" title="Forgot password" class="link-default ps-3"
+                        <button onclick="clearAll()" title="Forgot password" class="link-default ps-3"
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">Cancel</button>
                 </div>
             </div>
@@ -204,6 +211,18 @@
     const currentDate = new Date().toISOString().split('T')[0];
 
     document.getElementById('DateOfBirth').setAttribute('max', currentDate);
+
+    function clearAll() {
+        let a = document.getElementsByTagName("input")
+        for (let i = 0; i < a.length; i++) {
+            a[i].value = "";
+        }
+
+        let b = document.getElementsByTagName("textarea")
+        for (let i = 0; i < b.length; i++) {
+            b[i].value = "";
+        }
+    }
 
 
 </script>

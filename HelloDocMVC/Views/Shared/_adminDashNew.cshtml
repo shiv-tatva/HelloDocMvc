@@ -248,7 +248,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="blockCase(@item.reqid)">
                                                         <i class="fa-solid fa-ban"></i>
                                                         Block Patient
                                                     </button>
@@ -404,6 +404,9 @@
 
 </div>
 <div id="contentAssignNote">
+
+</div>
+<div id="contentBlockNote">
 
 </div>
 
@@ -591,8 +594,27 @@
             }
         });
     }
+    
+    function blockCase(reqid) {
+        let action = "/adminDashboard" + "/" + "blockCase"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: reqid },
+            success: function (result) {
+                console.log(result)
+                $('#contentBlockNote').html(result);
+                $('#newRequestModalThree').modal('show');
 
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
+    
     
     $(document).ready(function () {
 

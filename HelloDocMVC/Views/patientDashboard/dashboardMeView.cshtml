@@ -31,12 +31,14 @@
                         <div class="form-floating">
                             <input asp-for="lastname" class="form-control" placeholder="Name">
                             <label asp-for="lastname">Last Name</label>
+                            <span asp-validation-for="lastname" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
-                            <input asp-for="dateofbirth" type="date" class="form-control" placeholder="Name">
+                            <input id="DateOfBirth" asp-for="dateofbirth" type="date" class="form-control" placeholder="Name">
                             <label asp-for="dateofbirth">Date of Birth</label>
+                            <span asp-validation-for="dateofbirth" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -46,7 +48,7 @@
                     <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-floating">
                             
-                            <input asp-for="email" type="email" class="form-control emailCheck" placeholder="Name" onblur="checkEmailAvail()" id="emailMain" value="@Model.email">
+                            <input asp-for="email" type="email" class="form-control emailCheck" placeholder="Name" onblur="checkEmailAvail()" id="emailMain" value="@Model.email" readonly>
                             <label asp-for="email">Email</label>
                             <span asp-validation-for="email" class="text-danger"></span>
                         </div>
@@ -57,6 +59,7 @@
                                aria-label="Contact"
                                type="tel"
                                name="phone" />
+                        <span asp-validation-for="phone" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -94,24 +97,28 @@
                         <div class="form-floating">
                             <input asp-for="street" type="text" class="form-control" placeholder="Name">
                             <label asp-for="street">Street</label>
+                            <span asp-validation-for="street" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
                             <input asp-for="city" type="text" class="form-control" placeholder="Name">
                             <label asp-for="city">City</label>
+                            <span asp-validation-for="city" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
                             <input asp-for="state" type="text" class="form-control" placeholder="Name">
                             <label asp-for="state">State</label>
+                            <span asp-validation-for="state" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
                             <input asp-for="zipcode" type="text" class="form-control" placeholder="Name">
                             <label asp-for="zipcode">Zip code</label>
+                            <span asp-validation-for="zipcode" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
@@ -238,6 +245,10 @@
         })
     }
 
+    //date validation
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    document.getElementById('DateOfBirth').setAttribute('max', currentDate);
 
     // function darkMode() {
     //     let a = document.getElementById("mainContainer")

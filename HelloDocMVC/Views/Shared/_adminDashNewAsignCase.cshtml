@@ -50,7 +50,7 @@
                 <div class="modal-footer">
 
                     <button class="btn btn-info text-white" type="submit">confirm</button>
-                    <button class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
                 </div>
 
             </div>
@@ -63,39 +63,6 @@
     $("#regionDropdown").on("change", function () {
         doctorsName($(this).val());
     })
-
-
-                 // <select id="regionDropdown" >
-                 // <option value="1" > Region 1 < /option>
-                 // < option value = "2" > Region 2 < /option>
-                 // < !--Add more options as needed -->
-                 // </select>
-
-                 // < select id = "doctorDropdown" > </select>
-
-
-
-
-    // function assignCase(reqid) {
-    //     let action = "/adminDashboard" + "/" + "assignCase"
-    //     event.preventDefault();
-    //     $.ajax({
-    //         url: action,
-    //         type: 'GET',
-    //         data: { req: reqid },
-    //         success: function (result) {
-    //             console.log(result)
-    //             $('#contentAssignNote').html(result);
-    //             $('#newRequestModalTwo').modal('show');
-
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-
-
 
     function doctorsName(reg_id) {
         let action = "/adminDashboard" + "/" + "GetDoctors"

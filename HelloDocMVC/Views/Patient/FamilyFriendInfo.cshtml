@@ -182,7 +182,7 @@
                         </button>
                     </div>
                     <div id="backDivThree">
-                        <button href="#" title="Forgot password" class="link-default ps-3"
+                        <button onclick="clearAll()" title="Forgot password" class="link-default ps-3"
                                 style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
                             Cancel
                         </button>
@@ -231,5 +231,17 @@
     const currentDate = new Date().toISOString().split('T')[0];
 
     document.getElementById('DateOfBirth').setAttribute('max', currentDate);
+
+    function clearAll() {
+        let a = document.getElementsByTagName("input")
+        for (let i = 0; i < a.length; i++) {
+            a[i].value = "";
+        }
+
+        let b = document.getElementsByTagName("textarea")
+        for (let i = 0; i < b.length; i++) {
+            b[i].value = "";
+        }
+    }
   
 </script>

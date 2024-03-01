@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,8 @@ namespace BLL_Business_Logic_Layer_.Services
         public List<adminDash> adminData()
         {
 
-            var query = from r in _context.Requests
+
+            var query = (from r in _context.Requests
                         join rc in _context.Requestclients on r.Requestid equals rc.Requestid
                         select new adminDash
                         {
@@ -43,26 +45,28 @@ namespace BLL_Business_Logic_Layer_.Services
                             state = rc.State,
                             street = rc.Street,
                             zipcode = rc.Zipcode,
-                            address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
+                            //address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
-                            phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
-                            region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
+                            //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
+                            //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
                             reqid = r.Requestid,
                             email = rc.Email,
-                            fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
-                        };
-                        
-
-            var result = query.ToList();
+                            //fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
+                        }).ToList();
 
 
-            return result;
+
+            //var result = query.ToList();
+
+
+            return query;
         }
         
         
         public List<adminDash> adminDataViewCase(int reqId)
         {
+            
 
             var query = from r in _context.Requests
                         join rc in _context.Requestclients on r.Requestid equals rc.Requestid
@@ -84,11 +88,11 @@ namespace BLL_Business_Logic_Layer_.Services
                             zipcode = rc.Zipcode,
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
-                            phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
-                            region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
+                            //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
+                            //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
                             reqid = r.Requestid,
                             email = rc.Email,
-                            fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
+                            //fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
                             cnf_number = r.Confirmationnumber,
                         };
                         
@@ -245,5 +249,44 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+        public blockCaseModel blockcase(int req)
+        {
+            blockCaseModel _block = new blockCaseModel();
+
+            _block.reqid = req;
+            _block.first_name = _context.Requestclients.Where(r => r.Requestid == req).Select(r => r.Firstname).First();
+
+            return _block;
+        }
+
+        public void blockcase(adminDashData obj)
+        {
+            var request = _context.Requests.FirstOrDefault(r => r.Requestid == obj._blockCaseModel.reqid);
+
+            if(request != null)
+            {
+                if (request.Isdeleted == null)
+                {
+                    request.Isdeleted = new BitArray(1);
+                    request.Isdeleted[0] = true;
+                    request.Status = 10;
+
+                    _context.Requests.Update(request);
+                    _context.SaveChanges();
+                }
+                    
+            }
+
+            Blockrequest blockrequest = new Blockrequest();
+
+            blockrequest.Phonenumber = request.Phonenumber;
+            blockrequest.Email = request.Email;
+            blockrequest.Reason = obj._blockCaseModel.description;
+            blockrequest.Requestid = obj._blockCaseModel.reqid;
+            blockrequest.Createddate = DateTime.Now;
+
+            _context.Blockrequests.Add(blockrequest);
+            _context.SaveChanges();
+        }
     }
 }

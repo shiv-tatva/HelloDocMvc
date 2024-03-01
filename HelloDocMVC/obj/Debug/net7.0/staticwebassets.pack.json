@@ -61,6 +61,10 @@
       "PackagePath": "staticwebassets\\Documents\\new-product.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\notification-icon.svg",
+      "PackagePath": "staticwebassets\\Documents\\notification-icon.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\pie-chart.svg",
       "PackagePath": "staticwebassets\\Documents\\pie-chart.svg"
     },
