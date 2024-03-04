@@ -118,5 +118,39 @@ namespace HelloDocMVC.Controllers
 
             return RedirectToAction("adminDashboard");
         }
+
+
+        public IActionResult pendingViewUploadMain(int data)
+        {
+            ViewBag.Admin = 4;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj._viewUpload = _IAdminDash.viewUploadMain(data);
+            return View(adminDashObj);
+        }
+
+        [HttpPost]
+        public IActionResult pendingViewUploadMain(adminDashData obj)
+        {
+            adminDashData adminDashObj = new adminDashData();
+            _IAdminDash.viewUploadMain(obj);
+            return RedirectToAction("pendingViewUploadMain", "adminDashboard", new {data = obj._viewUpload[0].reqid });
+        }
+
+        public IActionResult DownloadFile(string data)
+        {
+                string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(pathname);//filepath will relative as per the filename
+                string fileName = data;
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, data);
+            
+        }
+        
+        
+        public IActionResult DeleteFile(bool data,int id,int reqFileId)
+        {
+            _IAdminDash.DeleteFile(data, reqFileId);
+            return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = id });
+
+        }
     }
 }

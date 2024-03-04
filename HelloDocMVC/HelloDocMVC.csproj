@@ -68,12 +68,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\adminDashboard\pendingViewUpload.cshtml" />
     <Content Remove="Views\Home\CreateAcc.cshtml" />
     <Content Remove="Views\patientDashboard\patienDashboard.cshtml" />
     <Content Remove="Views\Shared\adminDashboardShared.cshtml" />
     <Content Remove="Views\Shared\loginSubmit.cshtml" />
     <Content Remove="Views\Shared\_adminDashNewViewCase.cshtml" />
     <Content Remove="Views\Shared\_adminDashNewViewNote.cshtml" />
+    <Content Remove="Views\Shared\_adminDashPendingViewUploads.cshtml" />
     <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
     <Content Remove="wwwroot\css\Class.cs" />
     <Content Remove="wwwroot\css\privacy.cs" />

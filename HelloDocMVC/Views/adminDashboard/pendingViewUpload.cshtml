@@ -1,0 +1,133 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+
+
+@{
+    ViewData["Title"] = "View Uploads";
+}
+@*
+<link href="~/css/Admin/ViewCase.css" rel="stylesheet" type="text/css" />
+ *@
+@* @await Html.PartialAsync("_Admin_Header")
+ *@
+@*
+<link href="~/css/PatientDashboard.css" rel="stylesheet" type="text/css" /> *@
+<!-- main-container -->
+<!-- main-container -->
+<div class="container p-sm-2 p-md-5">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+             tabindex="0">
+            <div class=" mt-2 d-flex justify-content-between align-items-center">
+                <h4>Document</h4>
+                <a asp-controller="Patient" asp-action="PatientDashboard"
+                   class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+                    <i class="fa-solid fa-angle-left"></i> Back
+                </a>
+            </div>
+
+            <div class="container-fluid shadow border rounded mt-3 px-4 mb-5 pb-5">
+                <div class="text-secondary pt-3 my-2">@Model._viewUpload[0].fname @Model._viewUpload[0].lname</div>
+                <span class="text-info fs-4 my-2"></span> <span class="my-2 text-secondary">
+                    @Model._viewUpload[0].cnf_number
+                </span>
+                <div class="my-2 text-secondary">
+                    Check here to review and add files that you or the Client/Member has attached to the request.
+                </div>
+                <form asp-action="pendingViewUpload" asp-controller="adminDashboard" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="@Model._viewUpload[0].reqid" value="@Model._viewUpload[0].reqid" />
+                    <div class="input-group mb-3  rounded my-4">
+                        <input asp-for="@Model._viewUpload[0].Upload" type="file" class="form-control  py-3" id="inputGroupFile">
+                        <button type="submit" class="input-group-text fw-bold bg-info upload">
+                            <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
+                            <span class="text-white">Upload</span>
+                        </button>
+                    </div>
+                </form>
+                <div class="d-flex justify-content-end">
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                            <span class="d-none d-sm-inline-block">Download All</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                            <span class="d-none d-sm-inline-block">Delete All</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                            <span class="d-none d-sm-inline-block">Send All</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="container-fluid table-responsive">
+
+                    <table class="table ">
+                        <thead class="bg-body-tertiary ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="checkbox-main checkbox " name="selectall"
+                                           onchange="tickAll()" />
+                                </th>
+                                <th>Upload Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var obj in Model._viewUpload)
+                            {
+                            for(int i = 0;i < obj.documentsname.Count(); i++)
+                            {
+                            <tr class="align-middle">
+                                <td class="first-col">
+                                    <input type="checkbox" name="Mark" class="checkbox fileCheckbox"
+                                           onchange="allCheck()" /><span class="document-combo ms-5">
+                                        <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
+                                        <span class="document-name mx-2">@obj.documentsname[i]</span>
+                                    </span>
+                                </td>
+                                <td>@obj.created_date[i]</td>
+                               
+                                <td>
+                                    <button class="btn btn-outline-info" type="button" onclick="window.location.href='@Url.Action("DownloadFile","patientDashboard",new {data = @obj.documentsname[i]})'" ><i  class="fa-solid fa-cloud-arrow-down"></i></button>
+                                    <button class="btn btn-outline-info"><i class="fa-solid fa-trash-can"></i></button>
+                                </td>
+                                
+                            </tr>
+                            }
+
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+<script>
+        $('.downloadAll').click(function () {
+            $('.fileCheckbox:checked').each(function () {
+                var filePath = $(this).closest('tr').find('.download-btn')[0].click();
+            });
+        });
+</script>
+
+<script src="~/js/PatientDashboard.js"></script>
+<script src="~/js/view_document.js"></script>
+}

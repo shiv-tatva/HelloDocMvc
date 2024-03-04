@@ -28,5 +28,10 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void blockcase(adminDashData obj);
 
+        public List<viewUploads> viewUploadMain(int reqId);
+
+        public void viewUploadMain(adminDashData obj);
+        public void DeleteFile(bool data,int reqFileId);
+
     }
 }

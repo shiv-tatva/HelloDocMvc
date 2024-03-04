@@ -248,7 +248,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("pendingViewUploadMain","adminDashboard", new {data = item.reqid})'">
                                                         <i class="fa-solid fa-file-arrow-up"></i>
                                                         View Uploads
                                                     </button>
@@ -635,6 +635,23 @@
             }
         });
     }
+
+    
+    // function pendingViewUpload(id) {
+    //     let action = "/adminDashboard" + "/" + "pendingViewUpload"
+    //     $.ajax({
+    //         url: action,
+    //         type: 'GET',
+    //         data: { req: id },
+    //         success: function (result) {
+    //             $('#content').html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+   
 
 
 </script>

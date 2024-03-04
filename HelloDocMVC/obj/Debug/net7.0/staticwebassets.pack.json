@@ -49,8 +49,28 @@
       "PackagePath": "staticwebassets\\Documents\\favicon.ico"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\graph-default.svg",
+      "PackagePath": "staticwebassets\\Documents\\graph-default.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\info-icon.svg",
+      "PackagePath": "staticwebassets\\Documents\\info-icon.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\maintenance-active.svg",
+      "PackagePath": "staticwebassets\\Documents\\maintenance-active.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\maintenance-default.svg",
+      "PackagePath": "staticwebassets\\Documents\\maintenance-default.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\menu-bar.svg",
       "PackagePath": "staticwebassets\\Documents\\menu-bar.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\mobile-header-logo.svg",
+      "PackagePath": "staticwebassets\\Documents\\mobile-header-logo.svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\money-bag.svg",
@@ -81,8 +101,20 @@
       "PackagePath": "staticwebassets\\Documents\\select-downward.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\setting-active.svg",
+      "PackagePath": "staticwebassets\\Documents\\setting-active.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\star.svg",
       "PackagePath": "staticwebassets\\Documents\\star.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\success-icon.svg",
+      "PackagePath": "staticwebassets\\Documents\\success-icon.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\user-default.svg",
+      "PackagePath": "staticwebassets\\Documents\\user-default.svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\warning-icon.svg",

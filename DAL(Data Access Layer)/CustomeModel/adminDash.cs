@@ -1,4 +1,5 @@
 ﻿using DAL_Data_Access_Layer_.DataModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
@@ -116,6 +117,30 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? first_name { get; set; }
         public string? description { get; set; }
     }
+
+
+    public class viewUploads
+    {
+        public int reqid { get; set; }
+
+        public List<DateTime> created_date { get; set; }
+
+        public string? docname { get; set; }
+
+        public string? cnf_number { get; set; }
+
+        public string fname { get; set; }
+        public string lname { get; set; }
+
+        public int? user_id_param { get; set; }
+
+        public List<string> documentsname { get; set; }
+        public List<int> requestWiseFileId { get; set; }
+
+        public IFormFile Upload { get; set; }
+
+        public bool dlt_data { get; set; }
+    }
    
 
     public class adminDashData
@@ -131,6 +156,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public AssignCase assignCase { get; set; }
 
         public blockCaseModel _blockCaseModel { get; set; }
+
+        public List<viewUploads> _viewUpload {  get; set; }
+
 
     }
 }

@@ -2,6 +2,7 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -274,7 +275,6 @@ namespace BLL_Business_Logic_Layer_.Services
                     _context.Requests.Update(request);
                     _context.SaveChanges();
                 }
-                    
             }
 
             Blockrequest blockrequest = new Blockrequest();
@@ -286,6 +286,69 @@ namespace BLL_Business_Logic_Layer_.Services
             blockrequest.Createddate = DateTime.Now;
 
             _context.Blockrequests.Add(blockrequest);
+            _context.SaveChanges();
+        }
+
+        public List<viewUploads> viewUploadMain(int reqId)
+        {
+
+
+            var reqIdDeleted = _context.Requestwisefiles.Where(r => r.Requestid == reqId).Select(r => r.Isdeleted[0]);
+
+            var query = _context.Requests.Where(r => r.Requestid == reqId).AsNoTracking().Select(r => new viewUploads()
+            {
+                reqid = reqId,
+                fname = r.Firstname,
+                lname = r.Lastname,
+                cnf_number = r.Confirmationnumber,
+                documentsname = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Filename).ToList(),
+                created_date = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Createddate).ToList(),
+                requestWiseFileId = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Requestwisefileid).ToList(),
+            }).ToList();
+
+            return query;
+        }
+
+
+        public void viewUploadMain(adminDashData obj)
+        {
+            Request _request = new Request();
+
+            if (obj._viewUpload[0].Upload != null)
+            {
+                string filename = obj._viewUpload[0].Upload.FileName;
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", filename);
+                IFormFile file = obj._viewUpload[0].Upload;
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                Request? req = _context.Requests.FirstOrDefault(i => i.Requestid == obj._viewUpload[0].reqid);
+                int ReqId = req.Requestid;
+
+                var data3 = new Requestwisefile()
+                {
+                    Requestid = ReqId,
+                    Filename = filename,
+                    Createddate = DateTime.Now,
+                };
+                _context.Requestwisefiles.Add(data3);
+                _context.SaveChanges();
+            }
+        }
+
+
+        public void DeleteFile(bool data,int reqFileId)
+        {
+            var reqWiseFile = _context.Requestwisefiles.Where(r => r.Requestwisefileid == reqFileId).Select(r => r).First();
+
+            Requestwisefile _req = new Requestwisefile();
+
+            reqWiseFile.Isdeleted = new BitArray(1);
+            reqWiseFile.Isdeleted[0] = data;
+
             _context.SaveChanges();
         }
     }
