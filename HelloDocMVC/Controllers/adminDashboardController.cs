@@ -3,6 +3,8 @@ using DAL_Data_Access_Layer_.CustomeModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
+using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -12,7 +14,7 @@ namespace HelloDocMVC.Controllers
     {
         private IAdminDash _IAdminDash;
 
-        public adminDashboardController (IAdminDash iAdminDash)
+        public adminDashboardController(IAdminDash iAdminDash)
         {
             _IAdminDash = iAdminDash;
         }
@@ -27,12 +29,12 @@ namespace HelloDocMVC.Controllers
 
 
 
-        
-        public IActionResult LoadPartialDashboard( )
+
+        public IActionResult LoadPartialDashboard()
         {
             adminDashData adminDashObj = new adminDashData();
             adminDashObj.data = _IAdminDash.adminData();
-            
+
 
             return PartialView("_adminDash", adminDashObj);
         }
@@ -45,8 +47,8 @@ namespace HelloDocMVC.Controllers
             adminDashObj.data = _IAdminDash.adminDataViewCase(data);
             return View(adminDashObj);
         }
-        
-        
+
+
         public IActionResult newViewNote(int data)
         {
             ViewBag.Admin = 4;
@@ -59,7 +61,7 @@ namespace HelloDocMVC.Controllers
         public IActionResult newViewNote(adminDashData obj)
         {
             _IAdminDash.adminDataViewNote(obj);
-            return RedirectToAction("newViewNote", "adminDashboard", new {data=obj._viewNote.reqid});
+            return RedirectToAction("newViewNote", "adminDashboard", new { data = obj._viewNote.reqid });
         }
 
         public IActionResult cancelCase(int req) {
@@ -79,9 +81,9 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult assignCase(int req)
         {
-           adminDashData obj = new adminDashData();
+            adminDashData obj = new adminDashData();
             obj.assignCase = _IAdminDash.adminDataAssignCase(req);
-            return PartialView("_adminDashNewAsignCase",obj);
+            return PartialView("_adminDashNewAsignCase", obj);
         }
 
         public ActionResult GetDoctors(int regionId)
@@ -89,8 +91,8 @@ namespace HelloDocMVC.Controllers
             adminDashData obj = new adminDashData();
 
             obj.assignCase = _IAdminDash.adminDataAssignCaseDocList(regionId);
-           
-            return Json(new {dataid=obj.assignCase.phy_name, dataPhyId = obj.assignCase.phy_id});
+
+            return Json(new { dataid = obj.assignCase.phy_name, dataPhyId = obj.assignCase.phy_id });
         }
 
         [HttpPost]
@@ -114,7 +116,7 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult blockCase(adminDashData obj)
         {
-             _IAdminDash.blockcase(obj);
+            _IAdminDash.blockcase(obj);
 
             return RedirectToAction("adminDashboard");
         }
@@ -133,24 +135,31 @@ namespace HelloDocMVC.Controllers
         {
             adminDashData adminDashObj = new adminDashData();
             _IAdminDash.viewUploadMain(obj);
-            return RedirectToAction("pendingViewUploadMain", "adminDashboard", new {data = obj._viewUpload[0].reqid });
+            return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = obj._viewUpload[0].reqid });
         }
 
         public IActionResult DownloadFile(string data)
         {
-                string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
-                byte[] fileBytes = System.IO.File.ReadAllBytes(pathname);//filepath will relative as per the filename
-                string fileName = data;
-                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, data);
-            
+            string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(pathname);//filepath will relative as per the filename
+            string fileName = data;
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, data);
+
         }
-        
-        
-        public IActionResult DeleteFile(bool data,int id,int reqFileId)
+
+
+        public IActionResult DeleteFile(bool data, int id, int reqFileId)
         {
             _IAdminDash.DeleteFile(data, reqFileId);
             return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = id });
 
         }
+
+        public IActionResult activeOrders()
+        {
+            ViewBag.Admin = 4;
+            return View();
+        }
+
     }
 }

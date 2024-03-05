@@ -26,7 +26,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating">
-                        <input type="date" class="dclass form-control " id="floatingInputdate"
+                        <input  type="date" class="dclass form-control " id="floatingInputdate"
                                placeholder="Date Of Birth" aria-label="First Name" value="@Model.fulldateofbirth">
                         <label class="ms-2 " for="floatingInputdate">Date Of Birth</label>
                     </div>
@@ -118,6 +118,11 @@
         document.getElementById('cancelBtn').style.display = 'none';
         document.getElementById('editBtn').style.display = 'block';
     }
+
+        //date validation
+        const currentDate = new Date().toISOString().split('T')[0];
+
+    document.getElementById('floatingInputdate').setAttribute('max', currentDate);
 
     function enableFields() {
         document.querySelectorAll('.dclass').forEach(function (element) {

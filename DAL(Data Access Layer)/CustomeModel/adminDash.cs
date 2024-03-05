@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
@@ -122,6 +123,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class viewUploads
     {
         public int reqid { get; set; }
+        public string? email { get; set; }
 
         public List<DateTime> created_date { get; set; }
 
@@ -137,6 +139,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<string> documentsname { get; set; }
         public List<int> requestWiseFileId { get; set; }
 
+
+        [Required(ErrorMessage = "Please Enter Atleast One File")]
         public IFormFile Upload { get; set; }
 
         public bool dlt_data { get; set; }

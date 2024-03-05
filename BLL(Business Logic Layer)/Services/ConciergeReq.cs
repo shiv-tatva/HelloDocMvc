@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using HelloDocMVC.CustomeModel;
 using DAL_Data_Access_Layer_.DataModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
+using System.Net;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -18,6 +22,35 @@ namespace BLL_Business_Logic_Layer_.Services
         public ConciergeReq(ApplicationDbContext context)
         {
             _db = context;
+        }
+
+
+        public void SendRegistrationEmail(string toEmail, string registrationLink)
+        {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Update Password for Account ",
+                IsBodyHtml = true,
+                Body = $"Click the following link to complete your registration: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+
+            mailMessage.To.Add(toEmail);
+
+            client.Send(mailMessage);
         }
 
         public void ConciergeDetail(ConciergeCustom obj)
@@ -96,7 +129,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _db.Requests.Add( _request );
             _db.SaveChanges();
 
-
+            var userexist = _db.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
 
             if (_request.Requestid != null)
             {
@@ -121,6 +154,24 @@ namespace BLL_Business_Logic_Layer_.Services
             
             if (obj.email != null)
             {
+                if (userexist == null)
+                {
+                    string emailConfirmationToken = Guid.NewGuid().ToString();
+
+                    string registrationLink = "http://localhost:5145/Home/CreateAccount";
+
+                    //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
+
+                    try
+                    {
+                        SendRegistrationEmail(obj.email, registrationLink);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+
                 _requestclient.Email = obj.email;
             }
 

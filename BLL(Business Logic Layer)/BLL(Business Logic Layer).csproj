@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interface\IEmailService.cs" />
     <Compile Remove="Interface\Interface1.cs" />
+    <Compile Remove="Services\EmailService.cs" />
     <Compile Remove="Services\IActionResult.cs" />
   </ItemGroup>
 

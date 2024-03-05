@@ -19,22 +19,22 @@
              tabindex="0">
             <div class=" mt-2 d-flex justify-content-between align-items-center">
                 <h4>Document</h4>
-                <a asp-controller="Patient" asp-action="PatientDashboard"
+                <a asp-controller="adminDashboard" asp-action="adminDashboard"
                    class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
                     <i class="fa-solid fa-angle-left"></i> Back
                 </a>
             </div>
 
             <div class="container-fluid shadow border rounded mt-3 px-4 mb-5 pb-5">
-                <div class="text-secondary pt-3 my-2">@Model._viewUpload[0].fname @Model._viewUpload[0].lname</div>
-                <span class="text-info fs-4 my-2"></span> <span class="my-2 text-secondary">
-                    @Model._viewUpload[0].cnf_number
+                <div class="text-secondary pt-3 my-2">Patient Name</div>
+                <span class="text-info fs-2 my-2">@Model._viewUpload[0].fname @Model._viewUpload[0].lname</span> <span class="my-2 fs-5 text-secondary">
+                    (@Model._viewUpload[0].cnf_number)
                 </span>
                 <div class="my-2 text-secondary">
                     Check here to review and add files that you or the Client/Member has attached to the request.
                 </div>
                 <form asp-action="pendingViewUploadMain" asp-controller="adminDashboard" method="post" enctype="multipart/form-data">
-                    <input type="hidden" asp-for="@Model._viewUpload[0].reqid" value="@Model._viewUpload[0].reqid" />
+                    <input id="reqId" type="hidden" asp-for="@Model._viewUpload[0].reqid" value="@Model._viewUpload[0].reqid" />
                     <div class="input-group mb-3  rounded my-4">
                         <input asp-for="@Model._viewUpload[0].Upload" type="file" class="form-control  py-3" id="inputGroupFile">
                         <button type="submit" class="input-group-text fw-bold bg-info upload">
@@ -42,6 +42,7 @@
                             <span class="text-white">Upload</span>
                         </button>
                     </div>
+                    <span asp-validation-for="@Model._viewUpload[0].Upload" class="text-danger"></span>
                 </form>
                 <div class="d-flex justify-content-end">
                     <div class="text-end pt-3 pe-0 mb-4 ms-3">
@@ -52,16 +53,16 @@
                         </button>
                     </div>
                     <div class="text-end pt-3 pe-0 mb-4 ms-3">
-                        <button type="button"
-                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                        <button onclick="deleteAll()" type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info deleteAll">
                             <span class="d-none d-sm-inline-block">Delete All</span>
                             <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
                         </button>
                     </div>
                     <div class="text-end pt-3 pe-0 mb-4 ms-3">
-                        <button type="button"
+                        <button type="button" 
                                 class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
-                            <span class="d-none d-sm-inline-block">Send All</span>
+                            <span class="d-none d-sm-inline-block">Send Mail</span>
                             <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
                         </button>
                     </div>
@@ -74,7 +75,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <input  type="checkbox" class="checkbox-main checkbox " name="selectall"
+                                    <input  type="checkbox" class="checkbox-main checkbox "  name="selectall"
                                            onchange="tickAll()" />
                                 </th>
                                 <th>Upload Date</th>
@@ -90,8 +91,9 @@
                                     {
                                     <tr class="align-middle">
                                         <td class="first-col">
-                                            <input value="@obj.documentsname[i]" type="checkbox" name="Mark" class="checkbox fileCheckbox"
-                                                   onchange="allCheck()" /><span class="document-combo ms-5">
+                                            <input id="reqWiseFileId"  type="hidden" value="@obj.requestWiseFileId[i]" />
+                                            <input id="data" type="hidden"  value="true" />
+                                            <input value="@obj.documentsname[i]" data-reqid="@obj.reqid" data-reqwisefileid="@obj.requestWiseFileId[i]"  type="checkbox" name="Mark" class="checkbox fileCheckbox" /><span class="document-combo ms-5">
                                                 <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
                                                 <span class="document-name mx-2">@obj.documentsname[i]</span>
                                             </span>
@@ -100,7 +102,7 @@
 
                                         <td>
                                             <button class="btn btn-outline-info" type="button" onclick="window.location.href='@Url.Action("DownloadFile","adminDashboard",new {data = @obj.documentsname[i]})'"><i class="fa-solid fa-cloud-arrow-down"></i></button>
-                                            <button class="btn btn-outline-info" onclick="window.location.href='@Url.Action("DeleteFile","adminDashboard",new {data = true,id = obj.reqid,reqFileId = obj.requestWiseFileId})'"> <i class="fa-solid fa-trash-can"></i></button>
+                                            <button class="btn btn-outline-info delete-btn" onclick="window.location.href='@Url.Action("DeleteFile","adminDashboard",new {data = true,id = obj.reqid,reqFileId = obj.requestWiseFileId})'"> <i class="fa-solid fa-trash-can"></i></button>
                                         </td>
 
                                     </tr>
@@ -118,14 +120,14 @@
     </div>
 </div>
 
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
 
-@section Scripts {
+
     <script>
-        $('.downloadAll').click(function () {
-            $('.fileCheckbox:checked').each(function () {
-                var filePath = $(this).closest('tr').find('.download-btn')[0].click();
-            });
-        });
 
 
         function downloadSelectedFiles() {
@@ -139,21 +141,68 @@
             }
 
 
+            let count = 0;
+           
             // Create an anchor element for each selected file
             checkboxes.forEach((checkbox) => {
-                const fileName = checkbox.value;
-                const downloadLink = document.createElement('a');
-                downloadLink.href = '/adminDashboard/DownloadFile?data=' + encodeURIComponent(fileName);
-                downloadLink.download = fileName;
-                downloadLink.style.display = 'none';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
+                if (count != 0) {
+                    const fileName = checkbox.value;
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = '/adminDashboard/DownloadFile?data=' + encodeURIComponent(fileName);
+                    downloadLink.download = fileName;
+                    downloadLink.style.display = 'none';
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                }
+                count++;
             });
+        }
+
+
+        function deleteAll() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+       
+
+            if (checkboxes.length === 0) {
+                alert("Please select at least one file to Delete.");
+                return;
+            }
+
+            checkboxes.forEach((checkbox) => {
+                const reqIdMain = checkbox.getAttribute("data-reqid")
+                const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
+                const dataMain = true;
+
+                
+               
+                console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
+                const deleteLink = document.createElement('a');
+                deleteLink.href = '/adminDashboard/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
+                deleteLink.style.display = 'none';
+                document.body.appendChild(deleteLink);
+                deleteLink.click();
+                document.body.removeChild(deleteLink);
+            });
+        }
+
+        
+
+        const tickAll = () => {
+            const checkboxes = document.getElementsByClassName("checkbox")
+            if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    checkboxes[i].checked = true;
+                }
+            }
+            else {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    checkboxes[i].checked = false;
+                }
+            }
         }
 
     </script>
 
     <script src="~/js/PatientDashboard.js"></script>
     <script src="~/js/view_document.js"></script>
-}

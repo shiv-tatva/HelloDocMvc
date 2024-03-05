@@ -33,21 +33,17 @@
                     <div style="display: flex;align-items: center;">
                         <span id="demo" style="color:black;">Select File</span>
                             <input asp-for="Upload" class="form-control d-block" style="width:60%;"  placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
-                            <span asp-validation-for="Upload" class="text-danger"></span>
                     </div>
-                       
                     
-                            <input type="hidden" asp-for="data[0].reqid" value="@ViewData["id"]" />
+                    <input type="hidden" asp-for="data[0].reqid" value="@ViewData["id"]" />
                         
-
                     <div class="btn btn-outline-primary" type="file" id="button-addon1"
                          style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
                         <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
                             <button type="submit" value="submit" style="border:0;background:transparent;"><span class="d-none d-sm-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;" onchange="myFunction()">Upload</span></button>
-                        </div>
-                    
-                    
+                    </div>
                 </div>
+                    <span asp-validation-for="Upload" class="text-danger"></span>
 
             </div>
            
@@ -64,7 +60,7 @@
             </div>
             <table class="table table-striped mt-5" id="DataTable" >
                 <tr>
-                        <th onclick="selectAllCheckbox()"><input type="checkbox" /></th>
+                        <th onclick="selectAllCheckbox()"><input class="checkbox checkbox-main" type="checkbox" /></th>
                     <th>Documents</th>
                     <th>Uploader</th>
                     <th width="15%">Uploaded Date</th>
@@ -81,7 +77,7 @@
                            @for (int i = 0; i < @item.documentsname.Count(); i++)
                               {
                                 <tr>
-                                    <td> <input type="checkbox" name="chk" value="@item.documentsname[i]" id="selectall" /></td>
+                                    <td> <input type="checkbox" class="checkbox" name="chk" value="@item.documentsname[i]" id="selectall" /></td>
                                     <td>
                                         <div class="d-flex flex-row">
                                             <p class="col-auto me-2">
@@ -125,7 +121,12 @@
 
     </main>
 </div>
-<partial name="_ValidationScriptsPartial" />
+
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
 
 <link rel="stylesheet" href="/css/viewDetail.css">
 
@@ -148,8 +149,10 @@
             }
 
             
+            let count = 0;
             // Create an anchor element for each selected file
             checkboxes.forEach((checkbox) => {
+                if(count != 0){
                 const fileName = checkbox.value;
                 const downloadLink = document.createElement('a');
                 downloadLink.href = '/patientDashboard/DownloadFile?data=' + encodeURIComponent(fileName);
@@ -158,27 +161,30 @@
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
                 document.body.removeChild(downloadLink);
+                }
+                count++;
             });
         }
 
 
     function selectAllCheckbox() {
-        var ele = document.getElementsByName('chk');
-        var checkBtn = ele[0].checked
-
-        if (checkBtn) {
-            for (var i = 0; i < ele.length; i++) {
-                if (ele[i].type == 'checkbox')
-                    ele[i].checked = false;
-
-            }
-        }else{
-            for (var i = 0; i < ele.length; i++) {
-                if (ele[i].type == 'checkbox') {
-                    ele[i].checked = true;
+        
+        console.log("hi1")
+            const checkboxes = document.getElementsByClassName("checkbox")
+        console.log( checkboxes)
+            if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
+            console.log("hi3")
+                for (let i = 0; i < checkboxes.length; i++) {
+                    console.log(checkboxes[i])
+                    checkboxes[i].checked = true;
                 }
             }
-        }
+            else {
+                for (let i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+            }
+        
 
        
     }

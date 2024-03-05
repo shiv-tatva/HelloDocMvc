@@ -23,20 +23,34 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public Task EmailSendar(string email, string subject, string message)
+        public void SendRegistrationEmail(string toEmail, string registrationLink)
         {
-            var mail = "shivsantoki@gmail.com";
-            var password = "qrmi ubhn iuvq gujh";
-
-            var client = new SmtpClient("smtp.gmail.com", 587)
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
             {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
                 EnableSsl = true,
-                Credentials = new NetworkCredential(mail, password)
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
             };
 
-            return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Update Password for Account ",
+                IsBodyHtml = true,
+                Body = $"Click the following link to complete your registration: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
 
+
+
+            mailMessage.To.Add(toEmail);
+
+            client.Send(mailMessage);
         }
+
 
 
         public void FamilyFriendInfo(FamilyFriendData data)
@@ -114,12 +128,15 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 if(userexist == null)
                 {
-                    var receiver = data.email;
-                    var subject = "Create Your Account";
-                    var message = "Tap on link for Create Account: https://localhost:7173/Home/CreateAccount";
+                    string emailConfirmationToken = Guid.NewGuid().ToString();
+
+                    string registrationLink = "http://localhost:5145/Home/CreateAccount";
+
+                    //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
+
                     try
                     {
-                        EmailSendar(receiver, subject, message);
+                        SendRegistrationEmail(data.email, registrationLink);
                     }
                     catch(Exception e)
                     {

@@ -10,6 +10,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -298,6 +300,7 @@ namespace BLL_Business_Logic_Layer_.Services
             var query = _context.Requests.Where(r => r.Requestid == reqId).AsNoTracking().Select(r => new viewUploads()
             {
                 reqid = reqId,
+                email = r.Requestclients.Where(r =>r.Requestid == reqId).Select(r => r.Email).First(),
                 fname = r.Firstname,
                 lname = r.Lastname,
                 cnf_number = r.Confirmationnumber,
@@ -351,5 +354,49 @@ namespace BLL_Business_Logic_Layer_.Services
 
             _context.SaveChanges();
         }
+
+
+        public void SendRegistrationEmail(string toEmail, string registrationLink)
+        {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Update Password for Account ",
+                IsBodyHtml = true,
+                Body = $"Click the following link to complete your registration: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+
+            mailMessage.To.Add(toEmail);
+
+            client.Send(mailMessage);
+        }
+
+    //    string emailConfirmationToken = Guid.NewGuid().ToString();
+
+    //    string registrationLink = "http://localhost:5145/Home/CreateAccount";
+
+                 
+
+    //                try
+    //                {
+    //                    SendRegistrationEmail(obj.email, registrationLink);
+    //}
+    //                catch (Exception e)
+    //                {
+    //                    Console.WriteLine(e.Message);
+    //                }
     }
 }
