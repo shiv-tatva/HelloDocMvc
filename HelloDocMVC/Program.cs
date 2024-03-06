@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using HelloDocMVC.Models;
 //using HelloDocMVC.DataContext;
@@ -8,11 +10,27 @@ using HelloDocMVC.CustomeModel;
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataModels;
 using NuGet.Protocol;
-
+using System.Text;
+using BusinessLogic.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>();
@@ -25,6 +43,7 @@ builder.Services.AddScoped<IBusiness, BusinessService>();
 builder.Services.AddScoped<IPatientDash, PatientDash>(); 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IAdminDash, AdminDash>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddSession();//For Session
 
@@ -46,6 +65,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -4,19 +4,33 @@ using System.Diagnostics;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using BLL_Business_Logic_Layer_.Interface;
-using Microsoft.AspNetCore.Http; 
+using DAL_Data_Access_Layer_.CustomeModel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using BusinessLogic.Interfaces;
 
 namespace HelloDocMVC.Controllers
 {
+
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class LoginController : Controller
     {
         private readonly ILoginService _login;
-     
+        private IConfiguration _config;
+        private IJwtService _jwtService;
+
         //ApplicationDbContext db = new ApplicationDbContext();
 
-        public LoginController(ILoginService _login)
+        public LoginController(ILoginService _login, IConfiguration config, IJwtService _jwtService)
         {
             this._login = _login;
+            this._jwtService = _jwtService;
+            _config = config;
         }
 
 
@@ -26,11 +40,30 @@ namespace HelloDocMVC.Controllers
             return View();
         }
 
+
+        private string GenerateToken(string Email, string PasswordHash)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"], null,
+                expires: DateTime.Now.AddMinutes(120),
+                signingCredentials: credentials
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+        [AllowAnonymous]
         [HttpPost]
-        public IActionResult LoginPage(Aspnetuser obj)
+        public IActionResult LoginPage(Users obj)
         {
 
             var data = _login.login(obj);
+
+            IActionResult response = Unauthorized();
+
             //TempData["email"] = obj.Email;
             var sessionUser  = obj.Email;
             var userName = obj.Email.Substring(0, obj.Email.IndexOf('@'));
@@ -41,15 +74,35 @@ namespace HelloDocMVC.Controllers
             {
                 HttpContext.Session.SetString("UserSession", sessionUser);
                 HttpContext.Session.SetString("UserSessionName", userName);
-                return RedirectToAction("patientDashboard", "patientDashboard");
+                //return RedirectToAction("patientDashboard", "patientDashboard");
+                var jwtToken = _jwtService.GetJwtToken(data);
+                Response.Cookies.Append("jwt", jwtToken);
+
+                TempData["name"] = data.Username;
+                if(data.RoleMain == "User")
+                {
+                    return RedirectToAction("patientDashboard", "patientDashboard");
+                }
+                else if(data.RoleMain == "Admin")
+                {
+                    return RedirectToAction("adminDashboard", "adminDashboard");
+                }
+                else
+                {
+                    return View();
+                }
+               
             }
             else
             {
                 ViewBag.LoginMessage = "Can't Login";
+                return View();
             }
 
 
-            return View();
+            ////return View();
+
+            //return response;
 
         }
         public IActionResult ForgotPage()

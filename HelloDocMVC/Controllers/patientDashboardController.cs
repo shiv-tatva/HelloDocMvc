@@ -15,10 +15,11 @@ using System.Reflection.Emit;
 using System.Xml.Linq;
 using BLL_Business_Logic_Layer_.Services;
 using NuGet.Protocol;
-
+using HalloDoc.mvc.Auth;
 
 namespace HelloDocMVC.Controllers
 {
+    [CustomAuthorize("User")]
     public class patientDashboardController : Controller
     {
         private readonly IPatientDash _patientDashInfo;
@@ -34,11 +35,9 @@ namespace HelloDocMVC.Controllers
         }
 
 
-        public IActionResult patientDashboard()
-        {
 
-            if(HttpContext.Session.GetString("UserSession") != null)
-            {
+        public IActionResult patientDashboard()
+        {            
                 ViewBag.Mysession = HttpContext.Session.GetString("UserSession").ToString();
                 PatientDashboard patientDashboard = new PatientDashboard();
                 string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
@@ -46,12 +45,6 @@ namespace HelloDocMVC.Controllers
 
                 ViewBag.Admin = 2;
                 return View(patientDashboard);
-            }
-            else
-            {
-                return RedirectToAction("LoginPage", "Login");
-            }
-
         }
 
 
@@ -72,17 +65,12 @@ namespace HelloDocMVC.Controllers
         public IActionResult DownloadFile(string data)
         {
             
-            if (HttpContext.Session.GetString("UserSession").ToString() != null)
-            {
+           
                 string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
                 byte[] fileBytes = System.IO.File.ReadAllBytes(pathname);//filepath will relative as per the filename
                 string fileName = data;
                 return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, data);
-            }
-            else 
-            {
-                return RedirectToAction("LoginPage", "Login");
-            }
+            
 
         }
 
@@ -237,13 +225,7 @@ namespace HelloDocMVC.Controllers
             var param = obj.data[0].reqid;
             return RedirectToAction("viewDetail", new {param = param});
         }
-        public IActionResult logoutSession()
-        {
-
-            HttpContext.Session.Clear();
-            return RedirectToAction("LoginPage", "Login");
-        }
-
+        
 
 
     }

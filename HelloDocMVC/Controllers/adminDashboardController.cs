@@ -6,10 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
+using HalloDoc.mvc.Auth;
 
 namespace HelloDocMVC.Controllers
 {
+
+    [CustomAuthorize("Admin")]
+
     public class adminDashboardController : Controller
     {
         private IAdminDash _IAdminDash;
@@ -18,6 +21,7 @@ namespace HelloDocMVC.Controllers
         {
             _IAdminDash = iAdminDash;
         }
+
 
         public IActionResult adminDashboard()
         {

@@ -24,6 +24,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Aspnetuser> Aspnetusers { get; set; }
 
+    public virtual DbSet<Aspnetuserrole> Aspnetuserroles { get; set; }
+
     public virtual DbSet<Blockrequest> Blockrequests { get; set; }
 
     public virtual DbSet<Business> Businesses { get; set; }
@@ -128,25 +130,17 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("aspnetusers_pkey");
 
             entity.Property(e => e.Createddate).HasDefaultValueSql("CURRENT_DATE");
+        });
 
-            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Aspnetuserrole",
-                    r => r.HasOne<Aspnetrole>().WithMany()
-                        .HasForeignKey("Roleid")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("aspnetuserroles_roleid_fkey"),
-                    l => l.HasOne<Aspnetuser>().WithMany()
-                        .HasForeignKey("Userid")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("aspnetuserroles_userid_fkey"),
-                    j =>
-                    {
-                        j.HasKey("Userid", "Roleid").HasName("aspnetuserroles_pkey");
-                        j.ToTable("aspnetuserroles");
-                        j.IndexerProperty<int>("Userid").HasColumnName("userid");
-                        j.IndexerProperty<int>("Roleid").HasColumnName("roleid");
-                    });
+        modelBuilder.Entity<Aspnetuserrole>(entity =>
+        {
+            entity.HasOne(d => d.Role).WithMany()
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("aspnetuserroles_roleid_fkey");
+
+            entity.HasOne(d => d.User).WithMany()
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("aspnetuserroles_userid_fkey");
         });
 
         modelBuilder.Entity<Blockrequest>(entity =>

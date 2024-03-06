@@ -511,3 +511,10 @@ D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\System.Memory.Data.dll
 C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\bin\Debug\net7.0\Azure.Core.dll
 C:\Users\Shiv Santoki\Desktop\Web D\helloMain\HelloDocMvc\HelloDocMVC\bin\Debug\net7.0\System.Memory.Data.dll
 D:\Project\HelloDocMVC\HelloDocMVC\obj\Debug\net7.0\scopedcss\Views\Shared\_LayoutFour.cshtml.rz.scp.css
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

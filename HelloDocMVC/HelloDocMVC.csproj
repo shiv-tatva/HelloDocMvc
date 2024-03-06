@@ -7,16 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\NewFolder\**" />
     <Compile Remove="Data\**" />
+    <Compile Remove="NewFolder\**" />
     <Compile Remove="Views\NewFolder1\**" />
     <Compile Remove="Views\Shared\NewFolder\**" />
+    <Content Remove="bin\NewFolder\**" />
     <Content Remove="Data\**" />
+    <Content Remove="NewFolder\**" />
     <Content Remove="Views\NewFolder1\**" />
     <Content Remove="Views\Shared\NewFolder\**" />
+    <EmbeddedResource Remove="bin\NewFolder\**" />
     <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="Views\NewFolder1\**" />
     <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
+    <None Remove="bin\NewFolder\**" />
     <None Remove="Data\**" />
+    <None Remove="NewFolder\**" />
     <None Remove="Views\NewFolder1\**" />
     <None Remove="Views\Shared\NewFolder\**" />
   </ItemGroup>
@@ -112,6 +120,7 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Core" Version="1.37.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.32" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15">
