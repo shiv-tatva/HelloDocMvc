@@ -19,7 +19,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? fulldateofbirth { get; set; }
 
-        public string str_month { get; set; }
+        public string? str_month { get; set; }
         public int? int_year { get; set; }
         public int? int_date { get; set; }
 
@@ -54,7 +54,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? email { get; set; }
 
-        public int reqid { get; set; }
+        public int? reqid { get; set; }
 
         public string? cnf_number { get; set; }
 
@@ -145,6 +145,26 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public bool dlt_data { get; set; }
     }
+
+
+
+    public class activeOrder
+    {
+        public int reqid { get; set; }
+        public int vendorid { get; set; }
+
+        public List<string> business_data { get; set; }
+        public List<int> business_id { get; set; }
+        public string? email { get; set; }
+
+        public List<Healthprofessionaltype> profession  {  get; set; }
+        public string? prescription { get;  set; }
+
+        public string? fax_num { get; set; }
+        public string? business_contact { get; set; }
+
+        public int Refill {  get; set; }
+    }
    
 
     public class adminDashData
@@ -163,6 +183,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public List<viewUploads> _viewUpload {  get; set; }
 
+        public activeOrder _activeOrder { get; set; }
 
     }
 }

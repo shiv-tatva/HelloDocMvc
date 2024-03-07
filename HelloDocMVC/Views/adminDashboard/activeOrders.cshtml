@@ -1,64 +1,69 @@
-﻿<div class="container">
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<div class="container">
     <div class=" mt-4 d-flex justify-content-between align-items-center">
         <h4>Send Orders</h4>
         <a asp-controller="Admin" asp-action="Admin_Dashboard" class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
             <i class="fa-solid fa-angle-left"></i> Back
         </a>
     </div>
-    <form action="" class="shadow border rounded my-3" method="post">
-        <div class="mx-3 my-4 ">
+    <form asp-action="activeOrders" asp-controller="adminDashboard" method="post" class="shadow border rounded my-3" id="formOrders">
+         <div class="mx-3 my-4 ">
             <div class="mt-3">
 
                 <div class="row">
                     <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3 ">
-                        <select class="form-select text-secondary" id="inputGroupSelect01" style="height: 58px;">
+                        <select   id="professionDropdown" class="form-select text-secondary"  style="height: 58px;">
                             <option selected="" disabled>Select Profession</option>
-                            <option value="1">Profession 1</option>
-                            <option value="2">Profession 2</option>
-                            <option value="3">Profession 3</option>
+                            @foreach (var item in Model._activeOrder.profession)
+                            {
+                                <option value="@item.Healthprofessionalid">@item.Professionname</option>
+                            }
                         </select>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  mb-3 ">
-                        <select class="form-select text-secondary" id="inputGroupSelect02" style="height: 58px;">
-                            <option selected="" disabled>Select Business</option>
-                            <option value="1">Business 1</option>
-                            <option value="2">Business 2</option>
-                            <option value="3">Business 3</option>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                        <select asp-for="_activeOrder.vendorid" id="businessDropdown" class="form-select text-secondary" id="inputGroupBusiness" style="height: 58px;">
+                            <option selected="" disabled>Business</option>
                         </select>
                     </div>
                 </div>
+                <input asp-for="@Model._activeOrder.reqid" type="hidden" value="@Model._activeOrder.reqid" />
+                <input asp-for="@Model._activeOrder.profession" type="hidden" value="@Model._activeOrder.profession" />
                 <div class="row mb-3">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating">
-                        <input type="text" class=" form-control " id="floatingInputBusinessContact"
+                        <input asp-for="_activeOrder.business_contact" type="text" class=" form-control " id="floatingInputBusinessContact"
                                placeholder="BusinessContact" aria-label="BusinessContact">
                         <label class="ms-2 text-secondary" for="floatingInputBusinessContact">Business Contact</label>
                     </div>
                     <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                        <input type="email" class=" form-control" id="floatingInputemail" placeholder="Email"
+                        <input asp-for="_activeOrder.email" type="email" class=" form-control" id="floatingInputemail" placeholder="Email"
                                aria-label="Email">
                         <label class="ms-2 text-secondary " for="floatingInputemail">Email</label>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating">
-                        <input type="text" class=" form-control " id="floatingInputFaxNumber"
+                        <input asp-for="_activeOrder.fax_num" type="text" class=" form-control " id="floatingInputFaxNumber"
                                placeholder="Faxnumber" aria-label="Faxnumber">
                         <label class="ms-2 text-secondary" for="floatingInputFaxNumber">Fax Number</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class=" col-12 form-floating mb-3 ">
-                        <textarea class="form-control h-100 " id="floatingInput" placeholder="Textarea"
+                        <textarea asp-for="_activeOrder.prescription" class="form-control h-100 " id="floatingInput" placeholder="Textarea"
                                   rows="3"></textarea>
                         <label for="floatingInput" class="text-wrap ms-2 text-secondary">Prescription or Order Details</label>
                     </div>
                 </div>
                 <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
-                    <select class="form-select" id="inputGroupSelect02" style="width: 619px;">
+                    <select asp-for="_activeOrder.Refill" class="form-select" id="inputGroupSelect02" style="width: 619px;">
                         <option selected="">Not Required</option>
-                        <option value="1">Profession 1</option>
-                        <option value="2">Profession 2</option>
-                        <option value="3">Profession 3</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
                     <label for="inputGroupSelect02" class="text-wrap small text-secondary">Number Of Refills</label>
                 </div>
@@ -71,6 +76,64 @@
 
                 <button type="button" id="cancelBtn" class="btn btn-outline-info EditBtn">Cancel</button>
             </div>
-        </div>
+        </div> 
+
     </form>
 </div>
+
+
+
+<script>
+    $("#professionDropdown").on("change", function () {
+        doctorsName($(this).val());
+    })
+
+    function doctorsName(proff_id) {
+        let action = "/adminDashboard" + "/" + "GetBusiness"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { profession_id: proff_id },
+            success: function (data) {
+                console.log(data)
+                console.log(data.business_id)
+                console.log(data.business_name)
+                $('#businessDropdown').html("<option>" + "Business" + "</option>");
+                for (var i = 0; i < data.business_name.length; i++) {
+                    $("#businessDropdown").append('<option value = "' + data.business_id[i] + '" >' + data.business_name[i] + '</option>')
+
+                }
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+    
+    
+    
+    $("#businessDropdown").on("change", function () {
+        BusinessName($(this).val());
+    })
+
+    function BusinessName(buss_id) {
+        let action = "/adminDashboard" + "/" + "BusinessDetail"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { business_id: buss_id },
+            success: function (data) {
+                document.getElementById("floatingInputBusinessContact").setAttribute("value", data.contact)
+                document.getElementById("floatingInputemail").setAttribute("value", data.email)
+                document.getElementById("floatingInputFaxNumber").setAttribute("value", data.fax)
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+</script>

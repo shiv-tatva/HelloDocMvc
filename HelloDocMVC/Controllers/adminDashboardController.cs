@@ -152,6 +152,17 @@ namespace HelloDocMVC.Controllers
         }
 
 
+
+        public IActionResult sendMail(string email,string id,string data)
+        {
+            string emailMain = "20it029.shiv.santoki@vvpedulink.ac.in";
+            string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
+            _IAdminDash.sendMail(emailMain, pathname);
+            return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = id});
+
+        }
+
+
         public IActionResult DeleteFile(bool data, int id, int reqFileId)
         {
             _IAdminDash.DeleteFile(data, reqFileId);
@@ -159,11 +170,42 @@ namespace HelloDocMVC.Controllers
 
         }
 
-        public IActionResult activeOrders()
+        public IActionResult activeOrders(int data)
         {
             ViewBag.Admin = 4;
-            return View();
+
+            adminDashData _data = new adminDashData();
+            _data._activeOrder = _IAdminDash.viewOrder(data);
+            return View(_data);
         }
 
+        public IActionResult GetBusiness(int profession_id)
+        {
+            adminDashData adminDashData = new adminDashData();
+            adminDashData._activeOrder = _IAdminDash.businessName(profession_id);
+
+            return Json(new { business_id = adminDashData._activeOrder.business_id, business_name = adminDashData._activeOrder.business_data });
+        }
+        
+        
+        public IActionResult BusinessDetail(int business_id)
+        {
+            adminDashData adminDashData = new adminDashData();
+            adminDashData._activeOrder = _IAdminDash.businessDetail(business_id);
+
+            return Json(new { email = adminDashData._activeOrder.email, contact = adminDashData._activeOrder.business_contact,fax = adminDashData._activeOrder.fax_num });
+        }
+
+
+
+        [HttpPost]
+        public IActionResult activeOrders(adminDashData adminDashData)
+        {
+            ViewBag.Admin = 4;
+
+            adminDashData _data = new adminDashData();
+            _IAdminDash.viewOrder(adminDashData);
+            return RedirectToAction("activeOrders","adminDashboard",new {data = adminDashData._activeOrder.reqid});
+        }
     }
 }

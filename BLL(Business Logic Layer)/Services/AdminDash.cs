@@ -91,11 +91,11 @@ namespace BLL_Business_Logic_Layer_.Services
                             zipcode = rc.Zipcode,
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
-                            //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
-                            //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
+                            phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
+                            region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
                             reqid = r.Requestid,
                             email = rc.Email,
-                            //fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
+                            fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
                             cnf_number = r.Confirmationnumber,
                         };
                         
@@ -355,8 +355,8 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
         }
 
-
-        public void SendRegistrationEmail(string toEmail, string registrationLink)
+        //*************************************Mail**********************************************
+        public void SendRegistrationEmail(string emailMain, string pathname)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -369,34 +369,175 @@ namespace BLL_Business_Logic_Layer_.Services
                 UseDefaultCredentials = false
             };
 
+            // Recipient's email
+            //string recipientEmail = receiver_email;
+
             MailMessage mailMessage = new MailMessage
             {
-                From = new MailAddress(senderEmail, "HalloDoc"),
+                From = new MailAddress(senderEmail, emailMain),
                 Subject = "Update Password for Account ",
                 IsBodyHtml = true,
-                Body = $"Click the following link to complete your registration: <a href='{registrationLink}'>{registrationLink}</a>"
             };
 
+            if (System.IO.File.Exists(pathname))
+            {
+                Attachment attachment = new Attachment(pathname);
+                mailMessage.Attachments.Add(attachment);
+            }
+            else
+            {
+
+            }
 
 
-            mailMessage.To.Add(toEmail);
+            mailMessage.To.Add(emailMain);
 
             client.Send(mailMessage);
         }
 
-    //    string emailConfirmationToken = Guid.NewGuid().ToString();
+        //public async void SendEmail(string receiver_email, string subject, string body)
+        //{
 
-    //    string registrationLink = "http://localhost:5145/Home/CreateAccount";
 
-                 
+        //    // Sender's email and password (use an app-specific password for security)
 
-    //                try
-    //                {
-    //                    SendRegistrationEmail(obj.email, registrationLink);
-    //}
-    //                catch (Exception e)
-    //                {
-    //                    Console.WriteLine(e.Message);
-    //                }
+        //    string senderEmail = "mailto:shivsantoki303@outlook.com";
+        //    string senderPassword = "Shiv@123";
+
+        //    // Recipient's email
+        //    string recipientEmail = receiver_email;
+
+        //    // Create a MailMessage object
+        //    MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail)
+        //    {
+        //        Subject = "Subject of your email",
+        //        Body = "Body of your email",
+        //        IsBodyHtml = true
+        //    };
+
+        //    // Attach a file (replace "path_to_your_attachment" with the actual file path)
+        //    string baseDirectory = @"C:\Users\pce152\Desktop\uploadeddocs";
+        //    string attachmentPath = Path.Combine(baseDirectory, "alert.JFIF");
+        //    if (System.IO.File.Exists(attachmentPath))
+        //    {
+        //        Attachment attachment = new Attachment(attachmentPath);
+        //        mailMessage.Attachments.Add(attachment);
+        //    }
+        //    else
+        //    {
+
+        //    }
+
+        //    // Configure the SMTP client
+        //    SmtpClient smtpClient = new SmtpClient("smtp.office365.com")
+        //    {
+        //        Port = 587,
+        //        Credentials = new NetworkCredential(senderEmail, senderPassword),
+        //        EnableSsl = true,
+        //        DeliveryMethod = SmtpDeliveryMethod.Network,
+        //        UseDefaultCredentials = false
+        //    };
+
+        //    try
+        //    {
+        //        // Send the email
+        //        await smtpClient.SendMailAsync(mailMessage);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.ToString());
+        //    }
+
+
+        //}
+
+        public void sendMail(string emailMain, string pathname)
+        {
+            string emailConfirmationToken = Guid.NewGuid().ToString();
+            //string emailMain = "shivsantoki@gmail.com";
+
+            string registrationLink = "http://localhost:5145/Home/CreateAccount";
+
+            try
+            {
+                SendRegistrationEmail(emailMain, pathname);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        //**************************************************************************************
+
+        public activeOrder viewOrder(int reqId)
+        {
+            activeOrder _active = new activeOrder();
+
+            _active.reqid = reqId;
+            _active.profession = _context.Healthprofessionaltypes.ToList(); 
+
+            return _active;
+        }
+
+
+
+        public activeOrder businessName(int profession_id)
+        {
+            activeOrder _active = new activeOrder();
+
+            _active.business_data = _context.Healthprofessionals.Where(r => r.Profession == profession_id).Select(r => r.Vendorname).ToList();
+            _active.business_id = _context.Healthprofessionals.Where(r => r.Profession == profession_id).Select(r => r.Vendorid).ToList();
+
+            return _active;
+        }
+
+
+        public activeOrder businessDetail(int businessDetail)
+        {
+            activeOrder _active = new activeOrder();
+
+            var query = _context.Healthprofessionals.Where(r => r.Vendorid == businessDetail).Select(r => new activeOrder()
+            {
+                email = r.Email,
+                business_contact = r.Businesscontact,
+                fax_num = r.Faxnumber
+            });
+
+            return query.ToList().FirstOrDefault();
+        }
+
+
+        public void viewOrder(adminDashData adminDashData)
+        {
+            Orderdetail orderdetail = new Orderdetail();
+
+            orderdetail.Prescription = adminDashData._activeOrder.prescription;
+            orderdetail.Email = adminDashData._activeOrder.email;
+            orderdetail.Requestid = adminDashData._activeOrder.reqid;
+            orderdetail.Vendorid = adminDashData._activeOrder.vendorid;
+            orderdetail.Faxnumber = adminDashData._activeOrder.fax_num;
+            orderdetail.Createddate = DateTime.Now;
+            orderdetail.Businesscontact = adminDashData._activeOrder.business_contact;
+            orderdetail.Noofrefill = adminDashData._activeOrder.Refill;
+
+            _context.Add(orderdetail);
+            _context.SaveChanges();
+
+            var _health = _context.Healthprofessionals.Where(r => r.Vendorid == adminDashData._activeOrder.vendorid).Select(r => r).First();
+
+            if(_health != null)
+            {
+                _health.Email = adminDashData._activeOrder.email;
+                _health.Faxnumber = adminDashData._activeOrder.fax_num;
+                _health.Businesscontact = adminDashData._activeOrder.business_contact;
+
+                _context.Healthprofessionals.Update(_health);
+                _context.SaveChanges();
+            }
+
+            
+
+        }
     }
 }

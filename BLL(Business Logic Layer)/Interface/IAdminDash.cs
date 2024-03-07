@@ -32,6 +32,14 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void viewUploadMain(adminDashData obj);
         public void DeleteFile(bool data,int reqFileId);
+        public void sendMail(string emailMain, string pathname);
+
+        public activeOrder viewOrder(int reqId);
+
+        public activeOrder businessName(int profession_id);
+        public activeOrder businessDetail(int businessDetail);
+
+        public void viewOrder(adminDashData adminDashData);
 
     }
 }

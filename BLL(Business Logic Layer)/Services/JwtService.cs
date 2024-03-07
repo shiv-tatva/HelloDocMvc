@@ -31,7 +31,7 @@ namespace BLL_Business_Logic_Layer_.Services
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.UtcNow.AddMinutes(20);
+            var expires = DateTime.UtcNow.AddMinutes(30);
 
             var token = new JwtSecurityToken(
 
