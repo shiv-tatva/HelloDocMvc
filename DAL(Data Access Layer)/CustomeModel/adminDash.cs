@@ -115,8 +115,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class blockCaseModel
     {
         public int reqid { get; set; }
-        public string? first_name { get; set; }
         public string? description { get; set; }
+        public string? first_name { get; set; }
     }
 
 
@@ -165,7 +165,25 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public int Refill {  get; set; }
     }
-   
+
+    public class transferRequest
+    {
+        public int reqid { get; set; }
+        public string? description { get; set; }
+        public int admin_id { get; set; }
+        public int phy_id_main { get; set; }
+        public List<int> phy_id { get; set; }
+        public List<int> region_id { get; set; }
+        public List<string> region_name { get; set; }
+
+        public List<Region> regions { get; set; }
+
+        public List<string> phy_name { get; set; }
+
+        //public List<Physicianregion> phy_req { get; set; }
+
+    }
+
 
     public class adminDashData
     {
@@ -185,5 +203,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public activeOrder _activeOrder { get; set; }
 
+        public transferRequest transferRequest { get; set; }
     }
 }

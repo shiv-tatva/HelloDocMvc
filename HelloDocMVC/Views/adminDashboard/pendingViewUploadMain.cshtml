@@ -95,7 +95,7 @@
                                             <input id="reqWiseFileId"  type="hidden" value="@obj.requestWiseFileId[i]" />
                                             <input id="data" type="hidden"  value="true" />
                                             <input id="data" asp-for="@obj.email" type="hidden"  value="@obj.email" />
-                                            <input value="@obj.documentsname[i]" data-mailMain="@obj.email" data-reqid="@obj.reqid" data-reqwisefileid="@obj.requestWiseFileId[i]"  type="checkbox" name="Mark" class="checkbox fileCheckbox" /><span class="document-combo ms-5">
+                                            <input id="inputMain" value="@obj.documentsname[i]" data-mailMain="@obj.email" data-reqid="@obj.reqid" data-reqwisefileid="@obj.requestWiseFileId[i]"  type="checkbox" name="Mark" class="checkbox fileCheckbox" /><span class="document-combo ms-5">
                                                 <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
                                                 <span class="document-name mx-2">@obj.documentsname[i]</span>
                                             </span>
@@ -131,38 +131,46 @@
 
     <script>
 
-        console.log("script")
     function sendMailTwo() {
 
-        // console.log(email)
+
         const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        let filenames = []
+
+        let count = 0;
+
+        checkboxes.forEach((checkbox) => {
+
+            if (count != 0) {
+            console.log("value", checkbox.value)
+            filenames.push(checkbox.value)
+            }
+            count++;
+        })
 
 
         if (checkboxes.length === 0) {
             alert("Please select at least one file to download.");
             return;
+        } else {
+            const reqIdMain = document.getElementById("inputMain").getAttribute("data-reqid")
+            const mailMain = document.getElementById("inputMain").getAttribute("data-mailMain")
+
+            $.ajax({
+                url: '@Url.Action("sendMail", "adminDashboard")',
+                type: 'GET',
+                traditional: true,
+                contentType: 'application/json',
+                data: { email: mailMain, data: filenames, id: reqIdMain },
+
+                success: function () {
+                    alert("sucess")
+                },
+                error: function () {
+                    alert('Error');
+                }
+            });
         }
-
-        let count = 0;
-
-        // Create an anchor element for each selected file
-        checkboxes.forEach((checkbox) => {
-
-            const reqIdMain = checkbox.getAttribute("data-reqid")
-            const mailMain = checkbox.getAttribute("data-mailMain")
-
-            if (count != 0) {
-                const fileName = checkbox.value;
-                const sendMail = document.createElement('a');
-                sendMail.href = '/adminDashboard/sendMail?data=' + encodeURIComponent(fileName) + "&email=" + encodeURIComponent(mailMain) + "&id=" + encodeURIComponent(reqIdMain);
-                // sendMail.download = fileName;
-                sendMail.style.display = 'none';
-                document.body.appendChild(sendMail);
-                sendMail.click();
-                document.body.removeChild(sendMail);
-            }
-            count++;
-        });
 
     }
 

@@ -26,13 +26,13 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public blockCaseModel blockcase(int req);
 
-        public void blockcase(adminDashData obj);
+        public void blockcase(adminDashData obj, string sessionEmail);
 
         public List<viewUploads> viewUploadMain(int reqId);
 
         public void viewUploadMain(adminDashData obj);
         public void DeleteFile(bool data,int reqFileId);
-        public void sendMail(string emailMain, string pathname);
+        public void sendMail(string emailMain, string[] data);
 
         public activeOrder viewOrder(int reqId);
 
@@ -40,6 +40,12 @@ namespace BLL_Business_Logic_Layer_.Interface
         public activeOrder businessDetail(int businessDetail);
 
         public void viewOrder(adminDashData adminDashData);
+
+        public transferRequest transferReq(int req);
+        public void transferReq(adminDashData data,string sessionEmail);
+
+        public blockCaseModel clearCase(int reqId);
+        public void clearCase(adminDashData block,string sessionEmail);
 
     }
 }

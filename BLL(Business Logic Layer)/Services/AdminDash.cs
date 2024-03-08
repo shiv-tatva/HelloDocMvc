@@ -245,7 +245,6 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 requestedRowPatient.Physicianid = assignObj.assignCase.phy_id_main;
                 requestedRowPatient.Status = 2;
-                _context.Add(_req);
 
                 _context.SaveChanges();
             
@@ -262,7 +261,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return _block;
         }
 
-        public void blockcase(adminDashData obj)
+        public void blockcase(adminDashData obj, string sessionEmail)
         {
             var request = _context.Requests.FirstOrDefault(r => r.Requestid == obj._blockCaseModel.reqid);
 
@@ -278,6 +277,15 @@ namespace BLL_Business_Logic_Layer_.Services
                     _context.SaveChanges();
                 }
             }
+
+            _context.Requeststatuslogs.Add(new Requeststatuslog
+            {
+                Requestid = obj._blockCaseModel.reqid,
+                Status = 10,
+                Notes = obj._blockCaseModel.description,
+                Adminid = _context.Admins.FirstOrDefault(x => x.Email == sessionEmail).Adminid,
+                Createddate = DateTime.Now,
+            });
 
             Blockrequest blockrequest = new Blockrequest();
 
@@ -356,10 +364,10 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
         //*************************************Mail**********************************************
-        public void SendRegistrationEmail(string emailMain, string pathname)
+        public void SendRegistrationEmail(string emailMain, string[] data)
         {
-            string senderEmail = "shivsantoki303@outlook.com";
-            string senderPassword = "Shiv@123";
+            string senderEmail = "nisargsojitra1234@outlook.com";
+            string senderPassword = "Nisarg@#1705";
             SmtpClient client = new SmtpClient("smtp.office365.com")
             {
                 Port = 587,
@@ -369,25 +377,22 @@ namespace BLL_Business_Logic_Layer_.Services
                 UseDefaultCredentials = false
             };
 
-            // Recipient's email
-            //string recipientEmail = receiver_email;
 
             MailMessage mailMessage = new MailMessage
             {
-                From = new MailAddress(senderEmail, emailMain),
+                From = new MailAddress(senderEmail),
                 Subject = "Update Password for Account ",
                 IsBodyHtml = true,
             };
 
-            if (System.IO.File.Exists(pathname))
+                for(var i = 0;i< data.Length;i++)
             {
+                string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data[i]);
                 Attachment attachment = new Attachment(pathname);
                 mailMessage.Attachments.Add(attachment);
             }
-            else
-            {
-
-            }
+                
+            
 
 
             mailMessage.To.Add(emailMain);
@@ -395,72 +400,15 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
-        //public async void SendEmail(string receiver_email, string subject, string body)
-        //{
+    
 
-
-        //    // Sender's email and password (use an app-specific password for security)
-
-        //    string senderEmail = "mailto:shivsantoki303@outlook.com";
-        //    string senderPassword = "Shiv@123";
-
-        //    // Recipient's email
-        //    string recipientEmail = receiver_email;
-
-        //    // Create a MailMessage object
-        //    MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail)
-        //    {
-        //        Subject = "Subject of your email",
-        //        Body = "Body of your email",
-        //        IsBodyHtml = true
-        //    };
-
-        //    // Attach a file (replace "path_to_your_attachment" with the actual file path)
-        //    string baseDirectory = @"C:\Users\pce152\Desktop\uploadeddocs";
-        //    string attachmentPath = Path.Combine(baseDirectory, "alert.JFIF");
-        //    if (System.IO.File.Exists(attachmentPath))
-        //    {
-        //        Attachment attachment = new Attachment(attachmentPath);
-        //        mailMessage.Attachments.Add(attachment);
-        //    }
-        //    else
-        //    {
-
-        //    }
-
-        //    // Configure the SMTP client
-        //    SmtpClient smtpClient = new SmtpClient("smtp.office365.com")
-        //    {
-        //        Port = 587,
-        //        Credentials = new NetworkCredential(senderEmail, senderPassword),
-        //        EnableSsl = true,
-        //        DeliveryMethod = SmtpDeliveryMethod.Network,
-        //        UseDefaultCredentials = false
-        //    };
-
-        //    try
-        //    {
-        //        // Send the email
-        //        await smtpClient.SendMailAsync(mailMessage);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.ToString());
-        //    }
-
-
-        //}
-
-        public void sendMail(string emailMain, string pathname)
+        public void sendMail(string emailMain, string[] data)
         {
             string emailConfirmationToken = Guid.NewGuid().ToString();
-            //string emailMain = "shivsantoki@gmail.com";
-
-            string registrationLink = "http://localhost:5145/Home/CreateAccount";
-
+            
             try
             {
-                SendRegistrationEmail(emailMain, pathname);
+                SendRegistrationEmail(emailMain, data);
             }
             catch (Exception e)
             {
@@ -526,7 +474,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var _health = _context.Healthprofessionals.Where(r => r.Vendorid == adminDashData._activeOrder.vendorid).Select(r => r).First();
 
-            if(_health != null)
+            if(_health.Email != adminDashData._activeOrder.email || _health.Faxnumber != adminDashData._activeOrder.fax_num || _health.Businesscontact != adminDashData._activeOrder.business_contact)
             {
                 _health.Email = adminDashData._activeOrder.email;
                 _health.Faxnumber = adminDashData._activeOrder.fax_num;
@@ -535,9 +483,67 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.Healthprofessionals.Update(_health);
                 _context.SaveChanges();
             }
+        }
+        public transferRequest transferReq(int req)
+        {
+            transferRequest transferRequest = new transferRequest();
 
-            
+            transferRequest.region_name = _context.Regions.Select(x => x.Name).ToList();
+            transferRequest.region_id = _context.Regions.Select(y => y.Regionid).ToList();
+            transferRequest.regions = _context.Regions.ToList();
+            transferRequest.reqid = req;
 
+            //assignCase.phy_req = _context.Physicianregions.ToList();
+            return transferRequest;
+        }
+
+        public void transferReq(adminDashData data, string sessionEmail)
+        {
+            Requeststatuslog requeststatuslog = new Requeststatuslog();
+
+            var requestedRowPatient = _context.Requests.Where(x => x.Requestid == data.transferRequest.reqid).Select(r => r).First();
+
+
+            requeststatuslog.Requestid = data.transferRequest.reqid;
+            requeststatuslog.Notes = data.transferRequest.description;
+            requeststatuslog.Createddate = DateTime.Now;
+            requeststatuslog.Status = 2;
+            requeststatuslog.Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First();
+            requeststatuslog.Transtophysicianid = data.transferRequest.phy_id_main;
+
+            _context.Add(requeststatuslog);
+            _context.SaveChanges();
+
+            requestedRowPatient.Physicianid = data.transferRequest.phy_id_main;
+            requestedRowPatient.Modifieddate = DateTime.Now;
+
+            _context.SaveChanges();
+        }
+
+        public blockCaseModel clearCase(int reqId)
+        {
+            blockCaseModel blockCaseModel = new blockCaseModel();
+            blockCaseModel.reqid = reqId;
+            return blockCaseModel;
+        }
+        public void clearCase(adminDashData block, string sessionEmail)
+        {
+            var req_id = _context.Requests.Where(x => x.Requestid == block._blockCaseModel.reqid).Select(r => r).First();
+            req_id.Status = 11;
+
+            _context.SaveChanges();
+
+            _context.Requeststatuslogs.Add(new Requeststatuslog
+            {
+                Requestid = block._blockCaseModel.reqid,
+                Status = 11,
+                Adminid = _context.Admins.FirstOrDefault(x => x.Email == sessionEmail).Adminid,
+                Createddate = DateTime.Now,
+            });
+
+            _context.SaveChanges();
+
+           
         }
     }
 }

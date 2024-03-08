@@ -120,7 +120,8 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult blockCase(adminDashData obj)
         {
-            _IAdminDash.blockcase(obj);
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IAdminDash.blockcase(obj,sessionEmail);
 
             return RedirectToAction("adminDashboard");
         }
@@ -153,11 +154,12 @@ namespace HelloDocMVC.Controllers
 
 
 
-        public IActionResult sendMail(string email,string id,string data)
+        public IActionResult sendMail(string email,string id,string[] data)
         {
+
             string emailMain = "20it029.shiv.santoki@vvpedulink.ac.in";
-            string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
-            _IAdminDash.sendMail(emailMain, pathname);
+            //string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
+            _IAdminDash.sendMail(emailMain, data);
             return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = id});
 
         }
@@ -206,6 +208,38 @@ namespace HelloDocMVC.Controllers
             adminDashData _data = new adminDashData();
             _IAdminDash.viewOrder(adminDashData);
             return RedirectToAction("activeOrders","adminDashboard",new {data = adminDashData._activeOrder.reqid});
+        }
+
+        public IActionResult transferCase(int req)
+        {
+            adminDashData obj = new adminDashData();
+            obj.transferRequest = _IAdminDash.transferReq(req);
+            return PartialView("_adminDashPendingTransfer",obj);
+        }
+
+        [HttpPost]
+        public IActionResult transferCase(adminDashData data)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IAdminDash.transferReq(data, sessionEmail);
+            return RedirectToAction("adminDashboard");
+        }
+
+
+        public IActionResult clearCase(int req)
+        {
+            adminDashData obj = new adminDashData();
+            obj._blockCaseModel = _IAdminDash.clearCase(req);
+            return PartialView("_adminDashPendingClearCase",obj);
+        }
+
+
+        [HttpPost]
+        public IActionResult clearCase(adminDashData block)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IAdminDash.clearCase(block, sessionEmail);
+            return RedirectToAction("adminDashboard");
         }
     }
 }

@@ -1,0 +1,46 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+<style>
+    .titlee {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+    }
+
+    .font-sizee {
+        font-size: 13px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .img2 {
+        height: 80px;
+    }
+</style>
+
+<div class="modal fade" id="newRequestModalFour" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="ClearCasePopupLabel" aria-hidden="true">
+    <div class="modal-dialog" style="top: 22%;">
+        <div class="modal-content ">
+            <div class=" modal-body m-3 text-center">
+                <div class="mb-4"><i class="fa-solid fa-circle-exclamation fa-3x" style="color: #eeba2b; border: 1px solid #eeba2b;border-radius: 30px;padding: 2px;"></i></div>
+                <h5 class="titlee my-3 ">Confirmation For Clear Case</h5>
+                <div class="font-sizee my-3 mx-4">
+                    Are you sure you want to clear this request? Once this
+                    request is Clear then ypu will not be able to see this request.
+                </div>
+            </div>
+            <form method="post" id="ClearCaseForm" asp-action="clearCase" asp-controller="adminDashboard">
+                <input value="@Model._blockCaseModel.reqid" asp-for="@Model._blockCaseModel.reqid" type="hidden" />
+                <div class="m-3 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-info confirm-btn text-white"
+                            data-bs-dismiss="modal">
+                        Clear
+                    </button>
+                    <button type="button" class="btn cancel-btn border-info text-info ms-3"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -260,13 +260,13 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="transferCase(@item.reqid)">
                                                         <i class="fa-regular fa-file-lines"></i>
                                                         Transfer
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="clearCase(@item.reqid)">
                                                         <i class="fa-regular fa-circle-xmark"></i>
                                                         Clear Case
                                                     </button>
@@ -421,6 +421,14 @@
 
 </div>
 
+
+<div id="transferNote">
+
+</div>
+
+<div id="clearCase">
+
+</div>
 
 <script>
 
@@ -636,22 +644,45 @@
         });
     }
 
-    
-    // function pendingViewUpload(id) {
-    //     let action = "/adminDashboard" + "/" + "pendingViewUpload"
-    //     $.ajax({
-    //         url: action,
-    //         type: 'GET',
-    //         data: { req: id },
-    //         success: function (result) {
-    //             $('#content').html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-   
 
+    function transferCase(reqid) {
+        let action = "/adminDashboard" + "/" + "transferCase"
+            event.preventDefault();
+            $.ajax({
+                url: action,
+                type: 'GET',
+                data: { req: reqid },
+                success: function (result) {
+                    console.log(result)
+                $('#transferNote').html(result);
+                    $('#newRequestModalThree').modal('show');
+
+                },
+                error: function () {
+                    alert('Error loading partial view');
+                }
+            });
+    }
+    
+    
+    
+    function clearCase(reqid) {
+        let action = "/adminDashboard" + "/" + "clearCase"
+            event.preventDefault();
+            $.ajax({
+                url: action,
+                type: 'GET',
+                data: { req: reqid },
+                success: function (result) {
+                    console.log(result)
+                $('#clearCase').html(result);
+                    $('#newRequestModalFour').modal('show');
+
+                },
+                error: function () {
+                    alert('Error loading partial view');
+                }
+            });
+    }
 
 </script>
