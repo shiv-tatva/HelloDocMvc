@@ -35,6 +35,7 @@
                         <img src="/images/person-circle-outline.svg" alt="password">
                     </button>
                 </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 <div class="form-floating mb-3" style="position: relative;">
                         <input asp-for="Passwordhash" type="password" class="form-control" id="floatingPassword" placeholder="Password"
                            style="border: 1px solid gray;">
@@ -44,6 +45,7 @@
                            id="passHide"></i>
                     </button>
                 </div>
+                    <span asp-validation-for="Passwordhash" class="text-danger"></span>
                 <div class="login-button mb-5">
                     <button type="submit" class="btn btn-primary mb-3"
                        style="background-color: #09d4e3;border: 0;padding: 10px 0px;width:100%">Login</button>
@@ -66,7 +68,11 @@
 </div>
 
 <link rel="stylesheet" href="~/css/LoginPage.css" asp-append-version="true" />
-
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
 
 <script>
 

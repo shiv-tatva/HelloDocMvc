@@ -4,6 +4,7 @@ using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using HelloDocMVC.CustomeModel;
 using Microsoft.AspNetCore.Http;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -433,7 +434,59 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
+        public reviewAgreement reviewAgree(int reqId)
+        {
+            reviewAgreement reviewAgreement = new reviewAgreement();
+            reviewAgreement.reqid = reqId;
 
+            return reviewAgreement;
+        }
+
+        public bool checkstatus(int reqId)
+        {
+            var req = db.Requests.Any(x => x.Requestid == reqId && x.Status == 2);
+            if (req)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void reviewAgree(PatientDashboard obj)
+        {
+            Requeststatuslog requeststatuslog = new Requeststatuslog();
+
+            requeststatuslog.Requestid = obj._reviewAgreement.reqid;
+            requeststatuslog.Status = 3;
+            requeststatuslog.Notes = obj._reviewAgreement.notes;
+            requeststatuslog.Createddate = DateTime.Now;
+
+            db.Requeststatuslogs.Add(requeststatuslog);
+            db.SaveChanges();
+
+            var req = db.Requests.Where(r => r.Requestid == obj._reviewAgreement.reqid).Select(r => r).FirstOrDefault();
+
+            req.Status = 3;
+            db.SaveChanges();
+        }
+
+        public void agreeMain(int reqId)
+        {
+            Requeststatuslog requeststatuslog = new Requeststatuslog();
+
+            requeststatuslog.Requestid = reqId;
+            requeststatuslog.Status = 4;
+            requeststatuslog.Createddate = DateTime.Now;
+
+            db.Requeststatuslogs.Update(requeststatuslog);
+            db.SaveChanges();
+
+            var req = db.Requests.Where(r => r.Requestid == reqId).Select(r => r).FirstOrDefault();
+
+            req.Status = 4;
+            db.SaveChanges();
+        }
     }
 }
 

@@ -272,7 +272,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="sendAgreement(@item.reqid)">
                                                         <i class="fa-regular fa-file-lines"></i>
                                                         Send Agreement
                                                     </button>
@@ -427,6 +427,10 @@
 </div>
 
 <div id="clearCase">
+
+</div>
+
+<div id="sendAgreement">
 
 </div>
 
@@ -683,6 +687,23 @@
                     alert('Error loading partial view');
                 }
             });
+    }
+
+
+    function sendAgreement(reqId) {
+        let action = "/adminDashboard" + "/" + "sendAgreement"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: reqId },
+            success: function (result) {
+                $("#sendAgreement").html(result);
+                $("#newRequestModelFive").modal("show");
+            },
+            error: function () {
+                alert("Error loading partial view");
+            }
+        });
     }
 
 </script>

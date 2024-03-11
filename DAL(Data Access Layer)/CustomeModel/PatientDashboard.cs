@@ -61,12 +61,24 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     }
 
+    public class reviewAgreement
+    {
+        public int reqid { get; set; }
+        public int flag { get; set; }
+
+        public string? notes { get; set; }
+
+    }
+
     public class PatientDashboard {
     public List<PatientDashboardData> data{  get; set; }
 
 
         [Required(ErrorMessage = "Please Enter Atleast One File")]
         public IFormFile Upload { get; set; }
+
+
+        public reviewAgreement _reviewAgreement { get; set; }
 
     }
 

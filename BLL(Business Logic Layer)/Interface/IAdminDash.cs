@@ -47,5 +47,10 @@ namespace BLL_Business_Logic_Layer_.Interface
         public blockCaseModel clearCase(int reqId);
         public void clearCase(adminDashData block,string sessionEmail);
 
+        public sendAgreement sendAgree(int reqId);
+        public void sendAgree(adminDashData dataMain);
+
+        public closeCaseMain closeCaseMain(int reqId);
+
     }
 }

@@ -20,12 +20,14 @@ namespace DAL_Data_Access_Layer_.CustomeModel
             [StringLength(256)]
             public string? Username { get; set; }
 
+            [Required(ErrorMessage = "Please Enter Your Password")]
             [Column("passwordhash", TypeName = "character varying")]
             public string? Passwordhash { get; set; }
 
             [Column("email")]
             [StringLength(256)]
-            public string Email { get; set; } = null!;
+            [Required(ErrorMessage = "Please Enter Your Email")]
+             public string Email { get; set; } = null!;
 
             [Column("phonenumber", TypeName = "character varying")]
             public string? Phonenumber { get; set; }

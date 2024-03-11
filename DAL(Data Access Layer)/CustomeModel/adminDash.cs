@@ -184,6 +184,33 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     }
 
+    public class sendAgreement
+    {
+        public int reqid { get; set; }
+        public int? request_type_id { get; set; }
+
+        public int? status { get; set; }
+
+        public string? email { get; set; }
+        public string? mobile_num { get; set; }
+    }
+
+    public class closeCaseMain
+    {
+        public int reqid { get; set; }
+        public string? email { get; set; }
+        public string? mobile_num { get; set; }
+        public string fname { get; set; }
+        public string lname { get; set; }
+        public string? fulldateofbirth { get; set; }
+        public string? str_month { get; set; }
+        public int? int_year { get; set; }
+        public int? int_date { get; set; }
+        public string? confirmation_no { get; set; }
+        public List<int> requestWiseFileId { get; set; }
+    }
+
+   
 
     public class adminDashData
     {
@@ -204,5 +231,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public activeOrder _activeOrder { get; set; }
 
         public transferRequest transferRequest { get; set; }
+
+        public sendAgreement _sendAgreement { get; set; }
+
+        public closeCaseMain _closeCaseMain { get; set; }
     }
 }

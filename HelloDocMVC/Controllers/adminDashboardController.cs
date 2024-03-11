@@ -241,5 +241,37 @@ namespace HelloDocMVC.Controllers
             _IAdminDash.clearCase(block, sessionEmail);
             return RedirectToAction("adminDashboard");
         }
+
+
+        public IActionResult sendAgreement(int req)
+        {
+            adminDashData obj = new adminDashData();
+            obj._sendAgreement = _IAdminDash.sendAgree(req);
+            return PartialView("_adminPendingSendAgreement", obj);
+        }
+
+
+        [HttpPost]
+        public IActionResult sendAgreement(adminDashData dataMain)
+        {
+            _IAdminDash.sendAgree(dataMain);
+            return RedirectToAction("adminDashboard");
+        }
+
+
+        public IActionResult toCloseCloseCase(int data)
+        {
+            ViewBag.Admin = 4;
+            adminDashData obj = new adminDashData();
+            obj._closeCaseMain = _IAdminDash.closeCaseMain(data);
+            return View(obj);
+        }
+
+
+        public IActionResult myProfile()
+        {
+            return PartialView("_myProfie");
+        }
+
     }
 }

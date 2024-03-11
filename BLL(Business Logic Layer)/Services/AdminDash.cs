@@ -14,6 +14,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -545,5 +546,79 @@ namespace BLL_Business_Logic_Layer_.Services
 
            
         }
+
+        public sendAgreement sendAgree(int reqId)
+        {
+            sendAgreement sendAgreement = new sendAgreement();
+            sendAgreement.reqid = reqId;
+            sendAgreement.request_type_id = _context.Requests.Where(x => x.Requestid == reqId).Select(r => r.Requesttypeid).First();
+            sendAgreement.email = _context.Requestclients.Where(x => x.Requestid == reqId).Select(r => r.Email).First();
+            sendAgreement.mobile_num = _context.Requestclients.Where(x => x.Requestid == reqId).Select(r => r.Phonenumber).First();
+            return sendAgreement;
+        }
+
+        public void sendAgree(adminDashData dataMain)
+        {
+            string registrationLink = "http://localhost:5145/patientDashboard/pendingReviewAgreement?reqId=" + dataMain._sendAgreement.reqid;
+
+            try
+            {
+                SendRegistrationEmailMain(dataMain._sendAgreement.email, registrationLink);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+
+        public void SendRegistrationEmailMain(string toEmail, string registrationLink)
+        {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Review Agreement",
+                IsBodyHtml = true,
+                Body = $"Click the following link to Review Agreement: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+
+            mailMessage.To.Add(toEmail);
+
+            client.Send(mailMessage);
+        }
+
+        public closeCaseMain closeCaseMain(int reqId)
+        {
+
+            var reqClient = _context.Requestclients.Where(r => r.Requestid == reqId).Select(r=>new closeCaseMain()
+            {
+                mobile_num = r.Phonenumber,
+                email = r.Email,
+                fname = r.Firstname,
+                lname = r.Lastname,
+                fulldateofbirth = new DateTime((int)(r.Intyear), Convert.ToInt16(r.Strmonth), (int)(r.Intdate)).ToString("yyyy-MM-dd"),
+                reqid=r.Requestid,
+            }).ToList().FirstOrDefault() ;
+
+            var cnf = _context.Requests.Where(r => r.Requestid == reqId).FirstOrDefault().Confirmationnumber;
+
+            reqClient.confirmation_no = cnf;
+
+            return reqClient;
+        }
+
     }
 }

@@ -30,5 +30,10 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<PatientDashboardData> patientDashInfoTwo(string email, int param);
 
+        public reviewAgreement reviewAgree(int reqId);
+        public void reviewAgree(PatientDashboard obj);
+        public void agreeMain(int reqId);
+
+        public bool checkstatus(int reqId);
     }
 }

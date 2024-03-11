@@ -47,7 +47,7 @@ namespace HalloDoc.mvc.Auth
 
             if (string.IsNullOrWhiteSpace(_role) || roleClaim.Value != _role)
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "AccessDenied" }));
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = "LoginPage" }));
 
             }
         }

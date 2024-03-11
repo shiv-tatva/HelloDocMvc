@@ -16,6 +16,8 @@ using System.Xml.Linq;
 using BLL_Business_Logic_Layer_.Services;
 using NuGet.Protocol;
 using HalloDoc.mvc.Auth;
+using Azure.Core;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace HelloDocMVC.Controllers
 {
@@ -225,8 +227,46 @@ namespace HelloDocMVC.Controllers
             var param = obj.data[0].reqid;
             return RedirectToAction("viewDetail", new {param = param});
         }
-        
 
 
+
+        public IActionResult pendingReviewAgreement(int reqId)
+        {
+            ViewBag.Admin = 1;
+            PatientDashboard patientDashboardMain = new PatientDashboard();
+            patientDashboardMain._reviewAgreement = _patientDashInfo.reviewAgree(reqId);
+            return View(patientDashboardMain);
+        }
+
+
+        [HttpPost]
+        public IActionResult pendingReviewAgreement(PatientDashboard obj)
+        {
+            if(obj._reviewAgreement.flag == 1) {
+                if (_patientDashInfo.checkstatus(obj._reviewAgreement.reqid))
+                {
+                    _patientDashInfo.reviewAgree(obj);
+                    TempData["success"] = "Status changed Successfully!";
+                }
+                else
+                {
+                    TempData["error"] = "Status Already changed!";
+                }
+            }
+            else
+            {
+                if (_patientDashInfo.checkstatus(obj._reviewAgreement.reqid))
+                {
+                    _patientDashInfo.agreeMain(obj._reviewAgreement.reqid);
+                    TempData["success"] = "Status changed Successfully!";
+                }
+                else
+                {
+                    TempData["error"] = "Status Already changed!";
+                }
+            }
+            return RedirectToAction("pendingReviewAgreement",new {reqId = obj._reviewAgreement.reqid });
+
+        }
     }
 }
