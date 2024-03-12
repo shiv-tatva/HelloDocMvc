@@ -15,6 +15,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -317,7 +318,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 created_date = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Createddate).ToList(),
                 requestWiseFileId = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Requestwisefileid).ToList(),
             }).ToList();
-
+             
             return query;
         }
 
@@ -602,7 +603,6 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public closeCaseMain closeCaseMain(int reqId)
         {
-
             var reqClient = _context.Requestclients.Where(r => r.Requestid == reqId).Select(r=>new closeCaseMain()
             {
                 mobile_num = r.Phonenumber,
@@ -614,11 +614,83 @@ namespace BLL_Business_Logic_Layer_.Services
             }).ToList().FirstOrDefault() ;
 
             var cnf = _context.Requests.Where(r => r.Requestid == reqId).FirstOrDefault().Confirmationnumber;
+            var requestWiseFile = _context.Requestwisefiles.Where(r => r.Requestid == reqId && r.Isdeleted == null).Select(r => r).ToList();
 
             reqClient.confirmation_no = cnf;
+            reqClient._requestWiseFile = requestWiseFile;
 
             return reqClient;
         }
 
+
+        public void closeCaseSaveMain(adminDashData obj) 
+        { 
+
+        var requestStatus = _context.Requestclients.Where(r => r.Requestid == obj._closeCaseMain.reqid).Select(r => r).First();
+        requestStatus.Email = obj._closeCaseMain.email;
+        requestStatus.Phonenumber = obj._closeCaseMain.mobile_num;
+
+        _context.SaveChanges();         
+            
+        }
+
+        public void closeCaseCloseBtn(int reqId, string sessionEmail)
+        {
+
+            var requestStatus = _context.Requests.Where(r => r.Requestid == reqId).Select(r => r).First();
+
+            requestStatus.Status = 9;
+
+            _context.Requeststatuslogs.Add(new Requeststatuslog()
+            {
+                Requestid = reqId,
+                Status = 9,
+                Adminid = _context.Admins.FirstOrDefault(x => x.Email == sessionEmail).Adminid,
+                Createddate = DateTime.Now,
+            });
+            _context.SaveChanges();         
+        }
+
+        public myProfile myProfile(string sessionEmail)
+        {
+            var myProfileMain = _context.Admins.Where(x => x.Email == sessionEmail).Select(x => new myProfile()
+            {
+                fname = x.Firstname,
+                lname = x.Lastname,
+                email = x.Email,
+                confirm_email = x.Email,
+                mobile_no = x.Mobile,
+                addr1 = x.Address1,
+                addr2 = x.Address2,
+                city = x.City,
+                zip = x.Zip,
+                state = _context.Regions.Where(r => r.Regionid == x.Regionid).Select(r => r.Name).First(),
+                roles = _context.Aspnetroles.ToList(),
+            }).ToList().FirstOrDefault();
+
+            var userName = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First();
+            var pass = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Passwordhash).First();
+
+            myProfileMain.username = userName;
+            myProfileMain.password = pass;
+
+            return myProfileMain;
+        }
+
+
+        public bool myProfileReset(myProfile obj, string sessionEmail)
+        {
+            if(_context.Aspnetusers.Where(r => r.Passwordhash == obj.password) != null)
+            {
+                var pass = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
+                pass.Passwordhash = obj.password;
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            return false;
+
+        }
     }
 }

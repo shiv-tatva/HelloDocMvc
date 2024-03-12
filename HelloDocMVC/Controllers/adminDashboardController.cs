@@ -12,7 +12,7 @@ namespace HelloDocMVC.Controllers
 {
 
     [CustomAuthorize("Admin")]
-
+     
     public class adminDashboardController : Controller
     {
         private IAdminDash _IAdminDash;
@@ -267,11 +267,45 @@ namespace HelloDocMVC.Controllers
             return View(obj);
         }
 
+        public IActionResult DeleteFileTwo(bool data, int id, int reqFileId)
+        {
+            _IAdminDash.DeleteFile(data, reqFileId);
+            return RedirectToAction("toCloseCloseCase", "adminDashboard", new { data = id });
+
+        }
+
+        [HttpPost]
+        public IActionResult closeCaseBtn(adminDashData obj)
+        {
+            _IAdminDash.closeCaseSaveMain(obj);
+            return RedirectToAction("toCloseCloseCase", new { data = obj._closeCaseMain.reqid });
+        }
+
+
+        
+        public IActionResult closeCaseCloseBtn(int data)
+        {
+
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IAdminDash.closeCaseCloseBtn(data, sessionEmail);
+            return RedirectToAction("adminDashboard", new { req = data });
+        }
 
         public IActionResult myProfile()
         {
-            return PartialView("_myProfie");
+            adminDashData _admin = new adminDashData();
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _admin._myProfile = _IAdminDash.myProfile( sessionEmail);
+            return PartialView("_adminMyProfile", _admin);
         }
 
+
+        [HttpPost]
+        public IActionResult myProfile(myProfile obj)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            bool isSend = _IAdminDash.myProfileReset(obj, sessionEmail);
+            return Json(new { isSend = isSend });
+        }
     }
 }

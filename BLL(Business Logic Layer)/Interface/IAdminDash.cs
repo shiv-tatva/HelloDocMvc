@@ -52,5 +52,10 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public closeCaseMain closeCaseMain(int reqId);
 
+        public void closeCaseSaveMain(adminDashData obj);
+        public void closeCaseCloseBtn(int reqId, string sessionEmail);
+        public myProfile myProfile(string sessionEmail);
+
+        public bool myProfileReset(myProfile obj, string sessionEmail);
     }
 }

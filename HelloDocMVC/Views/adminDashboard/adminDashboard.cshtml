@@ -56,7 +56,7 @@
         <div class="px-3">
             <ul class="nav nav-underline" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button onclick="onclickcheck()" class="nav-link active text-muted px-3" id="home-tab" data-bs-toggle="tab"
+                    <button onclick="adminMain()" class="nav-link active text-muted px-3" id="home-tab" data-bs-toggle="tab"
                         data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
                         aria-selected="false">
                         Dashboard
@@ -109,24 +109,25 @@
     </div>
 </nav>
 
-<div class="p-sm-2 p-md-5">
+ <div class="p-sm-2 p-md-5">
     <div class="tab-content" id="myTabContent">
         <div id="content">
-
+           @*  <Partial name="_adminDash" />
+            <Partial name="_myProfile" /> *@
         </div>
     </div>
-</div>
+</div> 
 
 
 
-
-
+@* <div class="p-sm-2 p-md-5">
+    <div class="tab-content" id="myTabContent">
+        
+    </div>
+</div> *@
 
 <script>
-    function onclickcheck(){
-        console.log("Hee")
-    }
-
+  
     let action = "/adminDashboard" + "/" + "LoadPartialDashboard"
     $.ajax({
         url: action,
@@ -136,22 +137,38 @@
             $('#content').html(result);
         },
         error: function () {
-            alert('Error loading partial view');
+            alert('Error aa loading partial view');
         }
     });
 
 
-    function myProfile() {
-        let action = "/adminDashboard" + "/" + "myProfile"
+    function adminMain() {
+        let action = "/adminDashboard" + "/" + "LoadPartialDashboard"
         $.ajax({
             url: action,
             type: 'GET',
             data: { req: 1 },
             success: function (result) {
                 $('#content').html(result);
-            },
+            }, 
             error: function () {
-                alert('Error loading partial view');
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+
+    function myProfile() {
+        let action = "/adminDashboard" + "/" + "myProfile"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                
+                $('#content').html(result);
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Error   vv loading partial view');
             }
         });
     }

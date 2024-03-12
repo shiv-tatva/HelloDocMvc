@@ -458,7 +458,7 @@ namespace BLL_Business_Logic_Layer_.Services
             Requeststatuslog requeststatuslog = new Requeststatuslog();
 
             requeststatuslog.Requestid = obj._reviewAgreement.reqid;
-            requeststatuslog.Status = 3;
+            requeststatuslog.Status = 7;
             requeststatuslog.Notes = obj._reviewAgreement.notes;
             requeststatuslog.Createddate = DateTime.Now;
 
@@ -467,7 +467,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var req = db.Requests.Where(r => r.Requestid == obj._reviewAgreement.reqid).Select(r => r).FirstOrDefault();
 
-            req.Status = 3;
+            req.Status = 7;
             db.SaveChanges();
         }
 
@@ -479,7 +479,7 @@ namespace BLL_Business_Logic_Layer_.Services
             requeststatuslog.Status = 4;
             requeststatuslog.Createddate = DateTime.Now;
 
-            db.Requeststatuslogs.Update(requeststatuslog);
+            db.Requeststatuslogs.Add(requeststatuslog);
             db.SaveChanges();
 
             var req = db.Requests.Where(r => r.Requestid == reqId).Select(r => r).FirstOrDefault();

@@ -207,10 +207,38 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? int_year { get; set; }
         public int? int_date { get; set; }
         public string? confirmation_no { get; set; }
-        public List<int> requestWiseFileId { get; set; }
+        public int? status { get; set; }
+        public List<Requestwisefile> _requestWiseFile { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Atleast One File")]
+        public IFormFile Upload { get; set; }
     }
 
-   
+    public class myProfile
+    {
+        public int? admin_id { get; set; }
+        public int? aspnetuserid { get; set; }
+        public string? fname { get; set; }
+        public string? lname { get; set; }
+        public string? email { get; set; }
+        public string? confirm_email { get; set; }
+        public string? mobile_no { get; set; }
+        public string? addr1 { get; set; }
+        public string? addr2 { get; set;}
+        public string? city { get; set; }
+        public int regionId { get; set; } 
+        public string zip { get; set; }
+        public string? altphone { get; set; }
+        public int? createdBy {  get; set; } 
+        public DateTime createdDate { get; set; }
+        public int status { get; set; }
+        public int? roleid { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string state { get; set; }
+        public List<Aspnetrole> roles { get; set; }
+        public int? flag { get; set; }
+    }
 
     public class adminDashData
     {
@@ -235,5 +263,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public sendAgreement _sendAgreement { get; set; }
 
         public closeCaseMain _closeCaseMain { get; set; }
+
+        public myProfile _myProfile { get; set; }
     }
 }

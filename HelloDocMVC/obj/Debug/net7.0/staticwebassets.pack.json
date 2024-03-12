@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets\\Documents\\graph-default.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\hero-image.png",
+      "PackagePath": "staticwebassets\\Documents\\hero-image.png"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\info-icon.svg",
       "PackagePath": "staticwebassets\\Documents\\info-icon.svg"
     },

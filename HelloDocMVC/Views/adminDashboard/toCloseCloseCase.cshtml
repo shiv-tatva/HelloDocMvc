@@ -10,7 +10,7 @@
              tabindex="0">
             <div class=" mt-2 d-flex justify-content-between align-items-center">
                 <h4 style="color:black!important;">Close Case</h4>
-                <a asp-controller="Admin" asp-action="Admin_Dashboard"
+                <a asp-controller="adminDashboard" asp-action="adminDashboard"
                    class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
                     <i class="fa-solid fa-angle-left"></i> Back
                 </a>
@@ -41,64 +41,40 @@
                                 <th style="background: transparent;">Actions</th>
                             </tr>
                         </thead>
-                            @* <tbody>
-                        @foreach (var obj in Model.GetViewUploads.docs)
-                        {
-                        <tr class="align-middle">
-                        <td class="first-col">
-                        <input type="checkbox" name="Mark" class="checkbox fileCheckbox"
-                        onchange="allCheck()" /><span class="document-combo ms-5">
-                        @if (obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "xlsx" ||
-                        obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "xls")
-                        {
-                        <i class="bi text-danger fs-5 bi-file-earmark-excel-fill"></i>
-                        }
-                        else if (obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "pdf")
-                        {
-                        <i class="bi text-danger fs-5 bi-file-earmark-pdf-fill"></i>
-                        }
-                        else if (obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "doc" ||
-                        obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "docx")
-                        {
-                        <i class="bi text-danger fs-5 bi-file-earmark-word-fill"></i>
-                        }
-                        else if (obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "jpg" ||
-                        obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "jpeg"
-                        || obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "png" ||
-                        obj.Document.Split(".")[obj.Document.Split(".").Length - 1] == "svg")
-                        {
-                        <i class="bi text-danger fs-5 bi-file-earmark-image-fill"></i>
-                        }
-                        else
-                        {
-                        <i class="bi text-danger fs-5 bi-file-earmark-fill"></i>
-                        }
-                        <span class="document-name mx-2">@obj.Document</span>
-                        </span>
-                        </td>
-                        <td>@obj.CreatedDate.Date.ToString("MMM dd, yyyy")</td>
-                        <td>
-                        <a href="~/Documents/@obj.Document" download="@obj.Document" type="button"
-                        class="btn download-btn border-info text-info">
-                        <i class="bi bi-cloud-arrow-down"></i>
-                        </a>
-                        </td>
-                        </tr>
-                        }
-                        </tbody> *@
+                        <tbody>
+                                @foreach (var obj in Model._closeCaseMain._requestWiseFile)
+                                {
+                                    <tr class="align-middle">
+                                        <td class="first-col">
+                                            <input id="reqWiseFileId" type="hidden" value="@obj.Requestwisefileid" />
+                                                <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
+                                                <span class="document-name mx-2">@obj.Filename</span>
+                                        </td>
+                                        <td>@obj.Createddate</td>
+
+                                        <td>
+                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='@Url.Action("DownloadFile","adminDashboard",new {data = @obj.Filename})'"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                                            <button class="btn btn-outline-info delete-btn" onclick="window.location.href='@Url.Action("DeleteFileTwo","adminDashboard",new {data = true,id = obj.Requestid,reqFileId = obj.Requestwisefileid})'"> <i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+
+                                    </tr>
+                                }
+                        </tbody> 
                     </table>
                 </div>
+                <form method="post" asp-action="closeCaseBtn" asp-controller="adminDashboard">
                 <div class="mt-3">
+                    <input asp-for="_closeCaseMain.reqid" type="hidden" value="@Model._closeCaseMain.reqid" />
                     <h5 class="mb-4 pt-2" style="color:black!important;">Patient Information</h5>
                     <div class="row intext">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input value="@Model._closeCaseMain.fname" type="text" class=" form-control" id="floatingInputFirst"
+                                <input asp-for="_closeCaseMain.fname" value="@Model._closeCaseMain.fname" type="text" class=" form-control" id="floatingInputFirst"
                                    placeholder="First Name" disabled aria-label="First Name" />
                             <label class="ms-2 text-secondary" for="floatingInputFirst" >First Name</label>
                             <span @* asp-validation-for="FirstName" *@ class="text-danger"></span>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input value="@Model._closeCaseMain.lname" type="text" class=" form-control" id="floatingInputLast" disabled placeholder="Last Name"
+                                <input asp-for="_closeCaseMain.lname" value="@Model._closeCaseMain.lname" type="text" class=" form-control" id="floatingInputLast" disabled placeholder="Last Name"
                                    aria-label="Last Name" />
                             <label class="ms-2 text-secondary" for="floatingInputLast">Last Name</label>
                             <span @* asp-validation-for="LastName" *@ class="text-danger"></span>
@@ -106,12 +82,12 @@
                     </div>
                     <div class="row intext">
                         <div class="form-floating mb-3 col-12 col-sm-6">
-                            <input value="@Model._closeCaseMain.fulldateofbirth" type="date" class="form-control " id="floatingInputdate" disabled placeholder="02-10-2002">
+                                <input asp-for="_closeCaseMain.fulldateofbirth" value="@Model._closeCaseMain.fulldateofbirth" type="date" class="form-control " id="floatingInputdate" disabled placeholder="02-10-2002">
                             <label for="floatingInputdate" class="ms-2 text-secondary ">Date of Birth</label>
                         </div>
 
                         <div class="form-floating mb-3 col-12 col-sm-5">
-                            <input value="@Model._closeCaseMain.mobile_num" type="tel" class="dclass form-control " id="floatingInputdate" disabled placeholder="1234567890">
+                                <input asp-for="_closeCaseMain.mobile_num" value="@Model._closeCaseMain.mobile_num" type="tel" class="dclass form-control " id="floatingInputdate" disabled placeholder="1234567890">
                             <label for="floatingInputdate" class="ms-2 text-secondary ">Phone Number</label>
                         </div>
 
@@ -124,7 +100,7 @@
                     </div>
                     <div class="row mb-3 intext">
                         <div class="form-floating mb-3 col-12 col-sm-6">
-                            <input value="@Model._closeCaseMain.email" type="email" class="form-control emailInp dclass" id="floatingInput" mailto:placeholder="test@google.com">
+                                <input asp-for="_closeCaseMain.email" value="@Model._closeCaseMain.email" type="email" class="form-control emailInp dclass" id="floatingInput" mailto:placeholder="test@google.com">
                             <label for="floatingInput" class="ms-2 text-secondary">Email</label>
                         </div>
                     </div>
@@ -133,8 +109,9 @@
                     <button type="button" id="editBtn" class="btn btn-info text-white EditBtn" onclick="enableFields()">Edit </button>
                     <button type="button" id="cancelBtn" class="btn btn-outline-info EditBtn" onclick="disableFields()">Cancel</button>
                     <button type="submit" id="submitBtn" class="btn btn-info text-white EditBtn">Save</button>
-                    <button type="button" id="CloseCaseBtn" class="btn btn-outline-secondary border-info text-info">Close Case</button>
+                        <button type="button" id="CloseCaseBtn" class="btn btn-outline-secondary border-info text-info" onclick="window.location.href='@Url.Action("closeCaseCloseBtn","adminDashboard",new {data = Model._closeCaseMain.reqid})'">Close Case</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

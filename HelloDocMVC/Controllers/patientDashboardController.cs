@@ -18,6 +18,7 @@ using NuGet.Protocol;
 using HalloDoc.mvc.Auth;
 using Azure.Core;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelloDocMVC.Controllers
 {
@@ -229,7 +230,7 @@ namespace HelloDocMVC.Controllers
         }
 
 
-
+        [AllowAnonymous]
         public IActionResult pendingReviewAgreement(int reqId)
         {
             ViewBag.Admin = 1;
@@ -239,6 +240,7 @@ namespace HelloDocMVC.Controllers
         }
 
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult pendingReviewAgreement(PatientDashboard obj)
         {
