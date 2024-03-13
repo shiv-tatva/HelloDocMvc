@@ -238,6 +238,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string state { get; set; }
         public List<Aspnetrole> roles { get; set; }
         public int? flag { get; set; }
+
+        public bool indicate { get; set; }
     }
 
     public class adminDashData

@@ -303,9 +303,39 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult myProfile(myProfile obj)
         {
-            var sessionEmail = HttpContext.Session.GetString("UserSession");
-            bool isSend = _IAdminDash.myProfileReset(obj, sessionEmail);
-            return Json(new { isSend = isSend });
+
+            if(obj.flag == 1)
+            {
+                var sessionEmail = HttpContext.Session.GetString("UserSession");
+                bool isSend = _IAdminDash.myProfileReset(obj, sessionEmail);
+                return Json(new { isSend = isSend });
+            }else if(obj.flag == 2)
+            {
+                var sessionEmail = HttpContext.Session.GetString("UserSession");
+                var isSend = _IAdminDash.myProfileAdminInfo(obj, sessionEmail);
+
+                var userName = isSend.email.Substring(0, isSend.email.IndexOf('@'));
+                if (isSend.email != null)
+                {
+                    
+                    TempData["usernameMyProfile"] = userName;
+                    HttpContext.Session.SetString("UserSessionName", userName);
+                    HttpContext.Session.SetString("UserSession", isSend.email);
+                }
+                return Json(new { isSend = isSend.indicate, userNameMyProfile = userName });
+            }
+            else
+            {
+                var sessionEmail = HttpContext.Session.GetString("UserSession");
+                bool isSend = _IAdminDash.myProfileAdminBillingInfo(obj, sessionEmail);
+                return Json(new { isSend = isSend });
+            }
+        }
+
+        public IActionResult concludeEncounter(int data)
+        {
+            ViewBag.Admin = 4;
+            return View();
         }
     }
 }

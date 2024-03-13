@@ -57,5 +57,8 @@ namespace BLL_Business_Logic_Layer_.Interface
         public myProfile myProfile(string sessionEmail);
 
         public bool myProfileReset(myProfile obj, string sessionEmail);
+
+        public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail);
+        public bool myProfileAdminBillingInfo(myProfile obj, string sessionEmail);
     }
 }

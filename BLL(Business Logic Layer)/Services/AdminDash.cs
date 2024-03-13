@@ -680,7 +680,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public bool myProfileReset(myProfile obj, string sessionEmail)
         {
-            if(_context.Aspnetusers.Where(r => r.Passwordhash == obj.password) != null)
+            var aspUser = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+            if(aspUser.Passwordhash != obj.password)
             {
                 var pass = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
                 pass.Passwordhash = obj.password;
@@ -691,6 +693,88 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             return false;
 
+        }
+
+
+        public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail)
+        {
+            myProfile _myprofile = new myProfile();
+            var aspUser = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+            var adminInfo = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+            if(adminInfo.Firstname != obj.fname || adminInfo.Lastname != obj.lname || adminInfo.Email != obj.email || adminInfo.Mobile != obj.mobile_no)
+            {
+                if(adminInfo.Firstname != obj.fname)
+                {
+                    adminInfo.Firstname = obj.fname;
+                    aspUser.Username = obj.fname;
+                }
+                
+                if(adminInfo.Lastname != obj.lname)
+                {
+                    adminInfo.Lastname = obj.lname;
+                }
+
+                if(adminInfo.Email != obj.email)
+                {
+                    adminInfo.Email = obj.email;
+                    aspUser.Email = obj.email;
+                }
+
+                if(adminInfo.Mobile != obj.mobile_no)
+                {
+                    adminInfo.Mobile = obj.mobile_no;
+                    aspUser.Phonenumber = obj.mobile_no;
+                }
+                    
+                
+                aspUser.Modifieddate = DateTime.Now;
+                _myprofile.indicate = true;
+                _myprofile.email = obj.email;
+                _context.SaveChanges();
+            }
+            else
+            {
+                _myprofile.indicate = false;
+            }
+            _myprofile.email = obj.email;
+            return _myprofile;
+        }
+
+        public bool myProfileAdminBillingInfo(myProfile obj, string sessionEmail)
+        {
+            var adminInfo = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+            if(adminInfo.Address1 != obj.addr1 || adminInfo.Address2 != obj.addr2 || adminInfo.City != obj.city ||adminInfo.Zip != obj.zip)
+            {
+
+                if(adminInfo.Address1 != obj.addr1)
+                {
+                    adminInfo.Address1 = obj.addr1;
+                }
+                
+                if(adminInfo.Address2 != obj.addr2)
+                {
+                    adminInfo.Address2 = obj.addr2;
+                }
+               
+                if(adminInfo.City != obj.city)
+                {
+                    adminInfo.City = obj.city;
+                }
+                    
+                if(adminInfo.Zip != obj.zip)
+                {
+                    adminInfo.Zip = obj.zip;
+                }
+                
+                _context.SaveChanges();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

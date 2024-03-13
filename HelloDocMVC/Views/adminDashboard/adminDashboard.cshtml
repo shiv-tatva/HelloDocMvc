@@ -1,5 +1,8 @@
 ﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
 
+@inject IHttpContextAccessor Accessor
+@using Microsoft.AspNetCore.Http
+
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
@@ -27,10 +30,9 @@
                 <p class="text-secondary fs-6">
                 <h5>
                     Welcome
-                    <strong>
-                        Admin admin2
-                           @*  @ @Accessor.HttpContext.Session.GetString("UserName") @ *@
-                    </strong>
+                        <strong id="userNameMain">
+                            @Accessor.HttpContext.Session.GetString("UserSessionName")
+                        </strong>
                 </h5>
                 </p>
             </div>
@@ -112,8 +114,7 @@
  <div class="p-sm-2 p-md-5">
     <div class="tab-content" id="myTabContent">
         <div id="content">
-           @*  <Partial name="_adminDash" />
-            <Partial name="_myProfile" /> *@
+
         </div>
     </div>
 </div> 
