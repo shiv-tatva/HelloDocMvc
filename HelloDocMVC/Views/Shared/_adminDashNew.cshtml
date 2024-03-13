@@ -11,36 +11,36 @@
     </span>
 
     <span id="patiens_five-link-mediaquerry" style="display:flex;" class="mt-3">
-        <a href="#" class="btn btn-info patient_five_button mx-1 " role="button">
+        <button onclick="newSendLink()" class="btn btn-info patient_five_button mx-1 " role="button">
             <i class="bi bi-send"></i>
             <span>
                 Send link
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button onclick="location.href='@Url.Action("createRequest","adminDashboard")'" class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-pencil-square"></i>
             <span>
                 create request
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button  class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-arrow-up-right"></i>
             <span>
                 Export
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-box-arrow-up-right"></i>
             <span>
                 Export All
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button onclick="requestSupport()" class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-person-plus"></i>
             <span>
                 Request DTY support
             </span>
-        </a>
+        </button>
     </span>
 </div>
 <div class="mt-2 mb-2 container-fluid" style="box-shadow: 0px 0px 5px grey;">
@@ -410,6 +410,14 @@
 
 </div>
 
+<div id="sendLinkPopUp">
+
+</div>
+
+<div id="requestSupportPopUp">
+
+</div>
+
 
 <script>
 
@@ -672,7 +680,43 @@
     });
 
 
-   
+    function newSendLink() {
+        let action = "/adminDashboard" + "/" + "sendLinkPopUp"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                console.log(result)
+                $('#sendLinkPopUp').html(result);
+                $('#sendLinkPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function requestSupport(){
+        console.log("hi")
+        let action = "/adminDashboard" + "/" + "requestSupportPopUp"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                console.log(result)
+                $('#requestSupportPopUp').html(result);
+                $('#requestSupportPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
 </script>
 

@@ -1,6 +1,8 @@
 ﻿using DAL_Data_Access_Layer_.CustomeModel;
+using DAL_Data_Access_Layer_.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,5 +62,8 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail);
         public bool myProfileAdminBillingInfo(myProfile obj, string sessionEmail);
+
+        public concludeEncounter concludeEncounter(int data);
+        public concludeEncounter concludeEncounter(concludeEncounter obj);
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+@{
     ViewData["Title"] = "Encounter Page";
 }
 
@@ -15,200 +17,250 @@
 <div class="container">
     <div class=" mt-4 d-flex justify-content-between align-items-center">
         <h4>Encounter Form</h4>
-        <a asp-controller="Admin" asp-action="Admin_Dashboard"
+        <a asp-controller="adminDashboard" asp-action="adminDashboard"
            class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
             <i class="fa-solid fa-angle-left"></i> Back
         </a>
     </div>
     <form action="" class="shadow border rounded my-3" method="post">
+        <input type="hidden" value="@Model._encounter.reqid" id="encounterReqId"/>
         <div class="mx-3 my-4 mt-3">
             <h3 class="mb-3 text-center text-info">Medical Report-Confidential</h3>
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input name="first_name" type="text" value="" class="form-control dclass"
+                    <input name="first_name" type="text" value="@Model._encounter.FirstName" class="form-control "
                            id="exampleFormControlInput1" placeholder="Firstname" disabled>
                     <label for="exampleFormControlInput1" class="form-label ms-2">Firstname</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input name="last_name" type="text" value="" class="form-control dclass"
+                    <input name="last_name" type="text" value="@Model._encounter.LastName" class="form-control "
                            id="exampleFormControlInput2" placeholder="Lastname" disabled>
                     <label for="exampleFormControlInput2" class="form-label ms-2">Lastname</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-12 form-floating mb-3 text-muted">
-                    <input name="Location" type="text" value="" class="form-control dclass"
+                    <input name="Location" type="text" value="@Model._encounter.Location" class="form-control "
                            id="exampleFormControlInput3" placeholder="Location" disabled>
                     <label for="exampleFormControlInput3" class="form-label ms-2">Location</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input id="exampleFormControlInput4" type="date" asp-format="{0:yyyy-MM-dd}" name="DOB" class="form-control dclass" id="dob"
+                    <input value="@Model._encounter.BirthDate" type="date" asp-format="{0:yyyy-MM-dd}" name="DOB" class="form-control " id="dob"
                            placeholder="Date Of Birth" disabled>
-                    <label for="exampleFormControlInput4" class="form-label ms-2">Date Of Birth</label>
+                    <label for="dob" class="form-label ms-2">Date Of Birth</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input type="date" name="Date" class="form-control dclass" id="Date" placeholder="Date" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">Date</label>
+                    <input type="date" asp-for="@Model._encounter.Date"  class="form-control dclass" id="Date" placeholder="Date" disabled>
+                    <label for="Date" class="form-label ms-2">Date</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input style="height:58px" id="phoneEncounter"
-                           class="dclass form-control contact"
+                    <input disabled value="@Model._encounter.PhoneNumber" style="height:58px" id="phoneEncounter"
+                           class=" form-control contact"
                            aria-label="Contact"
                            type="number" />
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input name="email" value="" type="email" class="form-control dclass" id="email"
+                    <input name="email" value="@Model._encounter.Email" type="email" class="form-control " id="email"
                            placeholder="Email" disabled>
                     <label for="email" class="form-label ms-2">Email</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.HistoryIllness" value="@Model._encounter.HistoryIllness" class="form-control dclass" placeholder="Leave a comment here" id="encounter_hl" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">History Of present illness or Injury</label>
+                    <label for="encounter_hl" class="ms-2">History Of present illness or Injury</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.MedicalHistory" value="@Model._encounter.MedicalHistory" class="form-control dclass" placeholder="Leave a comment here" id="encounter_mh" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Medical History</label>
+                    <label for="encounter_mh" class="ms-2">Medical History</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Medications" value="@Model._encounter.Medications" class="form-control dclass" placeholder="Leave a comment here" id="encounter_medications" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Medications</label>
+                    <label for="encounter_medications" class="ms-2">Medications</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Allergies" value="@Model._encounter.Allergies" class="form-control dclass" placeholder="Leave a comment here" id="encounter_al" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Allergies</label>
+                    <label for="encounter_al" class="ms-2">Allergies</label>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
-                    <input name="Temp" type="text" class="form-control dclass" id="exampleFormControlInput1"
+                    <input asp-for="@Model._encounter.Temp" value="@Model._encounter.Temp" type="number" class="form-control dclass" id="temp"
                            placeholder="Temp" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">Temp</label>
+                    <label for="temp" class="form-label ms-2">Temp</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
-                    <input name="Hr" type="text" class="form-control dclass" id="exampleFormControlInput1"
+                    <input asp-for="@Model._encounter.Hr" value="@Model._encounter.Hr" type="number" class="form-control dclass" id="hr"
                            placeholder="HR" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">HR</label>
+                    <label for="hr" class="form-label ms-2">HR</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                    <input name="Rr" type="text" class="form-control dclass" id="exampleFormControlInput1"
+                    <input  asp-for="@Model._encounter.Rr" value="@Model._encounter.Rr" type="number" class="form-control dclass" id="rr"
                            placeholder="RR" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">RR</label>
+                    <label for="rr" class="form-label ms-2">RR</label>
                     <span class="text-danger"></span>
                 </div>
 
                 <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
-                    <input name="BpS" type="text" class="form-control dclass" id="exampleFormControlInput1"
+                    <input asp-for="@Model._encounter.BpS" value="@Model._encounter.BpS" type="number" class="form-control dclass" id="bps"
                            placeholder="FirsBlood pressuretname" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">
+                    <label for="bps" class="form-label ms-2">
                         Blood pressure
                         (Systolic)
                     </label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
-                    <input name="BpD" type="text" class="form-control dclass" id="exampleFormControlInput1"
+                    <input asp-for="@Model._encounter.BpD" value="@Model._encounter.BpD" type="number" class="form-control dclass" id="bpd"
                            placeholder="Blood pressure" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">
+                    <label for="bpd" class="form-label ms-2">
                         Blood pressure
                         (Diastolic)
                     </label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                    <input name="O2" type="text" class="form-control dclass" id="exampleFormControlInput1"
+                    <input asp-for="@Model._encounter.O2" value="@Model._encounter.O2" type="number" class="form-control dclass" id="o2"
                            placeholder="O2" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">O2</label>
+                    <label for="o2" class="form-label ms-2">O2</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                    <input name="Pain" type="text" class="form-control dclass" id="exampleFormControlInput1"
+                    <input asp-for="@Model._encounter.Pain" value="@Model._encounter.Pain" type="text" class="form-control dclass" id="pain"
                            placeholder="Pain" disabled>
-                    <label for="exampleFormControlInput1" class="form-label ms-2">Pain</label>
+                    <label for="pain" class="form-label ms-2">Pain</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Heent" value="@Model._encounter.Heent" class="form-control dclass" placeholder="Leave a comment here" id="heent" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Heent</label>
+                    <label for="heent" class="ms-2">Heent</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Cv" value="@Model._encounter.Cv" class="form-control dclass" placeholder="Leave a comment here" id="cv" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">CV</label>
+                    <label for="cv" class="ms-2">CV</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Chest" value="@Model._encounter.Chest" class="form-control dclass" placeholder="Leave a comment here" id="chest" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Chest</label>
+                    <label for="chest" class="ms-2">Chest</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Abd" value="@Model._encounter.Abd" class="form-control dclass" placeholder="Leave a comment here" id="abd" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">ABD</label>
+                    <label for="abd" class="ms-2">ABD</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Extr" value="@Model._encounter.Extr" class="form-control dclass" placeholder="Leave a comment here" id="extr" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Extr</label>
+                    <label for="extr" class="ms-2">Extr</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Skin" value="@Model._encounter.Skin" class="form-control dclass" placeholder="Leave a comment here" id="skin" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Skin</label>
+                    <label for="skin" class="ms-2">Skin</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Neuro" value="@Model._encounter.Neuro" class="form-control dclass" placeholder="Leave a comment here" id="neuro" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Neuro</label>
+                    <label for="neuro" class="ms-2">Neuro</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Other" value="@Model._encounter.Other" class="form-control dclass" placeholder="Leave a comment here" id="other" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Other</label>
+                    <label for="other" class="ms-2">Other</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Diagnosis" value="@Model._encounter.Diagnosis" class="form-control dclass" placeholder="Leave a comment here" id="daignosis" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Diagnosis</label>
+                    <label for="daignosis" class="ms-2">Diagnosis</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.TreatmentPlan" value="@Model._encounter.TreatmentPlan" class="form-control dclass" placeholder="Leave a comment here" id="treatmentplan" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Treatment Plan</label>
+                    <label for="treatmentplan" class="ms-2">Treatment Plan</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.MedicationDispensed" value="@Model._encounter.MedicationDispensed" class="form-control dclass" placeholder="Leave a comment here" id="encounter_md" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Medications Dispensed</label>
+                    <label for="encounter_md" class="ms-2">Medications Dispensed</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.Procedures" value="@Model._encounter.Procedures" class="form-control dclass" placeholder="Leave a comment here" id="procedures" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Procedures</label>
+                    <label for="procedures" class="ms-2">Procedures</label>
                 </div>
                 <div class="form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="floatingTextarea2" disabled
+                    <textarea asp-for="@Model._encounter.FollowUp" value="@Model._encounter.FollowUp" class="form-control dclass" placeholder="Leave a comment here" id="followup" disabled
                               style="height: 100px"></textarea>
-                    <label for="floatingTextarea2" class="ms-2">Followup</label>
+                    <label for="followup" class="ms-2">Followup</label>
                 </div>
             </div>
             <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
                 <button type="button" id="editBtn" class="btn btn-info text-white EditBtn" onclick="enableFields()">Edit </button>
 
-                <button type="submit" id="submitBtn" class="btn btn-info text-white EditBtn">Save</button>
+                <button type="button" onclick="encounterBtn()" id="submitBtn" class="btn btn-info text-white EditBtn">Save</button>
 
-                <button type="button" id="cancelBtn" class="btn btn-outline-info EditBtn" onclick="disableFields()">Cancel</button>
+                <button type="button" id="cancelEncounterBtn" class="btn btn-outline-info EditBtn" onclick="disableFields()">Cancel</button>
             </div>
         </div>
     </form>
 </div>
 
 <script>
+
+    function encounterBtn(){
+        var payload = {
+            reqid: $("#encounterReqId").val(),
+            Date: $("#Date").val(),
+            HistoryIllness: $("#encounter_hl").val(),
+            MedicalHistory: $("#encounter_mh").val(),
+            Medications: $("#encounter_medications").val(),
+            Allergies: $("#encounter_al").val(),
+            Temp: $("#temp").val(),
+            Hr: $("#hr").val(),
+            Rr: $("#rr").val(),
+            BpS: $("#bps").val(),
+            BpD: $("#bpd").val(),
+            O2: $("#o2").val(),
+            Pain: $("#pain").val(),
+            Heent: $("#heent").val(),
+            Cv: $("#cv").val(),
+            Chest: $("#chest").val(),
+            Abd: $("#abd").val(),
+            Extr: $("#extr").val(),
+            Skin: $("#skin").val(),
+            Neuro: $("#neuro").val(),
+            Other: $("#other").val(),
+            Diagnosis: $("#daignosis").val(),
+            TreatmentPlan: $("#treatmentplan").val(),
+            MedicationDispensed: $("#encounter_md").val(),
+            Procedures: $("#procedures").val(),
+            FollowUp: $("#followup").val(),
+        };
+
+        $.ajax({
+            url: "/adminDashboard/concludeEncounter",
+            type: 'POST',
+            data: payload,
+            success: function (result) {
+                if (result.isSend == true) {
+                    alert("Encounter Form Update Successfully");
+                    $("#cancelEncounterBtn").click();
+                } else {
+                    alert("Change atleast one field");
+                    $("#cancelEncounterBtn").click();
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
 
     var phoneInputPatientEncounter = document.querySelector("#phoneEncounter");
     var phoneInputEncounter = window.intlTelInput(phoneInputPatientEncounter, {
@@ -221,7 +273,7 @@
             element.disabled = true;
         });
         document.getElementById('submitBtn').style.display = 'none';
-        document.getElementById('cancelBtn').style.display = 'none';
+        document.getElementById('cancelEncounterBtn').style.display = 'none';
         document.getElementById('editBtn').style.display = 'block';
     }
 
@@ -230,7 +282,7 @@
             element.disabled = false;
         });
         document.getElementById('submitBtn').style.display = 'block';
-        document.getElementById('cancelBtn').style.display = 'block';
+        document.getElementById('cancelEncounterBtn').style.display = 'block';
         document.getElementById('editBtn').style.display = 'none';
     }
     disableFields();

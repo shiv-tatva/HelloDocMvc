@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -775,6 +776,140 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
             return false;
+        }
+
+
+        public concludeEncounter concludeEncounter(int data)
+        {
+            var obj = _context.Requestclients.Where(r => r.Requestid == data).Select(r => r).First();
+           
+            var obj3 = _context.EncounterForms.FirstOrDefault(r => r.Requestid == data);
+
+            concludeEncounter _encounterData = new concludeEncounter();
+
+            _encounterData.reqid = data;
+            _encounterData.FirstName = obj.Firstname;
+            _encounterData.LastName = obj.Lastname;
+            _encounterData.Location = obj.Street + obj.City + obj.State + obj.Zipcode;
+            _encounterData.BirthDate = new DateTime((int)(obj.Intyear), Convert.ToInt16(obj.Strmonth), (int)(obj.Intdate)).ToString("yyyy-MM-dd");
+            _encounterData.PhoneNumber = obj.Phonenumber;
+            _encounterData.Email = obj.Email;
+            if(obj3 != null)
+            {
+                var obj2 = _context.EncounterForms.Where(r => r.Requestid == data).Select(r => r).First();
+
+                _encounterData.HistoryIllness = obj2.HistoryIllness;
+                _encounterData.MedicalHistory = obj2.MedicalHistory;
+                _encounterData.Date = obj2.Date;
+                _encounterData.Medications = obj2.Medications;
+                _encounterData.Allergies = obj2.Allergies;
+                _encounterData.Temp = obj2.Temp;
+                _encounterData.Hr = obj2.Hr;
+                _encounterData.Rr = obj2.Rr;
+                _encounterData.BpS = obj2.BpS;
+                _encounterData.BpD = obj2.BpD;
+                _encounterData.O2 = obj2.O2;
+                _encounterData.Pain = obj2.Pain;
+                _encounterData.Heent = obj2.Heent;
+                _encounterData.Cv = obj2.Cv;
+                _encounterData.Chest = obj2.Chest;
+                _encounterData.Abd = obj2.Abd;
+                _encounterData.Extr = obj2.Extr;
+                _encounterData.Skin = obj2.Skin;
+                _encounterData.Neuro = obj2.Neuro;
+                _encounterData.Other = obj2.Other;
+                _encounterData.Diagnosis = obj2.Diagnosis;
+                _encounterData.TreatmentPlan = obj2.TreatmentPlan;
+                _encounterData.MedicationDispensed = obj2.MedicationDispensed;
+                _encounterData.Procedures = obj2.Procedures;
+                _encounterData.FollowUp = obj2.FollowUp;
+            }
+            
+
+            return _encounterData;
+ 
+        }
+
+
+        public concludeEncounter concludeEncounter(concludeEncounter obj)
+        {
+            concludeEncounter _obj = new concludeEncounter();
+
+                var obj1 = _context.EncounterForms.FirstOrDefault(r => r.Requestid == obj.reqid);
+
+                if(obj1 == null)
+                {
+                    EncounterForm _encounter = new EncounterForm()
+                    {
+                        Requestid = obj.reqid,
+                        HistoryIllness = obj.HistoryIllness,
+                        MedicalHistory = obj.MedicalHistory,
+                        Date = obj.Date,
+                        Medications = obj.Medications,
+                        Allergies = obj.Allergies,
+                        Temp = obj.Temp,
+                        Hr = obj.Hr,
+                        Rr = obj.Rr,
+                        BpS = obj.BpS,
+                        BpD = obj.BpD,
+                        O2 = obj.O2,
+                        Pain = obj.Pain,
+                        Heent = obj.Heent,
+                        Cv = obj.Cv,
+                        Chest = obj.Chest,
+                        Abd = obj.Abd,
+                        Extr = obj.Extr,
+                        Skin = obj.Skin,
+                        Neuro = obj.Neuro,
+                        Other = obj.Other,
+                        Diagnosis = obj.Diagnosis,
+                        TreatmentPlan = obj.TreatmentPlan,
+                        MedicationDispensed = obj.MedicationDispensed,
+                        Procedures = obj.Procedures,
+                        FollowUp = obj.FollowUp,
+                    };
+
+                _context.EncounterForms.Add(_encounter);
+
+                _obj.indicate = true;
+            }
+                else
+                {
+                    var obj2 = _context.EncounterForms.Where(r => r.Requestid == obj.reqid).Select(r => r).First();
+                    obj2.Requestid = obj.reqid;
+                    obj2.HistoryIllness = obj.HistoryIllness;
+                    obj2.MedicalHistory = obj.MedicalHistory;
+                    obj2.Date = obj.Date;
+                    obj2.Medications = obj.Medications;
+                    obj2.Allergies = obj.Allergies;
+                    obj2.Temp = obj.Temp;
+                    obj2.Hr = obj.Hr;
+                    obj2.Rr = obj.Rr;
+                    obj2.BpS = obj.BpS;
+                    obj2.BpD = obj.BpD;
+                    obj2.O2 = obj.O2;
+                    obj2.Pain = obj.Pain;
+                    obj2.Heent = obj.Heent;
+                    obj2.Cv = obj.Cv;
+                    obj2.Chest = obj.Chest;
+                    obj2.Abd = obj.Abd;
+                    obj2.Extr = obj.Extr;
+                    obj2.Skin = obj.Skin;
+                    obj2.Neuro = obj.Neuro;
+                    obj2.Other = obj.Other;
+                    obj2.Diagnosis = obj.Diagnosis;
+                    obj2.TreatmentPlan = obj.TreatmentPlan;
+                    obj2.MedicationDispensed = obj.MedicationDispensed;
+                    obj2.Procedures = obj.Procedures;
+                    obj2.FollowUp = obj.FollowUp;
+
+                    _obj.indicate = true;
+            };
+
+           
+            _context.SaveChanges();
+
+            return _obj;
         }
     }
 }

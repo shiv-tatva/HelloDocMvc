@@ -338,6 +338,7 @@
                 console.log(result)
                 if (result.isSend == true) {
                     alert("Admin Information Changed Successfully");
+                    $("#cancelBtn").click()
                     document.getElementById("userNameMain").innerHTML = result.userNameMyProfile;
                 } else {
                     alert("Change atleast one field");
@@ -366,6 +367,7 @@
             success: function (result) {
                 if (result.isSend == true) {
                     alert("Billing Information Changed Successfully");
+                    $("#cancelBtn2").click();
                 } else {
                     alert("Change atleast one field");
                 }

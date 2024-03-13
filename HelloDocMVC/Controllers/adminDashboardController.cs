@@ -334,8 +334,33 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult concludeEncounter(int data)
         {
+            adminDashData _admin = new adminDashData();
+            ViewBag.Admin = 4;
+            _admin._encounter = _IAdminDash.concludeEncounter(data);
+            return View(_admin);
+        }
+
+        [HttpPost]
+        public IActionResult concludeEncounter(concludeEncounter encounter)
+        {
+            var isSend = _IAdminDash.concludeEncounter(encounter);
+            return Json(new {isSend = isSend.indicate});
+        }
+
+        public IActionResult sendLinkPopUp()
+        {
+            return PartialView("_sendLink");
+        }
+
+        public IActionResult createRequest()
+        {
             ViewBag.Admin = 4;
             return View();
+        }
+
+        public IActionResult requestSupportPopUp()
+        {
+            return PartialView("_requestSupport");
         }
     }
 }

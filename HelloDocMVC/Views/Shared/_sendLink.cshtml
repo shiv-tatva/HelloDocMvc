@@ -1,0 +1,46 @@
+﻿<div class="modal fade" id="sendLinkPopUpOne" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="SendLinkLabel" aria-hidden="true">
+    <div class="modal-dialog" style="top: 22%;">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h1 class="modal-title fs-5 text-white" id="SendLinkLabel">
+                    Send Mail To Patient For Submitting Request
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" id="SendLinkForm" asp-action="SendAgreement">
+                <input type="hidden" value="2" ></input>
+                <div class="modal-body text-secondary">
+                    <div class="form-floating mt-3">
+                        <input type="text" class=" form-control" id="floatingInputFirst"
+                               placeholder="First Name" aria-label="First Name" />
+                        <label class=" text-secondary" for="floatingInputFirst">First Name</label>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <input type="text" class=" form-control" id="floatingInputLast" placeholder="Last Name"
+                               aria-label="Last Name" />
+                        <label class=" text-secondary" for="floatingInputLast">Last Name</label>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <input type="tel" class="phone form-control" id="phone3" style="height: 58px;">
+                    </div>
+                    <div class="form-floating mt-3">
+                        <input type="email" class="form-control" id="floatingInputemail" placeholder="Email"
+                                aria-label="Email">
+                        <label class="" for="floatingInputemail">Email</label>
+                    </div>
+                </div>
+                <div class="m-3 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-info confirm-btn text-white"
+                            data-bs-dismiss="modal">
+                        Send
+                    </button>
+                    <button type="button" class="btn cancel-btn border-info text-info ms-3"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
