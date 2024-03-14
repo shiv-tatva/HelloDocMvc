@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using System.Drawing.Drawing2D;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -910,6 +911,208 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
 
             return _obj;
+        }
+
+
+        public sendLink sendLink(adminDashData data)
+        {
+            sendLink _send = new sendLink();
+
+            string registrationLink = "http://localhost:5145/Patient/SubmitRequest";
+
+            try
+            {
+                SendRegistrationEmailSendLink(data._sendLink.Email, registrationLink);
+                _send.indicate = true;
+            }
+            catch (Exception e)
+            {
+                _send.indicate = false;
+            }
+
+            return _send;
+        }
+
+        public void SendRegistrationEmailSendLink(string email,string registrationLink)
+        {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Review Agreement",
+                IsBodyHtml = true,
+                Body = $"Click the following link to Create Request: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+
+            mailMessage.To.Add(email);
+
+            client.Send(mailMessage);
+        }
+
+      
+
+        public createRequest createRequest(createRequest data, string sessionEmail)
+        {
+            createRequest _create = new createRequest();
+
+            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).FirstOrDefault();
+
+            if (stateMain == null)
+            {
+                _create.indicate = false;
+            }
+            else
+            {
+                Request _req = new Request();
+                Requestclient _reqClient = new Requestclient();
+                User _user = new User();
+                Aspnetuser _asp = new Aspnetuser();
+                Requestnote _note = new Requestnote();
+
+                var _admin = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+                _req.Requesttypeid = 1;
+                _req.Userid = _admin.Aspnetuserid;
+                _req.Firstname = _admin.Firstname;
+                _req.Lastname = _admin.Lastname;
+                _req.Phonenumber = _admin.Mobile;
+                _req.Email = _admin.Email;
+                _req.Status = 1;
+                _req.Confirmationnumber = _admin.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+                _req.Createddate = DateTime.Now;
+
+                _context.Requests.Add(_req);
+                _context.SaveChanges();
+
+                var existUser = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r).First();
+
+                _reqClient.Requestid = _req.Requestid;
+                _reqClient.Firstname = data.firstname;
+                _reqClient.Lastname = data.lastname;
+                _reqClient.Phonenumber = data.phone;
+                _reqClient.Strmonth = data.dateofbirth.Substring(5, 2);
+                _reqClient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                _reqClient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                _reqClient.Street = data.street;
+                _reqClient.City = data.city;
+                _reqClient.State = data.state;
+                _reqClient.Zipcode = data.zipcode;
+                _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                _reqClient.Email = data.email;
+
+                _context.Requestclients.Add(_reqClient);
+                _context.SaveChanges();
+
+                _note.Requestid = _req.Requestid;
+                _note.Adminnotes = data.admin_notes;
+                _note.Createdby = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r.Id).FirstOrDefault();
+                _note.Createddate = DateTime.Now;
+                _context.Requestnotes.Add(_note);
+                _context.SaveChanges();
+
+                if (existUser == null)
+                {
+                    _asp.Username = data.firstname + "_" + data.lastname;
+                    _asp.Email = data.email;
+                    _asp.Phonenumber = data.phone;
+                    _asp.Createddate = DateTime.Now;
+                    _context.Aspnetusers.Add(_asp);
+                    _context.SaveChanges();
+
+                    _user.Userid = _asp.Id;
+                    _user.Firstname = data.firstname;
+                    _user.Lastname = data.lastname;
+                    _user.Email = data.email;
+                    _user.Mobile = data.phone;
+                    _user.City = data.city;
+                    _user.State = data.state;
+                    _user.Street = data.street;
+                    _user.Zipcode = data.zipcode;
+                    _user.Strmonth = data.dateofbirth.Substring(5, 2);
+                    _user.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                    _user.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                    _user.Createdby = _asp.Id;
+                    _user.Createddate = DateTime.Now;
+                    _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                    _context.Users.Add(_user);
+                    _context.SaveChanges();
+
+                    string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _asp.Id;
+
+                    try
+                    {
+                        SendRegistrationEmailCreateRequest(data.email, registrationLink);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
+
+               
+
+                _create.indicate = true;
+            }
+
+            return _create;
+        }
+
+
+        public void SendRegistrationEmailCreateRequest(string email,string registrationLink)
+        {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Review Agreement",
+                IsBodyHtml = true,
+                Body = $"Click the following link to Create Account: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+
+            mailMessage.To.Add(email);
+
+            client.Send(mailMessage);
+        }
+
+        public createRequest verifyState(string state)
+        {
+            createRequest _create = new createRequest();
+            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == state.ToLower()).FirstOrDefault();
+
+            if(stateMain == null)
+            {
+                _create.indicate = false;
+            }
+            else
+            {
+                _create.indicate = true;
+            }
+
+            return _create;
         }
     }
 }

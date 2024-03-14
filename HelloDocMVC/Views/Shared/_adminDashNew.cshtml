@@ -17,7 +17,7 @@
                 Send link
             </span>
         </button>
-        <button onclick="location.href='@Url.Action("createRequest","adminDashboard")'" class="btn btn-info patient_five_button  mx-1" role="button">
+        <button onclick="createRequest()" class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-pencil-square"></i>
             <span>
                 create request
@@ -718,5 +718,19 @@
         });
     }
 
+
+
+    function createRequest() {
+        $.ajax({
+            url: "/adminDashboard/createRequest",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 </script>
 

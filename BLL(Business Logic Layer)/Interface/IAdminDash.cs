@@ -65,5 +65,9 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public concludeEncounter concludeEncounter(int data);
         public concludeEncounter concludeEncounter(concludeEncounter obj);
+        public sendLink sendLink(adminDashData data);
+        public createRequest createRequest(createRequest data,string sessionEmail);
+
+        public createRequest verifyState(string state);
     }
 }

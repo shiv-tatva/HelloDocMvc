@@ -352,11 +352,33 @@ namespace HelloDocMVC.Controllers
             return PartialView("_sendLink");
         }
 
+
+        [HttpPost]
+        public IActionResult sendLinkPopUp(adminDashData data)
+        {
+            var isSend = _IAdminDash.sendLink(data);
+            return Json(new {isSend = isSend.indicate});
+        }
+
         public IActionResult createRequest()
         {
-            ViewBag.Admin = 4;
-            return View();
+            return PartialView("_createRequest");
         }
+
+        public IActionResult verifyState(string stateMain)
+        {
+            var isSend = _IAdminDash.verifyState(stateMain);
+            return Json(new { isSend = isSend.indicate });
+        }
+
+        [HttpPost]
+        public IActionResult createRequestMain(createRequest data)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            var isSend = _IAdminDash.createRequest(data, sessionEmail);
+            return Json(new { createReq = isSend.indicate });
+        }
+
 
         public IActionResult requestSupportPopUp()
         {

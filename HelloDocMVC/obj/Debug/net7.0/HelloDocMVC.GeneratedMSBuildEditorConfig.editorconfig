@@ -28,10 +28,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcY29uY2x1ZGVFbmNvdW50ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/adminDashboard/createRequest.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcY3JlYXRlUmVxdWVzdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/adminDashboard/newViewCase.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcbmV3Vmlld0Nhc2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -178,6 +174,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminSecond.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pblNlY29uZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_createRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9jcmVhdGVSZXF1ZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_Notification.cshtml]

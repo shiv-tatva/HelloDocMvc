@@ -281,6 +281,57 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public bool? indicate { get; set; }
     }
 
+    public class sendLink
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public bool? indicate { get; set; }
+    }
+
+    public class createRequest 
+    {
+
+        public int? requesttypeid { get; set; }
+
+        public int? userid { get; set;}
+        
+        [Required(ErrorMessage = "Please Enter Your Street Name")]
+        public string? street { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your City Name")]
+        public string? city { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your State Name")]
+        public string? state { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Zipcode")]
+        public string? zipcode { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Name")]
+        public string? firstname { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Last Name")]
+        public string? lastname { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Date Of Birth")]
+        public string? dateofbirth { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Email")]
+        public string? email { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Phone Number")]
+        public string? phone { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Room")]
+        public string? room { get; set; }
+
+        public string? admin_notes { get; set; }
+
+        public bool? indicate { get; set; }
+    }
+
     public class adminDashData
     {
         public List<adminDash> data { get; set;}
@@ -308,5 +359,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public myProfile _myProfile { get; set; }
 
         public concludeEncounter _encounter { get; set; }
+
+        public sendLink _sendLink { get; set; }
+
+        public createRequest _createRequest { get; set; }
     }
 }

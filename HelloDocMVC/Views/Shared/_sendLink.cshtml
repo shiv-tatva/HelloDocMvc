@@ -1,4 +1,16 @@
-﻿<div class="modal fade" id="sendLinkPopUpOne" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+<style>
+    .iti {
+        width: 100%;
+    }
+
+    .iti__country-list {
+        z-index: 3 !important;
+    }
+</style>
+
+<div class="modal fade" id="sendLinkPopUpOne" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="SendLinkLabel" aria-hidden="true">
     <div class="modal-dialog" style="top: 22%;">
         <div class="modal-content">
@@ -22,20 +34,23 @@
                         <label class=" text-secondary" for="floatingInputLast">Last Name</label>
                     </div>
                     <div class="form-floating mt-3">
-                        <input type="tel" class="phone form-control" id="phone3" style="height: 58px;">
+                        <input  style="height:58px" id="phoneSendLink"
+                               class=" form-control contact"
+                               aria-label="Contact"
+                               type="number" />
                     </div>
                     <div class="form-floating mt-3">
-                        <input type="email" class="form-control" id="floatingInputemail" placeholder="Email"
+                        <input asp-for="@Model._sendLink.Email" type="email" class="form-control" id="sendLinkEmail" placeholder="Email"
                                 aria-label="Email">
                         <label class="" for="floatingInputemail">Email</label>
                     </div>
                 </div>
                 <div class="m-3 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-info confirm-btn text-white"
+                    <button onclick="sendLinkAjax()" type="button" class="btn btn-info confirm-btn text-white"
                             data-bs-dismiss="modal">
                         Send
                     </button>
-                    <button type="button" class="btn cancel-btn border-info text-info ms-3"
+                    <button id="sendLinkCancelBtn" type="button" class="btn cancel-btn border-info text-info ms-3"
                             data-bs-dismiss="modal">
                         Cancel
                     </button>
@@ -44,3 +59,52 @@
         </div>
     </div>
 </div>
+
+<script>
+    var phoneInputSendLink = document.querySelector("#phoneSendLink");
+    var phoneInputSendLinkOne = window.intlTelInput(phoneInputSendLink, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+
+    function sendLinkAjax(){
+
+        var formData = $("#SendLinkForm").serializeArray();
+        console.log(formData);
+        $.ajax({
+            url: '/adminDashboard/sendLinkPopUp',
+            type: 'POST',
+            data: formData,
+            success: function (result) {
+                if (result.isSend == true) {
+                    alert("Mail Was Sent");
+                    $("#sendLinkCancelBtn").click();
+                } else {
+                    alert("Plz Enter Email");
+                    $("#sendLinkCancelBtn").click();
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+
+    // Send an AJAX request
+    $.ajax({
+        type: 'POST',
+        url: '/AdminDashboard/EncounterFormDatabase',
+        data: formData,
+        success: function (response) {
+            // Handle the success response
+            $("#container").html(response)
+        },
+        error: function (error) {
+            // Handle the error response
+            console.error(error);
+        }
+    });
+
+</script>

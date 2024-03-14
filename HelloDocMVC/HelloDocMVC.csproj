@@ -76,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\adminDashboard\createRequest.cshtml" />
     <Content Remove="Views\adminDashboard\myProfile.cshtml" />
     <Content Remove="Views\adminDashboard\pendingViewUpload.cshtml" />
     <Content Remove="Views\Home\CreateAcc.cshtml" />
@@ -86,7 +87,6 @@
     <Content Remove="Views\Shared\_adminDashNewViewNote.cshtml" />
     <Content Remove="Views\Shared\_adminDashPendingViewUploads.cshtml" />
     <Content Remove="Views\Shared\_adminToCloseCloseCase.cshtml" />
-    <Content Remove="Views\Shared\_createRequest.cshtml" />
     <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
     <Content Remove="Views\Shared\_myProfile.cshtml" />
     <Content Remove="wwwroot\css\Class.cs" />
