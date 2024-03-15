@@ -57,44 +57,48 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             Request _request = new Request();
             Requestclient _requestclient = new Requestclient();
+            User _user = new User();
+            Aspnetuser _aspnetuser = new Aspnetuser();
 
             var user = _context.Aspnetusers.FirstOrDefault(x => x.Email == data.email);
 
+            if (user == null)
+            {
+                _aspnetuser.Username = data.firstname + "_" + data.lastname;
+                _aspnetuser.Email = data.email;
+                _aspnetuser.Phonenumber = data.phone;
+                _aspnetuser.Createddate = DateTime.Now;
+
+                _context.Aspnetusers.Add(_aspnetuser);
+                _context.SaveChanges();
+
+                _user.Aspnetuserid = _aspnetuser.Id;
+                _user.Createdby = _aspnetuser.Id;
+                _user.Firstname = data.firstname;
+                _user.Lastname = data.lastname;
+                _user.Email = data.email;
+                _user.Mobile = data.phone;
+                _user.Street = data.street;
+                _user.City = data.city;
+                _user.State = data.state;
+                _user.Zipcode = data.zipcode;
+                _user.Strmonth = data.dateofbirth.Substring(5, 2);
+                _user.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                _user.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                _user.Createddate = DateTime.Now;
+
+                _context.Users.Add(_user);
+                _context.SaveChanges();
+            }
+
             _request.Requesttypeid = 2;
-            if (user != null)
-            {
-                _request.Userid = user.Id;
-            }
-
-            if(data.ff_firstname != null)
-            {
-                 _request.Firstname = data.ff_firstname;
-            }
-            
-            if(data.ff_lastname != null)
-            {
-                _request.Lastname = data.ff_lastname;
-            }
-            
-            
-            if(data.ff_phone != null)
-            {
-                _request.Phonenumber = data.ff_phone;
-            }
-            
-            
-            if(data.ff_email != null)
-            {
-                _request.Email = data.ff_email;
-            }
-            
-            
-            if(data.ff_relation != null)
-            {
-                _request.Relationname = data.ff_relation;
-            }
-
-
+            _request.Userid = _user.Userid;
+            _request.Firstname = data.ff_firstname;
+            _request.Lastname = data.ff_lastname;
+            _request.Phonenumber = data.ff_phone;
+            _request.Email = data.ff_email;
+            _request.Relationname = data.ff_relation;
+            _request.Confirmationnumber = data.firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
             _request.Createddate = DateTime.Now;
             _request.Status = 1;
            
@@ -103,30 +107,22 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var userexist = _context.Aspnetusers.FirstOrDefault(x => x.Email == data.email);
 
-            if (_request.Requestid != null)
-            {
-                _requestclient.Requestid = _request.Requestid;
-            }
-            
-            
-            if(data.firstname != null)
-            {
-                _requestclient.Firstname = data.firstname;
-            }
-            
-            
-            if(data.firstname != null)
-            {
-                _requestclient.Lastname = data.lastname;
-            }
-            
-            if(data.phone != null)
-            {
-                _requestclient.Phonenumber = data.phone;
-            } 
-            if(data.email != null)
-            {
-                if(userexist == null)
+
+            _requestclient.Requestid = _request.Requestid;
+            _requestclient.Firstname = data.firstname;
+            _requestclient.Lastname = data.lastname;
+            _requestclient.Phonenumber = data.phone;
+            _requestclient.Email = data.email;
+            _requestclient.Notes = data.symptoms;
+            _requestclient.Street = data.street;
+            _requestclient.City = data.city;
+            _requestclient.State = data.state;
+            _requestclient.Zipcode = data.zipcode;
+            _requestclient.Strmonth = data.dateofbirth.Substring(5, 2);
+            _requestclient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+            _requestclient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+
+            if (userexist == null)
                 {
                     string emailConfirmationToken = Guid.NewGuid().ToString();
 
@@ -143,16 +139,7 @@ namespace BLL_Business_Logic_Layer_.Services
                         Console.WriteLine(e.Message);
                     }
                 }
-                
-                    _requestclient.Email = data.email;
-                
-                
-            }
-           
-            //_requestclient.Strmonth = data.dateofbirth.Substring(5, 2);
-            //_requestclient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-            //_requestclient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
-
+                              
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
 

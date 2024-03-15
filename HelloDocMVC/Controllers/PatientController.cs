@@ -52,7 +52,8 @@ namespace HelloDocMVC.Controllers
             [HttpPost]
             public IActionResult PatientInfo(Custom obj)
             {
-                patientRequest.userDetail(obj);
+            TempData["success"] = "Request Submitted Successfully!";
+            patientRequest.userDetail(obj);
                 ViewBag.Admin = 3;
                 return View();
             }
@@ -70,6 +71,7 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult BusinessInfo(BusinessCustome obj)
         {
+            TempData["success"] = "Request Submitted Successfully!";
             businessRequest.businessInfo(obj);
             ViewBag.Admin = 3;
             return View();
@@ -83,6 +85,7 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult ConciergeInfo(ConciergeCustom obj)
         {
+            TempData["success"] = "Request Submitted Successfully!";
             conciergeRequest.ConciergeDetail(obj);
             ViewBag.Admin = 3;
             return View();
@@ -98,6 +101,7 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult FamilyFriendInfo(FamilyFriendData data)
         {
+            TempData["success"] = "Request Submitted Successfully!";
             familyFriend.FamilyFriendInfo(data);
             ViewBag.Admin = 3;
             return View();

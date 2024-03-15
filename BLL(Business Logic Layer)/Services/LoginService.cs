@@ -22,13 +22,34 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public Users login(Users obj)
         {
-            var data = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).Select(r => new Users() { 
-                Email = obj.Email,
-                Passwordhash = obj.Passwordhash,
-                RoleMain = db.Aspnetroles.Where(y => y.Id == db.Aspnetuserroles.Where(x => x.Userid == r.Id).Select(x => x.Roleid).First()).Select(y => y.Name).First(),
-            }).ToList().FirstOrDefault();
-            
-            return data;
+            Users users = new Users();
+
+            var check = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).FirstOrDefault();
+            if(check != null)
+            {
+                var data = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).Select(r => new Users()
+                {
+                    passwordcheck = "true",
+                    Email = obj.Email,
+                    Passwordhash = obj.Passwordhash,
+                    RoleMain = db.Aspnetroles.Where(y => y.Id == db.Aspnetuserroles.Where(x => x.Userid == r.Id).Select(x => x.Roleid).First()).Select(y => y.Name).First(),
+                }).ToList().FirstOrDefault();
+                return data;
+            }
+            else
+            {
+               
+
+                 if(db.Aspnetusers.Where(r => r.Email == obj.Email).FirstOrDefault() == null)
+                {
+                    users.emailcheck = "emailFalse";
+                }
+                else
+                {
+                    users.passwordcheck = "passwordFalse";
+                }
+                return users;
+            }
 
         }
     }

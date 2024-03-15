@@ -308,8 +308,9 @@ namespace HelloDocMVC.Controllers
             {
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 bool isSend = _IAdminDash.myProfileReset(obj, sessionEmail);
-                return Json(new { isSend = isSend });
-            }else if(obj.flag == 2)
+                return Json(new { isSend = isSend});                
+            }
+            else if(obj.flag == 2)
             {
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 var isSend = _IAdminDash.myProfileAdminInfo(obj, sessionEmail);
@@ -322,13 +323,14 @@ namespace HelloDocMVC.Controllers
                     HttpContext.Session.SetString("UserSessionName", userName);
                     HttpContext.Session.SetString("UserSession", isSend.email);
                 }
-                return Json(new { isSend = isSend.indicate, userNameMyProfile = userName });
+                return Json(new { isSend = isSend.indicate });
             }
             else
             {
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 bool isSend = _IAdminDash.myProfileAdminBillingInfo(obj, sessionEmail);
                 return Json(new { isSend = isSend });
+                
             }
         }
 
@@ -354,7 +356,7 @@ namespace HelloDocMVC.Controllers
 
 
         [HttpPost]
-        public IActionResult sendLinkPopUp(adminDashData data)
+        public IActionResult sendLinkPopUp(sendLink data)
         {
             var isSend = _IAdminDash.sendLink(data);
             return Json(new {isSend = isSend.indicate});

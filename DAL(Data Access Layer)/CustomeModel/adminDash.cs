@@ -285,6 +285,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Email")]
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public bool? indicate { get; set; }

@@ -47,24 +47,10 @@ namespace BLL_Business_Logic_Layer_.Services
             var user = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
             if (user == null)
             {
-                if(obj.email != null)
-                {
-                    _aspnetuser.Username = obj.email.Substring(0, obj.email.IndexOf('@'));
-                }
-                if(obj.email != null)
-                {
-                    _aspnetuser.Email = obj.email;
-                }
-                if(obj.phone != null)
-                {
-                    _aspnetuser.Phonenumber = obj.phone;
-                }
-                
-                if(obj.password != null)
-                {
-                    _aspnetuser.Passwordhash = obj.password;
-                }
-              
+                _aspnetuser.Username = obj.firstname + "_" + obj.lastname;
+                _aspnetuser.Email = obj.email;
+                _aspnetuser.Phonenumber = obj.phone;
+                _aspnetuser.Passwordhash = obj.password;
                 _aspnetuser.Createddate = DateTime.Now;
                 
                 _context.Aspnetusers.Add(_aspnetuser);
@@ -73,33 +59,20 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 var userexist = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
 
-                if(userexist != null)
-                {
-                    _user.Aspnetuserid = userexist.Id;
-                    _user.Createdby = userexist.Id;
-                }
-
-                if(obj.firstname != null)
-                {
-                    _user.Firstname = obj.firstname;
-                }
-              
-                if(obj.lastname != null)
-                {
-                    _user.Lastname = obj.lastname;
-                }
                 
-                if(obj.email != null)
-                {
-                    _user.Email = obj.email;
-                }
-                
-                
-                if(obj.phone != null)
-                {
-                    _user.Mobile = obj.phone;
-                }
-                
+                _user.Aspnetuserid = userexist.Id;
+                _user.Createdby = userexist.Id;
+                _user.Firstname = obj.firstname;
+                _user.Lastname = obj.lastname;
+                _user.Email = obj.email;
+                _user.Mobile = obj.phone;
+                _user.Street = obj.street;
+                _user.City = obj.city;
+                _user.State = obj.state;
+                _user.Zipcode = obj.zipcode;
+                _user.Strmonth = obj.dateofbirth.Substring(5, 2);
+                _user.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+                _user.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
                 _user.Createddate = DateTime.Now;
 
                 _context.Users.Add(_user);
@@ -109,32 +82,13 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var clientUser = _context.Users.FirstOrDefault(x => x.Email == obj.email);
 
-            if(clientUser != null)
-            {
-                _request.Userid = clientUser.Userid;
-            }
-            
-            if(obj.firstname != null)
-            {
-                _request.Firstname = obj.firstname;
-            }
-            
-            if(obj.lastname != null)
-            {
-                _request.Lastname = obj.lastname;
-            }
-            
-            if(obj.email != null)
-            {
-                _request.Email = obj.email;
-            }
-                
-            if(obj.firstname != null)
-            {
-                _request.Confirmationnumber = obj.firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);//here do Logic For unique Confirmation number that will be used by requestclient to fetch particular request from Request table
-
-            }
-
+           
+            _request.Userid = clientUser.Userid;
+            _request.Firstname = obj.firstname;
+            _request.Lastname = obj.lastname;
+            _request.Email = obj.email;
+            _request.Phonenumber = obj.phone;
+            _request.Confirmationnumber = obj.firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);//here do Logic For unique Confirmation number that will be used by requestclient to fetch particular request from Request table
             _request.Status = 1;
             _request.Createddate = DateTime.Now;
             
@@ -143,33 +97,20 @@ namespace BLL_Business_Logic_Layer_.Services
 
 
             var requestClientId = _context.Requests.FirstOrDefault(x => x.Confirmationnumber == _request.Confirmationnumber);
-
-            if(requestClientId != null)
-            {
-                _requestclient.Requestid = requestClientId.Requestid;
-            }
-            if(obj.firstname != null)
-            {
-                _requestclient.Firstname = obj.firstname;
-            }
-            if(obj.lastname != null)
-            {
-                _requestclient.Lastname = obj.lastname;
-            }
-            
-            if(obj.phone != null)
-            {
-                _requestclient.Phonenumber = obj.phone;
-            }
-
-            if (obj.email != null)
-            {
-                _requestclient.Email = obj.email;
-            }
-
-            //_requestclient.Strmonth = data.dateofbirth.Substring(5, 2);
-            //_requestclient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-            //_requestclient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                   
+            _requestclient.Requestid = requestClientId.Requestid;
+            _requestclient.Firstname = obj.firstname;
+            _requestclient.Lastname = obj.lastname;
+            _requestclient.Phonenumber = obj.phone;
+            _requestclient.Email = obj.email;
+            _requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
+            _requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+            _requestclient.Intyear =  Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+            _requestclient.City = obj.city;
+            _requestclient.Street = obj.street;
+            _requestclient.State = obj.state;
+            _requestclient.Zipcode = obj.zipcode;
+            _requestclient.Notes = obj.symptoms;
 
 
             _context.Requestclients.Add(_requestclient);

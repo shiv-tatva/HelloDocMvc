@@ -74,7 +74,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public List<PatientDashboardData> data{  get; set; }
 
 
-        [Required(ErrorMessage = "Please Enter Atleast One File")]
+        [Required(ErrorMessage = "Please Select Atleast One File")]
         public IFormFile Upload { get; set; }
 
 

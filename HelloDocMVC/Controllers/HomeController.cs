@@ -48,7 +48,7 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult logoutSession()
         {
-
+            TempData["success"] = "Logout Successfully!";
             HttpContext.Session.Clear();
             Response.Cookies.Delete("jwt");
             return RedirectToAction("LoginPage", "Login");

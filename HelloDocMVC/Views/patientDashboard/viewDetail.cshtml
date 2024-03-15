@@ -6,121 +6,127 @@
 @{
     ViewData["Title"] = "View Detail";
 }
-<div >
 
-    
 
-    <main class=" main-class" style="color:black;">
-        
-        <div class="container bg-light px-5 mt-1 d-flex flex-column">
-            <div class="d-flex  mt-4 justify-content-between">
 
-                <h4 class="medical-text">Documents</h4>
-                <div id="backDiv" class="mb-5 mt-5" style="text-align: end;">
-                    <a title="Forgot password" class="link-default ps-3" asp-controller="patientDashboard" asp-action="patientDashboard"
-                       style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
-                        <i class="fa-solid fa-chevron-left me-2 " style="color: #09d4e3;"></i>Back
-                    </a>
-                </div>
-            </div>
-            <h6 class="mt-3">Patient Name</h6>
-            <h4>  @Accessor.HttpContext.Session.GetString("UserSessionName") (@Accessor.HttpContext.Session.GetInt32("UserSession"))</h4>
-            <h6 class="mt-3">Cilck here to for only files you are the doctors  of your subsequesnts requestor have  attached for you to review</h6>
-            <form method="post" id="upload" enctype="multipart/form-data">
-            <div class="file-upload  input-group col-12 mt-5">
-                <div class="file-content" style="border-radius: 7px;">
-                   
-                    <div style="display: flex;align-items: center;">
-                        <span id="demo" style="color:black;">Select File</span>
-                            <input asp-for="Upload" class="form-control d-block" style="width:60%;"  placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
-                    </div>
-                    
-                    <input type="hidden" asp-for="data[0].reqid" value="@ViewData["id"]" />
-                        
-                    <div class="btn btn-outline-primary" type="file" id="button-addon1"
-                         style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
-                        <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
-                            <button type="submit" value="submit" style="border:0;background:transparent;"><span class="d-none d-sm-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;" onchange="myFunction()">Upload</span></button>
+
+
+ <div>
+
+        <main class=" main-class" style="color:black;">
+
+            <div class="container bg-light px-5 mt-1 d-flex flex-column">
+                <div class="d-flex  mt-4 justify-content-between">
+
+                    <h4 class="medical-text">Documents</h4>
+                    <div id="backDiv" class="mb-5 mt-5" style="text-align: end;">
+                        <a title="Forgot password" class="link-default ps-3" asp-controller="patientDashboard" asp-action="patientDashboard"
+                           style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
+                            <i class="fa-solid fa-chevron-left me-2 " style="color: #09d4e3;"></i>Back
+                        </a>
                     </div>
                 </div>
-                    <span asp-validation-for="Upload" class="text-danger"></span>
+                <h6 class="mt-3">Patient Name</h6>
+                <h4>  @Accessor.HttpContext.Session.GetString("UserSessionName") (@Accessor.HttpContext.Session.GetInt32("UserSession"))</h4>
+                <h6 class="mt-3">Cilck here to for only files you are the doctors  of your subsequesnts requestor have  attached for you to review</h6>
+                <form method="post" id="upload" enctype="multipart/form-data">
+                    <div class="file-upload  input-group col-12 mt-5">
+                        <div class="file-content" style="border-radius: 7px;">
 
-            </div>
-           
-            <div class="d-flex mt-4 justify-content-between p-0">
-                <h6>Documents</h6>
-                    <div onclick="downloadSelectedFiles()" class="btn" type="file" id="button-addon1"
-                     style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
-                    <i class="fa-solid fa-cloud-arrow-down pe-2" style="color: #ffffff;"></i>
-                        <span class="d-none d-sm-inline-block " style="color: #ffffff;padding-left: 0;font-size: 20px;" >Download All</span>
-                </div>
-               @*  <button class="btn btn-outline-primary " style="margin-left:auto">
-                    Download All
-                </button> *@
-            </div>
-            <table class="table table-striped mt-5" id="DataTable" >
-                <tr>
-                        <th onclick="selectAllCheckbox()"><input class="checkbox checkbox-main" type="checkbox" /></th>
-                    <th>Documents</th>
-                    <th>Uploader</th>
-                    <th width="15%">Uploaded Date</th>
-                    <th>Actions</th>
+                            <div style="display: flex;align-items: center;">
+                                <span id="demo" style="color:black;">Select File</span>
+                                <input asp-for="Upload" class="form-control d-block" style="width:60%;" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
+                            </div>
 
-                </tr>
-                
-              
-               
-                @foreach (var item in Model.data)
-                {
-                        @if (Model.data[0].user_id_param == item.reqid)
-                    {         
-                           @for (int i = 0; i < @item.documentsname.Count(); i++)
-                              {
-                                <tr>
-                                    <td> <input type="checkbox" class="checkbox" name="chk" value="@item.documentsname[i]" id="selectall" /></td>
-                                    <td>
-                                        <div class="d-flex flex-row">
-                                            <p class="col-auto me-2">
-                                                <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
-                                            </p>
-                                            <div class="d-flex">
-                                                @item.documentsname[i]
-                                            </div>
-                                        </div>
-                                    </td>
+                            <input type="hidden" asp-for="data[0].reqid" value="@ViewData["id"]" />
 
-                                    <td>
-                                        @item.fname
-                                    </td>
-                                    <td class>
-                                        @item.created_date.Day
-                                        @item.created_date.ToString("MMM")
-                                        @item.created_date.Year
-                                    </td>
-                                    <td>
-                                        <div class="d-flex flex-row">
-                                            <div class="col-auto">
-                                                <div class="btn"  id="button-addon1" onclick="location.href = '@Url.Action("DownloadFile","patientDashboard",new {data = item.documentsname})' "
-                                                     style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
-                                                    <i class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i>
+                            <div class="btn btn-outline-primary" type="file" id="button-addon1"
+                                 style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                                <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
+                                <button type="submit" value="submit" style="border:0;background:transparent;"><span class="d-none d-sm-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;" onchange="myFunction()">Upload</span></button>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Upload" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="d-flex mt-4 justify-content-between p-0">
+                        <h6>Documents</h6>
+                        <div onclick="downloadSelectedFiles()" class="btn" type="file" id="button-addon1"
+                             style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                            <i class="fa-solid fa-cloud-arrow-down pe-2" style="color: #ffffff;"></i>
+                            <span class="d-none d-sm-inline-block " style="color: #ffffff;padding-left: 0;font-size: 20px;">Download All</span>
+                        </div>
+                        @*  <button class="btn btn-outline-primary " style="margin-left:auto">
+                        Download All
+                        </button> *@
+                    </div>
+                    <table class="table table-striped mt-5" id="DataTable">
+                        <tr>
+                            <th onclick="selectAllCheckbox()"><input class="checkbox checkbox-main" type="checkbox" /></th>
+                            <th>Documents</th>
+                            <th>Uploader</th>
+                            <th width="15%">Uploaded Date</th>
+                            <th>Actions</th>
+
+                        </tr>
+
+
+
+                        @foreach (var item in Model.data)
+                        {
+                            @if (Model.data[0].user_id_param == item.reqid)
+                            {
+                                @for (int i = 0; i < @item.documentsname.Count(); i++)
+                                {
+                                    <tr>
+                                        <td> <input type="checkbox" class="checkbox" name="chk" value="@item.documentsname[i]" id="selectall" /></td>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <p class="col-auto me-2">
+                                                    <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
+                                                </p>
+                                                <div class="d-flex">
+                                                    @item.documentsname[i]
                                                 </div>
                                             </div>
+                                        </td>
 
-                                        </div>
-                                    </td>
+                                        <td>
+                                            @item.fname
+                                        </td>
+                                        <td class>
+                                            @item.created_date.Day
+                                            @item.created_date.ToString("MMM")
+                                            @item.created_date.Year
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <div class="col-auto">
+                                                    <div class="btn" id="button-addon1" onclick="location.href = '@Url.Action("DownloadFile","patientDashboard",new {data = item.documentsname})' "
+                                                         style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
+                                                        <i class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i>
+                                                    </div>
+                                                </div>
 
-                                </tr>
-                           }
-                                  
-                    }
-                }
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            }
+                        }
                 </form>
 
-              </table>
-        </div>
+                </table>
+            </div>
 
-    </main>
-</div>
+        </main>
+    </div>
+
+
+
 
 @section scripts{
     @{

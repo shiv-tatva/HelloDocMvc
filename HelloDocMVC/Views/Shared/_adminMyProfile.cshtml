@@ -307,7 +307,7 @@
                 data: payload,
                 success: function (result) {
                     if (result.isSend == true) {
-                        alert("Password Changed Successfully");
+                    toastr.success("Password Reset Successfully")
                     } else {
                     alert("For reset password you need to enter new password");
                     }
@@ -337,7 +337,7 @@
             success: function (result) {
                 console.log(result)
                 if (result.isSend == true) {
-                    alert("Admin Information Changed Successfully");
+                    toastr.success("Data Updated")
                     $("#cancelBtn").click()
                     document.getElementById("userNameMain").innerHTML = result.userNameMyProfile;
                 } else {
@@ -366,7 +366,7 @@
             data: payload,
             success: function (result) {
                 if (result.isSend == true) {
-                    alert("Billing Information Changed Successfully");
+                    toastr.success("Data Updated")
                     $("#cancelBtn2").click();
                 } else {
                     alert("Change atleast one field");

@@ -914,7 +914,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public sendLink sendLink(adminDashData data)
+        public sendLink sendLink(sendLink data)
         {
             sendLink _send = new sendLink();
 
@@ -922,7 +922,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             try
             {
-                SendRegistrationEmailSendLink(data._sendLink.Email, registrationLink);
+                SendRegistrationEmailSendLink(data.Email, registrationLink);
                 _send.indicate = true;
             }
             catch (Exception e)

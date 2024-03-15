@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Login Page";
 }
+<partial name="_Notification" />
 
 <div class="row" style="justify-content: center;">
 <div id="darkMode" style="z-index: 2;">
@@ -34,7 +35,9 @@
                     <button class="btn show-password" type="button">
                         <img src="/images/person-circle-outline.svg" alt="password">
                     </button>
+                        <span id="loginEmail" style="color:red;">@TempData["email"]</span>
                 </div>
+                    
                     <span asp-validation-for="Email" class="text-danger"></span>
                 <div class="form-floating mb-3" style="position: relative;">
                         <input asp-for="Passwordhash" type="password" class="form-control" id="floatingPassword" placeholder="Password"
@@ -44,12 +47,14 @@
                         <i class="fa-regular fa-eye" onclick="passwordVisible()"
                            id="passHide"></i>
                     </button>
+                        <span id="loginPass" style="color:red;">@TempData["password"]</span>
                 </div>
+                    
                     <span asp-validation-for="Passwordhash" class="text-danger"></span>
                 <div class="login-button mb-5">
                     <button type="submit" class="btn btn-primary mb-3"
                        style="background-color: #09d4e3;border: 0;padding: 10px 0px;width:100%">Login</button>
-                        <p style="color:red;font-size:1.2rem!important;">@ViewBag.LoginMessage</p>
+                        
                     <a title="Forgot password" class="link-default" asp-controller="Login" asp-action="ForgotPage"
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;">
                         Forgot
@@ -70,12 +75,11 @@
 <link rel="stylesheet" href="~/css/LoginPage.css" asp-append-version="true" />
 @section scripts{
     @{
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
     }
 }
 
 <script>
-
 
     function passwordVisible() {
         let a = document.getElementById("passHide")

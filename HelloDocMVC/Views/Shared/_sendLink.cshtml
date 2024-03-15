@@ -1,4 +1,4 @@
-﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+﻿@model DAL_Data_Access_Layer_.CustomeModel.sendLink;
 
 <style>
     .iti {
@@ -40,9 +40,10 @@
                                type="number" />
                     </div>
                     <div class="form-floating mt-3">
-                        <input asp-for="@Model._sendLink.Email" type="email" class="form-control" id="sendLinkEmail" placeholder="Email"
+                        <input asp-for="Email" type="email" class="form-control" id="sendLinkEmail" placeholder="Email"
                                 aria-label="Email">
                         <label class="" for="floatingInputemail">Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="m-3 d-flex justify-content-end">
@@ -60,6 +61,10 @@
     </div>
 </div>
 
+
+<partial name="_ValidationScriptsPartial" />
+
+
 <script>
     var phoneInputSendLink = document.querySelector("#phoneSendLink");
     var phoneInputSendLinkOne = window.intlTelInput(phoneInputSendLink, {
@@ -72,23 +77,28 @@
 
         var formData = $("#SendLinkForm").serializeArray();
         console.log(formData);
-        $.ajax({
-            url: '/adminDashboard/sendLinkPopUp',
-            type: 'POST',
-            data: formData,
-            success: function (result) {
-                if (result.isSend == true) {
-                    alert("Mail Was Sent");
-                    $("#sendLinkCancelBtn").click();
-                } else {
-                    alert("Plz Enter Email");
-                    $("#sendLinkCancelBtn").click();
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
+
+
+        if ($("#SendLinkForm").valid()) {
+            $.ajax({
+                url: '/adminDashboard/sendLinkPopUp',
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if (result.isSend == true) {
+                        alert("Mail Was Sent");
+                        $("#sendLinkCancelBtn").click();
+                    } else {
+                        alert("Plz Enter Email");
+                        $("#sendLinkCancelBtn").click();
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        }
+       
     }
 
 

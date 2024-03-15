@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -54,71 +55,75 @@ namespace BLL_Business_Logic_Layer_.Services
             Requestclient _requestclient = new Requestclient();  
             Business _business = new Business();
             Requestbusiness _requestbusiness = new Requestbusiness();
+            User _user = new User();
+            Aspnetuser _aspnetuser = new Aspnetuser();
 
-            _request.Requesttypeid = 4;
+            var userFatch = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
+
+            if (userFatch == null)
+            {
+                _aspnetuser.Username = obj.firstname + "_" + obj.lastname;
+                _aspnetuser.Email = obj.email;
+                _aspnetuser.Phonenumber = obj.phone;
+                _aspnetuser.Createddate = DateTime.Now;
+
+                _context.Aspnetusers.Add(_aspnetuser);
+                _context.SaveChanges();
+
+                _user.Aspnetuserid = _aspnetuser.Id;
+                _user.Createdby = _aspnetuser.Id;
+                _user.Firstname = obj.firstname;
+                _user.Lastname = obj.lastname;
+                _user.Email = obj.email;
+                _user.Mobile = obj.phone;
+                _user.Street = obj.street;
+                _user.City = obj.city;
+                _user.State = obj.state;
+                _user.Zipcode = obj.zipcode;
+                _user.Strmonth = obj.dateofbirth.Substring(5, 2);
+                _user.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+                _user.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+                _user.Createddate = DateTime.Now;
+
+                _context.Users.Add(_user);
+                _context.SaveChanges();
+            }
+
+            
 
             var user = _context.Users.FirstOrDefault(x => x.Email == obj.email);
 
-            if(user != null)
-            {
-                _request.Userid = user.Userid;
-            }
+            _request.Requesttypeid = 4;
+            _request.Userid = _user.Userid;
+            _request.Firstname = obj.business_firstname;
+            _request.Lastname = obj.business_lastname;
+            _request.Phonenumber = obj.business_phone;
+            _request.Email = obj.business_email;
+            _request.Casenumber = obj.business_casenumber;
+            _request.Status = 1;
+            _request.Confirmationnumber = obj.firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+            _request.Createddate = DateTime.Now;
 
-            if (obj.business_firstname != null)
-            {
-                _request.Firstname = obj.business_firstname;
-            }
-            
-            if (obj.business_lastname != null)
-            {
-                _request.Lastname = obj.business_lastname;
-            }
-            
-            if (obj.business_phone != null)
-            {
-                _request.Phonenumber = obj.business_phone;
-            }
-            
-            if (obj.business_email != null)
-            {
-                _request.Email = obj.business_email;
-            }
-             
-            if (obj.business_casenumber != null)
-            {
-                _request.Casenumber = obj.business_casenumber;
-            }
-
-           
             _context.Requests.Add(_request);
             _context.SaveChanges();
 
             var userexist = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
 
+            _requestclient.Requestid = _request.Requestid;
+            _requestclient.Firstname = obj.firstname;
+            _requestclient.Lastname = obj.lastname;
+            _requestclient.Email = obj.email;
+            _requestclient.Phonenumber = obj.phone;
+            _requestclient.Notes = obj.symptoms;
+            _requestclient.Street = obj.street;
+            _requestclient.City = obj.city;
+            _requestclient.State = obj.state;
+            _requestclient.Zipcode = obj.zipcode;
+            _requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
+            _requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+            _requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
 
-            if (_request.Requestid != null)
-            {
-                _requestclient.Requestid = _request.Requestid;
-            }
-            
-            if(obj.firstname != null)
-            {
-                _requestclient.Firstname = obj.firstname;
-            }
-            
-            if(obj.lastname != null)
-            {
-                _requestclient.Lastname = obj.lastname;
-            }
-              
-            if(obj.phone != null)
-            {
-                _requestclient.Phonenumber = obj.phone;
-            }
-
-            if (obj.email != null)
-            {
-                if (userexist == null)
+            if (userexist == null)
                 {
                     string emailConfirmationToken = Guid.NewGuid().ToString();
 
@@ -136,31 +141,19 @@ namespace BLL_Business_Logic_Layer_.Services
                     }
                 }
 
-                _requestclient.Email = obj.email;
-            }
-
-
+                
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
 
-            if (obj.business_property != null)
-            {
-                _business.Name = obj.business_property;
-            }
+            
+            _business.Name = obj.business_property;
             _business.Createddate = DateTime.Now;
+
             _context.Businesses.Add(_business);
             _context.SaveChanges();
 
-
-            if(_request.Requestid != null)
-            {
-                _requestbusiness.Requestid = _request.Requestid;
-            }
-            
-            if(_business.Businessid != null)
-            {
-                _requestbusiness.Businessid = _business.Businessid;
-            }
+            _requestbusiness.Requestid = _request.Requestid;
+            _requestbusiness.Businessid = _business.Businessid;
 
             _context.Requestbusinesses.Add(_requestbusiness);
             _context.SaveChanges();

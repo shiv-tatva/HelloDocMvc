@@ -14,7 +14,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
       
             [Key]
             [Column("id")]
-            public int Id { get; set; }
+            public int? Id { get; set; }
 
             [Column("username")]
             [StringLength(256)]
@@ -27,7 +27,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
             [Column("email")]
             [StringLength(256)]
             [Required(ErrorMessage = "Please Enter Your Email")]
-             public string Email { get; set; } = null!;
+             public string? Email { get; set; } = null!;
 
             [Column("phonenumber", TypeName = "character varying")]
             public string? Phonenumber { get; set; }
@@ -37,12 +37,15 @@ namespace DAL_Data_Access_Layer_.CustomeModel
             public string? Ip { get; set; }
 
             [Column("createddate", TypeName = "timestamp without time zone")]
-            public DateTime Createddate { get; set; }
+            public DateTime? Createddate { get; set; }
 
             [Column("modifieddate", TypeName = "timestamp without time zone")]
             public DateTime? Modifieddate { get; set; }
 
             public string? RoleMain { get; set; }
+
+            public string? passwordcheck {  get; set; } 
+            public string? emailcheck {  get; set; } 
     }
 
  

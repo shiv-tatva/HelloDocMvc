@@ -70,21 +70,26 @@ namespace HelloDocMVC.Controllers
 
             ViewBag.Admin = 1;
 
-            if (data != null)
+            if (data.passwordcheck == "true")
             {
                 HttpContext.Session.SetString("UserSession", sessionUser);
                 HttpContext.Session.SetString("UserSessionName", userName);
-                //return RedirectToAction("patientDashboard", "patientDashboard");
+
                 var jwtToken = _jwtService.GetJwtToken(data);
                 Response.Cookies.Append("jwt", jwtToken);
 
                 TempData["name"] = data.Username;
-                if(data.RoleMain == "User")
+
+                
+
+                if (data.RoleMain == "User")
                 {
+                    TempData["success"] = "Login Successfully!";
                     return RedirectToAction("patientDashboard", "patientDashboard");
                 }
                 else if(data.RoleMain == "Admin")
                 {
+                    TempData["success"] = "Login Successfully!";
                     return RedirectToAction("adminDashboard", "adminDashboard");
                 }
                 else
@@ -95,7 +100,21 @@ namespace HelloDocMVC.Controllers
             }
             else
             {
-                ViewBag.LoginMessage = "Can't Login";
+                if(data.emailcheck == "emailFalse" && data.passwordcheck == "passwordFalse")
+                {
+                    TempData["email"] = "Email is incorrect";
+                    TempData["password"] = "Password is incorrect";
+                }
+                if(data.emailcheck == "emailFalse")
+                {
+                    TempData["email"] = "Email is incorrect";
+                }
+                else if(data.passwordcheck == "passwordFalse")
+                {
+                    TempData["password"] = "Password is incorrect";
+                }
+
+                TempData["error"] = "Incorrect Details!";
                 return View();
             }
 

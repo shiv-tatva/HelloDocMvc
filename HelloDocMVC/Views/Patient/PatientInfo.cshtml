@@ -3,6 +3,8 @@
     ViewData["Title"] = "Patient Information";
 }
 
+<partial name ="_Notification" />
+
 <div class="row p-0 m-0">
     <div class="col-12">
         <form method="post" enctype="multipart/form-data">
@@ -151,7 +153,7 @@
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">Submit</button>
                 </div>
                 <div id="backDivThree">
-                    <button  title="Forgot password" class="link-default ps-3"
+                    <button type="button"  title="Forgot password" class="link-default ps-3"
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;" onclick="clearAll()">Cancel</button>
                 </div>
             </div>

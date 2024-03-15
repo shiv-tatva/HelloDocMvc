@@ -5,7 +5,22 @@
 }
 
 
-<div id="popUp" style="background-color: white;width: 29%;z-index: 3;height: 40%;top: 33%;position: fixed;display: flex;flex-direction: column;justify-content: center;align-items: center;border-radius: 14px;">
+<partial name="_Notification" />
+
+<div class="offcanvas offcanvas-start show pop-up" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="mb-4"><i class="fa-solid fa-circle-exclamation fa-3x" style="color: #eeba2b; border: 1px solid #eeba2b;border-radius: 30px;padding: 2px;"></i></div>
+    <h5 class="offcanvas-title title" id="offcanvasLabel">Information</h5>
+    <div class="offcanvas-body font-size text-center">
+        When submitting a request, you must provide the correct contact
+        information for the patient or the respomsibly party. Failure to provide
+        the correct email and phone number will delay service or be declined.
+    </div>
+    <button type="button" class="btn7" data-bs-dismiss="offcanvas" aria-label="Close">
+        <span class="ok">Ok</span>
+    </button>
+</div>
+
+@* <div id="popUp" style="background-color: white;width: 29%;z-index: 3;height: 40%;top: 33%;position: fixed;display: flex;flex-direction: column;justify-content: center;align-items: center;border-radius: 14px;">
     <div class="mb-4"><i class="fa-solid fa-circle-exclamation fa-3x" style="color: #eeba2b; border: 1px solid #eeba2b;border-radius: 30px;padding: 2px;"></i></div>
     <div class="h3 mb-4">Information</div>
     <div class="mb-4" style="width: 80%;text-align: center;">
@@ -14,7 +29,7 @@
         party.failure to provide the correct email and phone number will delay service or be decline
     </div>
     <div><button onclick="popUpClick()" type="button" class="btn btn-primary" style="font-size: 17px;padding: 5px 21px;">OK</button></div>
-</div>
+</div> *@
 
 
 
@@ -110,7 +125,7 @@
                     </div>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
-                    <input asp-for="ff_phone" id="phone2"
+                    <input asp-for="phone" id="phone2"
                            class="form-control contact"
                            aria-label="Contact"
                                type="number" />
@@ -182,7 +197,7 @@
                         </button>
                     </div>
                     <div id="backDivThree">
-                        <button onclick="clearAll()" title="Forgot password" class="link-default ps-3"
+                        <button type="button" onclick="clearAll()" title="Forgot password" class="link-default ps-3"
                                 style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 7px;">
                             Cancel
                         </button>
@@ -221,11 +236,11 @@
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
-    function popUpClick() {
-        // document.getElementById("mainRow").style.backgroundColor = "white"
-        document.getElementById("mainRow").style.opacity = "1"
-        document.getElementById("popUp").style.display = "none"
-    }
+    // function popUpClick() {
+    //     // document.getElementById("mainRow").style.backgroundColor = "white"
+    //     document.getElementById("mainRow").style.opacity = "1"
+    //     document.getElementById("popUp").style.display = "none"
+    // }
 
     //date validation
     const currentDate = new Date().toISOString().split('T')[0];
