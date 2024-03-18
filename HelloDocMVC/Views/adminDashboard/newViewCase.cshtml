@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
 
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+@* 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> *@
 
 
 
@@ -194,9 +194,9 @@
                         {
                             <button type="button" class="btn text-white btn-info" onclick="assignCase(@item.reqid)">Assign</button>
                         }
-                        
 
-                        <button type="button" class="btn text-white btn-info">View Notes</button>
+
+                        <button type="button" class="btn text-white btn-info" onclick="viewCaseViewNote(@item.reqid)">View Notes</button>
 
                         @if(item.status == 1)
                         {
@@ -242,10 +242,8 @@
             type: 'GET',
             data: { req: reqid },
             success: function (result) {
-                console.log(result)
                 $('#ViewCaseCancelNote').html(result);
                 $('#newRequestModal').modal('show');
-
             },
             error: function () {
                 alert('Error loading partial view');
@@ -273,6 +271,53 @@
             }
         });
     }
+
+
+    function viewCaseViewNote(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewNote",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    function adminMain() {
+        location.reload();
+        let action = "/adminDashboard/adminDashboard"
+        $.ajax({
+            url: action,
+            type: 'GET',
+
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+
+    function myProfile() {
+        let action = "/adminDashboard" + "/" + "myProfile"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+
+                $('#content').html(result);
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Error   vv loading partial view');
+            }
+        });
+    }
+
+
 </script>
 
 

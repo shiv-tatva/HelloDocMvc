@@ -24,12 +24,13 @@
                         <p class="name mb-0" style="font-size:18px;color:#0dcaf0;margin-left:8px;"></p>
                     </div>
                     <select class="form-select mb-2" aria-label="Default select example" asp-for="closeCase.cashtagId">
-                        <option name="reason" id="reason" disabled selected >Reasons for Cancellation</option>
+                        <option name="reason" id="reason" disabled selected="" >Reasons for Cancellation</option>
                             @foreach(var item in Model.casetagNote)
                             {
                                 <option value="@item.reqid">@item.reasons</option>
                             }
                     </select>
+                    <span asp-validation-for="closeCase.cashtagId" class="text-danger"></span>
 
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px" asp-for="@Model.closeCase.aditional_notes"></textarea>
@@ -47,3 +48,6 @@
     </div>
 </div>
 </form>
+
+
+<partial name="_ValidationScriptsPartial" />

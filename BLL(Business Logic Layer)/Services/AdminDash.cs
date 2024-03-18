@@ -983,44 +983,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 var _admin = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
-                _req.Requesttypeid = 1;
-                _req.Userid = _admin.Aspnetuserid;
-                _req.Firstname = _admin.Firstname;
-                _req.Lastname = _admin.Lastname;
-                _req.Phonenumber = _admin.Mobile;
-                _req.Email = _admin.Email;
-                _req.Status = 1;
-                _req.Confirmationnumber = _admin.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
-                _req.Createddate = DateTime.Now;
-
-                _context.Requests.Add(_req);
-                _context.SaveChanges();
-
-                var existUser = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r).First();
-
-                _reqClient.Requestid = _req.Requestid;
-                _reqClient.Firstname = data.firstname;
-                _reqClient.Lastname = data.lastname;
-                _reqClient.Phonenumber = data.phone;
-                _reqClient.Strmonth = data.dateofbirth.Substring(5, 2);
-                _reqClient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-                _reqClient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
-                _reqClient.Street = data.street;
-                _reqClient.City = data.city;
-                _reqClient.State = data.state;
-                _reqClient.Zipcode = data.zipcode;
-                _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
-                _reqClient.Email = data.email;
-
-                _context.Requestclients.Add(_reqClient);
-                _context.SaveChanges();
-
-                _note.Requestid = _req.Requestid;
-                _note.Adminnotes = data.admin_notes;
-                _note.Createdby = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r.Id).FirstOrDefault();
-                _note.Createddate = DateTime.Now;
-                _context.Requestnotes.Add(_note);
-                _context.SaveChanges();
+                var existUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == data.email);
 
                 if (existUser == null)
                 {
@@ -1061,7 +1024,44 @@ namespace BLL_Business_Logic_Layer_.Services
                     }
                 }
 
+                _req.Requesttypeid = 1;
+                _req.Userid = _admin.Aspnetuserid;
+                _req.Firstname = _admin.Firstname;
+                _req.Lastname = _admin.Lastname;
+                _req.Phonenumber = _admin.Mobile;
+                _req.Email = _admin.Email;
+                _req.Status = 1;
+                _req.Confirmationnumber = _admin.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+                _req.Createddate = DateTime.Now;
+
+                _context.Requests.Add(_req);
+                _context.SaveChanges();
+
                
+
+                _reqClient.Requestid = _req.Requestid;
+                _reqClient.Firstname = data.firstname;
+                _reqClient.Lastname = data.lastname;
+                _reqClient.Phonenumber = data.phone;
+                _reqClient.Strmonth = data.dateofbirth.Substring(5, 2);
+                _reqClient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2)); 
+                _reqClient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                _reqClient.Street = data.street;
+                _reqClient.City = data.city;
+                _reqClient.State = data.state;
+                _reqClient.Zipcode = data.zipcode;
+                _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                _reqClient.Email = data.email;
+
+                _context.Requestclients.Add(_reqClient);
+                _context.SaveChanges();
+
+                _note.Requestid = _req.Requestid;
+                _note.Adminnotes = data.admin_notes;
+                _note.Createdby = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r.Id).FirstOrDefault();
+                _note.Createddate = DateTime.Now;
+                _context.Requestnotes.Add(_note);
+                _context.SaveChanges();
 
                 _create.indicate = true;
             }

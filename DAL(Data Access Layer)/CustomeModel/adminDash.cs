@@ -28,7 +28,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? responseor_lname { get;set;} 
 
-        public DateTime created_date { get; set; }
+        public DateTime? created_date { get; set; }
 
         public string? requestor_mobile_num { get; set; }
 
@@ -66,6 +66,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int reqid { get; set; }
         public int cashtagId { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Admin Note")]
         public string? aditional_notes { get; set; }
         public List<char> TransferNotes { get; set; }
         public string? PhysicianNotes { get; set; }
@@ -78,6 +80,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class CloseCase
     {
         public int reqid { get; set; }
+
+        [Required(ErrorMessage = "Please Select a Reason")]
         public int cashtagId { get; set; }
         public string? aditional_notes { get; set; }
         public string? first_name { get; set; }
@@ -99,13 +103,20 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int reqid { get; set; }
         public string? description { get; set; }
+
+        [Required(ErrorMessage = "Please Select Physican Name")]
         public int phy_id_main { get; set; }
+
+        [Required(ErrorMessage = "Please Select Regins")]
+        public int region_id_main { get; set; }
         public List<int> phy_id { get; set; }
         public List<int> region_id { get; set; }
         public List<string> region_name { get; set; }
 
+       
         public List<Region> regions { get; set; }
 
+        
         public List<string> phy_name { get; set; }
 
         //public List<Physicianregion> phy_req { get; set; }

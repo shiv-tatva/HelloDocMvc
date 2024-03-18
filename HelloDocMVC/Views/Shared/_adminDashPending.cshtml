@@ -17,36 +17,36 @@
     </span>
 
     <span id="patiens_five-link-mediaquerry" style="display:flex;">
-        <a href="#" class="btn btn-info patient_five_button mx-1 " role="button">
+        <button onclick="newSendLinkPending()" class="btn btn-info patient_five_button mx-1 " role="button">
             <i class="bi bi-send"></i>
             <span>
                 Send link
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button onclick="createRequestPending()" class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-pencil-square"></i>
             <span>
                 create request
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-arrow-up-right"></i>
             <span>
                 Export
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-box-arrow-up-right"></i>
             <span>
                 Export All
             </span>
-        </a>
-        <a href="#" class="btn btn-info patient_five_button  mx-1" role="button">
+        </button>
+        <button onclick="requestSupportPending()" class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-person-plus"></i>
             <span>
                 Request DTY support
             </span>
-        </a>
+        </button>
     </span>
 </div>
 <div class="mt-2 mb-2 container-fluid" style="box-shadow: 0px 0px 5px grey;">
@@ -242,19 +242,19 @@
                                             </button>
                                             <ul class="dropdown-menu table_dropdowns">
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewCase","adminDashboard", new {data = item.reqid})'">
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">
                                                         <i class="fa-brands fa-searchengin"></i>
                                                         View Case
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("pendingViewUploadMain","adminDashboard", new {data = item.reqid})'">
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'">
                                                         <i class="fa-solid fa-file-arrow-up"></i>
                                                         View Uploads
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewNote","adminDashboard", new {data = item.reqid})'">
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">
                                                         <i class="fa-solid fa-book"></i>
                                                         View Notes
                                                     </button>
@@ -432,6 +432,12 @@
 
 <div id="sendAgreement">
 
+</div>
+
+<div id="sendLinkPendingPopUp">
+</div>
+
+<div id="requestSupportPendingPopUp">
 </div>
 
 <script>
@@ -705,5 +711,105 @@
             }
         });
     }
+
+    function newSendLinkPending() {
+        let action = "/adminDashboard" + "/" + "sendLinkPopUp"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                $('#sendLinkPendingPopUp').html(result);
+                $('#sendLinkPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function requestSupportPending() {
+        console.log("hi")
+        let action = "/adminDashboard" + "/" + "requestSupportPopUp"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                console.log(result)
+                $('#requestSupportPendingPopUp').html(result);
+                $('#requestSupportPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+
+    function createRequestPending() {
+        $.ajax({
+            url: "/adminDashboard/createRequest",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    //*************************************************************Editing View************************************/
+
+
+    // function pendingViewNote(reqid) {
+    //     console.log(reqid)
+    //     $.ajax({
+    //         url: "/adminDashboard/newViewNote",
+    //         data: { data: reqid },
+    //         type: 'GET',
+    //         success: function (result) {
+    //             $("#content").html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+
+    // function pendingViewCase(reqid) {
+    //     console.log(reqid)
+    //     $.ajax({
+    //         url: "/adminDashboard/newViewCase",
+    //         data: { data: reqid },
+    //         type: 'GET',
+    //         success: function (result) {
+    //             $("#content").html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+    
+    // function pendingViewUploads(reqid) {
+    //     console.log(reqid)
+    //     $.ajax({
+    //         url: "/adminDashboard/pendingViewUploadMain",
+    //         data: { data: reqid },
+    //         type: 'GET',
+    //         success: function (result) {
+    //             $("#content").html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
 
 </script>

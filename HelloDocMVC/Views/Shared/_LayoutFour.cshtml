@@ -13,9 +13,6 @@
     <link rel="stylesheet" href="~/css/adminDashboard.css"/>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
 
     <style>
@@ -24,11 +21,11 @@
         }
 
         .nav-item .active {
+            border-bottom:2px solid skyblue!important;
             color: #0dcaf0 !important;
         }
 
         .active {
-            border-bottom: 3px solid skyblue !important;
             color: skyblue !important;
         }
     </style>
@@ -55,15 +52,14 @@
                             <p class="text-secondary fs-6">
                                 <h5>
                                     Welcome
-                                    <strong>
-                                        Admin admin2
-                                        @*  @ @Accessor.HttpContext.Session.GetString("UserName") @ *@
+                                    <strong id="userNameMain">
+                                       
                                     </strong>
                                 </h5>
                             </p>
                         </div>
                         <div class="mx-2">
-                            <a type="button"
+                            <a type="button" onclick=" location.href = '@Url.Action("logoutSession","Home")';"
                                class="btn btn-outline-dark text-info shadow border-info py-2 ">
                                 <span class="d-none d-sm-inline-block ">Logout</span>
                                 <span class="d-inline-block d-sm-none">
@@ -84,7 +80,7 @@
                     <div class="px-3">
                         <ul class="nav nav-underline" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button onclick="onclickcheck()" class="nav-link  text-muted px-3 active" id="home-tab" data-bs-toggle="tab"
+                                <button onclick="adminMain()" class="nav-link active text-muted px-3" id="home-tab" data-bs-toggle="tab"
                                         data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
                                         aria-selected="false">
                                     Dashboard
@@ -98,7 +94,7 @@
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link text-muted px-3" id="Myprofile-tab" data-bs-toggle="tab"
+                                <button onclick="myProfile()" class="nav-link text-muted px-3" id="Myprofile-tab" data-bs-toggle="tab"
                                         data-bs-target="#Myprofile-tab-pane" type="button" role="tab" aria-controls="Myprofile-tab-pane"
                                         aria-selected="false">
                                     My Profile
@@ -136,6 +132,9 @@
                     </div>
                 </div>
             </nav>
+
+
+           
 
             <div class="p-sm-2 p-md-5">
                 <div class="tab-content" id="myTabContent">
@@ -186,11 +185,18 @@
 
     </script>
 
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   
     @await RenderSectionAsync("Scripts", required: false)
 </body>

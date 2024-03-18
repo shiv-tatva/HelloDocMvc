@@ -16,19 +16,19 @@
     </span>
 
     <span id="patiens_five-link-mediaquerry" style="display:flex;">
-        <button onclick="activeSendLink()"  class="btn btn-info patient_five_button mx-1 " role="button">
+        <button onclick="newSendLinkInActive()" class="btn btn-info patient_five_button mx-1 " role="button">
             <i class="bi bi-send"></i>
             <span>
                 Send link
             </span>
         </button>
-        <button  class="btn btn-info patient_five_button  mx-1" role="button">
+        <button onclick="createRequestActive()" class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-pencil-square"></i>
             <span>
                 create request
             </span>
         </button>
-        <button  class="btn btn-info patient_five_button  mx-1" role="button">
+        <button class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-arrow-up-right"></i>
             <span>
                 Export
@@ -40,7 +40,7 @@
                 Export All
             </span>
         </button>
-        <button class="btn btn-info patient_five_button  mx-1" role="button">
+        <button onclick="requestSupportActive()" class="btn btn-info patient_five_button  mx-1" role="button">
             <i class="bi bi-person-plus"></i>
             <span>
                 Request DTY support
@@ -241,25 +241,25 @@
                                             </button>
                                             <ul class="dropdown-menu table_dropdowns">
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewCase","adminDashboard", new {data = item.reqid})'">
+                                                    <button onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'" class="dropdown-item" >
                                                         <i class="fa-brands fa-searchengin"></i>
                                                         View Case
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button onclick="location.href='@Url.Action("pendingViewUploadMain","adminDashboard", new {data = item.reqid})'" class="dropdown-item">
+                                                    <button onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'" class="dropdown-item">
                                                         <i class="fa-solid fa-file-arrow-up"></i>
                                                         View Uploads
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewNote","adminDashboard", new {data = item.reqid})'">
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">
                                                         <i class="fa-solid fa-book"></i>
                                                         View Notes
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("activeOrders","adminDashboard", new {data = item.reqid})'">
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'" >
                                                         <i class="fa-solid fa-file-circle-check"></i>
                                                         Orders
                                                     </button>
@@ -271,7 +271,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" >
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'" >
                                                         <i class="fa-regular fa-file-lines"></i>
                                                         Encounter
                                                     </button>
@@ -419,7 +419,13 @@
     
 </div>
 
+<div id="sendLinkActivePopUp">
 
+</div>
+
+<div id="requestSupportActivePopUp">
+
+</div>
 
 <script>
 
@@ -635,7 +641,136 @@
     }
 
 
+    function newSendLinkInActive() {
+        let action = "/adminDashboard" + "/" + "sendLinkPopUp"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (response) {
+                console.log(response);
+                $('#sendLinkActivePopUp').html(response);
+                $('#sendLinkPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function requestSupportActive() {
+        console.log("hi")
+        let action = "/adminDashboard" + "/" + "requestSupportPopUp"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                console.log(result)
+                $('#requestSupportActivePopUp').html(result);
+                $('#requestSupportPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+
+    function createRequestActive() {
+        $.ajax({
+            url: "/adminDashboard/createRequest",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    //*************************************************************Editing View************************************/
+
+
+    // function activeViewNote(reqid) {
+    //     console.log(reqid)
+    //     $.ajax({
+    //         url: "/adminDashboard/newViewNote",
+    //         data: { data: reqid },
+    //         type: 'GET',
+    //         success: function (result) {
+    //             $("#content").html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+
+    // function activeViewCase(reqid) {
+    //     console.log(reqid)
+    //     $.ajax({
+    //         url: "/adminDashboard/newViewCase",
+    //         data: { data: reqid },
+    //         type: 'GET',
+    //         success: function (result) {
+    //             $("#content").html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+
+    function activeViewUploads(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/pendingViewUploadMain",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+        
+    function activeOrders(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/activeOrders",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
     
+    
+    function activeEncounter(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/concludeEncounter",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
 </script>
 

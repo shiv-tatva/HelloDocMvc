@@ -230,7 +230,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewCase","adminDashboard", new {data = item.reqid})'">
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'" >
                                                         <i class="fa-brands fa-searchengin"></i>
                                                         View Case
                                                     </button>
@@ -242,7 +242,7 @@
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button class="dropdown-item" onclick="location.href='@Url.Action("newViewNote","adminDashboard", new {data = item.reqid})'">
+                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">
                                                         <i class="fa-solid fa-book"></i>
                                                         View Notes
                                                     </button>
@@ -418,6 +418,7 @@
 
 </div>
 
+<partial name="_ValidationScriptsPartial" />
 
 <script>
 
@@ -682,12 +683,10 @@
 
     function newSendLink() {
         let action = "/adminDashboard" + "/" + "sendLinkPopUp"
-        event.preventDefault();
         $.ajax({
             url: action,
             type: 'GET',
             success: function (result) {
-                console.log(result)
                 $('#sendLinkPopUp').html(result);
                 $('#sendLinkPopUpOne').modal('show');
 
@@ -732,5 +731,46 @@
             }
         });
     }
-</script>
 
+
+    //*************************************************************Editing View************************************/
+
+
+    // function newViewNote(reqid) {
+    //     console.log(reqid)
+    //     $.ajax({
+    //         url: "/adminDashboard/newViewNote",
+    //         data: { data : reqid },
+    //         type: 'GET',
+    //         success: function (result) {
+    //             $("#content").html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+    
+    
+    
+    // function newViewCase(reqid) {
+    //     console.log(reqid)
+    //     $.ajax({
+    //         url: "/adminDashboard/newViewCase",
+    //         data: { data : reqid },
+    //         type: 'GET',
+    //         success: function (result) {
+    //             $("#content").html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error loading partial view');
+    //         }
+    //     });
+    // }
+
+
+</script>
+@* 
+<script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+
+<partial name="_ValidationScriptsPartial" />

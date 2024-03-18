@@ -20,16 +20,16 @@
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" id="SendLinkForm" asp-action="SendAgreement">
+            <form method="post" id="SendLinkFormMain">
                 <input type="hidden" value="2" ></input>
                 <div class="modal-body text-secondary">
                     <div class="form-floating mt-3">
-                        <input type="text" class=" form-control" id="floatingInputFirst"
+                        <input  type="text" class=" form-control" id="floatingInputFirst"
                                placeholder="First Name" aria-label="First Name" />
                         <label class=" text-secondary" for="floatingInputFirst">First Name</label>
                     </div>
                     <div class="form-floating mt-3">
-                        <input type="text" class=" form-control" id="floatingInputLast" placeholder="Last Name"
+                        <input  type="text" class=" form-control" id="floatingInputLast" placeholder="Last Name"
                                aria-label="Last Name" />
                         <label class=" text-secondary" for="floatingInputLast">Last Name</label>
                     </div>
@@ -41,14 +41,13 @@
                     </div>
                     <div class="form-floating mt-3">
                         <input asp-for="Email" type="email" class="form-control" id="sendLinkEmail" placeholder="Email"
-                                aria-label="Email">
+                                aria-label="Email" required>
                         <label class="" for="floatingInputemail">Email</label>
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="m-3 d-flex justify-content-end">
-                    <button onclick="sendLinkAjax()" type="button" class="btn btn-info confirm-btn text-white"
-                            data-bs-dismiss="modal">
+                    <button onclick="sendLinkAjax()" type="button" class="btn btn-info confirm-btn text-white">
                         Send
                     </button>
                     <button id="sendLinkCancelBtn" type="button" class="btn cancel-btn border-info text-info ms-3"
@@ -75,19 +74,19 @@
 
     function sendLinkAjax(){
 
-        var formData = $("#SendLinkForm").serializeArray();
+        var formData = $("#SendLinkFormMain").serializeArray();
         console.log(formData);
 
 
-        if ($("#SendLinkForm").valid()) {
+        if ($("#SendLinkFormMain").valid()) {
             $.ajax({
                 url: '/adminDashboard/sendLinkPopUp',
                 type: 'POST',
                 data: formData,
                 success: function (result) {
                     if (result.isSend == true) {
-                        alert("Mail Was Sent");
                         $("#sendLinkCancelBtn").click();
+                        toastr.success("Mail sent successfully")
                     } else {
                         alert("Plz Enter Email");
                         $("#sendLinkCancelBtn").click();
@@ -101,20 +100,5 @@
        
     }
 
-
-    // Send an AJAX request
-    $.ajax({
-        type: 'POST',
-        url: '/AdminDashboard/EncounterFormDatabase',
-        data: formData,
-        success: function (response) {
-            // Handle the success response
-            $("#container").html(response)
-        },
-        error: function (error) {
-            // Handle the error response
-            console.error(error);
-        }
-    });
 
 </script>

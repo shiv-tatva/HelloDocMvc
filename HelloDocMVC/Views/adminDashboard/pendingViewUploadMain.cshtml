@@ -246,6 +246,36 @@
             }
         }
 
+    function adminMain() {
+        location.reload();
+        let action = "/adminDashboard/adminDashboard"
+        $.ajax({
+            url: action,
+            type: 'GET',
+
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+
+    function myProfile() {
+        let action = "/adminDashboard" + "/" + "myProfile"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+
+                $('#content').html(result);
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Error   vv loading partial view');
+            }
+        });
+    }
+
+
     </script>
 
     <script src="~/js/PatientDashboard.js"></script>

@@ -289,6 +289,36 @@
 
     const currentDate = new Date().toISOString().split('T')[0];
     document.getElementById('floatingInputdate').setAttribute('max', currentDate);
+
+    function adminMain() {
+        location.reload();
+        let action = "/adminDashboard/adminDashboard"
+        $.ajax({
+            url: action,
+            type: 'GET',
+
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+
+    function myProfile() {
+        let action = "/adminDashboard" + "/" + "myProfile"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+
+                $('#content').html(result);
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Error   vv loading partial view');
+            }
+        });
+    }
+
 </script>
 
 

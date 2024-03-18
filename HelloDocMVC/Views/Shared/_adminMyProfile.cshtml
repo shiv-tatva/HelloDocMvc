@@ -309,7 +309,7 @@
                     if (result.isSend == true) {
                     toastr.success("Password Reset Successfully")
                     } else {
-                    alert("For reset password you need to enter new password");
+                    toastr.error("For reset password you need to enter new password");                   
                     }
                 },
                 error: function () {
@@ -341,7 +341,7 @@
                     $("#cancelBtn").click()
                     document.getElementById("userNameMain").innerHTML = result.userNameMyProfile;
                 } else {
-                    alert("Change atleast one field");
+                    toastr.error("Change atleast one field");
                 }
             },
             error: function () {
@@ -369,7 +369,7 @@
                     toastr.success("Data Updated")
                     $("#cancelBtn2").click();
                 } else {
-                    alert("Change atleast one field");
+                    toastr.error("Change atleast one field"); 
                 }
             },
             error: function () {

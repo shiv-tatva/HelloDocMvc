@@ -84,7 +84,7 @@
                 <div class="col-12 col-md-6 form-floating mb-3">
                     <input asp-for="room" type="text" class="form-control bg-transparent" id="floatingInputRoom" placeholder="room">
                     <label for="floatingInputRoom" class="ms-2">Room # (Optional)</label>
-                    <span asp-validation-for="room" class="text-danger"></span>
+                    <span asp-validation-for="room" class="text-danger"></span> 
                 </div>
 
                 <div class="col form-floating mb-3">
@@ -128,11 +128,11 @@
                     // createRequest();
                     if (result.createReq == true) {
                         document.getElementById("floatingInputState").style.border = "1px solid #dee2e6";
-                        alert("Request Submitted");
+                        toastr.success("Request Submitted Successfully"); 
                         $("#createRequestClear").click();
                     } else {
                         document.getElementById("floatingInputState").style.border = "1px solid red";
-                        alert("Please Enter Valid State");
+                        toastr.error("Please Enter A Valid State")
                     }
                 },
                 error: function () {

@@ -27,11 +27,9 @@ namespace HelloDocMVC.Controllers
         {
             adminDashData adminDashObj = new adminDashData();
             adminDashObj.data = _IAdminDash.adminData();
-            ViewBag.Admin = 1;
+            ViewBag.Admin = 4;
             return View(adminDashObj);
         }
-
-
 
 
         public IActionResult LoadPartialDashboard()
@@ -175,7 +173,6 @@ namespace HelloDocMVC.Controllers
         public IActionResult activeOrders(int data)
         {
             ViewBag.Admin = 4;
-
             adminDashData _data = new adminDashData();
             _data._activeOrder = _IAdminDash.viewOrder(data);
             return View(_data);
@@ -203,8 +200,6 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult activeOrders(adminDashData adminDashData)
         {
-            ViewBag.Admin = 4;
-
             adminDashData _data = new adminDashData();
             _IAdminDash.viewOrder(adminDashData);
             return RedirectToAction("activeOrders","adminDashboard",new {data = adminDashData._activeOrder.reqid});
@@ -336,8 +331,8 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult concludeEncounter(int data)
         {
-            adminDashData _admin = new adminDashData();
             ViewBag.Admin = 4;
+            adminDashData _admin = new adminDashData();
             _admin._encounter = _IAdminDash.concludeEncounter(data);
             return View(_admin);
         }

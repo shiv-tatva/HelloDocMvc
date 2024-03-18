@@ -122,6 +122,7 @@
                     <div class=" col-12 form-floating mb-3 ">
                         <textarea class="form-control h-100 dclass" id="floatingInput" placeholder="Textarea" rows="5" asp-for="@Model._viewNote.AdminNotes"></textarea>
                         <label for="floatingInput" class="text-wrap ms-2">Admin Notes</label>
+                        <span asp-validation-for="@Model._viewNote.AdminNotes" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end m-4 pt-4 ">
@@ -142,4 +143,50 @@
 </div>
 
 
+<partial name="_ValidationScriptsPartial" />
 
+<script>
+    // function adminMain() {
+    //     let action = "/adminDashboard" + "/" + "LoadPartialDashboard"
+    //     $.ajax({
+    //         url: action,
+    //         type: 'GET',
+    //         data: { req: 1 },
+    //         success: function (result) {
+    //             $('#content').html(result);
+    //         },
+    //         error: function () {
+    //             alert('Error aa loading partial view');
+    //         }
+    //     });
+    // }
+
+    function adminMain() {
+        location.reload();
+        let action = "/adminDashboard/adminDashboard"
+        $.ajax({
+            url: action,
+            type: 'GET',
+
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+
+    function myProfile() {
+        let action = "/adminDashboard" + "/" + "myProfile"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+
+                $('#content').html(result);
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Error   vv loading partial view');
+            }
+        });
+    }
+</script>

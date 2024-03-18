@@ -23,8 +23,8 @@
 
                         <p class="name mb-0" style="font-size:18px;color:#0dcaf0;margin-left:8px;"></p>
                     </div>
-                    <select id="regionDropdown" class="form-select mb-2"  aria-label="Default select example" @* asp-for="closeCase.cashtagId" *@>
-                        <option name="reason" id="reason" disabled selected>
+                    <select  id="regionDropdown" class="form-select mb-2"  aria-label="Default select example" asp-for="assignCase.region_id_main">
+                        <option  id="reason" disabled selected="">
                             Narrow search by region
                         </option>
                         @foreach (var item in Model.assignCase.regions)
@@ -32,14 +32,13 @@
                             <option value="@item.Regionid">@item.Name</option>
                         }
                     </select>
+                    <span asp-validation-for="assignCase.region_id_main" class="text-danger"></span>
                     
-                    <select id="doctorDropdown" class="form-select mb-2" aria-label="Default select example" asp-for="assignCase.phy_id_main" >
-                         <option name="reason" id="reason" disabled selected>Select Physician</option> 
-                       @*  @foreach (var item in Model.casetagNote)
-                        {
-                            <option value="@item.reqid">@item.reasons</option>
-                        } *@
+                    <select  id="doctorDropdown" class="form-select mb-2" aria-label="Default select example" asp-for="assignCase.phy_id_main" >
+                         <option  id="reason" disabled selected="">Select Physician</option> 
+
                     </select>
+                    <span asp-validation-for="assignCase.phy_id_main" class="text-danger"></span>
 
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px"  asp-for="@Model.assignCase.description"></textarea>
@@ -58,6 +57,7 @@
     </div>
 </form>
 
+<partial name="_ValidationScriptsPartial" />
 
 <script>
     $("#regionDropdown").on("change", function () {
