@@ -70,6 +70,23 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     }
 
+    public class createAcc
+    {
+        public string? email { get; set; }
+
+        public int? aspnetUserId { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Password")]
+        [StringLength(15, MinimumLength = 4, ErrorMessage = "Password Have 4 to 15 Char")]
+
+        public string? password { get; set; }
+
+
+        [Compare("password", ErrorMessage = "Password Missmatch")]
+        public string? confirmPassword { get; set; }
+
+    }
+
     public class PatientDashboard {
     public List<PatientDashboardData> data{  get; set; }
 

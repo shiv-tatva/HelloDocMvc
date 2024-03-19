@@ -69,5 +69,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public createRequest createRequest(createRequest data,string sessionEmail);
 
         public createRequest verifyState(string state);
+
+        public byte[] GenerateExcelFile(List<adminDash> adminData);
     }
 }

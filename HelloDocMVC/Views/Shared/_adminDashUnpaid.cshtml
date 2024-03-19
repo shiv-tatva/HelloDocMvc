@@ -29,13 +29,15 @@ th{
                 create request
             </span>
         </button>
-        <button class="btn btn-info patient_five_button  mx-1" role="button">
-            <i class="bi bi-arrow-up-right"></i>
-            <span>
-                Export
-            </span>
-        </button>
-        <button class="btn btn-info patient_five_button  mx-1" role="button">
+        @using (Html.BeginForm("Export", "AdminDashboard", FormMethod.Post))
+        {
+            <input type="hidden" name="GridHtml" />
+            <button type="submit" value="Export" class="btn btn-info patient_five_button  mx-1"  onclick="exportBtnUnpaid()">
+                <i class="bi bi-arrow-up-right me-1"></i><span class="d-none d-sm-inline-block">Export</span>
+            </button>
+
+        }
+        <button class="btn btn-info patient_five_button  mx-1" role="button" onclick="window.location.href='@Url.Action("ExportAll","AdminDashboard")'">
             <i class="bi bi-box-arrow-up-right"></i>
             <span>
                 Export All
@@ -119,7 +121,7 @@ th{
     </div>
 
     <div id="table_tabview">
-        <div class="container-fluid d-none d-sm-block">
+        <div class="container-fluid d-none d-sm-block" id="tableParentDivUnpaid">
             <table class="table" id="tableDataMainUnpaid">
                 <thead>
                     <tr>
@@ -345,8 +347,8 @@ th{
                         </button>
                     </h2>
                     </td>
-                    <td>
-                        <div id="div-@count" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <td style="z-index:5">
+                        <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body mt-1">
                             <i class="fa-regular fa-envelope"></i> Email: @item.email
                         </div>
@@ -363,13 +365,13 @@ th{
                             <span class="d-flex flex-column">
                                
                                 <span class="d-flex justify-content-between mt-1">
-                                    <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;">View Note</button>
-                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">View Uploads</button>
+                                            <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Note</button>
+                                            <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'">View Uploads</button>
                                 </span>
                                 <span class="d-flex justify-content-between mt-1">
                                     <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
                                 </span>
-                               
+                                        <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
                             </span>
                         </div>
 
@@ -709,6 +711,14 @@ th{
     //     });
     // }
 
+    function exportBtnUnpaid() {
+        // Get the HTML content of the table
+        var htmlContent = $("#tableParentDivUnpaid").html();
+        console.log(htmlContent)
+
+        // Set the modified HTML content to the input value
+        $("input[name='GridHtml']").val(htmlContent);
+    }
 
 </script>
 

@@ -124,7 +124,7 @@
 
 @section scripts{
     @{
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
     }
     }
 
@@ -150,7 +150,7 @@
 
 
         if (checkboxes.length === 0) {
-            alert("Please select at least one file to download.");
+            toastr.error("Please select at least one file to send")
             return;
         } else {
             const reqIdMain = document.getElementById("inputMain").getAttribute("data-reqid")
@@ -170,6 +170,7 @@
                     alert('Error');
                 }
             });
+            toastr.success("Mail Sent successfully");
         }
 
     }
@@ -180,7 +181,7 @@
 
 
             if (checkboxes.length === 0) {
-                alert("Please select at least one file to download.");
+                toastr.error("Please select at least one file to Download");
                 return;
             }
 
@@ -201,6 +202,7 @@
                 }
                 count++;
             });
+        toastr.success("Download successfully");
         }
 
 
@@ -209,17 +211,19 @@
        
 
             if (checkboxes.length === 0) {
-                alert("Please select at least one file to Delete.");
+            toastr.error("Please select at least one file to Delete");
                 return;
             }
 
+        let count = 0;
+
+        
             checkboxes.forEach((checkbox) => {
+            if (count != 0) {
                 const reqIdMain = checkbox.getAttribute("data-reqid")
                 const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
                 const dataMain = true;
 
-                
-               
                 console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
                 const deleteLink = document.createElement('a');
                 deleteLink.href = '/adminDashboard/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
@@ -227,7 +231,11 @@
                 document.body.appendChild(deleteLink);
                 deleteLink.click();
                 document.body.removeChild(deleteLink);
+            }
+            count++;
             });
+        toastr.success("Delete successfully");
+       
         }
 
         

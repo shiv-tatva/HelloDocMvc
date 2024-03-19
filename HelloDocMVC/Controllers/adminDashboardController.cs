@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using HalloDoc.mvc.Auth;
+using System.Text;
 
 namespace HelloDocMVC.Controllers
 {
@@ -25,6 +26,8 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult adminDashboard()
         {
+            var sessionName = HttpContext.Session.GetString("UserSessionName");
+            TempData["headerUserName"] = sessionName;
             adminDashData adminDashObj = new adminDashData();
             adminDashObj.data = _IAdminDash.adminData();
             ViewBag.Admin = 4;
@@ -155,9 +158,9 @@ namespace HelloDocMVC.Controllers
         public IActionResult sendMail(string email,string id,string[] data)
         {
 
-            string emailMain = "20it029.shiv.santoki@vvpedulink.ac.in";
+            //string emailMain = "20it029.shiv.santoki@vvpedulink.ac.in";
             //string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
-            _IAdminDash.sendMail(emailMain, data);
+            _IAdminDash.sendMail(email, data);
             return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = id});
 
         }
@@ -318,7 +321,7 @@ namespace HelloDocMVC.Controllers
                     HttpContext.Session.SetString("UserSessionName", userName);
                     HttpContext.Session.SetString("UserSession", isSend.email);
                 }
-                return Json(new { isSend = isSend.indicate });
+                return Json(new { isSend = isSend.indicate , userChangeHeader = userName });
             }
             else
             {
@@ -380,6 +383,17 @@ namespace HelloDocMVC.Controllers
         public IActionResult requestSupportPopUp()
         {
             return PartialView("_requestSupport");
+        }
+
+        public IActionResult Export(string GridHtml)
+        {
+            return File(Encoding.ASCII.GetBytes(GridHtml), "application/vnd.ms-excel", "ExportData.xls");
+        }
+
+        public IActionResult ExportAll()
+        {
+           var exportAll = _IAdminDash.GenerateExcelFile(_IAdminDash.adminData());
+            return File(exportAll, "application/vnd.ms-excel", "ExportAll.xls");
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using BLL_Business_Logic_Layer_.Interface;
+using DAL_Data_Access_Layer_.CustomeModel;
 
 namespace HelloDocMVC.Controllers
 {
@@ -23,20 +24,20 @@ namespace HelloDocMVC.Controllers
             this.createAccount = createAccount;
         }
 
-        public IActionResult CreateAccount()
+        public IActionResult CreateAccount(int aspuserId)
         {
+
             ViewBag.Admin = 1;
-            return View();
+            var acc = createAccount.createMain(aspuserId);
+            return View(acc);
         }
 
         [HttpPost]
-        public IActionResult CreateAccount(Aspnetuser obj) {
-
-            ViewBag.Admin = 1;
-
+        public IActionResult CreateAccount(createAcc obj) 
+        {
+            TempData["success"] = "Account Created Successfully!";
             createAccount.createAccount(obj);
-
-            return View();
+            return RedirectToAction("CreateAccount", new { aspuserId = obj.aspnetUserId});
         }
 
 

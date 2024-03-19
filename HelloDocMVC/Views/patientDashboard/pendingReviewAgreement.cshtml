@@ -40,6 +40,7 @@
         if you do not agree simply click "Cancel".</h5>
     </div>
     <form method="post" id="cancelCaseForm" asp-action="pendingReviewAgreement" asp-controller="patientDashboard">
+            <input type="hidden" asp-for="@Model._reviewAgreement.reqid" value="@Model._reviewAgreement.reqid"></input>
         <input type="hidden" asp-for="@Model._reviewAgreement.flag" value="2"></input>
     <div class="mt-5 d-flex justify-content-center align-items-center">
         <button type="submit" class="btn btn-success confirm-btn text-white" style="margin-right: 25%;" >I Agree</button>

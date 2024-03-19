@@ -444,7 +444,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public bool checkstatus(int reqId)
         {
-            var req = db.Requests.Any(x => x.Requestid == reqId && x.Status == 2);
+            var req = db.Requests.Any(x => x.Requestid == reqId && (x.Status == 4 || x.Status == 7));
             if (req)
             {
                 return true;

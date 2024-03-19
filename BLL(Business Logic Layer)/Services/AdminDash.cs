@@ -18,6 +18,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using System.Drawing.Drawing2D;
+using System.ComponentModel;
+using OfficeOpenXml;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -52,14 +54,14 @@ namespace BLL_Business_Logic_Layer_.Services
                             state = rc.State,
                             street = rc.Street,
                             zipcode = rc.Zipcode,
-                            //address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
+                            address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
                             //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
                             //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
                             reqid = r.Requestid,
                             email = rc.Email,
-                            //fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
+                            fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
                         }).ToList();
 
 
@@ -370,8 +372,8 @@ namespace BLL_Business_Logic_Layer_.Services
         //*************************************Mail**********************************************
         public void SendRegistrationEmail(string emailMain, string[] data)
         {
-            string senderEmail = "nisargsojitra1234@outlook.com";
-            string senderPassword = "Nisarg@#1705";
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
             SmtpClient client = new SmtpClient("smtp.office365.com")
             {
                 Port = 587,
@@ -385,7 +387,7 @@ namespace BLL_Business_Logic_Layer_.Services
             MailMessage mailMessage = new MailMessage
             {
                 From = new MailAddress(senderEmail),
-                Subject = "Update Password for Account ",
+                Subject = "Attachment",
                 IsBodyHtml = true,
             };
 
@@ -994,7 +996,7 @@ namespace BLL_Business_Logic_Layer_.Services
                     _context.Aspnetusers.Add(_asp);
                     _context.SaveChanges();
 
-                    _user.Userid = _asp.Id;
+                    _user.Aspnetuserid = _asp.Id;
                     _user.Firstname = data.firstname;
                     _user.Lastname = data.lastname;
                     _user.Email = data.email;
@@ -1086,7 +1088,7 @@ namespace BLL_Business_Logic_Layer_.Services
             MailMessage mailMessage = new MailMessage
             {
                 From = new MailAddress(senderEmail, "HalloDoc"),
-                Subject = "Review Agreement",
+                Subject = "Create Account",
                 IsBodyHtml = true,
                 Body = $"Click the following link to Create Account: <a href='{registrationLink}'>{registrationLink}</a>"
             };
@@ -1113,6 +1115,46 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
             return _create;
+        }
+
+
+        public byte[] GenerateExcelFile(List<adminDash> adminData)
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; using (var excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Requests");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Request ID";
+                worksheet.Cells[1, 2].Value = "Name";
+                worksheet.Cells[1, 3].Value = "DOB";
+                worksheet.Cells[1, 4].Value = "Address";
+                worksheet.Cells[1, 5].Value = "Requestor";
+                worksheet.Cells[1, 6].Value = "Phone";
+                worksheet.Cells[1, 7].Value = "Request Date";
+                worksheet.Cells[1, 8].Value = "Request Type ID";
+                worksheet.Cells[1, 9].Value = "Notes";
+                worksheet.Cells[1, 10].Value = "Email";
+
+                // Populate data
+                for (int i = 0; i < adminData.Count; i++)
+                {
+                    var rowData = adminData[i];
+                    worksheet.Cells[i + 2, 1].Value = rowData.reqid;
+                    worksheet.Cells[i + 2, 2].Value = rowData.first_name;
+                    worksheet.Cells[i + 2, 3].Value = rowData.fulldateofbirth;
+                    worksheet.Cells[i + 2, 4].Value = rowData.address;
+                    worksheet.Cells[i + 2, 5].Value = rowData.requestor_fname;
+                    worksheet.Cells[i + 2, 6].Value = rowData.mobile_num;
+                    worksheet.Cells[i + 2, 7].Value = rowData.created_date;
+                    worksheet.Cells[i + 2, 8].Value = rowData.request_type_id;
+                    worksheet.Cells[i + 2, 9].Value = rowData.notes;
+                    worksheet.Cells[i + 2, 10].Value = rowData.email;
+                }
+
+                // Convert package to bytes for download
+                return excelPackage.GetAsByteArray();
+            }
         }
     }
 }

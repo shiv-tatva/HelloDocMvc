@@ -29,13 +29,15 @@
                 create request
             </span>
         </button>
-        <button class="btn btn-info patient_five_button  mx-1" role="button">
-            <i class="bi bi-arrow-up-right"></i>
-            <span>
-                Export
-            </span>
-        </button>
-        <button class="btn btn-info patient_five_button  mx-1" role="button">
+        @using (Html.BeginForm("Export", "AdminDashboard", FormMethod.Post))
+        {
+            <input type="hidden" name="GridHtml" />
+            <button type="submit" value="Export" class="btn btn-info patient_five_button  mx-1" onclick="exportBtnToClose()">
+                <i class="bi bi-arrow-up-right me-1"></i><span class="d-none d-sm-inline-block">Export</span>
+            </button>
+
+        }
+        <button class="btn btn-info patient_five_button  mx-1" role="button" onclick="window.location.href='@Url.Action("ExportAll","AdminDashboard")'">
             <i class="bi bi-box-arrow-up-right"></i>
             <span>
                 Export All
@@ -119,7 +121,7 @@
     </div>
 
     <div id="table_tabview">
-        <div class="table-responsive d-none d-sm-block">
+        <div class="table-responsive d-none d-sm-block" id="tableParentDivToClose">
             <table class="table" id="tableDataMainToClose">
                 <thead>
                     <tr>
@@ -355,8 +357,8 @@
                         </button>
                     </h2>
                     </td>
-                    <td>
-                        <div id="div-@count" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <td style="z-index:5">
+                        <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body mt-1">
                             <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
                         </div>
@@ -378,20 +380,21 @@
                         <div class="accordion-body">
                             <span class="d-flex flex-column">
                                 <span class="d-flex justify-content-between mt-1">
-                                    <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;">Clear Case</button>
-                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">View Notes</button>
+                                            <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("toCloseCloseCase","adminDashboard",new {data = item.reqid})'">Close Case</button>
+                                            <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Notes</button>
                                 </span>
                                 <span class="d-flex justify-content-between mt-1">
                                     <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Doctors Note</button>
-                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">View Uploads</button>
+                                            <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'">View Uploads</button>
                                 </span>
                                 <span class="d-flex justify-content-between mt-1">
-                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Enacounter</button>
-                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Clear Case</button>
+                                            <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'">Enacounter</button>
+                                            <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="clearCaseToClose(@item.reqid)">Clear Case</button>
                                 </span>
                                 <span class="d-flex justify-content-between mt-1">
-                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Clear Case</button>
+                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
                                 </span>
+                                        <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
                             </span>
                         </div>
 
@@ -796,6 +799,15 @@
                 alert('Error loading partial view');
             }
         });
+    }
+
+    function exportBtnToClose() {
+        // Get the HTML content of the table
+        var htmlContent = $("#tableParentDivToClose").html();
+        console.log(htmlContent)
+
+        // Set the modified HTML content to the input value
+        $("input[name='GridHtml']").val(htmlContent);
     }
 
 </script>

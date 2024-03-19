@@ -1,8 +1,10 @@
-﻿@model DAL_Data_Access_Layer_.DataModels.Aspnetuser;
+﻿@model DAL_Data_Access_Layer_.CustomeModel.createAcc;
 
 @{
     ViewData["Title"] = "Login Page";
 }
+
+<partial name="_Notification" />
 
 <div class="row" style="justify-content: center;">
     <div id="darkMode" style="z-index: 2;">
@@ -25,45 +27,44 @@
                         <h4 id="loginHeading" class="ps-3 h2">Create Account</h4>
                     </div>
                 </div>
-                <form class="login-form-control" id="formMain" method="post">
+                <form class="login-form-control" id="formMain" method="post" asp-action="CreateAccount" asp-controller="Home">
                     <div class="form-floating mb-3">
-                        <input asp-for="Email" type="email" class="form-control" id="floatingInput"
+                        <input type="hidden" asp-for="aspnetUserId" value="@Model.aspnetUserId" />
+                        <input asp-for="email" type="email" class="form-control" id="floatingInput"
                                placeholder="name@example.com"
-                               style="background: transparent;border: 1px solid gray;">
-                        <label asp-for="Email" for="floatingInput">Email</label>
+                               style="border: 1px solid gray;" readonly>
+                        <label asp-for="email" for="floatingInput">Email</label>
                         <button class="btn show-password" type="button">
                             <img src="/images/person-circle-outline.svg" alt="password">
                         </button>
                     </div>
                     <div class="form-floating mb-3" style="position: relative;">
-                        <input asp-for="Passwordhash" type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                               style="background: transparent;border: 1px solid gray;">
-                        <label asp-for="Passwordhash" for="floatingPassword">Password</label>
-                        <button class="btn show-password" type="button" id="userBtn">
-                            <i class="fa-regular fa-eye" onclick="passwordVisible()"
-                               id="passHide"></i>
-                        </button>
-                    </div><div class="form-floating mb-3" style="position: relative;">
-                        <input asp-for="Passwordhash" type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                               style="background: transparent;border: 1px solid gray;">
-                        <label asp-for="Passwordhash" for="floatingPassword">Confirm Password</label>
+                        <input asp-for="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                               style="border: 1px solid gray;">
+                        <label asp-for="password" for="floatingPassword">Password</label>
                         <button class="btn show-password" type="button" id="userBtn">
                             <i class="fa-regular fa-eye" onclick="passwordVisible()"
                                id="passHide"></i>
                         </button>
                     </div>
+                    <span asp-validation-for="password" class="text-danger"></span>
+                    <div class="form-floating mb-3" style="position: relative;">
+                        <input asp-for="confirmPassword" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                               style="border: 1px solid gray;">
+                        <label asp-for="confirmPassword" for="floatingPassword">Confirm Password</label>
+                        <button class="btn show-password" type="button" id="userBtn">
+                            <i class="fa-regular fa-eye" onclick="passwordVisible()"
+                               id="passHide"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="confirmPassword" class="text-danger"></span>
                     <div class="login-button mb-5">
                         <button type="submit" class="btn btn-primary mb-3"
                                 style="background-color: #09d4e3;border: 0;padding: 10px 0px;width:100%">
-                            Login
+                            Submit
                         </button>
-                        <p style="color:red;font-size:1.2rem!important;">@ViewBag.LoginMessage</p>
-                        <a title="Forgot password" class="link-default" asp-controller="Home" asp-action="ForgotPage"
-                           style="color: #09d4e3;text-decoration: none;font-weight: 600!important;">
-                            Forgot
-                            Password?
-                        </a>
-                    </div>
+@*                         <p style="color:red;font-size:1.2rem!important;">@ViewBag.LoginMessage</p>
+ *@                    </div>
                 </form>
 
             </div>
@@ -75,7 +76,15 @@
     </div>
 </div>
 
+
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+            }
+
 <link rel="stylesheet" href="~/css/LoginPage.css" asp-append-version="true" />
+
 
 
 <script>

@@ -41,7 +41,7 @@
                         <button class="navbar-toggler d-inline-block d-sm-none my-3 px-1" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                            <i class="fa-solid fa-bars" style="width: 1.8em;height: 1.8em;border: 2px solid skyblue;color: skyblue;border-radius: 4px;font-size: 1.2em;padding-top: 7px;"></i>
                         </button>
                         <a class="navbar-brand" href="#">
                             <img src="/images/docLogo.png" class="logo img-fluid mx-2" alt="" style="height: 70px;">
@@ -53,7 +53,7 @@
                                 <h5>
                                     Welcome
                                     <strong id="userNameMain">
-                                       
+                                        @TempData["headerUserName"]
                                     </strong>
                                 </h5>
                             </p>

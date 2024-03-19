@@ -121,9 +121,9 @@
                 <div class="row m-3 mx-0 mx-sm-1">
                     <div class=" col-12 form-floating mb-3 ">
                         <textarea class="form-control h-100 dclass" id="floatingInput" placeholder="Textarea" rows="5" asp-for="@Model._viewNote.AdminNotes"></textarea>
-                        <label for="floatingInput" class="text-wrap ms-2">Admin Notes</label>
-                        <span asp-validation-for="@Model._viewNote.AdminNotes" class="text-danger"></span>
+                        <label for="floatingInput" class="text-wrap ms-2">Admin Notes</label>                        
                     </div>
+                    <span asp-validation-for="@Model._viewNote.AdminNotes" class="text-danger"></span>
                 </div>
                 <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end m-4 pt-4 ">
 
@@ -143,7 +143,11 @@
 </div>
 
 
-<partial name="_ValidationScriptsPartial" />
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+            }
 
 <script>
     // function adminMain() {

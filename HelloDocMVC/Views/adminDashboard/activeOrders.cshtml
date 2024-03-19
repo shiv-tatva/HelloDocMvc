@@ -24,7 +24,7 @@
                             }
                         </select>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  mb-3">
                         <select asp-for="_activeOrder.vendorid" id="businessDropdown" class="form-select text-secondary" id="inputGroupBusiness" style="height: 58px;">
                             <option selected="" disabled>Business</option>
                         </select>
@@ -32,8 +32,8 @@
                 </div>
                 <input asp-for="@Model._activeOrder.reqid" type="hidden" value="@Model._activeOrder.reqid" />
                 <input asp-for="@Model._activeOrder.profession" type="hidden" value="@Model._activeOrder.profession" />
-                <div class="row mb-3">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating">
+                <div class="row ">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3 form-floating">
                         <input asp-for="_activeOrder.business_contact" type="text" class=" form-control " id="floatingInputBusinessContact"
                                placeholder="BusinessContact" aria-label="BusinessContact">
                         <label class="ms-2 text-secondary" for="floatingInputBusinessContact">Business Contact</label>
