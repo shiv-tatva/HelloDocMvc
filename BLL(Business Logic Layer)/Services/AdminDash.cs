@@ -32,12 +32,12 @@ namespace BLL_Business_Logic_Layer_.Services
             _context = context;
         }
 
-        public List<adminDash> adminData()
+        public List<adminDash> adminData(int[] status, int typeId, int regionId)
         {
+            var requestList = _context.Requests.Where(i => status.Contains(i.Status));
 
-
-            var query = (from r in _context.Requests
-                        join rc in _context.Requestclients on r.Requestid equals rc.Requestid
+            var query = (from r in requestList
+                         join rc in _context.Requestclients on r.Requestid equals rc.Requestid
                         select new adminDash
                         {
                             first_name = rc.Firstname,
@@ -57,22 +57,52 @@ namespace BLL_Business_Logic_Layer_.Services
                             address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
+                            region_id = rc.Regionid,
                             //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
                             //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
+                            region_table = _context.Regions.ToList(),
                             reqid = r.Requestid,
                             email = rc.Email,
                             fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
                         }).ToList();
 
+            if(typeId > 0)
+            {
+                query = query.Where(x => x.request_type_id == typeId).Select(r => r).ToList();
+            }
 
+            if(regionId > 0)
+            {
+                query = query.Where(x => x.region_id == regionId).Select(r => r).ToList();
+            }
 
             //var result = query.ToList();
 
-
             return query;
         }
-        
-        
+
+        public countMain countService()
+        {
+            var requestsWithClients = _context.Requests
+                   .Join(_context.Requestclients,
+                       r => r.Requestid,
+                       rc => rc.Requestid,
+                       (r, rc) => new { Request = r, RequestClient = rc })
+                   .ToList();
+
+            countMain statusCount = new countMain
+            {
+                count1 = requestsWithClients.Count(x => x.Request.Status == 1),
+                count2 = requestsWithClients.Count(x => x.Request.Status == 2),
+                count3 = requestsWithClients.Count(x => x.Request.Status == 4 || x.Request.Status == 5),
+                count4 = requestsWithClients.Count(x => x.Request.Status == 6),
+                count5 = requestsWithClients.Count(x => x.Request.Status == 3 || x.Request.Status == 7 || x.Request.Status == 8),
+                count6 = requestsWithClients.Count(x => x.Request.Status == 9)
+            };
+
+            return statusCount;
+        }
+
         public List<adminDash> adminDataViewCase(int reqId)
         {
             
@@ -1103,8 +1133,9 @@ namespace BLL_Business_Logic_Layer_.Services
         public createRequest verifyState(string state)
         {
             createRequest _create = new createRequest();
-            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == state.ToLower()).FirstOrDefault();
 
+            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == state.ToLower()).FirstOrDefault();
+                        
             if(stateMain == null)
             {
                 _create.indicate = false;

@@ -11,554 +11,429 @@
     }
 </style>
 
-<div class="my-4" id="patients_flex_box">
-    <span id="patient_txt">
-        Patients <span id="patient_sub">(Conclude)</span>
-    </span>
+<div class="tab-pane fade" id="Conclude-tab-pane" role="tabpanel" aria-labelledby="Conclude-tab"
+     tabindex="0" style="background:white">
+    <div class="my-4" id="patients_flex_box">
+        <span id="patient_txt">
+            Patients <span id="patient_sub">(Conclude)</span>
+        </span>
 
-    <span id="patiens_five-link-mediaquerry" style="display:flex;">
-        <button onclick="newSendLinkConclude()" class="btn btn-info patient_five_button mx-1 " role="button">
-            <i class="bi bi-send"></i>
-            <span>
-                Send link
-            </span>
-        </button>
-        <button onclick="createRequestConclude()" class="btn btn-info patient_five_button  mx-1" role="button">
-            <i class="bi bi-pencil-square"></i>
-            <span>
-                create request
-            </span>
-        </button>
-        @using (Html.BeginForm("Export", "AdminDashboard", FormMethod.Post))
-        {
-            <input type="hidden" name="GridHtml" />
-            <button type="submit" value="Export" class="btn btn-info patient_five_button  mx-1" onclick="exportBtnConclude()">
-                <i class="bi bi-arrow-up-right me-1"></i><span class="d-none d-sm-inline-block">Export</span>
+        <span id="patiens_five-link-mediaquerry" style="display:flex;">
+            <button onclick="newSendLinkConclude()" class="btn btn-info patient_five_button mx-1 " role="button">
+                <i class="bi bi-send"></i>
+                <span>
+                    Send link
+                </span>
             </button>
-
-        }
-        <button class="btn btn-info patient_five_button  mx-1" role="button" onclick="window.location.href='@Url.Action("ExportAll","AdminDashboard")'">
-            <i class="bi bi-box-arrow-up-right"></i>
-            <span>
-                Export All
-            </span>
-        </button>
-        <button onclick="requestSupportConclude()" class="btn btn-info patient_five_button  mx-1" role="button">
-            <i class="bi bi-person-plus"></i>
-            <span>
-                Request DTY support
-            </span>
-        </button>
-    </span>
-</div>
-<div class="mt-2 mb-2 container-fluid" style="box-shadow: 0px 0px 5px grey;">
-
-    <div class="container-fluid p-0">
-        <div id="tablehead-container">
-
-            <div id="tablehead-left">
-                <div class="d-md-flex gap-1">
-                    <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
-                        <!-- <i class="bi bi-search"></i> -->
-                        <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad"></i>
-                        <input class="form-control border-0" id="my-search-input" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-
-                    <select class="form-select  mb-2" aria-label="Default select example">
-                        <option selected="">All Region</option>
-                        <option value="1">Gujarat</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-
-            </div>
-            <span id="tablehead-right">
-                <span class="table_head_five" id="all" type="button" onclick="allElements()" style="cursor:pointer">
-                    All
+            <button onclick="createRequestConclude()" class="btn btn-info patient_five_button  mx-1" role="button">
+                <i class="bi bi-pencil-square"></i>
+                <span>
+                    create request
                 </span>
-                <span class="table_head_five" onclick="patientElements()" style="cursor:pointer">
+            </button>
+            @using (Html.BeginForm("Export", "AdminDashboard", FormMethod.Post))
+            {
+                <input type="hidden" name="GridHtml" />
+                <button type="submit" value="Export" class="btn btn-info patient_five_button  mx-1" onclick="exportBtnConclude()">
+                    <i class="bi bi-arrow-up-right me-1"></i><span class="d-none d-sm-inline-block">Export</span>
+                </button>
 
-                    <span class="patient_circle"></span>
-                    <span>
-                        Patients
-                    </span>
+            }
+            <button class="btn btn-info patient_five_button  mx-1" role="button" onclick="window.location.href='@Url.Action("ExportAll","AdminDashboard")'">
+                <i class="bi bi-box-arrow-up-right"></i>
+                <span>
+                    Export All
                 </span>
-                <span class="table_head_five" onclick="familyFriendElements()" style="cursor:pointer">
-
-                    <span class="family_circle"></span>
-
-                    <span>
-                        Family/Friends
-                    </span>
+            </button>
+            <button onclick="requestSupportConclude()" class="btn btn-info patient_five_button  mx-1" role="button">
+                <i class="bi bi-person-plus"></i>
+                <span>
+                    Request DTY support
                 </span>
-                <span class="table_head_five" onclick="businessElements()" style="cursor:pointer">
-
-                    <span class="Bussiness_circle"></span>
-                    <span>
-                        Bussiness
-                    </span>
-                </span>
-                <span class="table_head_five" onclick="conciergeElements()" style="cursor:pointer">
-
-                    <span class="Concierge_circle"></span>
-
-                    <span>
-                        Concierge
-                    </span>
-                </span>
-                <span class="table_head_five" style="cursor:pointer">
-
-                    <span class="vip_circle"></span>
-
-
-                    <span>
-                        VIP
-                    </span>
-                </span>
-            </span>
-        </div>
+            </button>
+        </span>
     </div>
+    <div class="mt-2 mb-2 container-fluid" style="box-shadow: 0px 0px 5px grey;">
 
-    <div id="table_tabview">
-        <div class="table-responsive d-none d-sm-block" id="tableParentDivConclude">
-            <table class="table" id="tableDataMainConclude">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Date Of Birth</th>
-                        <th scope="col">Physician Name</th>
-                        <th scope="col">Date Of Service</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Chat With</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.data)
-                    {
-                        if (item.status == 6)
+        <div class="container-fluid p-0">
+            <div id="tablehead-container">
+
+                <div id="tablehead-left">
+                    <div class="d-md-flex gap-1">
+                        <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
+                            <!-- <i class="bi bi-search"></i> -->
+                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad"></i>
+                            <input class="form-control border-0" id="my-search-input" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+
+                        <select class="form-select  mb-2" aria-label="Default select example">
+                            <option selected="">All Region</option>
+                            <option value="1">Gujarat</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+
+                </div>
+                <span id="tablehead-right">
+                    <span class="table_head_five" id="all" type="button" onclick="tableFilter4(0)" style="cursor:pointer">
+                        All
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter4(1)" style="cursor:pointer">
+
+                        <span class="patient_circle"></span>
+                        <span>
+                            Patients
+                        </span>
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter4(2)" style="cursor:pointer">
+
+                        <span class="family_circle"></span>
+
+                        <span>
+                            Family/Friends
+                        </span>
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter4(4)" style="cursor:pointer">
+
+                        <span class="Bussiness_circle"></span>
+                        <span>
+                            Bussiness
+                        </span>
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter4(3)" style="cursor:pointer">
+
+                        <span class="Concierge_circle"></span>
+
+                        <span>
+                            Concierge
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div id="table_tabview">
+            <div class="table-responsive d-none d-sm-block" id="tableParentDivConclude">
+                <table class="table" id="tableDataMainConclude">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date Of Birth</th>
+                            <th scope="col">Physician Name</th>
+                            <th scope="col">Date Of Service</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Chat With</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.data)
                         {
-                            var bgColor = "He";
-                            var role = "hello";
+                            
+                                var bgColor = "He";
+                                var role = "hello";
 
-                            @if (item.request_type_id == 1)
-                            {
-                                bgColor = "#60be5e";
-                                role = "Patient";
-                            }
-                            else if (item.request_type_id == 2)
-                            {
-                                bgColor = "#e69232";
-                                role = "FamilyFriend";
-                            }
-                            else if (item.request_type_id == 3)
-                            {
-                                bgColor = "#0b7ebf";
-                                role = "Concierge";
-                            }
-                            else if (item.request_type_id == 4)
-                            {
-                                bgColor = "#d76879";
-                                role = "Business";
-                            }
+                                @if (item.request_type_id == 1)
+                                {
+                                    bgColor = "#60be5e";
+                                    role = "Patient";
+                                }
+                                else if (item.request_type_id == 2)
+                                {
+                                    bgColor = "#e69232";
+                                    role = "FamilyFriend";
+                                }
+                                else if (item.request_type_id == 3)
+                                {
+                                    bgColor = "#0b7ebf";
+                                    role = "Concierge";
+                                }
+                                else if (item.request_type_id == 4)
+                                {
+                                    bgColor = "#d76879";
+                                    role = "Business";
+                                }
 
 
-                            <tr class="tablerows @role">
-                                <td class="text-white" style="background:@bgColor">
-                                    <div class="table_name_email">
+                                <tr class="tablerows @role">
+                                    <td class="text-white" style="background:@bgColor">
+                                        <div class="table_name_email">
 
-                                        @item.first_name, @item.last_name
-                                        <a href="">
-                                            <i class="bi bi-envelope me-3  rounded-5 border p-1 text-info" style="color:white!important"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td class="text-white" style="background:@bgColor">Jun 16, 2023(0)</td>
-                                <td class="text-white" style="background:@bgColor">@item.phy_name</td>
-                                <td class="text-white" style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
-                                <td class="text-white" style="background:@bgColor">
-                                    <div class="table_phone">
-                                        <a href="">
-                                            <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
-                                            @item.mobile_num
-                                        </a>
-                                    </div>
-                                    <div style="color:white">
-                                        (Patient)
-                                    </div>
-                                    @if (item.request_type_id != 1)
-                                    {
+                                            @item.first_name, @item.last_name
+                                            <a href="">
+                                                <i class="bi bi-envelope me-3  rounded-5 border p-1 text-info" style="color:white!important"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-white" style="background:@bgColor">Jun 16, 2023(0)</td>
+                                    <td class="text-white" style="background:@bgColor">@item.phy_name</td>
+                                    <td class="text-white" style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                                    <td class="text-white" style="background:@bgColor">
                                         <div class="table_phone">
                                             <a href="">
                                                 <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
-                                                @item.requestor_mobile_num
+                                                @item.mobile_num
                                             </a>
                                         </div>
                                         <div style="color:white">
-                                            (@role)
+                                            (Patient)
                                         </div>
-                                    }
-                                </td>
-                                <td class="text-white" style="background:@bgColor">Room Location:101</td>
-                                <td class="text-white" style="background:@bgColor">
+                                        @if (item.request_type_id != 1)
+                                        {
+                                            <div class="table_phone">
+                                                <a href="">
+                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                    @item.requestor_mobile_num
+                                                </a>
+                                            </div>
+                                            <div style="color:white">
+                                                (@role)
+                                            </div>
+                                        }
+                                    </td>
+                                    <td class="text-white" style="background:@bgColor">Room Location:101</td>
+                                    <td class="text-white" style="background:@bgColor">
 
-                                    <div style="display:flex;">
-                                        <div class="dropdown mb-1">
-                                            <button class="btn text-white border border-white py-1 "
-                                                    id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                <i class="bi bi-person me-2 d-none d-sm-inline"></i>
-                                                <span>
-                                                    Patient
-                                                </span>
-                                            </button>
+                                        <div style="display:flex;">
+                                            <div class="dropdown mb-1">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="bi bi-person me-2 d-none d-sm-inline"></i>
+                                                    <span>
+                                                        Patient
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
+                                                    <span>
+                                                        Provider
+                                                    </span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="dropdown">
-                                            <button class="btn text-white border border-white py-1 "
-                                                    id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
-                                                <span>
-                                                    Provider
-                                                </span>
-                                            </button>
+                                    </td>
+                                    <td class="text-white" style="background:@bgColor">
+                                        <div>
+                                            <div class="dropdown">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <span>
+                                                        Action
+                                                    </span>
+                                                </button>
+                                                <ul class="dropdown-menu table_dropdowns">
+                                                    <li>
+                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">
+                                                            <i class="fa-brands fa-searchengin"></i>
+                                                            View Case
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'" class="dropdown-item">
+                                                            <i class="fa-solid fa-file-arrow-up"></i>
+                                                            View Uploads
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">
+                                                            <i class="fa-solid fa-book"></i>
+                                                            View Notes
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'">
+                                                            <i class="fa-solid fa-file-circle-check"></i>
+                                                            Orders
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item">
+                                                            <i class="fa-regular fa-file-lines"></i>
+                                                            Doctor Note
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'" class="dropdown-item">
+                                                            <i class="fa-regular fa-file-lines"></i>
+                                                            Encounter
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-white" style="background:@bgColor">
-                                    <div>
-                                        <div class="dropdown">
-                                            <button class="btn text-white border border-white py-1 "
-                                                    id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                <span>
-                                                    Action
-                                                </span>
-                                            </button>
-                                            <ul class="dropdown-menu table_dropdowns">
-                                                <li>
-                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">
-                                                        <i class="fa-brands fa-searchengin"></i>
-                                                        View Case
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'" class="dropdown-item">
-                                                        <i class="fa-solid fa-file-arrow-up"></i>
-                                                        View Uploads
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        View Notes
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button class="dropdown-item" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'">
-                                                        <i class="fa-solid fa-file-circle-check"></i>
-                                                        Orders
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button class="dropdown-item" >
-                                                        <i class="fa-regular fa-file-lines"></i>
-                                                        Doctor Note
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'" class="dropdown-item">
-                                                        <i class="fa-regular fa-file-lines"></i>
-                                                        Encounter
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            
                         }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
+            <table class="table" id="tableDataMainConcludeTwo" width="100%">
+                <thead>
+                    <tr>
+                        <th class="d-none">
+
+                        </th>
+                        <th class="d-none">
+
+                        </th>
+                    </tr>
+                </thead>
+                @{
+                    var count = 0;
+
+                }
+                @foreach (var item in Model.data)
+                {
+                    if (item.status == 6)
+                    {
+                        var bgColor = "He";
+                        var role = "hello";
+
+                        @if (item.request_type_id == 1)
+                        {
+                            bgColor = "#60be5e";
+                            role = "Patient";
+                        }
+                        else if (item.request_type_id == 2)
+                        {
+                            bgColor = "#e69232";
+                            role = "FamilyFriend";
+                        }
+                        else if (item.request_type_id == 3)
+                        {
+                            bgColor = "#0b7ebf";
+
+                            role = "Concierge";
+                        }
+                        else if (item.request_type_id == 4)
+                        {
+                            bgColor = "#d76879";
+                            role = "Business";
+                        }
+
+
+
+                        <tr style="display: flex;flex-direction: column" class="@role">
+                            <td>
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <span class="d-flex flex-column" style="width:100%">
+                                            <span class="d-flex justify-content-between">
+                                                <span class="mb-3">@item.first_name @item.last_name</span>
+                                                <span>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="pe-2">@role</div>
+                                                        <i class="fa-solid fa-circle" style="color:@bgColor"></i>
+                                                    </div>
+                                                </span>
+                                            </span>
+                                            <span class="d-flex align-items-center justify-content-between mb-3">
+                                                <span>
+                                                    @item.street,<br>
+                                                    @item.city
+                                                </span>
+                                                <span class="btn btn-outline-primary" style="font-size:12px;cursor:pointer">Map Location</span>
+
+                                            </span>
+                                            <span class="d-flex align-items-center mt">
+
+                                                <i class="fa-regular fa-clock pe-2 " style="color:#2acbcb"></i> <span>Wait Time: </span>
+                                            </span>
+                                        </span>
+
+                                    </button>
+                                </h2>
+                            </td>
+                            <td style="z-index:5">
+                                <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body mt-1">
+                                        <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
+                                    </div>
+                                    <div class="accordion-body mt-1">
+                                        <i class="fa-regular fa-envelope"></i> Email: @item.email
+                                    </div>
+                                    <div class="accordion-body mt-1">
+                                        <i class="fa-solid fa-phone"></i> Patient: @item.mobile_num
+                                    </div>
+                                    <div class="accordion-body mt-1">
+                                        <i class="fa-solid fa-phone"></i> Date of Service: @item.created_date
+                                    </div>
+                                    <div class="accordion-body mt-1">
+                                        <i class="fa-regular fa-user"></i> Physician: @item.phy_name
+                                    </div>
+                                    <div class="accordion-body">
+                                        <span class="d-flex flex-column">
+                                            <span class="d-flex justify-content-between mt-1">
+                                                <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Notes</button>
+                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">Doctors Notes</button>
+                                            </span>
+                                            <span class="d-flex justify-content-between mt-1">
+                                                <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'">View Uploads</button>
+                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'" class="dropdown-item">Encounter</button>
+                                            </span>
+                                            <span class="d-flex justify-content-between mt-1">
+                                                <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'">Orders</button>
+                                                <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
+                                            </span>
+                                            <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
+                                        </span>
+                                    </div>
+
+
+
+                                </div>
+                            </td>
+                        </tr>
+                        count++;
                     }
-                </tbody>
+                }
             </table>
         </div>
+
+
     </div>
-    
-    <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
-        <table class="table" id="tableDataMainConcludeTwo" width="100%">
-            <thead>
-                <tr>
-                    <th class="d-none">
-
-                    </th>
-                    <th class="d-none">
-
-                    </th>
-                </tr>
-            </thead>
-        @{
-            var count = 0;
-
-        }
-        @foreach (var item in Model.data)
-        {
-            if (item.status == 6)
-            {
-                var bgColor = "He";
-                var role = "hello";
-
-                @if (item.request_type_id == 1)
-                {
-                    bgColor = "#60be5e";
-                    role = "Patient";
-                }
-                else if (item.request_type_id == 2)
-                {
-                    bgColor = "#e69232";
-                    role = "FamilyFriend";
-                }
-                else if (item.request_type_id == 3)
-                {
-                    bgColor = "#0b7ebf";
-
-                    role = "Concierge";
-                }
-                else if (item.request_type_id == 4)
-                {
-                    bgColor = "#d76879";
-                    role = "Business";
-                }
 
 
-
-                    <tr style="display: flex;flex-direction: column" class="@role">
-                     <td>
-                        <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
-                            <span class="d-flex flex-column" style="width:100%">
-                                <span class="d-flex justify-content-between">
-                                    <span class="mb-3">@item.first_name @item.last_name</span>
-                                    <span>
-                                        <div class="d-flex align-items-center">
-                                            <div class="pe-2">@role</div>
-                                            <i class="fa-solid fa-circle" style="color:@bgColor"></i>
-                                        </div>
-                                    </span>
-                                </span>
-                                <span class="d-flex align-items-center justify-content-between mb-3">
-                                    <span>
-                                        @item.street,<br>
-                                        @item.city
-                                    </span>
-                                    <span class="btn btn-outline-primary" style="font-size:12px;cursor:pointer">Map Location</span>
-
-                                </span>
-                                <span class="d-flex align-items-center mt">
-
-                                    <i class="fa-regular fa-clock pe-2 " style="color:#2acbcb"></i> <span>Wait Time: </span>
-                                </span>
-                            </span>
-
-                        </button>
-                    </h2>
-                    </td>
-                        <td style="z-index:5">
-                         <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body mt-1">
-                            <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
-                        </div>
-                        <div class="accordion-body mt-1">
-                            <i class="fa-regular fa-envelope"></i> Email: @item.email
-                        </div>
-                        <div class="accordion-body mt-1">
-                            <i class="fa-solid fa-phone"></i> Patient: @item.mobile_num
-                        </div>
-                        <div class="accordion-body mt-1">
-                            <i class="fa-solid fa-phone"></i> Date of Service: @item.created_date
-                        </div>
-                        <div class="accordion-body mt-1">
-                            <i class="fa-regular fa-user"></i> Physician: @item.phy_name
-                        </div>
-                        <div class="accordion-body">
-                            <span class="d-flex flex-column">
-                                <span class="d-flex justify-content-between mt-1">
-                                            <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Notes</button>
-                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">Doctors Notes</button>
-                                </span>
-                                <span class="d-flex justify-content-between mt-1">
-                                            <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'">View Uploads</button>
-                                            <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'" class="dropdown-item">Encounter</button>
-                                </span>
-                                <span class="d-flex justify-content-between mt-1">
-                                            <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'">Orders</button>
-                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
-                                </span>
-                                <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
-                            </span>
-                        </div>
-
-
-
-                    </div>
-                    </td>
-                </tr>
-                count++;
-            }
-        }
-        </table>
+    <div id="sendLinkConcludePopUp">
     </div>
-    
 
+    <div id="requestSupportConcludePopUp">
+    </div>
 </div>
 
 
-<div id="sendLinkConcludePopUp">
-</div>
-
-<div id="requestSupportConcludePopUp">
-</div>
 
 <script>
 
 
-    function allLayout() {
-        let a = document.getElementsByClassName("patientLayout");
+    function tableFilter4(typeId) {
+        $.ajax({
+            method: "GET",
+            url: "/adminDashboard/tableRecords4",
+            traditional: true,
+            contentType: "application/json",
+            data: { arr: [6], typeId: typeId },
+            success: function (result) {
+                $("#myTabContent1").html(result);
+                $("#Conclude-tab-pane").addClass("show active")
+            },
 
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "table-row";
-        }
-
-        let b = document.getElementsByClassName("familyFriendLayout");
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "table-row";
-        }
-
-        let c = document.getElementsByClassName("conciergeLayout");
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "table-row";
-        }
-
-
-        let d = document.getElementsByClassName("businessLayout");
-
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "table-row";
-        }
-    }
-
-    function patientLayout() {
-        let b = document.getElementsByClassName("familyFriendLayout");
-        let c = document.getElementsByClassName("conciergeLayout");
-        let d = document.getElementsByClassName("businessLayout");
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "none";
-        }
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "none";
-        }
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "none";
-        }
-
-
-        let a = document.getElementsByClassName("patientLayout");
-
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "table-row";
-        }
-
-
-    }
-
-
-    function familyFriendLayout() {
-        let a = document.getElementsByClassName("patientLayout");
-        let c = document.getElementsByClassName("conciergeLayout");
-        let d = document.getElementsByClassName("businessLayout");
-
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "none";
-        }
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "none";
-        }
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "none";
-        }
-
-        let b = document.getElementsByClassName("familyFriendLayout");
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "table-row";
-        }
-
-    }
-
-
-    function conciergeLayout() {
-        let a = document.getElementsByClassName("patientLayout");
-        let b = document.getElementsByClassName("familyFriendLayout");
-        let d = document.getElementsByClassName("businessLayout");
-
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "none";
-        }
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "none";
-        }
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "none";
-        }
-
-
-        let c = document.getElementsByClassName("conciergeLayout");
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "table-row";
-        }
-
-    }
-
-    function businessLayout() {
-
-        let a = document.getElementsByClassName("patientLayout");
-        let b = document.getElementsByClassName("familyFriendLayout");
-        let c = document.getElementsByClassName("conciergeLayout");
-
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "none";
-        }
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "none";
-        }
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "none";
-        }
-
-
-
-        let d = document.getElementsByClassName("businessLayout");
-
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "table-row";
-        }
-
-
+            error: function () {
+                alert("Error loading partial view");
+            },
+        });
     }
 
     $(document).ready(function () {

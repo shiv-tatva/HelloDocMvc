@@ -11,7 +11,9 @@ namespace BLL_Business_Logic_Layer_.Interface
 {
     public interface IAdminDash
     {
-        public List<adminDash> adminData();
+        public List<adminDash> adminData(int[] status, int typeId, int regionId);
+
+        public countMain countService();
         public List<adminDash> adminDataViewCase(int reqId);
         public viewNotes adminDataViewNote(int reqId);
         public void adminDataViewNote(adminDashData obj);

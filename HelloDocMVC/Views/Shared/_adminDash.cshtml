@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row nav" id="myTab" role="tablist">
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mb-3 nav-item" role="presentation" >
-                <div style="border-bottom:none!important;" class="border rounded p-1 p-sm-3 active new" id="new-tab" data-bs-toggle="tab"
+                <div onclick="newTab()" style="border-bottom:none!important;" class="border rounded p-1 p-sm-3 active new" id="new-tab" data-bs-toggle="tab"
                      data-bs-target="#new-tab-pane" type="button" role="tab" aria-controls="new-tab-pane"
                      aria-selected="true">
                     <div class="d-flex align-items-center">
@@ -21,10 +21,7 @@
                     </div>
                     <div class="ps-1 pt-3">
                         <h4>
-                            @{
-                                var countOne = Model.data.Count(rf => rf.status == 1);
-                            }
-                            @countOne
+                            @Model._countMain.count1
                         </h4>
                     </div>
                 </div>
@@ -32,7 +29,7 @@
             </div>
 
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-4" role="presentation">
-                <div class="border rounded p-1 p-sm-3 Pending" id="Pending-tab" data-bs-toggle="tab"
+                <div onclick="pendingTab()" class="border rounded p-1 p-sm-3 Pending" id="Pending-tab" data-bs-toggle="tab"
                      data-bs-target="#Pending-tab-pane" type="button" role="tab" aria-controls="Pending-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
@@ -41,10 +38,7 @@
                     </div>
                     <div class="ps-1 pt-3">
                         <h4>
-                            @{
-                                var countTwo = Model.data.Count(rf => rf.status == 2 );
-                            }
-                            @countTwo
+                            @Model._countMain.count2
                         </h4>
                     </div>
                 </div>
@@ -52,7 +46,7 @@
             </div>
 
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-4" role="presentation" >
-                <div class="border rounded p-1 p-sm-3 Active" id="Active-tab" data-bs-toggle="tab"
+                <div onclick="activeTab()" class="border rounded p-1 p-sm-3 Active" id="Active-tab" data-bs-toggle="tab"
                      data-bs-target="#Active-tab-pane" type="button" role="tab" aria-controls="Active-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
@@ -61,10 +55,7 @@
                     </div>
                     <div class="ps-1 pt-3">
                         <h4>
-                            @{
-                                var countThree = Model.data.Count(rf => rf.status == 4 || rf.status == 5);
-                            }
-                            @countThree
+                            @Model._countMain.count3
                         </h4>
                     </div>
                 </div>
@@ -72,7 +63,7 @@
             </div>
 
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-4" role="presentation" >
-                <div class="border rounded p-1 p-sm-3 Conclude" id="Conclude-tab" data-bs-toggle="tab"
+                <div onclick="concludeTab()" class="border rounded p-1 p-sm-3 Conclude" id="Conclude-tab" data-bs-toggle="tab"
                      data-bs-target="#Conclude-tab-pane" type="button" role="tab" aria-controls="Conclude-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
@@ -81,10 +72,7 @@
                     </div>
                     <div class="ps-1 pt-3">
                         <h4>
-                            @{
-                                var countFour = Model.data.Count(rf => rf.status == 6);
-                            }
-                            @countFour
+                            @Model._countMain.count4
                         </h4>
                     </div>
                 </div>
@@ -92,7 +80,7 @@
             </div>
 
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-4" role="presentation" >
-                <div class="border rounded p-1 p-sm-3 ToClose" id="ToClose-tab" data-bs-toggle="tab"
+                <div onclick="toCloseTab()" class="border rounded p-1 p-sm-3 ToClose" id="ToClose-tab" data-bs-toggle="tab"
                      data-bs-target="#ToClose-tab-pane" type="button" role="tab" aria-controls="ToClose-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
@@ -101,10 +89,7 @@
                     </div>
                     <div class="ps-1 pt-3">
                         <h4>
-                            @{
-                                var countFive = Model.data.Count(rf => rf.status == 3 || rf.status == 7 || rf.status == 8);
-                            }
-                            @countFive
+                            @Model._countMain.count5
                         </h4>
                     </div>
                 </div>
@@ -112,7 +97,7 @@
             </div>
 
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-4" role="presentation" >
-                <div class="border rounded p-1 p-sm-3 Unpaid" id="Unpaid-tab" data-bs-toggle="tab"
+                <div onclick="unpaidTab()" class="border rounded p-1 p-sm-3 Unpaid" id="Unpaid-tab" data-bs-toggle="tab"
                      data-bs-target="#Unpaid-tab-pane" type="button" role="tab" aria-controls="Unpaid-tab-pane"
                      aria-selected="false">
                     <div class="d-flex align-items-center">
@@ -121,10 +106,7 @@
                     </div>
                     <div class="ps-1 pt-3">
                         <h4>
-                            @{
-                                var countSix = Model.data.Count(rf => rf.status == 9);
-                            }
-                            @countSix
+                            @Model._countMain.count6
                         </h4>
                     </div>
                 </div>
@@ -141,38 +123,140 @@
            
 
         <div class="tab-content" id="myTabContent1">
-            <div class="tab-pane fade show active" id="new-tab-pane" role="tabpanel" aria-labelledby="new-tab"
-                 tabindex="0" style="background:white">
-                <partial name="_adminDashNew" />
-            </div>
-
-            <div class="tab-pane fade" id="Pending-tab-pane" role="tabpanel" aria-labelledby="Pending-tab" tabindex="0" style="background:white">
-                    <partial name="_adminDashPending" />
-            </div>
-
-            <div class="tab-pane fade" id="Active-tab-pane" role="tabpanel" aria-labelledby="Active-tab" tabindex="0" style="background:white">
-                    <partial name="_adminDashActive" />
-            </div>
-
-            <div class="tab-pane fade" id="Conclude-tab-pane" role="tabpanel" aria-labelledby="Conclude-tab"
-                 tabindex="0" style="background:white">
-                    <partial name="_adminDashConclude" />
-            </div>
-
-            <div class="tab-pane fade" id="ToClose-tab-pane" role="tabpanel" aria-labelledby="ToClose-tab" tabindex="0" style="background:white">
-                    <partial name="_adminDashToclose" />
-            </div>
-
-            <div class="tab-pane fade" id="Unpaid-tab-pane" role="tabpanel" aria-labelledby="Unpaid-tab" tabindex="0" style="background:white">
-                    <partial name="_adminDashUnpaid" />
-            </div>
+            
         </div>
     </div>
 </div>
 @* </div>
 </div> *@
 <script>
+    var actionTwo = "/adminDashboard" + "/" + "newTab"
+    $.ajax({
+        url: actionTwo,
+        type: 'GET',
+        traditional: true,
+        contentType: "application/json",
+        data: { arr: [1] },
+        success: function (result) {
+            $('#myTabContent1').html(result);
+        },
+        error: function () {
+            alert('Error aa loading partial view');
+        }
+    });
+
+
+    function newTab() {
+        var action = "/adminDashboard" + "/" + "newTab"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            traditional: true,
+            contentType: "application/json",
+            data: {arr : [1]},
+            success: function (result) {
+                $('#myTabContent1').html(result);
+                $("#New-tab-pane").addClass("show active")
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
     
+    
+    function pendingTab() {
+        var action = "/adminDashboard" + "/" + "pendingTab"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            traditional: true,
+            contentType: "application/json",
+            data: { arr: [2] },
+            success: function (result) {
+                $('#myTabContent1').html(result);
+                $("#Pending-tab-pane").addClass("show active")
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+    
+    
+    function activeTab() {
+        var action = "/adminDashboard" + "/" + "activeTab"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            traditional: true,
+            contentType: "application/json",
+            data: { arr: [4,5] },
+            success: function (result) {
+                $('#myTabContent1').html(result);
+                $("#Active-tab-pane").addClass("show active")
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+    
+    
+    function concludeTab() {
+        var action = "/adminDashboard" + "/" + "concludeTab"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            traditional: true,
+            contentType: "application/json",
+            data: { arr: [6] },
+            success: function (result) {
+                $('#myTabContent1').html(result);
+                $("#Conclude-tab-pane").addClass("show active");
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+    
+    function toCloseTab() {
+        var action = "/adminDashboard" + "/" + "toCloseTab"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            traditional: true,
+            contentType: "application/json",
+            data: { arr: [3,7,8] },
+            success: function (result) {
+                $('#myTabContent1').html(result);
+                $("#ToClose-tab-pane").addClass("show active");
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+    
+    
+    function unpaidTab() {
+        var action = "/adminDashboard" + "/" + "unpaidTab"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            traditional: true,
+            contentType: "application/json",
+            data: { arr: [9] },
+            success: function (result) {
+                $('#myTabContent1').html(result);
+                $("#Unpaid-tab-pane").addClass("show active");
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
 
     document.getElementById("new-tab").addEventListener('click', function () {
         if (document.getElementById("new-tab").classList.contains("active")) {

@@ -190,4 +190,9 @@
         window.location.href = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
     }
 
+
+    var currentDateCreateRequest = new Date().toISOString().split('T')[0];
+
+    document.getElementById('datePickerId').setAttribute('max', currentDate);
+
 </script>

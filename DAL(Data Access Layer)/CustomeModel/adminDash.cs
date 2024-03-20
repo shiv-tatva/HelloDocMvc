@@ -47,6 +47,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? notes { get; set; }
 
         public string? region { get; set; }
+        public int? region_id { get; set; }
 
         public int? request_type_id { get; set; }
 
@@ -58,7 +59,20 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? cnf_number { get; set; }
 
-        
+        public List<Region> region_table { get; set; }
+
+        public int? region_table_id { get; set; }
+                      
+    }
+
+    public class countMain
+    {
+        public int? count1 { get; set; }
+        public int? count2 { get; set; }
+        public int? count3 { get; set; }
+        public int? count4 { get; set; }
+        public int? count5 { get; set; }
+        public int? count6 { get; set; }
 
     }
 
@@ -402,5 +416,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public sendLink _sendLink { get; set; }
 
         public createRequest _createRequest { get; set; }
+
+        public countMain _countMain { get; set; }
     }
 }

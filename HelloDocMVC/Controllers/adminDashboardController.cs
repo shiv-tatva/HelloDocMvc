@@ -28,22 +28,118 @@ namespace HelloDocMVC.Controllers
         {
             var sessionName = HttpContext.Session.GetString("UserSessionName");
             TempData["headerUserName"] = sessionName;
-            adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData();
             ViewBag.Admin = 4;
-            return View(adminDashObj);
+            return View();
         }
 
 
         public IActionResult LoadPartialDashboard()
         {
+            int[] status = { 1 };
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData();
-
-
+            adminDashObj._countMain = _IAdminDash.countService();
             return PartialView("_adminDash", adminDashObj);
         }
+        
+        
+        public IActionResult newTab(int[] arr)
+        {
+            int typeId = 0;
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
 
+            return PartialView("_adminDashNew", adminDashObj);
+        }
+        public IActionResult pendingTab(int[] arr)
+        {
+            int typeId = 0;
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId,regionId);
+
+            return PartialView("_adminDashPending", adminDashObj);
+        }
+        public IActionResult activeTab(int[] arr)
+        {
+            int typeId = 0;
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+
+            return PartialView("_adminDashActive", adminDashObj);
+        }
+        public IActionResult concludeTab(int[] arr)
+        {
+            int typeId = 0;
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+
+            return PartialView("_adminDashConclude", adminDashObj);
+        }
+        public IActionResult toCloseTab(int[] arr)
+        {
+            int typeId = 0;
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+
+            return PartialView("_adminDashToClose", adminDashObj);
+        }
+        
+        public IActionResult unpaidTab(int[] arr)
+        {
+            int typeId = 0;
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+
+            return PartialView("_adminDashUnpaid", adminDashObj);
+        }
+
+        public IActionResult tableRecords(int[] arr,int typeId)
+        {
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            return PartialView("_adminDashNew", adminDashObj);
+        }
+        public IActionResult tableRecords2(int[] arr,int typeId)
+        {
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            return PartialView("_adminDashPending", adminDashObj);
+        }
+        public IActionResult tableRecords3(int[] arr,int typeId)
+        {
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            return PartialView("_adminDashActive", adminDashObj);
+        }
+        public IActionResult tableRecords4(int[] arr,int typeId)
+        {
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            return PartialView("_adminDashConclude", adminDashObj);
+        }
+        public IActionResult tableRecords5(int[] arr,int typeId)
+        {
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            return PartialView("_adminDashToClose", adminDashObj);
+        }
+        public IActionResult tableRecords6(int[] arr,int typeId)
+        {
+            int regionId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            return PartialView("_adminDashUnpaid", adminDashObj);
+        }
 
         public IActionResult newViewCase(int data)
         {
@@ -392,8 +488,24 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult ExportAll()
         {
-           var exportAll = _IAdminDash.GenerateExcelFile(_IAdminDash.adminData());
+            int regionId = 0;
+            int typeId = 0;
+            int[] status = { 1 ,2,3,4,5,6,7,8,9};
+            var exportAll = _IAdminDash.GenerateExcelFile(_IAdminDash.adminData(status, typeId, regionId));
             return File(exportAll, "application/vnd.ms-excel", "ExportAll.xls");
+        }
+
+        public IActionResult RegionFilter(int[] arr,int regionId)
+        {
+            int typeId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+
+            if(adminDashObj.data.Count == 0)
+            {
+                adminDashObj.data[0].status = arr[0];
+            }
+            return PartialView("_adminDashNew", adminDashObj);
         }
     }
 }
