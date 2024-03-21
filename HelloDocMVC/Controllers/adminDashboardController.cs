@@ -349,7 +349,8 @@ namespace HelloDocMVC.Controllers
         public IActionResult sendAgreement(adminDashData dataMain)
         {
             _IAdminDash.sendAgree(dataMain);
-            return RedirectToAction("adminDashboard");
+            TempData["success"] = "Mail Sent Successfully";
+            return RedirectToAction("adminDashboard");            
         }
 
 
@@ -495,17 +496,85 @@ namespace HelloDocMVC.Controllers
             return File(exportAll, "application/vnd.ms-excel", "ExportAll.xls");
         }
 
-        public IActionResult RegionFilter(int[] arr,int regionId)
+        public IActionResult RegionFilter(int[] arr, int regionId)
         {
             int typeId = 0;
             adminDashData adminDashObj = new adminDashData();
             adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
-
-            if(adminDashObj.data.Count == 0)
-            {
-                adminDashObj.data[0].status = arr[0];
-            }
             return PartialView("_adminDashNew", adminDashObj);
+        }
+        public IActionResult RegionFilter2(int[] arr, int regionId)
+        {
+            int typeId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            return PartialView("_adminDashPending", adminDashObj);
+        }
+        public IActionResult RegionFilter3(int[] arr, int regionId)
+        {
+            int typeId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            return PartialView("_adminDashActive", adminDashObj);
+        }
+        public IActionResult RegionFilter4(int[] arr, int regionId)
+        {
+            int typeId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            return PartialView("_adminDashConclude", adminDashObj);
+        }
+        public IActionResult RegionFilter5(int[] arr, int regionId)
+        {
+            int typeId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            return PartialView("_adminDashToClose", adminDashObj);
+        }
+        public IActionResult RegionFilter6(int[] arr, int regionId)
+        {
+            int typeId = 0;
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            return PartialView("_adminDashUnpaid", adminDashObj);
+        }
+
+        //***************************************Provider**********************************************
+
+        public IActionResult provider()
+        {
+            return PartialView("_adminDashProvider");
+        }
+        //***************************************Provider Location**********************************************
+
+        public IActionResult providerLocation()
+        {
+            return PartialView("_adminDashProviderLocation");
+        }
+        public IActionResult scheduling()
+        {
+            return PartialView("_adminDashScheduling");
+        }
+
+        //***************************************Partners**********************************************
+
+        public IActionResult partners()
+        {
+            return PartialView("_adminDashPartners");
+        }
+        
+        //***************************************Access**********************************************
+
+        public IActionResult access()
+        {
+            return PartialView("_adminDashAccess");
+        }
+        
+        //***************************************Records**********************************************
+
+        public IActionResult records()
+        {
+            return PartialView("_adminDashRecords");
         }
     }
 }

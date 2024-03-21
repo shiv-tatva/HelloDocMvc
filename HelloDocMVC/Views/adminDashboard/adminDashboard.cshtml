@@ -70,9 +70,94 @@
             },
             error: function (e) {
                 console.log(e);
-                alert('Error   vv loading partial view');
+                alert('Error loading partial view');
             }
         });
     }
+
+    function providers() {
+        $.ajax({
+            url: "/adminDashboard/provider",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("Scheduling-tab").classList.remove("active")
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+    
+    function scheduling() {
+        $.ajax({
+            url: "/adminDashboard/scheduling",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("Providers-tab").classList.remove("active")
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+    function providerLocation() {
+        $.ajax({
+            url: "/adminDashboard/providerLocation",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+    
+    
+    function partners() {
+        $.ajax({
+            url: "/adminDashboard/partners",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+    
+    function access() {
+        $.ajax({
+            url: "/adminDashboard/access",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+    function records() {
+        $.ajax({
+            url: "/adminDashboard/records",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+    
+    
+    
+
 </script>
 

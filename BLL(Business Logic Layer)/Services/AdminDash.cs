@@ -75,7 +75,10 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 query = query.Where(x => x.region_id == regionId).Select(r => r).ToList();
             }
-
+            //if(query.Count() == 0)
+            //{
+            //    query[0].status = status[0];
+            //}
             //var result = query.ToList();
 
             return query;
@@ -1012,6 +1015,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 User _user = new User();
                 Aspnetuser _asp = new Aspnetuser();
                 Requestnote _note = new Requestnote();
+                Aspnetuserrole _role = new Aspnetuserrole();
 
                 var _admin = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
@@ -1036,12 +1040,18 @@ namespace BLL_Business_Logic_Layer_.Services
                     _user.Street = data.street;
                     _user.Zipcode = data.zipcode;
                     _user.Strmonth = data.dateofbirth.Substring(5, 2);
-                    _user.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-                    _user.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                    _user.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                    _user.Intyear =  Convert.ToInt16(data.dateofbirth.Substring(0, 4));
                     _user.Createdby = _asp.Id;
                     _user.Createddate = DateTime.Now;
                     _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
                     _context.Users.Add(_user);
+                    _context.SaveChanges();
+
+                    _role.Userid = _asp.Id;
+                    _role.Roleid = 2;
+
+                    _context.Aspnetuserroles.Add(_role);
                     _context.SaveChanges();
 
                     string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _asp.Id;
@@ -1057,7 +1067,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
 
                 _req.Requesttypeid = 1;
-                _req.Userid = _admin.Aspnetuserid;
+                _req.Userid = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
                 _req.Firstname = _admin.Firstname;
                 _req.Lastname = _admin.Lastname;
                 _req.Phonenumber = _admin.Mobile;
@@ -1096,6 +1106,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.SaveChanges();
 
                 _create.indicate = true;
+
+               
             }
 
             return _create;

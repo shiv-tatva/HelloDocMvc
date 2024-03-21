@@ -206,6 +206,7 @@ namespace HelloDocMVC.Controllers
                 PatientDashboard patientDashboard = new PatientDashboard();
 
                 string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
+                string emailpatientName = HttpContext.Session.GetString("UserSessionName").ToString();
                 patientDashboard.data = _patientDashInfo.patientDashInfoTwo(emailpatient, param);
                 ViewData["id"] = param;
 

@@ -46,6 +46,9 @@ public partial class Aspnetuser
     [InverseProperty("ModifiedbyNavigation")]
     public virtual ICollection<Admin> AdminModifiedbyNavigations { get; set; } = new List<Admin>();
 
+    [InverseProperty("User")]
+    public virtual ICollection<Aspnetuserrole> Aspnetuserroles { get; set; } = new List<Aspnetuserrole>();
+
     [InverseProperty("CreatedbyNavigation")]
     public virtual ICollection<Business> BusinessCreatedbyNavigations { get; set; } = new List<Business>();
 

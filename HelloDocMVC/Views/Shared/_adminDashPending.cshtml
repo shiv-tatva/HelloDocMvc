@@ -61,16 +61,23 @@
                     <div class="d-md-flex gap-1">
                         <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
                             <!-- <i class="bi bi-search"></i> -->
-                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad"></i>
-                            <input class="form-control border-0" id="my-search-input" type="search" placeholder="Search" aria-label="Search">
+                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;"></i>
+                            <input class="form-control border-0" id="my-search-input-pending" type="search" placeholder="Search" aria-label="Search">
                         </form>
 
-                        <select class="form-select  mb-2" aria-label="Default select example">
-                            <option selected="">All Region</option>
-                            <option value="1">Gujarat</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        
+                            <select  id="regionFilterPending" onchange="regionClickPending()" class="form-select  mb-2" aria-label="Default select example" asp-for="data[0].region_table_id">
+                                <option id="reason" disabled selected="">
+                                    Select Regions
+                                </option>
+                                <option value="0">
+                                    All Regions
+                                </option>
+                                @foreach (var item in Model.data[0].region_table)
+                                {
+                                    <option value="@item.Regionid">@item.Name</option>
+                                }
+                            </select>
                     </div>
 
                 </div>
@@ -168,12 +175,12 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-white" style="background:@bgColor">Jun 16, 2023(0)</td>
+                                <td class="text-white" style="background:@bgColor">@item.fulldateofbirth</td>
                                     <td class="text-white" style="background:@bgColor">@item.requestor_fname , @item.responseor_lname</td>
                                     <td class="text-white" style="background:@bgColor">
                                         @item.phy_name
                                     </td>
-                                    <td class="text-white" style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                                <td class="text-white" style="background:@bgColor">@item.created_date</td>
                                     <td class="text-white" style="background:@bgColor">
                                         <div class="table_phone">
                                             <a href="">
@@ -457,7 +464,6 @@
     }
 
     $(document).ready(function () {
-
         $('#tableDataMainPending').DataTable({
             "initComplete": function (settings, json) {
 
@@ -471,6 +477,9 @@
             },
             "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
             "pageLength": 5,
+            "order": [[4, "desc"]],
+            "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -694,6 +703,37 @@
 
         // Set the modified HTML content to the input value
         $("input[name='GridHtml']").val(htmlContent);
+    }
+
+    $(document).ready(function () {
+        $("#my-search-input-pending").bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+    });
+
+
+    function regionClickPending() {
+        var value = $("#regionFilterPending").val();
+        console.log(value);
+
+        $.ajax({
+            url: "/adminDashboard/RegionFilter2",
+            data: { arr: [2], regionId: value },
+            traditional: true,
+            contentType: "application/json",
+            type: 'GET',
+            success: function (result) {
+                $("#myTabContent1").html(result);
+                $("#Pending-tab-pane").addClass("show active");
+                $("#regionFilterPending").val(value);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+
     }
 
 </script>

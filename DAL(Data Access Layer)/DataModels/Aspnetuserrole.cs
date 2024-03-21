@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Data_Access_Layer_.DataModels;
 
-[Keyless]
 [Table("aspnetuserroles")]
 public partial class Aspnetuserrole
 {
@@ -16,9 +15,15 @@ public partial class Aspnetuserrole
     [Column("roleid")]
     public int Roleid { get; set; }
 
+    [Key]
+    [Column("aspnetuserrolesid")]
+    public int Aspnetuserrolesid { get; set; }
+
     [ForeignKey("Roleid")]
+    [InverseProperty("Aspnetuserroles")]
     public virtual Aspnetrole Role { get; set; } = null!;
 
     [ForeignKey("Userid")]
+    [InverseProperty("Aspnetuserroles")]
     public virtual Aspnetuser User { get; set; } = null!;
 }

@@ -51,6 +51,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? fulldateofbirth { get; set; }
 
         public string str_month { get; set; }
+        public string status { get; set; }
 
         public int? int_year { get; set; }
 

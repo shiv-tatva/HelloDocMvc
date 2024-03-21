@@ -23,7 +23,7 @@
 
                         <p class="name mb-0" style="font-size:18px;color:#0dcaf0;margin-left:8px;"></p>
                     </div>
-                    <select id="regionDropdown" class="form-select mb-2" aria-label="Default select example" @* asp-for="closeCase.cashtagId" *@>
+                    <select id="regionDropdown" class="form-select mb-2" aria-label="Default select example" asp-for="@Model.transferRequest.regionId">
                         <option name="reason" id="reason" disabled selected>
                             Narrow search by region
                         </option>
@@ -32,6 +32,7 @@
                             <option value="@item.Regionid">@item.Name</option>
                         }
                     </select>
+                    <span asp-validation-for="@Model.transferRequest.regionId" class="text-danger"></span>
 
                     <select id="doctorDropdown" class="form-select mb-2" aria-label="Default select example" asp-for="transferRequest.phy_id_main">
                         <option name="reason" id="reason" disabled selected>Select Physician</option>
@@ -40,6 +41,7 @@
                         <option value="@item.reqid">@item.reasons</option>
                         } *@
                     </select>
+                    <span asp-validation-for="transferRequest.phy_id_main" class="text-danger"></span>
 
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="note" style="height: 100px" asp-for="@Model.transferRequest.description"></textarea>
@@ -57,6 +59,9 @@
     </div>
 </form>
 
+
+        <partial name="_ValidationScriptsPartial" />
+  
 
 <script>
     $("#regionDropdown").on("change", function () {

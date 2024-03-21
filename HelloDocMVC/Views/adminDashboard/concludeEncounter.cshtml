@@ -287,8 +287,6 @@
     }
     disableFields();
 
-    const currentDate = new Date().toISOString().split('T')[0];
-    document.getElementById('floatingInputdate').setAttribute('max', currentDate);
 
     function adminMain() {
         location.reload();
@@ -318,6 +316,11 @@
             }
         });
     }
+
+
+    const currentDateEncounter = new Date().toISOString().split('T')[0];
+
+    document.getElementById('Date').setAttribute('max', currentDateEncounter);
 
 </script>
 

@@ -136,11 +136,13 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Aspnetuserrole>(entity =>
         {
-            entity.HasOne(d => d.Role).WithMany()
+            entity.HasKey(e => e.Aspnetuserrolesid).HasName("aspnetuserroles_pkey");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.Aspnetuserroles)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("aspnetuserroles_roleid_fkey");
 
-            entity.HasOne(d => d.User).WithMany()
+            entity.HasOne(d => d.User).WithMany(p => p.Aspnetuserroles)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("aspnetuserroles_userid_fkey");
         });

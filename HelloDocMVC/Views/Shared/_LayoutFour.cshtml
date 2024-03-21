@@ -87,7 +87,7 @@
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link  text-muted px-3" id="ProviderLocation-tab" data-bs-toggle="tab"
+                                <button onclick="providerLocation()" class="nav-link  text-muted px-3" id="ProviderLocation-tab" data-bs-toggle="tab"
                                         data-bs-target="#ProviderLocation-tab-pane" type="button" role="tab"
                                         aria-controls="ProviderLocation-tab-pane" aria-selected="false">
                                     Provider Location
@@ -99,30 +99,43 @@
                                         aria-selected="false">
                                     My Profile
                                 </button>
+                            </li>                           
+
+                            <li class="nav-item" role="presentation">
+                                <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="providersDropdown">
+                                    <button class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #6c757d!important;border:none;">
+                                        Providers
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="providersDropdown">
+                                        <button onclick="providers()" class="nav-link text-muted px-3" id="Providers-tab" data-bs-toggle="tab"
+                                                data-bs-target="#Providers-tab-pane" type="button" role="tab" aria-controls="Providers-tab-pane"
+                                                aria-selected="false">
+                                            Providers
+                                        </button>
+                                        <button onclick="scheduling()" class="nav-link text-muted px-3" id="Scheduling-tab" data-bs-toggle="tab"
+                                                data-bs-target="#Scheduling-tab-pane" type="button" role="tab" aria-controls="Scheduling-tab-pane"
+                                                aria-selected="false">
+                                            Scheduling
+                                        </button>
+                                    </div>
+                                </div>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link text-muted px-3" id="Providers-tab" data-bs-toggle="tab"
-                                        data-bs-target="#Providers-tab-pane" type="button" role="tab" aria-controls="Providers-tab-pane"
-                                        aria-selected="false">
-                                    Providers
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link text-muted px-3" id="Partners-tab" data-bs-toggle="tab"
+                                <button onclick="partners()" class="nav-link text-muted px-3" id="Partners-tab" data-bs-toggle="tab"
                                         data-bs-target="#Partners-tab-pane" type="button" role="tab" aria-controls="Partners-tab-pane"
                                         aria-selected="false">
                                     Partners
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link text-muted px-3" id="Access-tab" data-bs-toggle="tab"
+                                <button onclick="access()" class="nav-link text-muted px-3" id="Access-tab" data-bs-toggle="tab"
                                         data-bs-target="#Access-tab-pane" type="button" role="tab" aria-controls="Access-tab-pane"
                                         aria-selected="false">
                                     Access
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link text-muted px-3" id="Records-tab" data-bs-toggle="tab"
+                                <button onclick="records()" class="nav-link text-muted px-3" id="Records-tab" data-bs-toggle="tab"
                                         data-bs-target="#Records-tab-pane" type="button" role="tab" aria-controls="Records-tab-pane"
                                         aria-selected="false">
                                     Records

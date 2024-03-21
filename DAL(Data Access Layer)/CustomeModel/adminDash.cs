@@ -178,16 +178,29 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class activeOrder
     {
         public int reqid { get; set; }
+
+        [Required(ErrorMessage = "Please Select Business")]
         public int vendorid { get; set; }
 
         public List<string> business_data { get; set; }
         public List<int> business_id { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Email")]
         public string? email { get; set; }
 
+        [Required(ErrorMessage = "Please Select Profession")]
+        public int? healthId { get; set; }
+
+        
         public List<Healthprofessionaltype> profession  {  get; set; }
+
+        [Required(ErrorMessage = "Please Enter Prescription")]
         public string? prescription { get;  set; }
 
+        [Required(ErrorMessage = "Please Enter Fax Number")]
         public string? fax_num { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Number")]
         public string? business_contact { get; set; }
 
         public int Refill {  get; set; }
@@ -196,8 +209,13 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class transferRequest
     {
         public int reqid { get; set; }
+
+        [Required(ErrorMessage = "Please Select Region")]
+        public int regionId { get; set; }
         public string? description { get; set; }
         public int admin_id { get; set; }
+
+        [Required(ErrorMessage = "Please Select Physician")]
         public int phy_id_main { get; set; }
         public List<int> phy_id { get; set; }
         public List<int> region_id { get; set; }
@@ -218,6 +236,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public int? status { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your Email")]
         public string? email { get; set; }
         public string? mobile_num { get; set; }
     }

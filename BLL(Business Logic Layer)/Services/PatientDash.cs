@@ -34,8 +34,10 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public List<PatientDashboardData> patientDashInfo(string email)
         {
+            var uid = db.Users.Where(r => r.Email == email).Select(x => x.Userid).First();
+            var request = db.Requests.Where(r => r.Userid == uid).AsNoTracking();
 
-            var request = db.Requests.Where(r => r.Email == email).AsNoTracking().Select(r => new PatientDashboardData()
+            var requestMain = request.Select(r => new PatientDashboardData()
             {
                 created_date = r.Createddate,
                 current_status = r.Status,
@@ -46,6 +48,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 fname = r.Firstname,
                 lname = r.Lastname,
                 req_type_id = r.Requesttypeid,
+                status = r.Status.ToString(),
                 //phy_fname = db.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).ToList()[0]
                 documentsname = r.Requestwisefiles.Select(f => f.Filename).ToList(),
                 phy_fname = db.Physicians.Single(x => x.Physicianid == r.Physicianid).Firstname,
@@ -53,7 +56,7 @@ namespace BLL_Business_Logic_Layer_.Services
             }).ToList(); ;
 
 
-            return request;
+            return requestMain;
 
 
         }
@@ -62,7 +65,10 @@ namespace BLL_Business_Logic_Layer_.Services
         public List<PatientDashboardData> patientDashInfoTwo(string email,int param)
         {
 
-            var request = db.Requests.Where(r => r.Email == email).AsNoTracking().Select(r => new PatientDashboardData()
+            var uid = db.Users.Where(r => r.Email == email).Select(x => x.Userid).First();
+            var request = db.Requests.Where(r => r.Userid == uid).AsNoTracking();
+
+            var requestMain = request.Select(r => new PatientDashboardData()
             {
                 created_date = r.Createddate,
                 current_status = r.Status,
@@ -80,7 +86,7 @@ namespace BLL_Business_Logic_Layer_.Services
             }).ToList(); ;
 
 
-            return request;
+            return requestMain;
 
 
         }

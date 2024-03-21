@@ -61,15 +61,21 @@
                     <div class="d-md-flex gap-1">
                         <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
                             <!-- <i class="bi bi-search"></i> -->
-                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad"></i>
-                            <input class="form-control border-0" id="my-search-input" type="search" placeholder="Search" aria-label="Search">
+                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;"></i>
+                            <input class="form-control border-0" id="my-search-input-toclose" type="search" placeholder="Search" aria-label="Search">
                         </form>
 
-                        <select class="form-select  mb-2" aria-label="Default select example">
-                            <option selected="">All Region</option>
-                            <option value="1">Gujarat</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select id="regionFilterToClose" onchange="regionClickToClose()" class="form-select  mb-2" aria-label="Default select example" asp-for="data[0].region_table_id">
+                            <option id="reason" disabled selected="">
+                                Select Regions
+                            </option>
+                            <option value="0">
+                                All Regions
+                            </option>
+                            @foreach (var item in Model.data[0].region_table)
+                            {
+                                <option value="@item.Regionid">@item.Name</option>
+                            }
                         </select>
                     </div>
 
@@ -167,10 +173,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-white" style="background:@bgColor">Jun 16, 2023(0)</td>
+                                <td class="text-white" style="background:@bgColor">@item.fulldateofbirth</td>
                                     <td class="text-white" style="background:@bgColor">@item.region</td>
                                     <td class="text-white" style="background:@bgColor">@item.phy_name</td>
-                                    <td class="text-white" style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                                <td class="text-white" style="background:@bgColor">@item.created_date</td>
                                     <td class="text-white" style="background:@bgColor">Room Location:101</td>
                                     <td class="text-white" style="background:@bgColor">-</td>
                                     <td class="text-white" style="background:@bgColor">
@@ -453,6 +459,8 @@
             },
             "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
             "pageLength": 5,
+            "order": [[4, "desc"]],
+            "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -682,6 +690,36 @@
 
         // Set the modified HTML content to the input value
         $("input[name='GridHtml']").val(htmlContent);
+    }
+
+    $(document).ready(function () {
+        $("#my-search-input-toclose").bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+    });
+
+    function regionClickToClose() {
+        var value = $("#regionFilterToClose").val();
+        console.log(value);
+
+        $.ajax({
+            url: "/adminDashboard/RegionFilter5",
+            data: { arr: [3,7,8], regionId: value },
+            traditional: true,
+            contentType: "application/json",
+            type: 'GET',
+            success: function (result) {
+                $("#myTabContent1").html(result);
+                $("#ToClose-tab-pane").addClass("show active");
+                $("#regionFilterToClose").val(value);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+
     }
 
 </script>

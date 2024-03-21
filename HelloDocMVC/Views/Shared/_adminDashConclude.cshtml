@@ -62,15 +62,21 @@
                     <div class="d-md-flex gap-1">
                         <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
                             <!-- <i class="bi bi-search"></i> -->
-                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad"></i>
-                            <input class="form-control border-0" id="my-search-input" type="search" placeholder="Search" aria-label="Search">
+                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;"></i>
+                            <input class="form-control border-0" id="my-search-input-conclude" type="search" placeholder="Search" aria-label="Search">
                         </form>
 
-                        <select class="form-select  mb-2" aria-label="Default select example">
-                            <option selected="">All Region</option>
-                            <option value="1">Gujarat</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select id="regionFilterConclude" onchange="regionClickConclude()" class="form-select  mb-2" aria-label="Default select example" asp-for="data[0].region_table_id">
+                            <option id="reason" disabled selected="">
+                                Select Regions
+                            </option>
+                            <option value="0">
+                                All Regions
+                            </option>
+                            @foreach (var item in Model.data[0].region_table)
+                            {
+                                <option value="@item.Regionid">@item.Name</option>
+                            }
                         </select>
                     </div>
 
@@ -167,9 +173,9 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-white" style="background:@bgColor">Jun 16, 2023(0)</td>
+                                <td class="text-white" style="background:@bgColor">@item.fulldateofbirth</td>
                                     <td class="text-white" style="background:@bgColor">@item.phy_name</td>
-                                    <td class="text-white" style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                                <td class="text-white" style="background:@bgColor">@item.created_date</td>
                                     <td class="text-white" style="background:@bgColor">
                                         <div class="table_phone">
                                             <a href="">
@@ -451,6 +457,8 @@
             },
             "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
             "pageLength": 5,
+            "order": [[3, "desc"]],
+            "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -561,84 +569,6 @@
         });
     }
 
-    //*************************************************************Editing View************************************/
-
-
-    // function concludeViewNote(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/newViewNote",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-
-    // function concludeViewCase(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/newViewCase",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-
-    // function concludeViewUploads(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/pendingViewUploadMain",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-
-    // function concludeOrders(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/activeOrders",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-
-    // function concludeEncounter(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/concludeEncounter",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-
     function exportBtnConclude() {
         // Get the HTML content of the table
         var htmlContent = $("#tableParentDivConclude").html();
@@ -646,6 +576,36 @@
 
         // Set the modified HTML content to the input value
         $("input[name='GridHtml']").val(htmlContent);
+    }
+
+    $(document).ready(function () {
+        $("#my-search-input-conclude").bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+    });
+
+    function regionClickConclude() {
+        var value = $("#regionFilterConclude").val();
+        console.log(value);
+
+        $.ajax({
+            url: "/adminDashboard/RegionFilter4",
+            data: { arr: [6], regionId: value },
+            traditional: true,
+            contentType: "application/json",
+            type: 'GET',
+            success: function (result) {
+                $("#myTabContent1").html(result);
+                $("#Conclude-tab-pane").addClass("show active");
+                $("#regionFilterConclude").val(value);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+
     }
 
 </script>

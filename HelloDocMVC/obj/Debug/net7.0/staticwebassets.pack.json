@@ -117,6 +117,10 @@
       "PackagePath": "staticwebassets\\Documents\\success-icon.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\total-product.svg",
+      "PackagePath": "staticwebassets\\Documents\\total-product.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\user-default.svg",
       "PackagePath": "staticwebassets\\Documents\\user-default.svg"
     },

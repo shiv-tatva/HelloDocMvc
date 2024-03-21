@@ -5,8 +5,8 @@
 }
 
 @{
-    string[] Enum = { "Unassigned", "Accepted" , "Cancelled" , "MDEnRoute" , "MDEnRoute" , "MDOnSite" ,
-                "Conclude" , "CancelledByPatient" , "Closed" , "Unpaid" , "Clear"   };
+    string[] Enum = { "Unassigned", "Accepted" , "MDEnRoute" , "MDOnSite" , "MDEnRoute" , "Conclude" ,
+                "Cancelled" , "CancelledByPatient" , "Closed" , "Unpaid" , "Clear"   };
 }
 
 <partial name ="_Notification" />
@@ -70,7 +70,7 @@
                         @item.created_date.ToString("MMM")
                         @item.created_date.Year
                     </td>
-                    <td>@Enum[(int)item.req_type_id]</td>
+                    <td>@Enum[Convert.ToInt32(item.status)]</td>
                     @if(@item.doc_Count > 0){
                     <td>
                             <button type="button" class="btn documents " style="width:9em;float:left;"  onclick="location.href='@Url.Action("viewDetail","patientDashboard",new {
