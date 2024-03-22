@@ -28,6 +28,10 @@
         .active {
             color: skyblue !important;
         }
+
+        .show{
+            color: skyblue !important;
+        }
     </style>
 
 </head>
@@ -103,16 +107,17 @@
 
                             <li class="nav-item" role="presentation">
                                 <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="providersDropdown">
-                                    <button class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #6c757d!important;border:none;">
+                                    <button  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
                                         Providers
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="providersDropdown">
-                                        <button onclick="providers()" class="nav-link text-muted px-3" id="Providers-tab" data-bs-toggle="tab"
+                                    <div class="dropdown-menu" aria-labelledby="providersDropdown" style="width:134px!important;">
+                                        <button style="width:100%;" onclick="providers()" class="nav-link text-muted px-3" id="Providers-tab" data-bs-toggle="tab"
                                                 data-bs-target="#Providers-tab-pane" type="button" role="tab" aria-controls="Providers-tab-pane"
                                                 aria-selected="false">
                                             Providers
                                         </button>
-                                        <button onclick="scheduling()" class="nav-link text-muted px-3" id="Scheduling-tab" data-bs-toggle="tab"
+                                        <button style="width:100%;" onclick="scheduling()" class="nav-link text-muted px-3" id="Scheduling-tab" data-bs-toggle="tab"
                                                 data-bs-target="#Scheduling-tab-pane" type="button" role="tab" aria-controls="Scheduling-tab-pane"
                                                 aria-selected="false">
                                             Scheduling

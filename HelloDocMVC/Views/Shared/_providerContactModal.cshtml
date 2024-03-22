@@ -1,0 +1,44 @@
+﻿<div class="modal fade" id="ContactProviderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <div class="modal-title text-light" id="exampleModalLongTitle">Contact Your Provider</div>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <form class="p-3" action="" method="post" id="ContactProviderForm">
+                <input type="text" hidden />
+                <div class="text-secondary">
+                    Choose communication to send message
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ContactRadio" id="SMS" checked>
+                    <label class="form-check-label cursor-pointer" for="SMS">
+                        SMS
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ContactRadio" id="Email">
+                    <label class="form-check-label cursor-pointer" for="Email">
+                        Email
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ContactRadio" id="Both">
+                    <label class="form-check-label cursor-pointer" for="Both">
+                        Both
+                    </label>
+                </div>
+                <div class="mt-4 form-floating text-secondary">
+                    <textarea class="form-control h-100" id="floatingInputMessage" placeholder="Message" rows="3"></textarea>
+                    <label for="floatingInputMessage" class="text-wrap">Message</label>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-info continue-btn mx-2">Send</button>
+                    <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -404,6 +404,24 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public bool? indicate { get; set; }
     }
 
+
+    //**********************************************Provider************************************************
+
+
+    public class provider
+    {
+        public List<Physician> _physician {  get; set; }
+
+        public string role { get; set; }
+        
+        public string onCallStatus { get; set; }
+
+        public string status { get; set; }
+
+        public bool indicate { get; set; }
+    }
+
+    //*****************************************************************************************************
     public class adminDashData
     {
         public List<adminDash> data { get; set;}
@@ -437,5 +455,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public createRequest _createRequest { get; set; }
 
         public countMain _countMain { get; set; }
+
+        public provider _provider { get; set; }
     }
 }

@@ -89,6 +89,7 @@
     <Content Remove="Views\Shared\_adminToCloseCloseCase.cshtml" />
     <Content Remove="Views\Shared\_layoutLoginSubmit.cshtml" />
     <Content Remove="Views\Shared\_myProfile.cshtml" />
+    <Content Remove="Views\Shared\_providerEdit.cshtml" />
     <Content Remove="wwwroot\css\Class.cs" />
     <Content Remove="wwwroot\css\privacy.cs" />
     <Content Remove="wwwroot\css\viewDetail.cshtml" />

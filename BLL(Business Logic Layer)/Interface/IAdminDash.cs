@@ -73,5 +73,10 @@ namespace BLL_Business_Logic_Layer_.Interface
         public createRequest verifyState(string state);
 
         public byte[] GenerateExcelFile(List<adminDash> adminData);
+
+        //***********************************************Provider***************************************
+        public provider providerMain();
+
+        public provider stopNotification(int phyId);
     }
 }

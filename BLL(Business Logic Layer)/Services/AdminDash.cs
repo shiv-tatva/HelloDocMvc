@@ -60,7 +60,7 @@ namespace BLL_Business_Logic_Layer_.Services
                             region_id = rc.Regionid,
                             //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
                             //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
-                            region_table = _context.Regions.ToList(),
+                            //region_table = _context.Regions.ToList(),
                             reqid = r.Requestid,
                             email = rc.Email,
                             fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
@@ -1199,5 +1199,47 @@ namespace BLL_Business_Logic_Layer_.Services
                 return excelPackage.GetAsByteArray();
             }
         }
+
+        //***********************************Provider*************************************
+
+        public provider providerMain()
+        {
+            provider provider = new provider()
+            {
+                _physician = _context.Physicians.ToList(),
+            };
+
+            return provider;
+        }
+
+        public provider stopNotification(int phyId)
+        {
+            provider provider = new provider();
+
+            var phyNotification = _context.Physiciannotifications.Where(r => r.Physicianid == phyId).Select(r => r).First();
+
+            var notification = new BitArray(1);
+            notification[0] = false;
+
+            if (phyNotification.Isnotificationstopped[0] == notification[0])
+            {
+                phyNotification.Isnotificationstopped = new BitArray(1);
+                phyNotification.Isnotificationstopped[0] = true;
+                _context.SaveChanges();
+
+                provider.indicate = true;
+                return provider;
+            }
+            else
+            {
+                phyNotification.Isnotificationstopped = new BitArray(1);
+                phyNotification.Isnotificationstopped[0] = false;
+                _context.SaveChanges();
+
+                provider.indicate = false;
+                return provider;
+            }
+        }
+
     }
 }

@@ -543,18 +543,45 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult provider()
         {
-            return PartialView("_adminDashProvider");
+            adminDashData adminDashData = new adminDashData();
+            adminDashData._provider = _IAdminDash.providerMain();
+            return PartialView("_adminDashProvider", adminDashData);
         }
-        //***************************************Provider Location**********************************************
 
-        public IActionResult providerLocation()
+        public IActionResult providerContactModal()
         {
-            return PartialView("_adminDashProviderLocation");
+            return PartialView("_providerContactModal");
         }
+
+        public IActionResult providerCheckBox(int phyId)
+        {
+            var stopNotification = _IAdminDash.stopNotification(phyId);
+            return Json(new {indicate = stopNotification.indicate });
+        }
+
+        public IActionResult providerEdit()
+        {
+            return View();
+        }
+
+
+
+
+
+
         public IActionResult scheduling()
         {
             return PartialView("_adminDashScheduling");
         }
+
+        //***************************************Provider Location**********************************************
+
+        public IActionResult providerLocation()
+        {            
+            return PartialView("_adminDashProviderLocation");
+        }
+
+       
 
         //***************************************Partners**********************************************
 
