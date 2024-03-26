@@ -1,4 +1,6 @@
-﻿<div class="modal fade" id="ContactProviderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+<div class="modal fade" id="ContactProviderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -6,7 +8,8 @@
                 <div class="modal-title text-light" id="exampleModalLongTitle">Contact Your Provider</div>
                 <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
-            <form class="p-3" action="" method="post" id="ContactProviderForm">
+            <form class="p-3" method="post" id="ContactProviderForm" >
+                @* <input type="hidden" asp-for="@Model._provider.phyId" value="@Model._provider.phyId" /> *@
                 <input type="text" hidden />
                 <div class="text-secondary">
                     Choose communication to send message
@@ -30,15 +33,62 @@
                     </label>
                 </div>
                 <div class="mt-4 form-floating text-secondary">
-                    <textarea class="form-control h-100" id="floatingInputMessage" placeholder="Message" rows="3"></textarea>
+                    <textarea asp-for="@Model._provider.message" class="form-control h-100" id="floatingInputMessage" placeholder="Message" rows="3"></textarea>
                     <label for="floatingInputMessage" class="text-wrap">Message</label>
+                    <span asp-validation-for="@Model._provider.message" class="text-danger"></span>
                 </div>
 
                 <div class="mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-info continue-btn mx-2">Send</button>
+                    <button type="button" onclick="providerContactSendBtn(@Model._provider.phyId)" class="btn btn-info continue-btn mx-2">Send</button>
                     <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    function providerContactSendBtn(phyId) {
+        var msg = $("#floatingInputMessage").val();
+        var checkboxes = document.querySelectorAll('input[type="radio"]:checked');
+
+        console.log(checkboxes[0].id)
+
+
+        if ($("#ContactProviderForm").valid()) {
+            if (checkboxes[0].id == "SMS") {
+                toastr.error("SMS Service Is Not Available!")
+            } else if (checkboxes[0].id == "Email") {
+                $.ajax({
+                    url: "/adminDashboard/providerContactModalEmail",
+                    data: { phyIdMain: phyId, msg: msg },
+                    type: 'POST',
+                    success: function (result) {
+                        toastr.success("Email Sent Successfully")
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                });
+            } else if (checkboxes[0].id == "Both") {
+
+                toastr.error("SMS Service Is Not Available!")
+
+                $.ajax({
+                    url: "/adminDashboard/providerContactModalEmail",
+                    data: { phyIdMain: phyId, msg: msg },
+                    type: 'POST',
+                    success: function (result) {
+                        toastr.success("Email Sent Successfully")
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                });
+            }
+        }
+    }
+</script>

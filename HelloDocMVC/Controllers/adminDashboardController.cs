@@ -548,9 +548,20 @@ namespace HelloDocMVC.Controllers
             return PartialView("_adminDashProvider", adminDashData);
         }
 
-        public IActionResult providerContactModal()
+        public IActionResult providerContactModal(int phyId)
         {
-            return PartialView("_providerContactModal");
+            adminDashData obj = new adminDashData();
+            obj._provider = _IAdminDash.providerContact(phyId);
+
+            return PartialView("_providerContactModal", obj);
+        }
+
+        [HttpPost]
+        public IActionResult providerContactModalEmail(int phyIdMain,string msg)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            var _provider = _IAdminDash.providerContactEmail(phyIdMain,msg, sessionEmail);
+            return RedirectToAction("provider");
         }
 
         public IActionResult providerCheckBox(int phyId)
@@ -559,8 +570,11 @@ namespace HelloDocMVC.Controllers
             return Json(new {indicate = stopNotification.indicate });
         }
 
-        public IActionResult providerEdit()
+        public IActionResult providerEdit(int phyId)
         {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            adminDashData data = new adminDashData();
+            data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail);
             return View();
         }
 

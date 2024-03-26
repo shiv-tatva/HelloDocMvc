@@ -1,6 +1,7 @@
 ﻿using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing.Printing;
@@ -405,6 +406,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     }
 
 
+
+
     //**********************************************Provider************************************************
 
 
@@ -412,13 +415,107 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public List<Physician> _physician {  get; set; }
 
-        public string role { get; set; }
-        
-        public string onCallStatus { get; set; }
+        public List<Physiciannotification> _notification {  get; set; }
 
-        public string status { get; set; }
+        public List<Role> _roles { get; set; }
+        public List<Shift> _shift { get; set; }
+        public List<Shiftdetail> _shiftDetails { get; set; }
+        
+        public string? onCallStatus { get; set; }
+
+        public string? status { get; set; }
 
         public bool indicate { get; set; }
+
+        public int? phyId { get; set; }
+
+        [Required(ErrorMessage = "Please Enter A Message")]
+        public string? message { get; set; }
+
+        public int? statusId {  get; set; }
+        public int? shiftId {  get; set; }
+
+        public DateTime DateTime { get; set; }
+
+    }
+
+    public class AdminEditPhysicianProfile
+    {
+
+        public string? username { get; set; }
+
+        public string? password { get; set; }
+
+        public string? Email { get; set; }
+
+        public string? PhoneNumber { get; set; }
+
+        public string? Status { get; set; }
+
+
+        public string? city { get; set; }
+
+        public string? country { get; set; }
+
+        public string? zipcode { get; set; }
+
+        public string? Firstname { get; set; }
+
+        public string? Lastname { get; set; }
+
+        public int? Regionid { get; set; }
+
+        public int? Roleid { get; set; }
+
+        public string? MedicalLicesnse { get; set; }
+
+        public string? NPInumber { get; set; }
+
+        public string? SycnEmail { get; set; }
+
+        public string? Businessname { get; set; }
+
+        public string? BusinessWebsite { get; set; }
+
+        public string? Adminnotes { get; set; }
+
+        public string? Address1 { get; set; }
+        public string? Address2 { get; set; }
+
+        public int PhyID { get; set; }
+
+        public List<Region> regions { get; set; }
+
+        public List<Physicianregion> physicianregions { get; set; }
+
+        public string? altPhone { get; set; }
+        public string? State { get; set; }
+
+        public IFormFile Photo { get; set; }
+
+        public IFormFile Signature { get; set; }
+
+        public BitArray isAgreementdoc { get; set; }
+
+        public BitArray isBackgrounddoc { get; set; }
+
+        public BitArray isTrainingdoc { get; set; }
+
+        public BitArray isNondiclosuserdoc { get; set; }
+
+        public BitArray isLicesensdoc { get; set; }
+
+        public IFormFile isAgreementdocument { get; set; }
+
+        public IFormFile isBackgrounddocument { get; set; }
+
+        public IFormFile isTrainingdocument { get; set; }
+
+        public IFormFile isNondiclosuserdocument { get; set; }
+
+        public IFormFile isLicesensdocument { get; set; }
+
+        public List<Role> roles { get; set; }
     }
 
     //*****************************************************************************************************
@@ -448,7 +545,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public myProfile _myProfile { get; set; }
 
-        public concludeEncounter _encounter { get; set; }
+        public concludeEncounter _encounter { get; set; } 
 
         public sendLink _sendLink { get; set; }
 
@@ -457,5 +554,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public countMain _countMain { get; set; }
 
         public provider _provider { get; set; }
+
+        public AdminEditPhysicianProfile _providerEdit { get; set; }
     }
 }

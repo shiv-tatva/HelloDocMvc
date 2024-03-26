@@ -1207,6 +1207,11 @@ namespace BLL_Business_Logic_Layer_.Services
             provider provider = new provider()
             {
                 _physician = _context.Physicians.ToList(),
+                _notification = _context.Physiciannotifications.ToList(),
+                _roles = _context.Roles.ToList(),
+                _shift = _context.Shifts.ToList(),
+                _shiftDetails = _context.Shiftdetails.ToList(),
+                DateTime = DateTime.Now,
             };
 
             return provider;
@@ -1241,5 +1246,101 @@ namespace BLL_Business_Logic_Layer_.Services
             }
         }
 
+        public provider providerContact(int phyId)
+        {
+            provider _provider = new provider()
+            {
+                phyId = phyId,
+            };
+
+            return _provider;
+        }
+
+        public provider providerContactEmail(int phyIdMain,string msg, string sessionEmail)
+        {
+            provider _provider = new provider();
+            
+            _provider.phyId = phyIdMain;
+
+            var provider = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r.Email).First();                       
+
+            try
+            {
+                SendRegistrationproviderContactEmail(provider, msg, sessionEmail, phyIdMain);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+                    
+            return _provider;
+        }
+
+        private void SendRegistrationproviderContactEmail(string provider,string msg, string sessionEmail, int phyIdMain)
+        {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Mail For provider",
+                IsBodyHtml = true,
+                Body = $"{msg}",
+            };
+
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + provider + "Subject : " + mailMessage.Subject + "Message : " + msg,
+                Emailid = provider,
+                Roleid = 1,
+                Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First(),
+                Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+
+            };
+
+            _context.Emaillogs.Add(emailLog);
+            _context.SaveChanges();
+
+            mailMessage.To.Add(provider);
+
+            client.Send(mailMessage);
+        }
+
+        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail)
+        {
+            var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+
+            AdminEditPhysicianProfile _profile = new AdminEditPhysicianProfile()
+            {              
+                //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
+                Firstname = phy.Firstname,
+                Lastname = phy.Lastname,
+                Email = phy.Email,
+                PhoneNumber = phy.Mobile,
+                MedicalLicesnse = phy.Medicallicense,
+                NPInumber = phy.Npinumber,
+                SycnEmail = phy.Syncemailaddress,
+                regions = _context.Regions.ToList(),
+                Address1 = phy.Address1,
+                Address2 = phy.Address2,
+                city = phy.City,
+                
+            };
+
+            return _profile;
+        }
     }
 }

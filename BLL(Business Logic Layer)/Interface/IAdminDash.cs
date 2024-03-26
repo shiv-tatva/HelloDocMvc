@@ -78,5 +78,11 @@ namespace BLL_Business_Logic_Layer_.Interface
         public provider providerMain();
 
         public provider stopNotification(int phyId);
+
+        public provider providerContact(int phyId);
+
+        public provider providerContactEmail(int phyIdMain, string msg,string sessionEmail);
+
+        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail);
     }
 }
