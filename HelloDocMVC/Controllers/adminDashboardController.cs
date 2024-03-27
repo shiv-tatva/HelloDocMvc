@@ -8,6 +8,7 @@ using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using HalloDoc.mvc.Auth;
 using System.Text;
+using System.Reflection;
 
 namespace HelloDocMVC.Controllers
 {
@@ -540,7 +541,7 @@ namespace HelloDocMVC.Controllers
         }
 
         //***************************************Provider**********************************************
-
+  
         public IActionResult provider()
         {
             adminDashData adminDashData = new adminDashData();
@@ -548,7 +549,7 @@ namespace HelloDocMVC.Controllers
             return PartialView("_adminDashProvider", adminDashData);
         }
 
-        public IActionResult providerContactModal(int phyId)
+        public IActionResult providerContactModal(int phyId) 
         {
             adminDashData obj = new adminDashData();
             obj._provider = _IAdminDash.providerContact(phyId);
@@ -575,6 +576,41 @@ namespace HelloDocMVC.Controllers
             var sessionEmail = HttpContext.Session.GetString("UserSession");
             adminDashData data = new adminDashData();
             data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail);
+            data._RegionTable = _IAdminDash.RegionTable(phyId);
+            data._phyRegionTable = _IAdminDash.PhyRegionTable(phyId);
+            data._role = _IAdminDash.physicainRole();
+            return View(data);
+        }
+
+
+        [HttpPost]
+        public IActionResult providerEditFirst(string password,int phyId,string email)
+        {
+            bool editProvider = _IAdminDash.providerResetPass(email, password);
+            return Json(new { indicate = editProvider, phyId = phyId });
+        }
+
+
+        [HttpPost]
+        public IActionResult editProviderForm1(int phyId,int roleId,int statusId)
+        {
+            bool editProviderForm1 = _IAdminDash.editProviderForm1(phyId,roleId, statusId);
+            return Json(new { indicate = editProviderForm1, phyId = phyId });
+        }
+
+        [HttpPost]
+        public IActionResult editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId,int[] phyRegionArray)
+        {
+            bool editProviderForm2 = _IAdminDash.editProviderForm2( fname,  lname,  email,  phone,  medical,  npi,  sync,  phyId,  phyRegionArray);
+            return Json(new { indicate = editProviderForm2, phyId = phyId });
+        }
+        
+        [HttpPost]
+        public IActionResult editProviderForm3(adminDashData payloadMain,int phyId)
+        {
+            //bool editProviderForm2 = _IAdminDash.editProviderForm2(payloadMain);
+            //return Json(new { indicate = editProviderForm2, phyId = phyId });
+
             return View();
         }
 

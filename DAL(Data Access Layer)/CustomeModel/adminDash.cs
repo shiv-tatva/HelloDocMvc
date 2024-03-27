@@ -483,13 +483,15 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? Address2 { get; set; }
 
         public int PhyID { get; set; }
+        public int statusId { get; set; }
 
         public List<Region> regions { get; set; }
 
-        public List<Physicianregion> physicianregions { get; set; }
+        //public List<Physicianregion> physicianregions { get; set; }
 
         public string? altPhone { get; set; }
         public string? State { get; set; }
+        public string? flag { get; set; }
 
         public IFormFile Photo { get; set; }
 
@@ -516,6 +518,18 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public IFormFile isLicesensdocument { get; set; }
 
         public List<Role> roles { get; set; }
+    }
+
+
+    public class PhysicianRegionTable
+    {
+        public int PhysicianId { get; set; }
+
+        public int Regionid { get; set; }
+
+        public string Name { get; set; }
+
+        public bool ExistsInTable { get; set; }
     }
 
     //*****************************************************************************************************
@@ -556,5 +570,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public provider _provider { get; set; }
 
         public AdminEditPhysicianProfile _providerEdit { get; set; }
+        public List<Region> _RegionTable { get; set; }
+        public List<PhysicianRegionTable> _phyRegionTable { get; set; }
+
+        public List<Role> _role {  get; set; }
     }
 }

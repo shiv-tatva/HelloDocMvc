@@ -20,6 +20,7 @@ using Microsoft.CodeAnalysis;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
 using OfficeOpenXml;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -1323,6 +1324,8 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
 
+            var user = _context.Aspnetusers.Where(r => r.Email == phy.Email).First();
+
             AdminEditPhysicianProfile _profile = new AdminEditPhysicianProfile()
             {              
                 //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
@@ -1333,14 +1336,141 @@ namespace BLL_Business_Logic_Layer_.Services
                 MedicalLicesnse = phy.Medicallicense,
                 NPInumber = phy.Npinumber,
                 SycnEmail = phy.Syncemailaddress,
-                regions = _context.Regions.ToList(),
                 Address1 = phy.Address1,
                 Address2 = phy.Address2,
                 city = phy.City,
-                
+                zipcode = phy.Zip,
+                altPhone = phy.Altphone,
+                Businessname = phy.Businessname,
+                BusinessWebsite = phy.Businesswebsite,
+                Adminnotes = phy.Adminnotes,
+                statusId = (int)phy.Status,
+                PhyID = phyId,
+                Roleid = phy.Roleid,
+
+                username = user.Username,
+                password = user.Passwordhash,
             };
 
             return _profile;
         }
+
+        public List<Region> RegionTable(int phyId)
+        {
+            var region = _context.Regions.ToList();
+            return region;
+        }
+        
+        public List<PhysicianRegionTable> PhyRegionTable(int phyId)
+        {
+            var region = _context.Regions.ToList();
+            var phyRegion = _context.Physicianregions.ToList();
+
+            var checkedRegion = region.Select(r1 => new PhysicianRegionTable
+            {
+                Regionid = r1.Regionid,
+                Name = r1.Name,
+                ExistsInTable = phyRegion.Any(r2 => r2.Physicianid == phyId && r2.Regionid == r1.Regionid),
+            }).ToList();
+
+            return checkedRegion;
+        }
+
+        public List<Role> physicainRole()
+        {
+            var role = _context.Roles.ToList();
+
+            return role;
+        }
+
+        public bool providerResetPass(string email, string password)
+        {
+            var resetPass = _context.Aspnetusers.Where(r => r.Email == email).Select(r => r).First();
+
+            if(resetPass.Passwordhash != password)
+            {
+                resetPass.Passwordhash = password;
+                _context.SaveChanges();
+
+                return true;
+            }
+            return false;
+
+        }
+
+        public bool editProviderForm1(int phyId, int roleId,int statusId )
+        {
+            var user = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+
+            if(user.Status != (short)statusId || user.Roleid != roleId)
+            {
+                user.Status = (short)statusId;
+                user.Roleid = roleId;
+                    
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray)
+        {
+            var user = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+            var aspUser = _context.Aspnetusers.Where(r => r.Id == user.Aspnetuserid).Select(r => r).First();
+
+            if(user.Firstname != fname || user.Lastname != lname || user.Email != email || user.Mobile != phone || user.Medicallicense != medical || user.Npinumber != npi || user.Syncemailaddress != sync)
+            {
+                user.Firstname = fname;
+                user.Lastname = lname;
+                if(user.Email != email)
+                {
+                    user.Email = email;
+                    aspUser.Email = email;
+                }
+                
+                user.Mobile = phone;
+                user.Medicallicense = medical;
+                user.Npinumber = npi;
+                user.Syncemailaddress = sync;
+
+                _context.SaveChanges();                             
+
+                return true;
+            }
+
+            var abc = _context.Physicianregions.Where(x => x.Physicianid == phyId).Select(r => r.Regionid).ToList();
+
+            var changes = abc.Except(phyRegionArray);
+
+
+            if (changes.Any())
+            {
+                if (_context.Physicianregions.Any(x => x.Physicianid == phyId))
+                {
+                    var physicianRegion = _context.Physicianregions.Where(x => x.Physicianid == phyId).ToList();
+
+                    _context.Physicianregions.RemoveRange(physicianRegion);
+                    _context.SaveChanges();
+                }
+
+                var phyRegion = _context.Physicianregions.ToList();
+
+                foreach (var item in phyRegionArray)
+                {
+                    var region = _context.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                    _context.Physicianregions.Add(new Physicianregion
+                    {
+                        Physicianid = phyId,
+                        Regionid = region.Regionid,
+                    });
+                }
+                _context.SaveChanges();
+                return true;
+            }         
+
+            return false;
+        }
+        
     }
 }
