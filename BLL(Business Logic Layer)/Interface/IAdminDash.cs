@@ -85,7 +85,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail);
 
-        public List<Region> RegionTable(int phyId);
+        public List<Region> RegionTable();
         public List<PhysicianRegionTable> PhyRegionTable(int phyId);
 
         public List<Role> physicainRole();
@@ -94,5 +94,25 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public bool editProviderForm1(int phyId, int roleId, int statusId);
         public bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray);
+
+        public AdminEditPhysicianProfile editProviderForm3(adminDashData dataMain);
+        public AdminEditPhysicianProfile PhysicianBusinessInfoUpdate(adminDashData dataMain);
+        public AdminEditPhysicianProfile EditOnBoardingData(adminDashData dataMain);
+        public void editProviderDeleteAccount(int phyId);
+        public AdminEditPhysicianProfile createProviderAccount(adminDashData obj, List<int> physicianRegions);
+
+        public List<AccountAccess> GetAccountAccessData();
+        public List<Aspnetrole> GetAccountType();
+        public List<Menu> GetMenu(int accounttype);
+        void SetCreateAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string UserSession);
+
+        public List<AccountMenu> GetAccountMenu(int accounttype, int roleid);
+        AccountAccess GetEditAccessData(int roleid);
+        void SetEditAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string sessionEmail);
+        void DeleteAccountAccess(int roleid);
+
+        public List<Aspnetrole> GetAccountTypeRoles();
+
+        public List<UserAccess> GetUserdata(int accounttypeid);
     }
 }

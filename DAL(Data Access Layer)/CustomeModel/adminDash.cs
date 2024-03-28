@@ -491,33 +491,40 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? altPhone { get; set; }
         public string? State { get; set; }
+        public int? StateId { get; set; }
         public string? flag { get; set; }
 
-        public IFormFile Photo { get; set; }
+        public IFormFile? Photo { get; set; }
 
-        public IFormFile Signature { get; set; }
+        public string? PhotoValue { get; set; }
 
-        public BitArray isAgreementdoc { get; set; }
+        public IFormFile? Signature { get; set; }
 
-        public BitArray isBackgrounddoc { get; set; }
+        public string? SignatureValue { get; set; }
 
-        public BitArray isTrainingdoc { get; set; }
+        public IFormFile? ContractorAgreement { get; set; }
 
-        public BitArray isNondiclosuserdoc { get; set; }
+        public bool IsContractorAgreement { get; set; }
 
-        public BitArray isLicesensdoc { get; set; }
+        public IFormFile? BackgroundCheck { get; set; }
 
-        public IFormFile isAgreementdocument { get; set; }
+        public bool IsBackgroundCheck { get; set; }
 
-        public IFormFile isBackgrounddocument { get; set; }
+        public IFormFile? HIPAA { get; set; }
 
-        public IFormFile isTrainingdocument { get; set; }
+        public bool IsHIPAA { get; set; }
 
-        public IFormFile isNondiclosuserdocument { get; set; }
+        public IFormFile? NonDisclosure { get; set; }
 
-        public IFormFile isLicesensdocument { get; set; }
+        public bool IsNonDisclosure { get; set; }
+
+        public IFormFile? LicenseDocument { get; set; }
+
+        public bool IsLicenseDocument { get; set; }
 
         public List<Role> roles { get; set; }
+
+        public bool? indicate { get; set; }
     }
 
 

@@ -1347,6 +1347,14 @@ namespace BLL_Business_Logic_Layer_.Services
                 statusId = (int)phy.Status,
                 PhyID = phyId,
                 Roleid = phy.Roleid,
+                Regionid = phy.Regionid,
+                PhotoValue = phy.Photo,
+                SignatureValue = phy.Signature,
+                IsContractorAgreement = phy.Isagreementdoc == null ? false : true,
+                IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
+                IsHIPAA = phy.Istrainingdoc == null ? false : true,
+                IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
+                IsLicenseDocument = phy.Islicensedoc == null ? false : true,                
 
                 username = user.Username,
                 password = user.Passwordhash,
@@ -1355,7 +1363,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return _profile;
         }
 
-        public List<Region> RegionTable(int phyId)
+        public List<Region> RegionTable()
         {
             var region = _context.Regions.ToList();
             return region;
@@ -1471,6 +1479,533 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return false;
         }
-        
+
+
+        public AdminEditPhysicianProfile editProviderForm3(adminDashData dataMain)
+        {
+            AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
+
+            var data = _context.Physicians.Where(r => r.Physicianid == dataMain._providerEdit.PhyID).Select(r => r).First();
+            if(data.Address1 != dataMain._providerEdit.Address1 || data.Address2 != dataMain._providerEdit.Address2 || data.City != dataMain._providerEdit.city || data.Regionid != dataMain._providerEdit.Regionid || data.Zip != dataMain._providerEdit.zipcode || data.Altphone != dataMain._providerEdit.altPhone)
+            {
+                data.Address1 = dataMain._providerEdit.Address1;
+                data.Address2 = dataMain._providerEdit.Address2;
+                data.City = dataMain._providerEdit.city;
+                data.Regionid = dataMain._providerEdit.Regionid;
+                data.Zip = dataMain._providerEdit.zipcode;
+                data.Altphone = dataMain._providerEdit.altPhone;
+
+                _context.SaveChanges();
+
+                flag.PhyID = dataMain._providerEdit.PhyID;
+                flag.indicate = true;
+
+                return flag;
+            }
+
+            flag.PhyID = dataMain._providerEdit.PhyID;
+            flag.indicate = false;
+
+            return flag;
+        }
+
+       public AdminEditPhysicianProfile PhysicianBusinessInfoUpdate(adminDashData dataMain)
+        {
+            AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
+
+            var physician = _context.Physicians.FirstOrDefault(x => x.Physicianid == dataMain._providerEdit.PhyID);
+
+            if (physician != null)
+            {                
+                    physician.Businessname = dataMain._providerEdit.Businessname;
+                    physician.Businesswebsite = dataMain._providerEdit.BusinessWebsite;
+                    physician.Adminnotes = dataMain._providerEdit.Adminnotes;
+                    physician.Modifieddate = DateTime.Now;
+
+                    _context.SaveChanges();
+
+                    if (dataMain._providerEdit.Photo != null || dataMain._providerEdit.Signature != null)
+                    {
+                        AddProviderBusinessPhotos(dataMain._providerEdit.Photo, dataMain._providerEdit.Signature, dataMain._providerEdit.PhyID);
+                    }                   
+                
+            }
+            flag.indicate = true;
+            flag.PhyID = dataMain._providerEdit.PhyID;
+            return flag;
+        }
+
+        public void AddProviderBusinessPhotos(IFormFile photo, IFormFile signature, int phyId)
+        {
+            var physician = _context.Physicians.FirstOrDefault(x => x.Physicianid == phyId);
+
+            if (photo != null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", photo.FileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    photo.CopyTo(fileStream);
+                }
+
+                physician.Photo = photo.FileName;
+            }
+
+            if (signature != null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", signature.FileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    signature.CopyTo(fileStream);
+                }
+
+                physician.Signature = signature.FileName;
+            }
+
+            _context.SaveChanges();
+
+        }
+
+
+
+
+        public AdminEditPhysicianProfile EditOnBoardingData(adminDashData dataMain)
+        {
+            AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
+
+            var physicianData = _context.Physicians.FirstOrDefault(x => x.Physicianid == dataMain._providerEdit.PhyID);
+
+            string directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", physicianData.Physicianid.ToString());
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            if (dataMain._providerEdit.ContractorAgreement != null)
+            {
+                string path = Path.Combine(directory, "Independent_Contractor" + Path.GetExtension(dataMain._providerEdit.ContractorAgreement.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain._providerEdit.ContractorAgreement.CopyTo(fileStream);
+                }
+
+                physicianData.Isagreementdoc = new BitArray(1, true);
+            }
+
+            if (dataMain._providerEdit.BackgroundCheck != null)
+            {
+                string path = Path.Combine(directory, "Background" + Path.GetExtension(dataMain._providerEdit.BackgroundCheck.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain._providerEdit.BackgroundCheck.CopyTo(fileStream);
+                }
+
+                physicianData.Isbackgrounddoc = new BitArray(1, true);
+            }
+
+            if (dataMain._providerEdit.HIPAA != null)
+            {
+                string path = Path.Combine(directory, "HIPAA" + Path.GetExtension(dataMain._providerEdit.HIPAA.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain._providerEdit.HIPAA.CopyTo(fileStream);
+                }
+
+                physicianData.Istrainingdoc = new BitArray(1, true);
+            }
+
+            if (dataMain._providerEdit.NonDisclosure != null)
+            {
+                string path = Path.Combine(directory, "Non_Disclosure" + Path.GetExtension(dataMain._providerEdit.NonDisclosure.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain._providerEdit.NonDisclosure.CopyTo(fileStream);
+                }
+
+                physicianData.Isnondisclosuredoc = new BitArray(1, true);
+            }
+
+            if (dataMain._providerEdit.LicenseDocument != null)
+            {
+                string path = Path.Combine(directory, "Licence" + Path.GetExtension(dataMain._providerEdit.LicenseDocument.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain._providerEdit.LicenseDocument.CopyTo(fileStream);
+                }
+
+                physicianData.Islicensedoc = new BitArray(1, true);
+            }
+
+            _context.SaveChanges();
+
+            flag.PhyID = dataMain._providerEdit.PhyID;
+            flag.indicate = true;
+
+            return flag;
+
+        }
+
+        public AdminEditPhysicianProfile createProviderAccount(adminDashData obj, List<int> physicianRegions)
+        {
+            AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
+
+            var aspUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == obj._providerEdit.Email);
+
+
+            if(aspUser == null)
+            {
+                
+
+                Aspnetuser _user = new Aspnetuser();
+                Physician phy = new Physician();
+
+                _user.Username = obj._providerEdit.username;
+                _user.Passwordhash = obj._providerEdit.password;
+                _user.Email = obj._providerEdit.Email;
+                _user.Phonenumber = obj._providerEdit.PhoneNumber;
+                _user.Createddate = DateTime.Now;
+
+                _context.Aspnetusers.Add(_user);
+                _context.SaveChanges();
+
+
+
+                phy.Aspnetuserid = _user.Id;
+                phy.Firstname = obj._providerEdit.Firstname;
+                phy.Lastname = obj._providerEdit.Lastname;
+                phy.Email = obj._providerEdit.Email;
+                phy.Mobile = obj._providerEdit.PhoneNumber;
+                phy.Medicallicense = obj._providerEdit.MedicalLicesnse;
+                phy.Adminnotes = obj._providerEdit.Adminnotes;
+                phy.Address1 = obj._providerEdit.Address1;
+                phy.Address2 = obj._providerEdit.Address2;
+                phy.City = obj._providerEdit.city;
+                phy.Regionid = obj._providerEdit.Regionid;
+                phy.Zip = obj._providerEdit.zipcode;
+                phy.Altphone = obj._providerEdit.altPhone;
+                phy.Createdby = null;
+                phy.Createddate = _user.Createddate;
+                phy.Status = 1;
+                phy.Businessname = obj._providerEdit.Businessname;
+                phy.Businesswebsite = obj._providerEdit.BusinessWebsite;
+                phy.Roleid = obj._providerEdit.Roleid;
+                phy.Syncemailaddress = obj._providerEdit.SycnEmail;
+
+                _context.Physicians.Add(phy);
+                _context.SaveChanges();
+
+
+
+                foreach (var item in physicianRegions)
+                {
+                    var region = _context.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                    _context.Physicianregions.Add(new Physicianregion
+                    {
+                        Physicianid = phy.Physicianid,
+                        Regionid = region.Regionid,
+                    });
+                }
+                _context.SaveChanges();
+
+                Physiciannotification notification = new Physiciannotification();
+                notification.Physicianid = phy.Physicianid;
+
+                _context.Physiciannotifications.Add(notification);
+                _context.SaveChanges();
+
+                flag.indicate = true;
+                return flag;
+            }
+
+            flag.indicate = false;
+            return flag;
+        }
+
+
+        public void editProviderDeleteAccount(int phyId)
+        {
+            var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+
+            if (phy.Isdeleted == null)
+            {
+                phy.Isdeleted = new BitArray(1);
+                phy.Isdeleted[0] = true;
+
+                _context.SaveChanges();
+            }
+
+            
+        }
+
+
+        //*************************************************************Access***********************************************************
+
+        public List<AccountAccess> GetAccountAccessData()
+        {
+            BitArray deletedBit = new BitArray(new[] { false });
+            var Roles = _context.Roles.Where(i => i.Isdeleted.Equals(deletedBit));
+            var Accessdata = Roles.Select(r => new AccountAccess()
+            {
+                name = r.Name,
+                accounttype = _context.Aspnetroles.FirstOrDefault(x => x.Id == r.Accounttype).Name,
+                accounttypeid = r.Accounttype,
+                roleid = r.Roleid,
+            }).ToList();
+            return Accessdata;
+        }
+
+        public List<Aspnetrole> GetAccountType()
+        {
+            var role = _context.Aspnetroles.ToList();
+            return role;
+        }
+
+        public List<Menu> GetMenu(int accounttype)
+        {
+            if (accounttype != 0)
+            {
+                var menu = _context.Menus.Where(r => r.Accounttype == accounttype).ToList();
+                return menu;
+            }
+            else
+            {
+
+                var menu = _context.Menus.ToList();
+                return menu;
+            }
+        }
+
+        public void SetCreateAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string UserSession)
+        {
+            var user = _context.Aspnetusers.Where(r => r.Email == UserSession).Select(r => r).First();
+            
+            if (accountAccess != null)
+            {
+                var role = new Role()
+                {
+                    Name = accountAccess.name,
+                    Accounttype = (short)accountAccess.accounttypeid,
+                    Createdby = user.Id,
+                    Createddate = DateTime.Now,
+                    Isdeleted = new BitArray(1, false),
+                };
+                _context.Add(role);
+                _context.SaveChanges();
+
+                if (AccountMenu != null)
+                {
+                    foreach (int menuid in AccountMenu)
+                    {
+                        _context.Rolemenus.Add(new Rolemenu
+                        {
+                            Roleid = role.Roleid,
+                            Menuid = menuid,
+                        });
+                    }
+                    _context.SaveChanges();
+                }
+            }
+        }
+
+        public List<AccountMenu> GetAccountMenu(int accounttype, int roleid)
+        {
+
+            var menu = _context.Menus.Where(r => r.Accounttype == accounttype).ToList();
+
+
+            var rolemenu = _context.Rolemenus.ToList();
+
+            var checkedMenu = menu.Select(r1 => new AccountMenu
+            {
+                menuid = r1.Menuid,
+                name = r1.Name,
+                ExistsInTable = rolemenu.Any(r2 => r2.Roleid == roleid && r2.Menuid == r1.Menuid),
+
+            }).ToList();
+
+            return checkedMenu;
+
+        }
+        public AccountAccess GetEditAccessData(int roleid)
+        {
+            var role = _context.Roles.FirstOrDefault(i => i.Roleid == roleid);
+            if (role != null)
+            {
+                var roledata = new AccountAccess()
+                {
+                    name = role.Name,
+                    roleid = roleid,
+                    accounttypeid = role.Accounttype,
+                };
+                return roledata;
+            }
+            return null;
+        }
+
+        public void SetEditAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string sessionEmail)
+        {
+            var user = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+            var role = _context.Roles.FirstOrDefault(x => x.Roleid == accountAccess.roleid);
+            if (role != null)
+            {
+                role.Name = accountAccess.name;
+                role.Accounttype = (short)accountAccess.accounttypeid;
+                role.Modifiedby = user.Id;
+                role.Modifieddate = DateTime.Now;
+
+                _context.SaveChanges();
+
+                var rolemenu = _context.Rolemenus.Where(i => i.Roleid == accountAccess.roleid).ToList();
+                if (rolemenu != null)
+                {
+                    _context.Rolemenus.RemoveRange(rolemenu);
+                }
+
+                if (AccountMenu != null)
+                {
+                    foreach (int menuid in AccountMenu)
+                    {
+                        _context.Rolemenus.Add(new Rolemenu
+                        {
+                            Roleid = role.Roleid,
+                            Menuid = menuid,
+                        });
+                    }
+                    _context.SaveChanges();
+                }
+            }
+        }
+
+        public void DeleteAccountAccess(int roleid)
+        {
+            var role = _context.Roles.FirstOrDefault(x => x.Roleid == roleid);
+            if (role != null)
+            {
+                role.Isdeleted = new BitArray(1, true);
+                _context.SaveChanges();
+            }
+
+            var rolemenu = _context.Rolemenus.Where(i => i.Roleid == roleid).ToList();
+            if (rolemenu != null)
+            {
+                _context.Rolemenus.RemoveRange(rolemenu);
+                _context.SaveChanges();
+            }
+        }
+
+        public List<Aspnetrole> GetAccountTypeRoles()
+        {
+            var role = _context.Aspnetroles.Where(i => i.Id != 3).ToList();
+            return role;
+        }
+
+        public List<UserAccess> GetUserdata(int accounttypeid)
+        {
+            var Admindata = _context.Admins.Where(i => i.Isdeleted == null).ToList();
+
+            var Providerdata = _context.Physicians.Where(i => i.Isdeleted == null).ToList();
+
+            var Adrequest = _context.Requests.Where(i => i.Status != 10 || i.Status != 11).Count();
+
+            if (accounttypeid == 1)
+            {
+                var Admin = Admindata.Select(r => new UserAccess()
+                {
+
+                    aspnetid = r.Aspnetuserid,
+                    Accounttype = "Admin",
+                    accountname = r.Firstname + ", " + r.Lastname,
+                    phone = r.Mobile,
+                    status = (int)r.Status,
+                    openrequest = Adrequest,
+                    roleid = 1,
+                }).ToList();
+
+                return Admin;
+            }
+
+            if (accounttypeid == 2)
+            {
+                var physician = Providerdata.Select(r => new UserAccess()
+                {
+                    aspnetid = (int)r.Aspnetuserid,
+                    Accounttype = "Provider",
+                    accountname = r.Firstname + ", " + r.Lastname,
+                    phone = r.Mobile,
+                    status = (int)r.Status,
+                    openrequest = _context.Requests.Where(i => i.Physicianid == r.Physicianid && (i.Status == 1 || i.Status == 2 || i.Status == 4 || i.Status == 5 || i.Status == 6)).Count(),
+                    roleid = 2,
+                }).ToList();
+
+                return physician;
+            }
+
+            var Addata = Admindata.Select(r => new UserAccess()
+            {
+
+                aspnetid = r.Aspnetuserid,
+                Accounttype = "Admin",
+                accountname = r.Firstname + ", " + r.Lastname,
+                phone = r.Mobile,
+                status = (int)r.Status,
+                openrequest = Adrequest,
+                roleid = 1,
+            }).ToList();
+
+
+            var phdata = Providerdata.Select(r => new UserAccess()
+            {
+                aspnetid = (int)r.Aspnetuserid,
+                Accounttype = "Provider",
+                accountname = r.Firstname + ", " + r.Lastname,
+                phone = r.Mobile,
+                status = (int)r.Status,
+                openrequest = _context.Requests.Where(i => i.Physicianid == r.Physicianid && (i.Status == 1 || i.Status == 2 || i.Status == 4 || i.Status == 5 || i.Status == 6)).Count(),
+                roleid = 2,
+            }).ToList();
+
+
+            var combineddata = Addata.Concat(phdata).ToList();
+
+            return combineddata;
+        }
+
+
+
+
     }
 }

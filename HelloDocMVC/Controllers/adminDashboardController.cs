@@ -9,6 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using HalloDoc.mvc.Auth;
 using System.Text;
 using System.Reflection;
+using BLL_Business_Logic_Layer_.Services;
 
 namespace HelloDocMVC.Controllers
 {
@@ -576,7 +577,7 @@ namespace HelloDocMVC.Controllers
             var sessionEmail = HttpContext.Session.GetString("UserSession");
             adminDashData data = new adminDashData();
             data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail);
-            data._RegionTable = _IAdminDash.RegionTable(phyId);
+            data._RegionTable = _IAdminDash.RegionTable();
             data._phyRegionTable = _IAdminDash.PhyRegionTable(phyId);
             data._role = _IAdminDash.physicainRole();
             return View(data);
@@ -606,16 +607,51 @@ namespace HelloDocMVC.Controllers
         }
         
         [HttpPost]
-        public IActionResult editProviderForm3(adminDashData payloadMain,int phyId)
+        public IActionResult editProviderForm3(adminDashData payloadMain)
         {
-            //bool editProviderForm2 = _IAdminDash.editProviderForm2(payloadMain);
-            //return Json(new { indicate = editProviderForm2, phyId = phyId });
+            var editProviderForm3 = _IAdminDash.editProviderForm3(payloadMain);
+            return Json(new { indicate = editProviderForm3.indicate, phyId = editProviderForm3.PhyID });
+        }
 
-            return View();
+        [HttpPost]
+        public IActionResult PhysicianBusinessInfoEdit(adminDashData payloadMain)
+        {
+
+            var editProviderForm4 = _IAdminDash.PhysicianBusinessInfoUpdate(payloadMain);
+            return Json(new { indicate = editProviderForm4.indicate, phyId = editProviderForm4.PhyID });
+
+            //return Ok(payloadMain._providerEdit.PhyID);
         }
 
 
+        [HttpPost]
+        public IActionResult UpdateOnBoarding(adminDashData payloadMain)
+        {
+            var editProviderForm5 = _IAdminDash.EditOnBoardingData(payloadMain);
+            return Json(new { indicate = editProviderForm5.indicate, phyId = editProviderForm5.PhyID });
+        }
 
+        public IActionResult editProviderDeleteAccount(int phyId)
+        {
+            _IAdminDash.editProviderDeleteAccount(phyId);
+            return Ok();
+        }
+
+        public IActionResult createProviderAccount()
+        {
+            adminDashData data = new adminDashData();
+            data._RegionTable = _IAdminDash.RegionTable();
+            data._role = _IAdminDash.physicainRole();
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult createProviderAccount(adminDashData obj, List<int> physicianRegions)
+        {
+            adminDashData data = new adminDashData();
+            var createProviderAccount = _IAdminDash.createProviderAccount(obj, physicianRegions);
+            return Json(new { indicate = createProviderAccount.indicate });
+        }
 
 
 
@@ -638,15 +674,100 @@ namespace HelloDocMVC.Controllers
         public IActionResult partners()
         {
             return PartialView("_adminDashPartners");
-        }
+        }      
         
         //***************************************Access**********************************************
 
         public IActionResult access()
         {
-            return PartialView("_adminDashAccess");
+            accessModel accessModel = new accessModel();
+            accessModel.AccountAccess = _IAdminDash.GetAccountAccessData();
+
+            return PartialView("_adminDashAccess", accessModel);
         }
-        
+
+        public IActionResult createAccess()
+        {
+            accessModel accessModelMain = new accessModel();
+            accessModelMain.Menus = _IAdminDash.GetMenu(0);
+            accessModelMain.Aspnetroles = _IAdminDash.GetAccountType();            
+            return PartialView("_adminAccessCreateAccess", accessModelMain);
+        }
+
+        public IActionResult FilterRolesMenu(int accounttype)
+        {
+            var menu = _IAdminDash.GetMenu(accounttype);
+            var htmlcontent = "";
+            foreach (var obj in menu)
+            {
+                htmlcontent += $"<div class='form-check form-check-inline px-2 mx-3'><input class='form-check-input d2class' name='AccountMenu' type='checkbox' id='{obj.Menuid}' value='{obj.Menuid}'/><label class='form-check-label' for='{obj.Menuid}'>{obj.Name}</label></div>";
+            }
+            return Content(htmlcontent);
+        }
+
+        [HttpPost]
+        public IActionResult SetCreateAccessAccount(accessModel adminAccessCm, List<int> AccountMenu)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IAdminDash.SetCreateAccessAccount(adminAccessCm.CreateAccountAccess, AccountMenu, sessionEmail);
+
+            return Ok();
+        }
+
+        public IActionResult GetEditAccess(int accounttypeid, int roleid)
+        {
+            var roledata = _IAdminDash.GetEditAccessData(roleid);
+            var Accounttype = _IAdminDash.GetAccountType();
+            var menu = _IAdminDash.GetAccountMenu(accounttypeid, roleid);
+            accessModel adminAccessCm = new accessModel
+            {
+                Aspnetroles = Accounttype,
+                AccountMenu = menu,
+                CreateAccountAccess = roledata,
+            };
+            return PartialView("_adminAccessEdit", adminAccessCm);
+        }
+
+        public IActionResult FilterEditRolesMenu(int accounttypeid, int roleid)
+        {
+            var menu = _IAdminDash.GetAccountMenu(accounttypeid, roleid);
+            var htmlcontent = "";
+            foreach (var obj in menu)
+            {
+                htmlcontent += $"<div class='form-check form-check-inline px-2 mx-3'><input class='form-check-input d2class' {(obj.ExistsInTable ? "checked" : "")} name='AccountMenu' type='checkbox' id='{obj.menuid}' value='{obj.menuid}'/><label class='form-check-label' for='{obj.menuid}'>{obj.name}</label></div>";
+            }
+            return Content(htmlcontent);
+        }
+
+        [HttpPost]
+        public IActionResult SetEditAccessAccount(accessModel adminAccessCm, List<int> AccountMenu)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IAdminDash.SetEditAccessAccount(adminAccessCm.CreateAccountAccess, AccountMenu, sessionEmail);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAccountAccess(int roleid)
+        {
+            _IAdminDash.DeleteAccountAccess(roleid);
+            return Ok();
+        }        
+
+
+        public IActionResult userAccess(int accounttypeid)
+        {
+            var userdata = _IAdminDash.GetUserdata(accounttypeid);
+            var Accounttype = _IAdminDash.GetAccountTypeRoles();
+            accessModel adminAccessCm = new accessModel
+            {
+                UserAccess = userdata,
+                AspnetUserroles = Accounttype,
+            };
+
+            return PartialView("_adminDashUserAccess", adminAccessCm);
+        }
         //***************************************Records**********************************************
 
         public IActionResult records()

@@ -235,12 +235,12 @@
                             <label class="ms-2 " for="floatingInputAddress2">Address2</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputCity"
+                            <input type="text" class="d3class form-control " id="floatingInputCity"  asp-for="@Model._providerEdit.city"
                                    placeholder="City" aria-label="City">
                             <label class="ms-2 " for="floatingInputCity">City</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <select class="d3class form-select regionDropdown" id="state" aria-label="Region">
+                            <select class="d3class form-select regionDropdown" id="state" aria-label="Region" asp-for="@Model._providerEdit.Regionid" >
                                 @foreach (var obj in Model._RegionTable)
                                     {
                                     <option value="@obj.Regionid">
@@ -258,7 +258,7 @@
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input style="height:58px;" id="providerMobileTwo" asp-for="@Model._providerEdit.altPhone"
-                                   class="form-control contact d2class"
+                                   class="form-control contact d3class"
                                    aria-label="Contact"
                                    type="number" />
                             @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
@@ -280,7 +280,7 @@
                 </div>
             </form>
 
-            <form action=" " method="post" id="Prvider">
+            <form action=" " method="post" id="PhysicianBusinessInfoForm"  >
                 <input id="providerEditFour" type="hidden" asp-for="@Model._providerEdit.PhyID" value="@Model._providerEdit.PhyID" />
                 <div class="pt-4">
                     <h4 class="mb-4">Provider Information</h4>
@@ -296,27 +296,60 @@
                                    placeholder="Businesswebsite" aria-label="Businesswebsite">
                             <label class="ms-2 " for="Businesswebsite">Business website</label>
                         </div>
-                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex ">
-                            <div class="input-group">
-                                <input type="file" class="d4class form-control py-3" id="inputGroupFile" onchange="checkForm()">
-                                <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile">
-                                    <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
-                                    <span class="text-white">Upload</span>
-                                </label>
+
+
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
+                            <div>
+                                <div class="input-group rounded d-flex">
+                                    <input asp-for="@Model._providerEdit.Photo"  type="file" class="d4class form-control py-3" id="fileUploadInp">
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" disabled id="upload-btn" onchange="checkFileExtension()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Profile</span></button>
+                                </div>                                
+                            </div>
+                            <span class="text-danger" id="errormessgespan"></span>
+                            @if (Model._providerEdit.PhotoValue != null)
+                            {
+                                <div class="d-flex justify-content-center w-100 mt-2 mb-2">
+                                    <img src="~/Documents/@Model._providerEdit.PhotoValue" width="200px" alt="Profile">
+                                </div>
+                            }
+                        </div>
+                      @*   <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+
+                            <div>
+                                <div class="input-group rounded d-flex">
+                                    <input asp-for="@Model._providerEdit.Signature" type="file" class="d4class form-control py-3" id="fileUploadInp2">
+                                    <button class="btn btn-info text-white" type="button" id="upload-btn2" disabled onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Sign</span></button>
+                                </div>
+                                <span class="text-danger" id="errormessgespan2"></span>
+                            </div>
+                            <div>
+                                <button type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
+                                    <i class="bi bi-pen me-1"></i><span>Create</span>
+                                </button>
+                            </div>                            
+                        </div> *@
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <div class="  form-floating mb-3 d-flex">
+                                <div class="input-group">
+                                    <input asp-for="@Model._providerEdit.Signature"  type="file" class="d4class form-control py-3" id="fileUploadInp2">
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" id="upload-btn2" disabled onchange="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1 "></i> <span class="d-none d-md-inline-block">Sign</span></button>
+                                </div>                                
+                                <button style="cursor:pointer;" type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
+                                    <i class="bi bi-pen me-1"></i><span>Create</span>
+                                </button>
+
+                            </div>
+                            <span class="text-danger" id="errormessgespan2"></span>
+                            <div class="  mb-3 d-flex">
+                                @if (Model._providerEdit.SignatureValue != null)
+                                {
+                                    <div class="d-flex justify-content-center w-100 mt-2 mb-2">
+                                        <img src="~/Documents/@Model._providerEdit.SignatureValue" width="200px" alt="Signature">
+                                    </div>
+                                }
                             </div>
                         </div>
-                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex">
-                            <div class="input-group">
-                                <input type="file" class=" d4class form-control py-3" id="inputGroupFile1" onchange="checkForm()">
-                                <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile1">
-                                    <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
-                                    <span class="text-white">Upload</span>
-                                </label>
-                            </div>
-                            <button type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
-                                <i class="bi bi-pen me-1"></i><span>Create</span>
-                            </button>
-                        </div>
+                                               
                         <div class=" col-12 form-floating mb-3">
                             <textarea class="form-control d4class" rows="5" placeholder="Admin Notes" id="AdminNotes" asp-for="@Model._providerEdit.Adminnotes"></textarea>
                             <label class="ms-2" for="AdminNotes">
@@ -330,7 +363,7 @@
                             Edit
                         </button>
 
-                        <button type="submit" id="submitBtn4" class="btn btn-info text-white SaveBtn">Save</button>
+                        <button type="button" onclick="PhysicianBusinessInfoEdit()" id="submitBtn4" class="btn btn-info text-white SaveBtn">Save</button>
 
                         <button type="button" id="cancelBtn4" class="btn btn-outline-info CancelBtn"
                                 onclick="disableFields(4)">
@@ -338,23 +371,118 @@
                         </button>
                     </div>
                 </div>
+                
             </form>
 
             <hr class="w-100" />
 
-            <form method="post" asp-action="">
+            <form method="post" id="OnboardingEditForm"  >
+                <input id="providerEditFive" type="hidden" asp-for="@Model._providerEdit.PhyID" value="@Model._providerEdit.PhyID" />
+                <div class="pt-4">
+                    <h4 class="mb-4">Onboarding</h4>
+                    <div class="mb-3 d-md-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="1" id="Onboarding1" @(Model._providerEdit.IsContractorAgreement ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding1">
+                                Independent Contractor Agreement
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan1"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile1">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-md-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="2" id="Onboarding2" @(Model._providerEdit.IsBackgroundCheck ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding2">
+                                Background Check
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan2"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile2">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="3" id="Onboarding3" @(Model._providerEdit.IsHIPAA ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding3">
+                                HIPAA Compliance
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan3"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/Documents/@Model._providerEdit.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile3">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="4" id="Onboarding4" @(Model._providerEdit.IsNonDisclosure ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding4">
+                                Non-disclouser Agreement
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan4"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile4">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="5" id="Onboarding5" @(Model._providerEdit.IsLicenseDocument ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding5">
+                                License Document
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan5"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile5">Upload</label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="w-100" />
+                <div class="d-grid gap-2 d-flex justify-content-center justify-content-md-end mb-3">
+
+                    <button type="button" onclick="UpdateOnBoarding()" id="savebtn" class="btn btn-info text-white me-1">Save</button>
+
+                    <button type="button" id="DeleteAccount" class="btn btn-danger" onclick="DeletePhysicianAccount(@Model._providerEdit.PhyID)">
+                        Delete Account
+                    </button>
+                </div>
+
+            </form>
+
+            @* <form method="post" asp-action="">
                 <input id="providerEditFive" type="hidden" asp-for="@Model._providerEdit.PhyID" value="@Model._providerEdit.PhyID" />
                 <h4 class="mb-4">Onboarding</h4>
-                @* <input hidden value="@Model.PhyID" id="onboardingPhyID" /> *@
                 <div class="row pt-2 ">
                     <div class="col-1 py-2 pt-3">
                         <div class="form-check ms-3" style="padding-left : 50%;">
                             <input type="checkbox"
                                    onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxA" name="checkbox_group"
-                           @*  @if (Model.isAgreementdoc[0])
-                            {
-                                <text>checked</text>
-                            } *@
+                           
                             />
                         </div>
                     </div>
@@ -367,11 +495,7 @@
                             <input type="file"  class="form_doc_mobile  d-sm-none" />
                             <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload1">Upload</button>
                             <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-1"><i class="bi bi-cloud-upload"></i></button>
-                           @*  @if (Model.isAgreementdoc[0])
-                            {
-                                <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("AgreementDoc")' id="view1">View</button>
-                                <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("AgreementDoc")' id="view-sm-1"><i class="bi bi-eye-fill"></i></button>
-                            } *@
+                           
                         </div>
                     </div>
                     <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
@@ -380,10 +504,7 @@
                     <div class="col-1 py-2 pt-3">
                         <div class="form-check ms-3" style="padding-left : 50%;">
                             <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxB" name="checkbox_group"
-                            @* @if (Model.isBackgrounddoc[0])
-                            {
-                                <text>checked</text>
-                            } *@
+                            
                             />
                         </div>
                     </div>
@@ -396,11 +517,7 @@
                             <input type="file"  class="form_doc_mobile  d-sm-none" />
                             <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload2">Upload</button>
                             <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-2"><i class="bi bi-cloud-upload"></i></button>
-                           @*  @if (Model.isBackgrounddoc[0])
-                            {
-                                <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Backgrounddoc")' id="view2">View</button>
-                                <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Backgrounddoc")' id="view-sm-2"><i class="bi bi-eye-fill"></i></button>
-                            } *@
+                           
                         </div>
                     </div>
                     <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
@@ -409,10 +526,7 @@
                     <div class="col-1 py-2 pt-3">
                         <div class="form-check ms-3" style="padding-left : 50%;">
                             <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxC" name="checkbox_group"
-                            @* @if (Model.isTrainingdoc[0])
-                            {
-                                <text>checked</text>
-                            } *@
+                            
                             />
                         </div>
                     </div>
@@ -425,11 +539,7 @@
                             <input type="file"  class="form_doc_mobile  d-sm-none" />
                             <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload3">Upload</button>
                             <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-3"><i class="bi bi-cloud-upload"></i></button>
-                            @* @if (Model.isTrainingdoc[0])
-                            {
-                                <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Trainingdoc")' id="view3">View</button>
-                                <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Trainingdoc")' id="view-sm-3"><i class="bi bi-eye-fill"></i></button>
-                            } *@
+                            
                         </div>
                     </div>
                     <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
@@ -438,10 +548,7 @@
                     <div class="col-1 py-2 pt-3">
                         <div class="form-check ms-3" style="padding-left : 50%;">
                             <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxD" name="checkbox_group"
-                            @* @if (Model.isNondiclosuserdoc[0])
-                            {
-                                <text>checked</text>
-                            } *@
+                           
                             />
                         </div>
                     </div>
@@ -454,11 +561,7 @@
                             <input type="file" class="form_doc_mobile  d-sm-none" />
                             <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload4">Upload</button>
                             <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-4"><i class="bi bi-cloud-upload"></i></button>
-                           @*  @if (Model.isNondiclosuserdoc[0])
-                            {
-                                <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Nondiclosuserdoc")' id="view4">View</button>
-                                <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Nondiclosuserdoc")' id="view-sm-4"><i class="bi bi-eye-fill"></i></button>
-                            } *@
+                          
                         </div>
                     </div>
                     <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
@@ -467,10 +570,7 @@
                     <div class="col-1 py-2 pt-3">
                         <div class="form-check ms-3" style="padding-left : 50%;">
                             <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxE" name="checkbox_group"
-                            @* @if (Model.isLicesensdoc[0])
-                            {
-                                <text>checked</text>
-                            } *@
+                           
                             />
                         </div>
                     </div>
@@ -483,16 +583,12 @@
                             <input type="file"  class="form_doc_mobile  d-sm-none" />
                             <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload5">Upload</button>
                             <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-5"><i class="bi bi-cloud-upload"></i></button>
-                            @* @if (Model.isLicesensdoc[0])
-                            {
-                                <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Licesensdoc")' id="view5">View</button>
-                                <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Licesensdoc")' id="view-sm-5"><i class="bi bi-eye-fill"></i></button>
-                            } *@
+                            
                         </div>
                     </div>
                     <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
                 </div>
-            </form>
+            </form> *@
 
             @* <form action=" " method="post" id="Onboarding">
                 <div class="pt-4">
@@ -566,7 +662,7 @@
                 </div>
             </form> *@
 
-            <hr class="w-100" />
+            @* <hr class="w-100" />
             <div class="d-grid gap-2 d-flex justify-content-center justify-content-md-end mb-3">
 
                 <button type="submit" id="savebtn" class="btn btn-info text-white me-1">Save</button>
@@ -574,10 +670,9 @@
                 <button type="button" id="DeleteAccount" class="btn btn-danger ">
                     Delete Account
                 </button>
-            </div>
+            </div> *@
         </div>
     </div>
-    @*     </form> *@
 </div>
 
 <partial name="_ValidationScriptsPartial" />
@@ -585,7 +680,25 @@
 <script>
 
     $(document).ready(function () {
-        $('.Onboarding').change(function () {
+        $('.onBoardInpFile').change(function () {
+            var checkbox = $(this).closest('.onBoardContainer').find('.Onboarding');
+            var buttonId = checkbox.prop('value');
+            var file = this.files[0];
+
+            if (file) {
+                var blobUrl = URL.createObjectURL(file);
+
+                checkbox.prop('checked', true);
+                $('#OnboardingView' + buttonId).show();
+                $('#OnboardingView' + buttonId).prop('href', blobUrl);
+            }
+            else {
+                checkbox.prop('checked', false);
+                $('#OnboardingView' + buttonId).hide();
+            }
+        });
+
+        $('.Onboarding').each(function () {
             var checkboxId = $(this).attr('id');
             var buttonId = $(this).attr('value');
 
@@ -775,7 +888,7 @@
         $.ajax({
             url: "/adminDashboard/editProviderForm3",
             type: 'POST',
-            data: { payloadMain , phyId : phyId},
+            data: payloadMain ,
             success: function (result) {                
                 if (result.indicate == true) {
                     editProvider(result.phyId);
@@ -783,6 +896,130 @@
                 } else {
                     toastr.error("Change Atleast One Field");
                 }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+
+
+
+    function checkFileExtension() {
+        var fileName = document.getElementById('fileUploadInp').value.toLowerCase();
+        var tagToDisplayMessage = document.getElementById('errormessgespan');
+        if (fileName) {
+            if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
+                alert("wrong");
+                tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
+                return false;
+            }
+            else {
+                alert("right");
+                tagToDisplayMessage.innerText = "";
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    function checkFileExtension2() {
+        var fileName = document.getElementById('fileUploadInp2').value.toLowerCase();
+        var tagToDisplayMessage = document.getElementById('errormessgespan2');
+        if (fileName) {
+            if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
+                tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
+                return false;
+            }
+            else {
+                tagToDisplayMessage.innerText = "";
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+
+
+    function PhysicianBusinessInfoEdit() {
+
+            $.ajax({
+                method: "POST",
+                url: "/adminDashboard/PhysicianBusinessInfoEdit",
+                data: new FormData($('#PhysicianBusinessInfoForm')[0]),
+                processData: false,
+                contentType: false,
+
+                success: function (result) {
+                if (result.indicate == true) {
+                    editProvider(result.phyId);
+                    toastr.success("Data Updated Successfully");
+                } else {
+                    toastr.error("Change Atleast One Field");
+                }
+                },
+
+                error: function () {
+                    alert("Oops!", "Something is Wrong !!!", "error");
+                }
+            });        
+    }
+
+
+    function UpdateOnBoarding() {
+            $.ajax({
+                method: "POST",
+                url: "/adminDashboard/UpdateOnBoarding",
+                data: new FormData($('#OnboardingEditForm')[0]),
+                processData: false,
+                contentType: false,
+
+                success: function (result) {
+                if (result.indicate == true) {
+                    editProvider(result.phyId);
+                    toastr.success("Data Updated Successfully");
+                } else {
+                    toastr.error("Change Atleast One Field");
+                }
+                },
+
+                error: function () {
+                    alert("error in edit onboarding");
+                }
+            });
+    }
+
+    function checkOnboardingFiles(inputid) {
+        var fileName = document.getElementById('inputOnboardFile' + inputid).value.toLowerCase();
+        var tagToDisplayMessage = document.getElementById('errorSpan' + inputid);
+        if (fileName) {
+            if (!(fileName.endsWith('.pdf'))) {
+                tagToDisplayMessage.innerText = "Please Upload File with .pdf extension";
+                return false;
+            }
+            else {
+                tagToDisplayMessage.innerText = "";
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    function DeletePhysicianAccount(phyId){
+        $.ajax({
+            url: "/adminDashboard/editProviderDeleteAccount",
+            type: 'POST',
+            data: {phyId: phyId},
+            success: function (result) {
+                providers();
+                toastr.success("Account Deleted Successfully");                
             },
             error: function () {
                 alert("Error");
