@@ -543,10 +543,11 @@ namespace HelloDocMVC.Controllers
 
         //***************************************Provider**********************************************
   
-        public IActionResult provider()
+        public IActionResult provider(int regionId)
         {
             adminDashData adminDashData = new adminDashData();
-            adminDashData._provider = _IAdminDash.providerMain();
+            adminDashData._provider = _IAdminDash.providerMain(regionId);
+            adminDashData._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashProvider", adminDashData);
         }
 
@@ -636,6 +637,7 @@ namespace HelloDocMVC.Controllers
             _IAdminDash.editProviderDeleteAccount(phyId);
             return Ok();
         }
+
 
         public IActionResult createProviderAccount()
         {
@@ -768,6 +770,25 @@ namespace HelloDocMVC.Controllers
 
             return PartialView("_adminDashUserAccess", adminAccessCm);
         }
+
+
+        public IActionResult createAdmin()
+        {
+            adminDashData data = new adminDashData();
+            data._RegionTable = _IAdminDash.RegionTable();
+            data._role = _IAdminDash.physicainRole();
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult createAdmin(adminDashData obj, List<int> regions)
+        {
+            adminDashData data = new adminDashData();   
+            _IAdminDash.createAdminAccount(obj, regions);
+            return Ok();
+        }
+
+
         //***************************************Records**********************************************
 
         public IActionResult records()

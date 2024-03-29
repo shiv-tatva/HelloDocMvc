@@ -5,12 +5,36 @@
       "PackagePath": "staticwebassets\\HelloDocMVC.bundle.scp.css"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\14\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\14\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\16\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\16\\Independent_Contractor.pdf"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\1\\Background.pdf",
       "PackagePath": "staticwebassets\\Documents\\1\\Background.pdf"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\1\\Independent_Contractor.pdf",
       "PackagePath": "staticwebassets\\Documents\\1\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\20\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\20\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\20\\Profile.png",
+      "PackagePath": "staticwebassets\\Documents\\20\\Profile.png"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\21\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\21\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\21\\Profile.png",
+      "PackagePath": "staticwebassets\\Documents\\21\\Profile.png"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\2\\Background.pdf",
@@ -23,6 +47,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig25. Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\Documents\\Fig25. Contact your Provider.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\check-icon (1).svg",
+      "PackagePath": "staticwebassets\\Documents\\check-icon (1).svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\check-icon.svg",
@@ -53,6 +81,10 @@
       "PackagePath": "staticwebassets\\Documents\\dashboard-default.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\data-graph (3).png",
+      "PackagePath": "staticwebassets\\Documents\\data-graph (3).png"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\data-graph.png",
       "PackagePath": "staticwebassets\\Documents\\data-graph.png"
     },
@@ -79,6 +111,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\graph-default.svg",
       "PackagePath": "staticwebassets\\Documents\\graph-default.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\hero-image (1).png",
+      "PackagePath": "staticwebassets\\Documents\\hero-image (1).png"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\hero-image.png",
@@ -119,6 +155,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\pie-chart.svg",
       "PackagePath": "staticwebassets\\Documents\\pie-chart.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\profile (5).png",
+      "PackagePath": "staticwebassets\\Documents\\profile (5).png"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\profile.png",

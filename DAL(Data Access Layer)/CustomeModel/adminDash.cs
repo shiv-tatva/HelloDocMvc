@@ -447,6 +447,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? password { get; set; }
 
         public string? Email { get; set; }
+        public string? Con_Email { get; set; }
 
         public string? PhoneNumber { get; set; }
 

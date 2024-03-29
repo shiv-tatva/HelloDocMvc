@@ -21,15 +21,15 @@
 
 
 
-<div class="container">
+<div class="container"> 
     <h4 class="mb-4">User Access</h4>
 
     <div class="border rounded shadow p-3">
         <div class="d-flex justify-content-between align-items-center mb-3">
 
             <form role="search" class="d-flex align-items-center border border-rounded rounded border-info mb-3">
-                <i type="search" class="bi bi-search px-2"></i>
-                <select class="form-select border-0 " id="AspTypeidRole" value="this.value" aria-label="Default select example" onchange="GetUserAccess(this.value)">
+                <i type="search" class="bi bi-search px-2" style="position:absolute;"></i>
+                <select class="form-select border-0 ps-5" id="AspTypeidRole" value="this.value" aria-label="Default select example" onchange="GetUserAccess(this.value)">
                     <option value="0" selected>All</option>
                     @foreach (var obj in Model.AspnetUserroles)
                     {
@@ -207,7 +207,7 @@
         event.preventDefault();
         $.ajax({
             method: "GET",
-            url: "/adminDashboard/GetUserAccess",
+            url: "/adminDashboard/userAccess",
             data: { accounttypeid: accounttypeid },
             success: function (res) {
                 $("#content").html(res);

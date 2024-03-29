@@ -12,7 +12,7 @@
             default: return "Active";
         }
     }
-}<div class="container">    <h4 class="mb-4">Provider Information</h4>    <div class="border rounded shadow p-3">        <div class="d-md-flex justify-content-between align-items-center mb-3">            <form role="search" class="d-flex align-items-center border border-rounded rounded border-info mb-3">                <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;    "></i>                <select class="form-select border-0 regionDropdown ps-4" aria-label="Default select example" >                    <option selected>All Region</option>                    @* @foreach (var obj in Model.regions.ToList())                    {                    <option value="@obj.Regionid">                    @obj.Name                    </option>                    } *@                </select>            </form>            <div class="d-flex justify-content-center  mb-3">
+}<div class="container">    <h4 class="mb-4">Provider Information</h4>    <div class="border rounded shadow p-3">        <div class="d-md-flex justify-content-between align-items-center mb-3">            <form role="search" class="d-flex align-items-center border border-rounded rounded border-info mb-3">                <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;    "></i>                <select id="providerRegionMain" class="form-select border-0 regionDropdown ps-4" aria-label="Default select example" onchange="providerRegion()" >                    <option selected>All Region</option>                    @foreach (var obj in Model._RegionTable.ToList())                    {                    <option value="@obj.Regionid">                    @obj.Name                    </option>                    }                </select>            </form>            <div class="d-flex justify-content-center  mb-3">
 
                 <button type="button" class="btn btn-info text-light " onclick="createProviderAccount()">Create Provider Account</button>            </div>        </div>        <div class="table-responsive d-lg-block d-none">            <table class="table">                <thead class="bg-body-tertiary ">                <thead>                    <tr>                        <th class="">Stop Notification </th>                        <th>Provider Name <span><i class="bi bi-arrow-up"></i></span></th>                        <th>Role</th>                        <th>On Call Status</th>                        <th>Status</th>                        <th>Actions</th>                    </tr>                </thead>                <tbody>                        @{
                             var notification = new BitArray(1);
@@ -102,6 +102,25 @@
             type: 'GET',
             success: function (result) {
                 $('#content').html(result);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+
+    function providerRegion(){
+        var abc = $("#providerRegionMain").val();
+
+        $.ajax({
+            url: "/adminDashboard/provider",
+            type: 'GET',
+            data: { regionId: abc },
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("Scheduling-tab").classList.remove("active");
+                $("#providerRegionMain").val(abc);
             },
             error: function () {
                 alert("Error");

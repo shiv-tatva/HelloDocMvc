@@ -1203,17 +1203,24 @@ namespace BLL_Business_Logic_Layer_.Services
 
         //***********************************Provider*************************************
 
-        public provider providerMain()
+        public provider providerMain(int regionId=0)
         {
+            BitArray deletedBit = new BitArray(new[] { false });
+
             provider provider = new provider()
             {
                 _physician = _context.Physicians.ToList(),
                 _notification = _context.Physiciannotifications.ToList(),
-                _roles = _context.Roles.ToList(),
+                _roles = _context.Roles.Where(r => r.Isdeleted.Equals(deletedBit)).Select(r =>r).ToList(),
                 _shift = _context.Shifts.ToList(),
                 _shiftDetails = _context.Shiftdetails.ToList(),
                 DateTime = DateTime.Now,
             };
+
+            if(regionId != 0)
+            {
+                provider._physician = _context.Physicians.Where(r => r.Regionid == regionId).ToList();
+            }
 
             return provider;
         }
@@ -1386,7 +1393,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public List<Role> physicainRole()
         {
-            var role = _context.Roles.ToList();
+            BitArray deletedBit = new BitArray(new[] { false });
+
+            var role = _context.Roles.Where(i => i.Isdeleted.Equals(deletedBit)).ToList();
 
             return role;
         }
@@ -1423,6 +1432,8 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray)
         {
+            var indicate = false;
+
             var user = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
             var aspUser = _context.Aspnetusers.Where(r => r.Id == user.Aspnetuserid).Select(r => r).First();
 
@@ -1441,9 +1452,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 user.Npinumber = npi;
                 user.Syncemailaddress = sync;
 
-                _context.SaveChanges();                             
+                _context.SaveChanges();
 
-                return true;
+                indicate = true;
             }
 
             var abc = _context.Physicianregions.Where(x => x.Physicianid == phyId).Select(r => r.Regionid).ToList();
@@ -1451,7 +1462,7 @@ namespace BLL_Business_Logic_Layer_.Services
             var changes = abc.Except(phyRegionArray);
 
 
-            if (changes.Any())
+            if (changes.Any() || abc.Count() != phyRegionArray.Length)
             {
                 if (_context.Physicianregions.Any(x => x.Physicianid == phyId))
                 {
@@ -1474,10 +1485,10 @@ namespace BLL_Business_Logic_Layer_.Services
                     });
                 }
                 _context.SaveChanges();
-                return true;
+                indicate = true;
             }         
 
-            return false;
+            return indicate;
         }
 
 
@@ -1746,6 +1757,15 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.Physiciannotifications.Add(notification);
                 _context.SaveChanges();
 
+                Aspnetuserrole _userRole = new Aspnetuserrole();
+                _userRole.Userid = _user.Id;
+                _userRole.Roleid = 3;
+
+                _context.Aspnetuserroles.Add(_userRole);
+                _context.SaveChanges();
+
+                AddProviderDocuments(phy.Physicianid, obj._providerEdit.Photo, obj._providerEdit.ContractorAgreement, obj._providerEdit.BackgroundCheck, obj._providerEdit.HIPAA, obj._providerEdit.NonDisclosure);
+
                 flag.indicate = true;
                 return flag;
             }
@@ -1754,6 +1774,81 @@ namespace BLL_Business_Logic_Layer_.Services
             return flag;
         }
 
+        public void AddProviderDocuments(int Physicianid, IFormFile Photo, IFormFile ContractorAgreement, IFormFile BackgroundCheck, IFormFile HIPAA, IFormFile NonDisclosure)
+        {
+            var physicianData = _context.Physicians.FirstOrDefault(x => x.Physicianid == Physicianid);
+
+            string directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", Physicianid.ToString());
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            if (Photo != null)
+            {
+                string path = Path.Combine(directory, "Profile" + Path.GetExtension(Photo.FileName));
+                //string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", Photo.FileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    Photo.CopyTo(fileStream);
+                }
+
+                physicianData.Photo = Photo.FileName;
+            }
+
+
+            if (ContractorAgreement != null)
+            {
+                string path = Path.Combine(directory, "Independent_Contractor" + Path.GetExtension(ContractorAgreement.FileName));
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    ContractorAgreement.CopyTo(fileStream);
+                }
+
+                physicianData.Isagreementdoc = new BitArray(1, true);
+            }
+
+            if (BackgroundCheck != null)
+            {
+                string path = Path.Combine(directory, "Background" + Path.GetExtension(BackgroundCheck.FileName));
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    BackgroundCheck.CopyTo(fileStream);
+                }
+
+                physicianData.Isbackgrounddoc = new BitArray(1, true);
+            }
+
+            if (HIPAA != null)
+            {
+                string path = Path.Combine(directory, "HIPAA" + Path.GetExtension(HIPAA.FileName));
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    HIPAA.CopyTo(fileStream);
+                }
+
+                physicianData.Istrainingdoc = new BitArray(1, true);
+            }
+
+            if (NonDisclosure != null)
+            {
+                string path = Path.Combine(directory, "Non_Disclosure" + Path.GetExtension(NonDisclosure.FileName));
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    NonDisclosure.CopyTo(fileStream);
+                }
+
+                physicianData.Isnondisclosuredoc = new BitArray(1, true);
+            }
+
+            _context.SaveChanges();
+        }
 
         public void editProviderDeleteAccount(int phyId)
         {
@@ -1765,9 +1860,15 @@ namespace BLL_Business_Logic_Layer_.Services
                 phy.Isdeleted[0] = true;
 
                 _context.SaveChanges();
+            }     
+
+            var phyReg = _context.Physicianregions.Where(r => r.Physicianid == phyId).ToList();
+            if (phyReg != null)
+            { 
+                _context.Physicianregions.RemoveRange(phyReg);
+                _context.SaveChanges();
             }
 
-            
         }
 
 
@@ -1929,7 +2030,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public List<Aspnetrole> GetAccountTypeRoles()
         {
-            var role = _context.Aspnetroles.Where(i => i.Id != 3).ToList();
+            var role = _context.Aspnetroles.Where(i => i.Id != 2).ToList();
             return role;
         }
 
@@ -1958,7 +2059,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 return Admin;
             }
 
-            if (accounttypeid == 2)
+            if (accounttypeid == 3)
             {
                 var physician = Providerdata.Select(r => new UserAccess()
                 {
@@ -2004,8 +2105,63 @@ namespace BLL_Business_Logic_Layer_.Services
             return combineddata;
         }
 
+        public void createAdminAccount(adminDashData obj, List<int> regions)
+        {
+            var aspUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == obj._providerEdit.Email);
 
+            if (aspUser == null)
+            {
+                Aspnetuser _user = new Aspnetuser();
+                Admin admin = new Admin();
 
+                _user.Username = obj._providerEdit.username;
+                _user.Passwordhash = obj._providerEdit.password;
+                _user.Email = obj._providerEdit.Email;
+                _user.Phonenumber = obj._providerEdit.PhoneNumber;
+                _user.Createddate = DateTime.Now;
 
+                _context.Aspnetusers.Add(_user);
+                _context.SaveChanges();
+
+                admin.Aspnetuserid = _user.Id;
+                admin.Firstname = obj._providerEdit.Firstname;
+                admin.Lastname = obj._providerEdit.Lastname;
+                admin.Email = obj._providerEdit.Email;
+                admin.Mobile = obj._providerEdit.PhoneNumber;
+                admin.Address1 = obj._providerEdit.Address1;
+                admin.Address2 = obj._providerEdit.Address2;
+                admin.City = obj._providerEdit.city;
+                admin.Regionid = obj._providerEdit.Regionid;
+                admin.Zip = obj._providerEdit.zipcode;
+                admin.Altphone = obj._providerEdit.altPhone;
+                admin.Createdby = null;
+                admin.Createddate = _user.Createddate;
+                admin.Status = 1;
+                admin.Roleid = obj._providerEdit.Roleid;
+
+                _context.Admins.Add(admin);
+                _context.SaveChanges();
+
+                foreach (var item in regions)
+                {
+                    var region = _context.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                    _context.Adminregions.Add(new Adminregion
+                    {
+                        Adminid = admin.Adminid,
+                        Regionid = region.Regionid,
+                    });
+                }
+                _context.SaveChanges();
+
+                Aspnetuserrole _userRole = new Aspnetuserrole();
+                _userRole.Userid = _user.Id;
+                _userRole.Roleid = 1;
+
+                _context.Aspnetuserroles.Add(_userRole);
+                _context.SaveChanges();
+            }
+
+        }
     }
 }

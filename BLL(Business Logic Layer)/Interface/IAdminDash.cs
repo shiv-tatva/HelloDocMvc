@@ -75,7 +75,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public byte[] GenerateExcelFile(List<adminDash> adminData);
 
         //***********************************************Provider***************************************
-        public provider providerMain();
+        public provider providerMain(int regionId);
 
         public provider stopNotification(int phyId);
 
@@ -114,5 +114,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public List<Aspnetrole> GetAccountTypeRoles();
 
         public List<UserAccess> GetUserdata(int accounttypeid);
+
+        public void createAdminAccount(adminDashData obj, List<int> regions);
     }
 }

@@ -137,6 +137,7 @@
             success: function (result) {
                 $("#content").html(result);
                 document.getElementById("AccessUser-tab").classList.remove("active");
+                document.getElementById("CreateAdmin-tab").classList.remove("active");
             },
             error: function () {
                 alert("Error");
@@ -150,6 +151,22 @@
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);
+                document.getElementById("Access-tab").classList.remove("active");
+                document.getElementById("CreateAdmin-tab").classList.remove("active");
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+    function createAdmin(){        
+        $.ajax({
+            url: "/adminDashboard/createAdmin",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("AccessUser-tab").classList.remove("active");
                 document.getElementById("Access-tab").classList.remove("active");
             },
             error: function () {
