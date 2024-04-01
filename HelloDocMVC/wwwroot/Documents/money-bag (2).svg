@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Uploads - HelloDocMVC</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet" href="/css/adminDashboard.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+    <style>
+        .nav-link {
+            border: none !important;
+        }
+
+        .nav-item .active {
+            color: #0dcaf0 !important;
+        }
+
+        .active {
+            border-bottom: 3px solid skyblue !important;
+            color: skyblue !important;
+        }
+    </style>
+
+</head>
+<body>
+    <div b-pen2mirmzm class="container-fluid" id="MainDiv" style="height:100vh;position:relative;padding:0">
+
+        <div b-pen2mirmzm id="mainContainer">
+            <nav b-pen2mirmzm class="navbar header bg-white shadow position-relative top-0 z-3">
+                <div b-pen2mirmzm class="container-fluid ">
+                    <div b-pen2mirmzm class="d-flex justify-content-center ">
+                        <button b-pen2mirmzm class="navbar-toggler d-inline-block d-sm-none my-3 px-1" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span b-pen2mirmzm class="navbar-toggler-icon"></span>
+                        </button>
+                        <a b-pen2mirmzm class="navbar-brand" href="#">
+                            <img b-pen2mirmzm src="/images/docLogo.png" class="logo img-fluid mx-2" alt="" style="height: 70px;">
+                        </a>
+                    </div>
+                    <div b-pen2mirmzm class="d-flex align-items-center">
+                        <div b-pen2mirmzm class="mx-2 d-flex align-items-center d-none d-sm-inline-block">
+                            <p b-pen2mirmzm class="text-secondary fs-6">
+                                <h5 b-pen2mirmzm>
+                                    Welcome
+                                    <strong b-pen2mirmzm>
+                                        Admin admin2
+                                    </strong>
+                                </h5>
+                            </p>
+                        </div>
+                        <div b-pen2mirmzm class="mx-2">
+                            <a b-pen2mirmzm type="button"
+                               class="btn btn-outline-dark text-info shadow border-info py-2 ">
+                                <span b-pen2mirmzm class="d-none d-sm-inline-block ">Logout</span>
+                                <span b-pen2mirmzm class="d-inline-block d-sm-none">
+                                    <i b-pen2mirmzm class="bi bi-box-arrow-right text-info"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div b-pen2mirmzm id="darkMode" style="z-index: 2;">
+                            <i b-pen2mirmzm class="fa-regular fa-moon fa-2x me-5 p-1 "
+                               style="color: #09d4e3;border: 1px solid #09d4e3;border-radius: 4px;"
+                               onclick="darkMode()" id="darkmodeBtn"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <hr b-pen2mirmzm class="w-100 m-0 p-0 d-none d-sm-block">
+                <div b-pen2mirmzm class="collapse w-100 mx-sm-1 show d-sm-block" id="navbarToggleExternalContent">
+                    <div b-pen2mirmzm class="px-3">
+                        <ul b-pen2mirmzm class="nav nav-underline" id="myTab" role="tablist">
+                            <li b-pen2mirmzm class="nav-item" role="presentation">
+                                <button b-pen2mirmzm onclick="onclickcheck()" class="nav-link  text-muted px-3" id="home-tab" data-bs-toggle="tab"
+                                        data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                        aria-selected="false">
+                                    Dashboard
+                                </button>
+                            </li>
+                            <li b-pen2mirmzm class="nav-item" role="presentation">
+                                <button b-pen2mirmzm class="nav-link  text-muted px-3" id="ProviderLocation-tab" data-bs-toggle="tab"
+                                        data-bs-target="#ProviderLocation-tab-pane" type="button" role="tab"
+                                        aria-controls="ProviderLocation-tab-pane" aria-selected="false">
+                                    Provider Location
+                                </button>
+                            </li>
+                            <li b-pen2mirmzm class="nav-item" role="presentation">
+                                <button b-pen2mirmzm class="nav-link text-muted px-3" id="Myprofile-tab" data-bs-toggle="tab"
+                                        data-bs-target="#Myprofile-tab-pane" type="button" role="tab" aria-controls="Myprofile-tab-pane"
+                                        aria-selected="false">
+                                    My Profile
+                                </button>
+                            </li>
+                            <li b-pen2mirmzm class="nav-item" role="presentation">
+                                <button b-pen2mirmzm class="nav-link text-muted px-3" id="Providers-tab" data-bs-toggle="tab"
+                                        data-bs-target="#Providers-tab-pane" type="button" role="tab" aria-controls="Providers-tab-pane"
+                                        aria-selected="false">
+                                    Providers
+                                </button>
+                            </li>
+                            <li b-pen2mirmzm class="nav-item" role="presentation">
+                                <button b-pen2mirmzm class="nav-link text-muted px-3" id="Partners-tab" data-bs-toggle="tab"
+                                        data-bs-target="#Partners-tab-pane" type="button" role="tab" aria-controls="Partners-tab-pane"
+                                        aria-selected="false">
+                                    Partners
+                                </button>
+                            </li>
+                            <li b-pen2mirmzm class="nav-item" role="presentation">
+                                <button b-pen2mirmzm class="nav-link text-muted px-3" id="Access-tab" data-bs-toggle="tab"
+                                        data-bs-target="#Access-tab-pane" type="button" role="tab" aria-controls="Access-tab-pane"
+                                        aria-selected="false">
+                                    Access
+                                </button>
+                            </li>
+                            <li b-pen2mirmzm class="nav-item" role="presentation">
+                                <button b-pen2mirmzm class="nav-link text-muted px-3" id="Records-tab" data-bs-toggle="tab"
+                                        data-bs-target="#Records-tab-pane" type="button" role="tab" aria-controls="Records-tab-pane"
+                                        aria-selected="false">
+                                    Records
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div b-pen2mirmzm class="p-sm-2 p-md-5">
+                <div b-pen2mirmzm class="tab-content" id="myTabContent">
+                    <div b-pen2mirmzm id="content">
+                        
+
+<!-- main-container -->
+<!-- main-container -->
+<div class="container p-sm-2 p-md-5">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+             tabindex="0">
+            <div class=" mt-2 d-flex justify-content-between align-items-center">
+                <h4>Document</h4>
+                <a class="btn shadow  btn-outline-secondary border-info text-info px-3 " href="/adminDashboard/adminDashboard">
+                    <i class="fa-solid fa-angle-left"></i> Back
+                </a>
+            </div>
+
+            <div class="container-fluid shadow border rounded mt-3 px-4 mb-5 pb-5">
+                <div class="text-secondary pt-3 my-2">Patient Name</div>
+                <span class="text-info fs-2 my-2">wwwww ww</span> <span class="my-2 fs-5 text-secondary">
+                    ()
+                </span>
+                <div class="my-2 text-secondary">
+                    Check here to review and add files that you or the Client/Member has attached to the request.
+                </div>
+                <form method="post" enctype="multipart/form-data" action="/adminDashboard/pendingViewUploadMain">
+                    <input id="reqId" type="hidden" value="3" data-val="true" data-val-required="The reqid field is required." name="_viewUpload[0].reqid" />
+                    <div class="input-group mb-3  rounded my-4">
+                        <input type="file" class="form-control  py-3" id="inputGroupFile" data-val="true" data-val-required="Please Enter Atleast One File" name="_viewUpload[0].Upload">
+                        <button type="submit" class="input-group-text fw-bold bg-info upload">
+                            <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
+                            <span class="text-white">Upload</span>
+                        </button>
+                    </div>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="_viewUpload[0].Upload" data-valmsg-replace="true"></span>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8IcREsqhrMFEizcUkRIplJSxP2Dclu3x21WNKXsa9GHmzBm5kK5f9Z7gTgLYfe2pI5MUu4A-s7HwXH6T11WGpVfPdfVJ-EN1oTmWCWzQu_dS2shAkJbdeSo0bKUcVePqX4txSbOyOqHrji4c8BgbmBc" /></form>
+                <div class="d-flex justify-content-end">
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button onclick="downloadSelectedFiles()" type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                            <span class="d-none d-sm-inline-block">Download All</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button onclick="deleteAll()" type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info deleteAll">
+                            <span class="d-none d-sm-inline-block">Delete All</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button type="button" onclick="sendMailTwo()"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                            <span class="d-none d-sm-inline-block">Send Mail</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="container-fluid table-responsive">
+
+                    <table class="table ">
+                        <thead class="bg-body-tertiary ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input  type="checkbox" class="checkbox-main checkbox "  name="selectall"
+                                           onchange="tickAll()" />
+                                </th>
+                                <th>Upload Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                                    <tr class="align-middle">
+                                        <td class="first-col">
+                                            <input id="reqWiseFileId"  type="hidden" value="86" />
+                                            <input id="data" type="hidden"  value="true" />
+                                            <input id="data" type="hidden" value="ww@gmail.com" name="obj.email" />
+                                            <input value="clock-active.svg" data-mailMain="ww@gmail.com" data-reqid="3" data-reqwisefileid="86"  type="checkbox" name="Mark" class="checkbox fileCheckbox" /><span class="document-combo ms-5">
+                                                <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
+                                                <span class="document-name mx-2">clock-active.svg</span>
+                                            </span>
+                                        </td>
+                                        <td>07-03-2024 09:58:33</td>
+
+                                        <td>
+                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/adminDashboard/DownloadFile?data=clock-active.svg'"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                                            <button class="btn btn-outline-info delete-btn" onclick="window.location.href='/adminDashboard/DeleteFile/3?data=True&amp;reqFileId=86&amp;reqFileId=88'"> <i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="first-col">
+                                            <input id="reqWiseFileId"  type="hidden" value="88" />
+                                            <input id="data" type="hidden"  value="true" />
+                                            <input id="data" type="hidden" value="ww@gmail.com" name="obj.email" />
+                                            <input value="money-bag.svg" data-mailMain="ww@gmail.com" data-reqid="3" data-reqwisefileid="88"  type="checkbox" name="Mark" class="checkbox fileCheckbox" /><span class="document-combo ms-5">
+                                                <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
+                                                <span class="document-name mx-2">money-bag.svg</span>
+                                            </span>
+                                        </td>
+                                        <td>07-03-2024 09:58:57</td>
+
+                                        <td>
+                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/adminDashboard/DownloadFile?data=money-bag.svg'"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                                            <button class="btn btn-outline-info delete-btn" onclick="window.location.href='/adminDashboard/DeleteFile/3?data=True&amp;reqFileId=86&amp;reqFileId=88'"> <i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+
+                                    </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+    <script>
+
+        console.log("script")
+    function sendMailTwo() {
+
+        // console.log(email)
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+
+        if (checkboxes.length === 0) {
+            alert("Please select at least one file to download.");
+            return;
+        }
+
+        let count = 0;
+
+        // Create an anchor element for each selected file
+        checkboxes.forEach((checkbox) => {
+
+            const reqIdMain = checkbox.getAttribute("data-reqid")
+            const mailMain = checkbox.getAttribute("data-mailMain")
+
+            if (count != 0) {
+                const fileName = checkbox.value;
+                const sendMail = document.createElement('a');
+                sendMail.href = '/adminDashboard/sendMail?data=' + encodeURIComponent(fileName) + "&email=" + encodeURIComponent(mailMain) + "&id=" + encodeURIComponent(reqIdMain);
+                sendMail.download = fileName;
+                sendMail.style.display = 'none';
+                document.body.appendChild(sendMail);
+                sendMail.click();
+                document.body.removeChild(sendMail);
+            }
+            count++;
+        });
+
+    }
+
+        function downloadSelectedFiles() {
+            // Get all checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+
+            if (checkboxes.length === 0) {
+                alert("Please select at least one file to download.");
+                return;
+            }
+
+
+            let count = 0;
+           
+            // Create an anchor element for each selected file
+            checkboxes.forEach((checkbox) => {
+                if (count != 0) {
+                    const fileName = checkbox.value;
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = '/adminDashboard/DownloadFile?data=' + encodeURIComponent(fileName);
+                    downloadLink.download = fileName;
+                    downloadLink.style.display = 'none';
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                }
+                count++;
+            });
+        }
+
+
+        function deleteAll() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+       
+
+            if (checkboxes.length === 0) {
+                alert("Please select at least one file to Delete.");
+                return;
+            }
+
+            checkboxes.forEach((checkbox) => {
+                const reqIdMain = checkbox.getAttribute("data-reqid")
+                const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
+                const dataMain = true;
+
+                
+               
+                console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
+                const deleteLink = document.createElement('a');
+                deleteLink.href = '/adminDashboard/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
+                deleteLink.style.display = 'none';
+                document.body.appendChild(deleteLink);
+                deleteLink.click();
+                document.body.removeChild(deleteLink);
+            });
+        }
+
+        
+
+        const tickAll = () => {
+            const checkboxes = document.getElementsByClassName("checkbox")
+            if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    checkboxes[i].checked = true;
+                }
+            }
+            else {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    checkboxes[i].checked = false;
+                }
+            }
+        }
+
+    </script>
+
+    <script src="/js/PatientDashboard.js"></script>
+    <script src="/js/view_document.js"></script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function darkMode() {
+
+            let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
+            let moon = document.getElementById("darkmodeBtn");
+
+            if (isDarkModeTwo) {
+                moon.classList.remove("fa-sun")
+                moon.classList.add("fa-moon")
+            } else {
+                moon.classList.add("fa-sun")
+                moon.classList.remove("fa-moon")
+            }
+
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+
+            const isDarkMode = body.classList.contains('dark-mode');
+
+            localStorage.setItem('darkMode', isDarkMode);
+
+        }
+
+        window.onload = function () {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+            let moon = document.getElementById("darkmodeBtn");
+
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+
+                moon.classList.remove("fa-moon")
+                moon.classList.add("fa-sun")
+            }
+        }
+
+    </script>
+
+
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  
+    
+        <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    
+</body>
+<script>
+
+
+</script>
+</html>

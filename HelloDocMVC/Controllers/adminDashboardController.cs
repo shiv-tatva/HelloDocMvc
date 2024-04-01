@@ -10,6 +10,7 @@ using HalloDoc.mvc.Auth;
 using System.Text;
 using System.Reflection;
 using BLL_Business_Logic_Layer_.Services;
+using DAL_Data_Access_Layer_.DataModels;
 
 namespace HelloDocMVC.Controllers
 {
@@ -661,6 +662,24 @@ namespace HelloDocMVC.Controllers
         {
             return PartialView("_adminDashScheduling");
         }
+        
+        
+        public IActionResult DayTable()
+        {
+            return PartialView("_schedulingDayTable");
+        }
+        
+        public IActionResult WeekTable()
+        {
+            return PartialView("_schedulingWeekTable");
+        }
+                
+        public IActionResult MonthTable()
+        {
+            return PartialView("_schedulingMonthTable");
+        }
+
+
 
         //***************************************Provider Location**********************************************
 
@@ -669,15 +688,80 @@ namespace HelloDocMVC.Controllers
             return PartialView("_adminDashProviderLocation");
         }
 
-       
+
+        [HttpGet]
+        public IActionResult GetProviderLocation()
+        {
+            List<Physicianlocation> getLocation = _IAdminDash.GetPhysicianlocations();
+            return Ok(getLocation);
+        }
+
+
 
         //***************************************Partners**********************************************
 
-        public IActionResult partners()
+        public IActionResult partners(int professionid)
         {
-            return PartialView("_adminDashPartners");
-        }      
+            var Partnersdata = _IAdminDash.GetPartnersdata(professionid);
+            partnerModel partnerModel = new partnerModel
+            {
+                Partnersdata = Partnersdata,
+                Professions = _IAdminDash.GetProfession(),
+            };
+
+            return PartialView("_adminDashPartners", partnerModel);
+        }
+
         
+        public IActionResult AddBusiness(int vendorID)
+        {
+            if (vendorID == 0)
+            {
+                partnerModel partnerModel = new partnerModel
+                {
+                    Professions = _IAdminDash.GetProfession(),
+                    regions = _IAdminDash.RegionTable(),
+                    vendorID = vendorID,
+                };
+                return PartialView("_adminDashPartnersBusiness", partnerModel);
+            }
+            else
+            {
+                partnerModel partnerModel = _IAdminDash.GetEditBusinessData(vendorID);
+                partnerModel.Professions = _IAdminDash.GetProfession();
+                partnerModel.regions = _IAdminDash.RegionTable();
+                partnerModel.vendorID = vendorID;
+                return PartialView("_adminDashPartnersBusiness", partnerModel);
+            }
+
+        }
+        public IActionResult CreateNewBusiness(partnerModel partnerModel)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            var flag = _IAdminDash.CreateNewBusiness(partnerModel, sessionEmail);
+            if (flag == true)
+            {
+                return Json(new { isSend = true });
+            }
+            return Json(new { isSend = false });
+        }
+        public IActionResult UpdateBusiness(partnerModel partnerModel)
+        {
+            if (_IAdminDash.UpdateBusiness(partnerModel))
+            {
+                return Json(new { Success = true, vendorid = partnerModel.vendorID });
+            }
+            return Json(new { Success = false, vendorid = partnerModel.vendorID });
+        }
+        
+        
+        public IActionResult DelPartner(int vendorID)
+        {
+            _IAdminDash.DltBusiness(vendorID);
+
+            return Ok();
+        }
+
         //***************************************Access**********************************************
 
         public IActionResult access()

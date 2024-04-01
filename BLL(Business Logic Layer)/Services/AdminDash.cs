@@ -21,6 +21,10 @@ using System.Drawing.Drawing2D;
 using System.ComponentModel;
 using OfficeOpenXml;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using GoogleMaps.LocationServices;
+using System;
+using System.Threading.Tasks;
+using Geocoding.Microsoft;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -1370,12 +1374,12 @@ namespace BLL_Business_Logic_Layer_.Services
             return _profile;
         }
 
-        public List<Region> RegionTable()
+        List<DAL_Data_Access_Layer_.DataModels.Region> IAdminDash.RegionTable()
         {
             var region = _context.Regions.ToList();
             return region;
         }
-        
+
         public List<PhysicianRegionTable> PhyRegionTable(int phyId)
         {
             var region = _context.Regions.ToList();
@@ -2163,5 +2167,130 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
+
+
+        //*******************************************************Provider Location***********************************************
+
+        public List<Physicianlocation> GetPhysicianlocations()
+        {
+            //var address = "75 Ninth Avenue 2nd and 4th Floors New York, NY 10011";
+            //var locationService = new GoogleLocationService();
+            //var point = locationService.GetLatLongFromAddress(address);
+            //var latitude = point.Latitude;
+            //var longitude = point.Longitude; 
+
+            var phyLocation = _context.Physicianlocations.ToList();
+            return phyLocation;
+        }
+
+
+
+
+        //*****************************************************Partners********************************************************
+
+        public List<Healthprofessionaltype> GetProfession()
+        {
+
+            var professions = _context.Healthprofessionaltypes.Where(r => r.Isdeleted == null).Select(r => r).ToList();
+            return professions;
+        }
+
+        public List<Partnersdata> GetPartnersdata(int professionid)
+        {
+            var vendor = _context.Healthprofessionals.Where(r => r.Isdeleted == null).ToList();
+            if (professionid != 0)
+            {
+                vendor = vendor.Where(i => i.Profession == professionid).ToList();
+            }
+            var Partnersdata = vendor.Select(r => new Partnersdata()
+            {
+                VendorId = r.Vendorid,
+                VendorName = r.Vendorname,
+                ProfessionName = _context.Healthprofessionaltypes.FirstOrDefault(i => i.Healthprofessionalid == r.Profession).Professionname,
+                VendorEmail = r.Email,
+                FaxNo = r.Faxnumber,
+                PhoneNo = r.Phonenumber,
+                Businesscontact = r.Businesscontact,
+            }).ToList();
+            return Partnersdata;
+        }
+
+        public bool CreateNewBusiness(partnerModel partnerModel, string sessionEmail)
+        {
+            if (!_context.Healthprofessionals.Any(x => x.Email == partnerModel.Email))
+            {
+                var healthprof = new Healthprofessional()
+                {
+                    Vendorname = partnerModel.BusinessName,
+                    Profession = partnerModel.SelectedhealthprofID,
+                    Faxnumber = partnerModel.FAXNumber,
+                    Phonenumber = partnerModel.Phonenumber,
+                    Email = partnerModel.Email,
+                    Businesscontact = partnerModel.BusinessContact,
+                    Address = partnerModel.Street,
+                    City = partnerModel.City,
+                    Regionid = partnerModel.RegionId,
+                    Zip = partnerModel.Zip,
+                };
+                _context.Healthprofessionals.Add(healthprof);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public partnerModel GetEditBusinessData(int vendorID)
+        {
+            var vendorDetails = _context.Healthprofessionals.FirstOrDefault(i => i.Vendorid == vendorID);
+            var partnerModel = new partnerModel()
+            {
+                BusinessName = vendorDetails.Vendorname,
+                SelectedhealthprofID = vendorDetails.Profession,
+                FAXNumber = vendorDetails.Faxnumber,
+                Phonenumber = vendorDetails.Phonenumber,
+                Email = vendorDetails.Email,
+                BusinessContact = vendorDetails.Businesscontact,
+                Street = vendorDetails.Address,
+                City = vendorDetails.City,
+                RegionId = vendorDetails.Regionid,
+                Zip = vendorDetails.Zip,
+            };
+            return partnerModel;
+        }
+
+        public bool UpdateBusiness(partnerModel partnerModel)
+        {
+            var vendorDetails = _context.Healthprofessionals.FirstOrDefault(i => i.Vendorid == partnerModel.vendorID);
+            if (partnerModel.BusinessName != vendorDetails.Vendorname || partnerModel.SelectedhealthprofID != vendorDetails.Profession || partnerModel.FAXNumber != vendorDetails.Faxnumber
+            || partnerModel.Phonenumber != vendorDetails.Phonenumber || partnerModel.Email != vendorDetails.Email || partnerModel.BusinessContact != vendorDetails.Businesscontact
+            || partnerModel.Street != vendorDetails.Address || partnerModel.City != vendorDetails.City || partnerModel.RegionId != vendorDetails.Regionid || partnerModel.Zip != vendorDetails.Zip)
+            {
+                vendorDetails.Vendorname = partnerModel.BusinessName;
+                vendorDetails.Profession = partnerModel.SelectedhealthprofID;
+                vendorDetails.Faxnumber = partnerModel.FAXNumber;
+                vendorDetails.Phonenumber = partnerModel.Phonenumber;
+                vendorDetails.Email = partnerModel.Email;
+                vendorDetails.Businesscontact = partnerModel.BusinessContact;
+                vendorDetails.Address = partnerModel.Street;
+                vendorDetails.City = partnerModel.City;
+                vendorDetails.Regionid = partnerModel.RegionId;
+                vendorDetails.Zip = partnerModel.Zip;
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public void DltBusiness(int vendorID)
+        {
+            var vendor = _context.Healthprofessionals.Where(r => r.Vendorid == vendorID).Select(r => r).First();
+
+            if(vendor.Isdeleted == null)
+            {
+                vendor.Isdeleted = new BitArray(1, true);
+                _context.SaveChanges();
+            }
+        }
+
     }
 }

@@ -436,6 +436,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? shiftId {  get; set; }
 
         public DateTime DateTime { get; set; }
+        
+        
 
     }
 
@@ -526,6 +528,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<Role> roles { get; set; }
 
         public bool? indicate { get; set; }
+
+        public string? longitude { get; set; }
+
+        public string? latitude { get; set; }
     }
 
 

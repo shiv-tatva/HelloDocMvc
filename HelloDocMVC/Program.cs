@@ -77,6 +77,7 @@ app.Use(async (context, next) =>
     await next.Invoke();
 });
 
+
 app.UseSession();//For Session
 
 app.UseHttpsRedirection();

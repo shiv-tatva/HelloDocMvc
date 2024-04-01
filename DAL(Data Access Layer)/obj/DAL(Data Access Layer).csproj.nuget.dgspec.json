@@ -44,6 +44,14 @@
               "target": "Package",
               "version": "[7.0.10, )"
             },
+            "Geocoding.Microsoft": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "GoogleMaps.LocationServices": {
+              "target": "Package",
+              "version": "[1.2.0.5, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[7.0.0, )"

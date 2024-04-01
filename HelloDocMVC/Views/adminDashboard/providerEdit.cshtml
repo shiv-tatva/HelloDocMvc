@@ -302,7 +302,7 @@
                             <div>
                                 <div class="input-group rounded d-flex">
                                     <input asp-for="@Model._providerEdit.Photo"  type="file" class="d4class form-control py-3" id="fileUploadInp">
-                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" disabled id="upload-btn" onchange="checkFileExtension()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Profile</span></button>
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" disabled id="upload-btn" onclick="checkFileExtension()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Profile</span></button>
                                 </div>                                
                             </div>
                             <span class="text-danger" id="errormessgespan"></span>
@@ -317,7 +317,7 @@
                             <div class="  form-floating mb-3 d-flex">
                                 <div class="input-group">
                                     <input asp-for="@Model._providerEdit.Signature"  type="file" class="d4class form-control py-3" id="fileUploadInp2">
-                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" id="upload-btn2" disabled onchange="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1 "></i> <span class="d-none d-md-inline-block">Sign</span></button>
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" id="upload-btn2" disabled onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1 "></i> <span class="d-none d-md-inline-block">Sign</span></button>
                                 </div>                                
                                 <button style="cursor:pointer;" type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
                                     <i class="bi bi-pen me-1"></i><span>Create</span>

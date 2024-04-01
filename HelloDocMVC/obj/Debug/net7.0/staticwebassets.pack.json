@@ -37,6 +37,22 @@
       "PackagePath": "staticwebassets\\Documents\\21\\Profile.png"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\22\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\22\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\22\\Profile.png",
+      "PackagePath": "staticwebassets\\Documents\\22\\Profile.png"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\23\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\23\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\23\\Profile.png",
+      "PackagePath": "staticwebassets\\Documents\\23\\Profile.png"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\2\\Background.pdf",
       "PackagePath": "staticwebassets\\Documents\\2\\Background.pdf"
     },
@@ -133,12 +149,20 @@
       "PackagePath": "staticwebassets\\Documents\\maintenance-default.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\menu-bar (1).svg",
+      "PackagePath": "staticwebassets\\Documents\\menu-bar (1).svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\menu-bar.svg",
       "PackagePath": "staticwebassets\\Documents\\menu-bar.svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\mobile-header-logo.svg",
       "PackagePath": "staticwebassets\\Documents\\mobile-header-logo.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\money-bag (2).svg",
+      "PackagePath": "staticwebassets\\Documents\\money-bag (2).svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\money-bag.svg",

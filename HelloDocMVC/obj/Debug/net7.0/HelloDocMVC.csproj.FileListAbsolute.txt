@@ -523,3 +523,6 @@ D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\System.Security.Cryptography
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\GoogleMaps.LocationServices.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Geocoding.Core.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Geocoding.Microsoft.dll

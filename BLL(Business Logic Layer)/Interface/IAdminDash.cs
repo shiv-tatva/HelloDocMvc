@@ -116,5 +116,17 @@ namespace BLL_Business_Logic_Layer_.Interface
         public List<UserAccess> GetUserdata(int accounttypeid);
 
         public void createAdminAccount(adminDashData obj, List<int> regions);
+
+        public List<Physicianlocation> GetPhysicianlocations();
+
+        //*****************************************************Partners****************************************
+
+        public List<Healthprofessionaltype> GetProfession();
+        public List<Partnersdata> GetPartnersdata(int professionid);
+        public bool CreateNewBusiness(partnerModel partnerModel, string sessionEmail);
+        public partnerModel GetEditBusinessData(int vendorID);
+        public bool UpdateBusiness(partnerModel partnerModel);
+        public void DltBusiness(int vendorID);
+
     }
 }
