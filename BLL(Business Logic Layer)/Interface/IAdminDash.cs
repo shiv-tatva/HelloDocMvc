@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -127,6 +128,24 @@ namespace BLL_Business_Logic_Layer_.Interface
         public partnerModel GetEditBusinessData(int vendorID);
         public bool UpdateBusiness(partnerModel partnerModel);
         public void DltBusiness(int vendorID);
+
+
+        //*****************************************************Scheduling****************************************
+
+        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type);
+
+        ShiftDetailsmodal GetShift(int shiftdetailsid);
+
+
+        void createShift(ScheduleModel scheduleModel, int Aspid);
+
+        public List<Physician> GetPhysicians(int regionid);
+
+        //************************************************Records*********************************************************
+
+        public List<requestsRecordModel> searchRecords(recordsModel recordsModel);
+
+        public void DeleteRecords(int reqId);
 
     }
 }

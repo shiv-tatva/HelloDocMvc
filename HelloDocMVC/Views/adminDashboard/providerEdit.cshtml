@@ -218,6 +218,8 @@
             </form>
 
             <form action=" " method="post" id="MailingForm">
+                <input type="hidden" id="longitude" asp-for="@Model._providerEdit.longitude" />
+                <input type="hidden" id="latitude" asp-for="@Model._providerEdit.latitude" />
                 <input id="providerEditThree" type="hidden" asp-for="@Model._providerEdit.PhyID" value="@Model._providerEdit.PhyID" />
                 <div class="pt-4">
                     <h4 class="mb-4">Mailing And Billing Information</h4>
@@ -670,8 +672,14 @@
     
     
     function editProviderForm3(phyId){
+
+        var zipcode = $("#floatingInputZipCode").val();
+
+        fetchCoordinates(zipcode);
+
         var payloadMain = $("#MailingForm").serializeArray();
 
+        setTimeout(() => {
         $.ajax({
             url: "/adminDashboard/editProviderForm3",
             type: 'POST',
@@ -688,9 +696,30 @@
                 alert("Error");
             },
         });
+        }, 1000);
     }
 
+    function fetchCoordinates(postalCode) {
+        var apiUrl = 'https://nominatim.openstreetmap.org/search?postalcode=' + postalCode + '&format=json';
 
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var lat = data[0].lat;
+                    var lon = data[0].lon;
+                    console.log(lat);
+                    console.log(lon);
+                    document.getElementById("longitude").setAttribute("value", lon);
+                    document.getElementById("latitude").setAttribute("value", lat);
+                } else {
+                    alert("error");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
 
     function checkFileExtension() {

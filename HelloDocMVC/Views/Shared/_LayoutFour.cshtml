@@ -159,11 +159,39 @@
                                 </div>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button onclick="records()" class="nav-link text-muted px-3" id="Records-tab" data-bs-toggle="tab"
-                                        data-bs-target="#Records-tab-pane" type="button" role="tab" aria-controls="Records-tab-pane"
-                                        aria-selected="false">
-                                    Records
-                                </button>
+                                <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="Records-tab">
+                                    <button role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
+                                        Records
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="AccessDropdown" style="width:134px!important;">
+                                        <button onclick="searchRecords()" style="width:100%;" class="nav-link text-muted px-3" id="Search-Records" data-bs-toggle="tab"
+                                                data-bs-target="#Search-Records-pane" type="button" role="tab" aria-controls="Search-Records-pane"
+                                                aria-selected="false">
+                                            Search Records
+                                        </button>
+                                        <button onclick="emailLogs()" style="width:100%;" class="nav-link text-muted px-3" id="Email-Logs" data-bs-toggle="tab"
+                                                data-bs-target="#Email-Logs-pane" type="button" role="tab" aria-controls="Email-Logs-pane
+                                                aria-selected="false">
+                                            Email Logs
+                                        </button>
+                                        <button style="width:100%;" onclick="smsLogs()" class="nav-link text-muted px-3" id="SMS-Logs" data-bs-toggle="tab"
+                                                data-bs-target="#SMS-Logs-pane" type="button" role="tab" aria-controls="SMS-Logs-pane
+                                                aria-selected="false">
+                                            SMS Logs
+                                        </button>
+                                        <button onclick="records()" class="nav-link text-muted px-3" id="Patient-Records" data-bs-toggle="tab"
+                                                data-bs-target="#Records-tab-pane" type="button" role="tab" aria-controls="Patient-Records-pane"
+                                                aria-selected="false">
+                                            Patient Records
+                                        </button>
+                                        <button style="width:100%;" onclick="blockedHistory()" class="nav-link text-muted px-3" id="Blocked-History" data-bs-toggle="tab"
+                                                data-bs-target="#Blocked-History-pane" type="button" role="tab" aria-controls="Blocked-History-pane
+                                                aria-selected="false">
+                                            Blocked History
+                                        </button>
+                                    </div>
+                                </div>                                
                             </li>
                         </ul>
                     </div>

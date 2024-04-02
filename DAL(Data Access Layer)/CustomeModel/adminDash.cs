@@ -529,9 +529,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public bool? indicate { get; set; }
 
-        public string? longitude { get; set; }
+        public decimal? longitude { get; set; }
 
-        public string? latitude { get; set; }
+        public decimal? latitude { get; set; }
     }
 
 

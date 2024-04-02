@@ -37,7 +37,7 @@
             <form method="post" id="CreatePhysicianAccountForm" onsubmit="return checkOnboardingFiles(1) && checkOnboardingFiles(2) && checkOnboardingFiles(3) && checkOnboardingFiles(4) && CreatePhysicianAccountForm()">
                 <div class="mt-3">
                     <h4 class="my-4 pt-4">Account Information</h4>
-                    <input type="hidden" id="longitude" asp-for="@Model._providerEdit.longitude"/>
+                    <input type="hidden" id="longitude" asp-for="@Model._providerEdit.longitude" />
                     <input type="hidden" id="latitude" asp-for="@Model._providerEdit.latitude" />
                     <div class="row">
                         <div class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating  ">
@@ -421,28 +421,12 @@
 
     function CreatePhysicianAccountForm() {
 
-
-        alert("start")
-        var addr1 = $("#floatingInputAddress1").val();
-        var addr2 = $("#floatingInputAddress2").val();
-        var cityName = $("#floatingInputCity").val();
+        event.preventDefault();
         var zipcode = $("#floatingInputZipCode").val();
 
-        // getStateLocation(addr1 , addr2 , cityName , zipcode);
-
-
-        // console.log(addr1 + addr2 + cityName + zipcode)
-
-        // var stateName = addr1 + " " + addr2 + " " + cityName + " " + zipcode;
-
-        // getStateLocation(stateName);
-
-        // event.preventDefault();
-        // alert("end")
+        fetchCoordinates(zipcode);
 
         event.preventDefault();
-        alert("CALLEDD");
-
         setTimeout(() => {
             $.ajax({
                 url: "/adminDashboard/createProviderAccount",
@@ -463,43 +447,31 @@
                     alert("Error");
                 },
             });
-        }, 500);
+        }, 1000);
     }
 
-    
 
-    //  function getStateLocation(stateName) {
+    function fetchCoordinates(postalCode) {
+        var apiUrl = 'https://nominatim.openstreetmap.org/search?postalcode=' + postalCode + '&format=json';
 
-    //     const geo = navigator.geolocation;
-
-    //     if (!geo) {
-    //         console.error("Geolocation is not supported by your browser.");
-    //         return;
-    //     }
-
-    //     const successCallback = (position) => {
-    //         const { latitude, longitude } = position.coords;
-    //         document.getElementById("longitude").setAttribute("value", longitude);
-    //         document.getElementById("latitude").setAttribute("value", latitude);
-
-    //         // Do something with the latitude and longitude
-    //         console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-    //     };
-
-    //     const errorCallback = (error) => {
-    //         console.error(`Error getting location: ${error.message}`);
-    //     };
-
-    //     const options = {
-    //         enableHighAccuracy: true,
-    //         timeout: 5000,
-    //         maximumAge: 0
-    //     };
-
-    //     geo.getCurrentPosition(successCallback, errorCallback, options);
-    // }
-
-    // Example usage
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var lat = data[0].lat;
+                    var lon = data[0].lon;
+                    console.log(lat);
+                    console.log(lon);
+                    document.getElementById("longitude").setAttribute("value", lon);
+                    document.getElementById("latitude").setAttribute("value", lat);
+                } else {
+                    alert("error");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }   
     
 
 </script>

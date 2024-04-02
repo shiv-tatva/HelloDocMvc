@@ -175,12 +175,85 @@
         });
     }
 
+    //*************************************************************************************Records***************************************************
+
+    
+    function searchRecords() {
+        $.ajax({
+            url: "/adminDashboard/searchRecords",
+            type: 'GET',
+            success: function (result) {
+                console.log(result);
+                console.log(result.length);
+                $("#content").html(result);
+                document.getElementById("Email-Logs").classList.remove("active");
+                document.getElementById("SMS-Logs").classList.remove("active");
+                document.getElementById("Patient-Records").classList.remove("active");
+                document.getElementById("Blocked-History").classList.remove("active");
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+    function emailLogs() {
+        $.ajax({
+            url: "/adminDashboard/emailLogs",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("Search-Records").classList.remove("active");
+                document.getElementById("SMS-Logs").classList.remove("active");
+                document.getElementById("Patient-Records").classList.remove("active");
+                document.getElementById("Blocked-History").classList.remove("active");
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+    function smsLogs() {
+        $.ajax({
+            url: "/adminDashboard/smsLogs",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("Search-Records").classList.remove("active");
+                document.getElementById("Email-Logs").classList.remove("active");
+                document.getElementById("Patient-Records").classList.remove("active");
+                document.getElementById("Blocked-History").classList.remove("active");
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
     function records() {
         $.ajax({
             url: "/adminDashboard/records",
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);
+                document.getElementById("Search-Records").classList.remove("active");
+                document.getElementById("Email-Logs").classList.remove("active");
+                document.getElementById("SMS-Logs").classList.remove("active");
+                document.getElementById("Blocked-History").classList.remove("active");
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+    function blockedHistory() {
+        $.ajax({
+            url: "/adminDashboard/blockedHistory",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("Search-Records").classList.remove("active");
+                document.getElementById("Email-Logs").classList.remove("active");
+                document.getElementById("SMS-Logs").classList.remove("active");
+                document.getElementById("Patient-Records").classList.remove("active");
             },
             error: function () {
                 alert("Error");

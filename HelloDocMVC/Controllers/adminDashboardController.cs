@@ -610,7 +610,7 @@ namespace HelloDocMVC.Controllers
         
         [HttpPost]
         public IActionResult editProviderForm3(adminDashData payloadMain)
-        {
+        { 
             var editProviderForm3 = _IAdminDash.editProviderForm3(payloadMain);
             return Json(new { indicate = editProviderForm3.indicate, phyId = editProviderForm3.PhyID });
         }
@@ -657,27 +657,121 @@ namespace HelloDocMVC.Controllers
         }
 
 
+        //*****************************************************Scheduling****************************************
 
         public IActionResult scheduling()
         {
-            return PartialView("_adminDashScheduling");
+            scheduling scheduling = new scheduling()
+            {
+                regions = _IAdminDash.RegionTable(),
+            };
+
+            return PartialView("_adminDashScheduling", scheduling);
         }
-        
-        
-        public IActionResult DayTable()
+
+
+        public IActionResult CreateNewShift()
         {
-            return PartialView("_schedulingDayTable");
+            scheduling scheduling = new scheduling();
+            scheduling.regions = _IAdminDash.RegionTable();
+            return PartialView("_schedulingCreateShift", scheduling);
         }
-        
-        public IActionResult WeekTable()
+
+        [HttpPost]
+        public IActionResult createShiftPost(scheduling scheduling)
         {
-            return PartialView("_schedulingWeekTable");
+            int Aspid = (int)HttpContext.Session.GetInt32("AspId");
+            _IAdminDash.createShift(scheduling.ScheduleModel, Aspid);
+
+            return Ok();
         }
-                
-        public IActionResult MonthTable()
+
+
+        [HttpPost]
+        public IActionResult loadshift(string datestring, string sundaystring, string saturdaystring, string shifttype, int regionid)
         {
-            return PartialView("_schedulingMonthTable");
+            DateTime date = DateTime.Parse(datestring);
+            DateTime sunday = DateTime.Parse(sundaystring);
+            DateTime saturday = DateTime.Parse(saturdaystring);
+
+
+            switch (shifttype)
+            {
+                case "month":
+                    MonthShiftModal monthShift = new MonthShiftModal();
+
+                    var totalDays = DateTime.DaysInMonth(date.Year, date.Month);
+                    var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+                    var startDayIndex = (int)firstDayOfMonth.DayOfWeek;
+
+                    var dayceiling = (int)Math.Ceiling((float)(totalDays + startDayIndex) / 7);
+
+                    monthShift.daysLoop = (int)dayceiling * 7;
+                    monthShift.daysInMonth = totalDays;
+                    monthShift.firstDayOfMonth = firstDayOfMonth;
+                    monthShift.startDayIndex = startDayIndex;
+                    monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month");
+
+                    return PartialView("_schedulingMonthWiseShift", monthShift);
+
+                case "week":
+
+                    WeekShiftModal weekShift = new WeekShiftModal();
+
+                    weekShift.Physicians = _IAdminDash.GetPhysicians(regionid);
+                    weekShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "week");
+
+                    List<int> dlist = new List<int>();
+
+                    for (var i = 0; i < 7; i++)
+                    {
+                        var date12 = sunday.AddDays(i);
+                        dlist.Add(date12.Day);
+                    }
+
+                    weekShift.datelist = dlist.ToList();
+                    weekShift.dayNames = new string[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+
+                    return PartialView("_schedulingWeekWiseShift", weekShift);
+
+                case "day":
+
+                    DayShiftModal dayShift = new DayShiftModal();
+                    dayShift.Physicians = _IAdminDash.GetPhysicians(regionid);
+                    dayShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "day");
+
+                    return PartialView("_schedulingDayWiseShift", dayShift);
+
+                default:
+                    return PartialView();
+            }
+
         }
+
+
+
+        public IActionResult OpenScheduledModal(PartialViewModal partialView)
+        {
+            HttpContext.Session.SetInt32("shiftdetailsid", partialView.shiftdetailsid);
+            switch (partialView.actionType)
+            {
+                case "shiftdetails":
+                    ShiftDetailsmodal shift = _IAdminDash.GetShift(partialView.shiftdetailsid);
+                    return PartialView("_schedulingViewShift", shift);
+
+                case "moreshifts":
+                    DateTime date = DateTime.Parse(partialView.datestring);
+                    var list = _IAdminDash.ShiftDetailsmodal(date, DateTime.Now, DateTime.Now, "month");
+                    return PartialView("_schedulingMoreShifts", list);
+
+
+                default:
+
+                    return PartialView();
+            }
+        }
+
+
 
 
 
@@ -875,9 +969,44 @@ namespace HelloDocMVC.Controllers
 
         //***************************************Records**********************************************
 
+        public IActionResult searchRecords(recordsModel recordsModel)
+        {
+            recordsModel _data = new recordsModel();
+            _data.requestListMain = _IAdminDash.searchRecords(recordsModel);
+            if(_data.requestListMain.Count() == 0)
+            {
+                requestsRecordModel rec = new requestsRecordModel();
+                rec.flag = 1;
+                _data.requestListMain.Add(rec);
+            }
+
+            return PartialView("_adminDashSearchRecords", _data);
+        } 
+        
+        
+        public IActionResult recordDltBtn(int reqId)
+        {
+           _IAdminDash.DeleteRecords(reqId);
+
+            return Ok();
+        } 
+
+
+        public IActionResult emailLogs()
+        {
+            return PartialView("_adminDashEmailLogs");
+        }
+        public IActionResult smsLogs()
+        {
+            return PartialView("_adminDashSmsLogs");
+        }
         public IActionResult records()
         {
             return PartialView("_adminDashRecords");
+        }
+        public IActionResult blockedHistory()
+        {
+            return PartialView("_adminDashBlockedHistory");
         }
     }
 }
