@@ -218,8 +218,8 @@
             </form>
 
             <form action=" " method="post" id="MailingForm">
-                <input type="hidden" id="longitude" asp-for="@Model._providerEdit.longitude" />
-                <input type="hidden" id="latitude" asp-for="@Model._providerEdit.latitude" />
+                <input type="hidden" id="longitudeMain" asp-for="@Model._providerEdit.longitude" />
+                <input type="hidden" id="latitudeMain" asp-for="@Model._providerEdit.latitude" />
                 <input id="providerEditThree" type="hidden" asp-for="@Model._providerEdit.PhyID" value="@Model._providerEdit.PhyID" />
                 <div class="pt-4">
                     <h4 class="mb-4">Mailing And Billing Information</h4>
@@ -677,13 +677,13 @@
 
         fetchCoordinates(zipcode);
 
-        var payloadMain = $("#MailingForm").serializeArray();
+        // var payloadMain = $("#MailingForm").serializeArray();
 
         setTimeout(() => {
         $.ajax({
             url: "/adminDashboard/editProviderForm3",
             type: 'POST',
-            data: payloadMain ,
+                data: $("#MailingForm").serializeArray(),
             success: function (result) {                
                 if (result.indicate == true) {
                     editProvider(result.phyId);
@@ -710,8 +710,10 @@
                     var lon = data[0].lon;
                     console.log(lat);
                     console.log(lon);
-                    document.getElementById("longitude").setAttribute("value", lon);
-                    document.getElementById("latitude").setAttribute("value", lat);
+                    console.log(document.getElementById("longitudeMain"))
+                    console.log(document.getElementById("latitudeMain"))
+                    document.getElementById("longitudeMain").setAttribute("value", lon);
+                    document.getElementById("latitudeMain").setAttribute("value", lat);
                 } else {
                     alert("error");
                 }

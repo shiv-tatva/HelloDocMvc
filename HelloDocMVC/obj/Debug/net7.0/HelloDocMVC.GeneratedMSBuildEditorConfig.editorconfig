@@ -72,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Login/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cQWNjZXNzRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Login/ForgotPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRm9yZ290UGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -202,6 +206,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDashProviderLocation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hQcm92aWRlckxvY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDashRecordExplore.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hSZWNvcmRFeHBsb3JlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDashRecords.cshtml]

@@ -14,7 +14,9 @@ namespace BLL_Business_Logic_Layer_.Interface
     {
         public List<adminDash> adminData(int[] status, int typeId, int regionId);
 
-        public countMain countService();
+        public countMain countService(string sessionName);
+
+        public List<string> GetListOfRoleMenu(int roleId);
         public List<adminDash> adminDataViewCase(int reqId);
         public viewNotes adminDataViewNote(int reqId);
         public void adminDataViewNote(adminDashData obj);
@@ -146,6 +148,12 @@ namespace BLL_Business_Logic_Layer_.Interface
         public List<requestsRecordModel> searchRecords(recordsModel recordsModel);
 
         public void DeleteRecords(int reqId);
+
+        public byte[] GenerateExcelFile(List<requestsRecordModel> recordsModel);
+
+        public List<User> patientRecords(GetRecordsModel GetRecordsModel);
+
+        public List<GetRecordExplore>  GetPatientRecordExplore(int userId);
 
     }
 }

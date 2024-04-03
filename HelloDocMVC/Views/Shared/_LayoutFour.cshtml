@@ -84,115 +84,165 @@
                 <div class="collapse w-100 mx-sm-1 show d-sm-block" id="navbarToggleExternalContent">
                     <div class="px-3">
                         <ul class="nav nav-underline" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button onclick="adminMain()" class="nav-link active text-muted px-3" id="home-tab" data-bs-toggle="tab"
-                                        data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
-                                        aria-selected="false">
-                                    Dashboard
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button onclick="providerLocation()" class="nav-link  text-muted px-3" id="ProviderLocation-tab" data-bs-toggle="tab"
-                                        data-bs-target="#ProviderLocation-tab-pane" type="button" role="tab"
-                                        aria-controls="ProviderLocation-tab-pane" aria-selected="false">
-                                    Provider Location
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button onclick="myProfile()" class="nav-link text-muted px-3" id="Myprofile-tab" data-bs-toggle="tab"
-                                        data-bs-target="#Myprofile-tab-pane" type="button" role="tab" aria-controls="Myprofile-tab-pane"
-                                        aria-selected="false">
-                                    My Profile
-                                </button>
-                            </li>                           
-
-                            <li class="nav-item" role="presentation">
-                                <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="providersDropdown">
-                                    <button  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
-                                        Providers
-                                        <i class="fa-solid fa-chevron-down"></i>
+                           @*  @if (ViewBag.Menu.Contains("Dashboard"))
+                            { *@
+                                <li class="nav-item" role="presentation">
+                                    <button onclick="adminMain()" class="nav-link active text-muted px-3" id="home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                    aria-selected="false">
+                                        Dashboard
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="providersDropdown" style="width:134px!important;">
-                                        <button style="width:100%;" onclick="providers()" class="nav-link text-muted px-3" id="Providers-tab" data-bs-toggle="tab"
+                                </li>
+                            }
+                            @if (ViewBag.Menu.Contains("Provider Location"))
+                            {                                
+                                <li class="nav-item" role="presentation">
+                                    <button onclick="providerLocation()" class="nav-link  text-muted px-3" id="ProviderLocation-tab" data-bs-toggle="tab"
+                                            data-bs-target="#ProviderLocation-tab-pane" type="button" role="tab"
+                                            aria-controls="ProviderLocation-tab-pane" aria-selected="false">
+                                        Provider Location
+                                    </button>
+                                </li>
+                            }
+                            @if (ViewBag.Menu.Contains("My Profile"))
+                            {                                
+                                <li class="nav-item" role="presentation">
+                                    <button onclick="myProfile()" class="nav-link text-muted px-3" id="Myprofile-tab" data-bs-toggle="tab"
+                                            data-bs-target="#Myprofile-tab-pane" type="button" role="tab" aria-controls="Myprofile-tab-pane"
+                                            aria-selected="false">
+                                        My Profile
+                                    </button>
+                                </li>                           
+                            }
+                             @if (ViewBag.Menu.Contains("Provider") || ViewBag.Menu.Contains("Scheduling"))
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="providersDropdown">
+                                        <button  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
+                                            Providers
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </button>                                        
+                                        <div class="dropdown-menu" aria-labelledby="providersDropdown" style="width:134px!important;">
+                                            @if (ViewBag.Menu.Contains("Providers"))
+                                            {
+                                                <button style="width:100%;" onclick="providers()" class="nav-link text-muted px-3" id="Providers-tab" data-bs-toggle="tab"
                                                 data-bs-target="#Providers-tab-pane" type="button" role="tab" aria-controls="Providers-tab-pane"
                                                 aria-selected="false">
-                                            Providers
-                                        </button>
-                                        <button style="width:100%;" onclick="scheduling()" class="nav-link text-muted px-3" id="Scheduling-tab" data-bs-toggle="tab"
+                                                    Providers
+                                                </button>
+                                            }
+                                            @if (ViewBag.Menu.Contains("Scheduling"))
+                                            {
+                                                <button style="width:100%;" onclick="scheduling()" class="nav-link text-muted px-3" id="Scheduling-tab" data-bs-toggle="tab"
                                                 data-bs-target="#Scheduling-tab-pane" type="button" role="tab" aria-controls="Scheduling-tab-pane"
                                                 aria-selected="false">
-                                            Scheduling
-                                        </button>
+                                                    Scheduling
+                                                </button>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button onclick="partners()" class="nav-link text-muted px-3" id="Partners-tab" data-bs-toggle="tab"
-                                        data-bs-target="#Partners-tab-pane" type="button" role="tab" aria-controls="Partners-tab-pane"
-                                        aria-selected="false">
-                                    Partners
-                                </button>
-                            </li>                            
-                            <li class="nav-item" role="presentation">
-                                <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="AccessDropdown">
-                                    <button role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
-                                        Access
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                </li>
+                            }
+                            @if (ViewBag.Menu.Contains("Partners"))
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <button onclick="partners()" class="nav-link text-muted px-3" id="Partners-tab" data-bs-toggle="tab"
+                                    data-bs-target="#Partners-tab-pane" type="button" role="tab" aria-controls="Partners-tab-pane"
+                                    aria-selected="false">
+                                        Partners
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="AccessDropdown" style="width:134px!important;">
-                                        <button style="width:100%;" onclick="access()" class="nav-link text-muted px-3" id="Access-tab" data-bs-toggle="tab"
+                                </li>
+                            }
+                            @if (ViewBag.Menu.Contains("Account Access") || ViewBag.Menu.Contains("User Access") || ViewBag.Menu.Contains("Create Admin"))
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="AccessDropdown">
+                                        <button role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
+                                            Access
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="AccessDropdown" style="width:134px!important;">
+                                            @if (ViewBag.Menu.Contains("Account Access"))
+                                            {
+                                                <button style="width:100%;" onclick="access()" class="nav-link text-muted px-3" id="Access-tab" data-bs-toggle="tab"
                                                 data-bs-target="#Access-tab-pane" type="button" role="tab" aria-controls="Access-tab-pane"
                                                 aria-selected="false">
-                                            Account Access
-                                        </button>
-                                        <button style="width:100%;" onclick="userAccess()" class="nav-link text-muted px-3" id="AccessUser-tab" data-bs-toggle="tab"
+                                                    Account Access
+                                                </button>
+                                            }
+                                            @if (ViewBag.Menu.Contains("User Access"))
+                                            {
+                                                <button style="width:100%;" onclick="userAccess()" class="nav-link text-muted px-3" id="AccessUser-tab" data-bs-toggle="tab"
                                                 data-bs-target="#AccessUser-tab-pane" type="button" role="tab" aria-controls="AccessUser-tab-pane
                                                 aria-selected="false">
-                                            User Access
-                                        </button>
-                                        <button style="width:100%;" onclick="createAdmin()" class="nav-link text-muted px-3" id="CreateAdmin-tab" data-bs-toggle="tab"
+                                                    User Access
+                                                </button>
+                                            }
+                                            @if (ViewBag.Menu.Contains("Create Admin"))
+                                            {
+                                                <button style="width:100%;" onclick="createAdmin()" class="nav-link text-muted px-3" id="CreateAdmin-tab" data-bs-toggle="tab"
                                                 data-bs-target="#CreateAdmin-tab-pane" type="button" role="tab" aria-controls="CreateAdmin-tab-pane
                                                 aria-selected="false">
-                                            Create Admin
-                                        </button>
+                                                    Create Admin
+                                                </button>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="Records-tab">
-                                    <button role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
-                                        Records
-                                        <i class="fa-solid fa-chevron-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="AccessDropdown" style="width:134px!important;">
-                                        <button onclick="searchRecords()" style="width:100%;" class="nav-link text-muted px-3" id="Search-Records" data-bs-toggle="tab"
+                                </li>
+                            }
+                            @if (ViewBag.Menu.Contains("Search Records") || ViewBag.Menu.Contains("Email Logs") || ViewBag.Menu.Contains("SMS Logs") || ViewBag.Menu.Contains("Patient History") || ViewBag.Menu.Contains("Block History"))
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="Records-tab">
+                                        <button role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
+                                            Records
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="AccessDropdown" style="width:134px!important;">
+                                            @if (ViewBag.Menu.Contains("Search Records"))
+                                            {
+                                                <button onclick="searchRecords()" style="width:100%;" class="nav-link text-muted px-3" id="Search-Records" data-bs-toggle="tab"
                                                 data-bs-target="#Search-Records-pane" type="button" role="tab" aria-controls="Search-Records-pane"
                                                 aria-selected="false">
-                                            Search Records
-                                        </button>
-                                        <button onclick="emailLogs()" style="width:100%;" class="nav-link text-muted px-3" id="Email-Logs" data-bs-toggle="tab"
+                                                    Search Records
+                                                </button>
+                                            }
+                                            @if (ViewBag.Menu.Contains("Email Logs"))
+                                            {
+                                                <button onclick="emailLogs()" style="width:100%;" class="nav-link text-muted px-3" id="Email-Logs" data-bs-toggle="tab"
                                                 data-bs-target="#Email-Logs-pane" type="button" role="tab" aria-controls="Email-Logs-pane
                                                 aria-selected="false">
-                                            Email Logs
-                                        </button>
-                                        <button style="width:100%;" onclick="smsLogs()" class="nav-link text-muted px-3" id="SMS-Logs" data-bs-toggle="tab"
+                                                    Email Logs
+                                                </button>
+                                            }
+                                            @if (ViewBag.Menu.Contains("SMS Logs"))
+                                            {
+                                                <button style="width:100%;" onclick="smsLogs()" class="nav-link text-muted px-3" id="SMS-Logs" data-bs-toggle="tab"
                                                 data-bs-target="#SMS-Logs-pane" type="button" role="tab" aria-controls="SMS-Logs-pane
                                                 aria-selected="false">
-                                            SMS Logs
-                                        </button>
-                                        <button onclick="records()" class="nav-link text-muted px-3" id="Patient-Records" data-bs-toggle="tab"
+                                                    SMS Logs
+                                                </button>
+                                            }
+                                            @if (ViewBag.Menu.Contains("Patient Records"))
+                                            {
+                                                <button onclick="records()" class="nav-link text-muted px-3" id="Patient-Records" data-bs-toggle="tab"
                                                 data-bs-target="#Records-tab-pane" type="button" role="tab" aria-controls="Patient-Records-pane"
                                                 aria-selected="false">
-                                            Patient Records
-                                        </button>
-                                        <button style="width:100%;" onclick="blockedHistory()" class="nav-link text-muted px-3" id="Blocked-History" data-bs-toggle="tab"
+                                                    Patient Records
+                                                </button>
+                                            }
+                                            @if (ViewBag.Menu.Contains("Blocked History"))
+                                            {
+                                                <button style="width:100%;" onclick="blockedHistory()" class="nav-link text-muted px-3" id="Blocked-History" data-bs-toggle="tab"
                                                 data-bs-target="#Blocked-History-pane" type="button" role="tab" aria-controls="Blocked-History-pane
                                                 aria-selected="false">
-                                            Blocked History
-                                        </button>
-                                    </div>
-                                </div>                                
-                            </li>
+                                                    Blocked History
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>                                
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

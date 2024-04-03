@@ -1,5 +1,8 @@
 ﻿
+using BLL_Business_Logic_Layer_.Interface;
+using BLL_Business_Logic_Layer_.Services;
 using BusinessLogic.Interfaces;
+using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,15 +16,19 @@ namespace HalloDoc.mvc.Auth
     public class CustomAuthorize : Attribute, IAuthorizationFilter
     {
         private readonly string _role;
-        public CustomAuthorize(string role = "")
+        private readonly string _menu;
+        public CustomAuthorize(string role = "", string menu = null)
         {
             _role = role;
+            this._menu = menu;
         }
 
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var jwtServices = context.HttpContext.RequestServices.GetService<IJwtService>();
+            var _admin = context.HttpContext.RequestServices.GetService<IAdminDash>();
+
             if (jwtServices == null)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = "LoginPage" }));
@@ -30,6 +37,7 @@ namespace HalloDoc.mvc.Auth
 
 
             var request = context.HttpContext.Request;
+            var roleMain = context.HttpContext.Session.GetInt32("roleId");
             var token = request.Cookies["jwt"];
 
             if (token == null || !jwtServices.ValidateToken(token, out JwtSecurityToken jwtToken))
@@ -49,6 +57,22 @@ namespace HalloDoc.mvc.Auth
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = "LoginPage" }));
 
+            }
+
+
+            if (_menu != null)
+            {              
+                List<string> roleMenu = _admin.GetListOfRoleMenu((int)roleMain);
+                bool f = false;
+                if (roleMenu.Any(r => r == _menu))
+                {
+                    f = true;
+                }
+                if (!f)
+                {
+                    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = "AccessDenied" }));
+                    return;
+                }
             }
         }
     }

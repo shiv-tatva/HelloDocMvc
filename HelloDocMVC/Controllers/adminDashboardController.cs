@@ -27,24 +27,34 @@ namespace HelloDocMVC.Controllers
         }
 
 
+
         public IActionResult adminDashboard()
         {
             var sessionName = HttpContext.Session.GetString("UserSessionName");
             TempData["headerUserName"] = sessionName;
             ViewBag.Admin = 4;
+
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
+            ViewBag.Menu = roleMenu;
+
             return View();
         }
 
 
+        [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult LoadPartialDashboard()
         {
             int[] status = { 1 };
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj._countMain = _IAdminDash.countService();
+            var sessionName = HttpContext.Session.GetString("UserSession");
+            adminDashObj._countMain = _IAdminDash.countService(sessionName);
+
+
             return PartialView("_adminDash", adminDashObj);
         }
-        
-        
+
+
         public IActionResult newTab(int[] arr)
         {
             int typeId = 0;
@@ -54,6 +64,7 @@ namespace HelloDocMVC.Controllers
 
             return PartialView("_adminDashNew", adminDashObj);
         }
+
         public IActionResult pendingTab(int[] arr)
         {
             int typeId = 0;
@@ -63,6 +74,7 @@ namespace HelloDocMVC.Controllers
 
             return PartialView("_adminDashPending", adminDashObj);
         }
+
         public IActionResult activeTab(int[] arr)
         {
             int typeId = 0;
@@ -72,6 +84,7 @@ namespace HelloDocMVC.Controllers
 
             return PartialView("_adminDashActive", adminDashObj);
         }
+
         public IActionResult concludeTab(int[] arr)
         {
             int typeId = 0;
@@ -81,6 +94,7 @@ namespace HelloDocMVC.Controllers
 
             return PartialView("_adminDashConclude", adminDashObj);
         }
+
         public IActionResult toCloseTab(int[] arr)
         {
             int typeId = 0;
@@ -90,7 +104,8 @@ namespace HelloDocMVC.Controllers
 
             return PartialView("_adminDashToClose", adminDashObj);
         }
-        
+
+
         public IActionResult unpaidTab(int[] arr)
         {
             int typeId = 0;
@@ -108,6 +123,7 @@ namespace HelloDocMVC.Controllers
             adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
             return PartialView("_adminDashNew", adminDashObj);
         }
+
         public IActionResult tableRecords2(int[] arr,int typeId)
         {
             int regionId = 0;
@@ -122,6 +138,7 @@ namespace HelloDocMVC.Controllers
             adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
             return PartialView("_adminDashActive", adminDashObj);
         }
+
         public IActionResult tableRecords4(int[] arr,int typeId)
         {
             int regionId = 0;
@@ -129,6 +146,7 @@ namespace HelloDocMVC.Controllers
             adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
             return PartialView("_adminDashConclude", adminDashObj);
         }
+
         public IActionResult tableRecords5(int[] arr,int typeId)
         {
             int regionId = 0;
@@ -136,6 +154,7 @@ namespace HelloDocMVC.Controllers
             adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
             return PartialView("_adminDashToClose", adminDashObj);
         }
+
         public IActionResult tableRecords6(int[] arr,int typeId)
         {
             int regionId = 0;
@@ -144,22 +163,33 @@ namespace HelloDocMVC.Controllers
             return PartialView("_adminDashUnpaid", adminDashObj);
         }
 
+
+        [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult newViewCase(int data)
         {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
+            ViewBag.Menu = roleMenu;
+
             ViewBag.Admin = 4;
             adminDashData adminDashObj = new adminDashData();
             adminDashObj.data = _IAdminDash.adminDataViewCase(data);
             return View(adminDashObj);
         }
 
-
+        [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult newViewNote(int data)
         {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
+            ViewBag.Menu = roleMenu;
+
             ViewBag.Admin = 4;
             adminDashData adminDashObj = new adminDashData();
             adminDashObj._viewNote = _IAdminDash.adminDataViewNote(data);
             return View(adminDashObj);
         }
+
 
         [HttpPost]
         public IActionResult newViewNote(adminDashData obj)
@@ -175,13 +205,11 @@ namespace HelloDocMVC.Controllers
             return PartialView("_adminDashNewCancelCase", adminDashObj);
         }
 
-
         [HttpPost]
         public IActionResult cancelCase(adminDashData obj) {
             _IAdminDash.closeCaseNote(obj);
             return RedirectToAction("adminDashboard");
         }
-
 
         public IActionResult assignCase(int req)
         {
@@ -198,6 +226,7 @@ namespace HelloDocMVC.Controllers
 
             return Json(new { dataid = obj.assignCase.phy_name, dataPhyId = obj.assignCase.phy_id });
         }
+
 
         [HttpPost]
         public IActionResult assignCase(adminDashData assignObj)
@@ -227,8 +256,14 @@ namespace HelloDocMVC.Controllers
         }
 
 
+        [CustomAuthorize("Admin", "Dashboard")]
+
         public IActionResult pendingViewUploadMain(int data)
         {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
+            ViewBag.Menu = roleMenu;
+
             ViewBag.Admin = 4;
             adminDashData adminDashObj = new adminDashData();
             adminDashObj._viewUpload = _IAdminDash.viewUploadMain(data);
@@ -252,8 +287,6 @@ namespace HelloDocMVC.Controllers
 
         }
 
-
-
         public IActionResult sendMail(string email,string id,string[] data)
         {
 
@@ -272,8 +305,14 @@ namespace HelloDocMVC.Controllers
 
         }
 
+
+        [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult activeOrders(int data)
         {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
+            ViewBag.Menu = roleMenu;
+
             ViewBag.Admin = 4;
             adminDashData _data = new adminDashData();
             _data._activeOrder = _IAdminDash.viewOrder(data);
@@ -357,8 +396,13 @@ namespace HelloDocMVC.Controllers
         }
 
 
+        [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult toCloseCloseCase(int data)
         {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
+            ViewBag.Menu = roleMenu;
+
             ViewBag.Admin = 4;
             adminDashData obj = new adminDashData();
             obj._closeCaseMain = _IAdminDash.closeCaseMain(data);
@@ -389,6 +433,8 @@ namespace HelloDocMVC.Controllers
             return RedirectToAction("adminDashboard", new { req = data });
         }
 
+
+        [CustomAuthorize("Admin", "My Profile")]
         public IActionResult myProfile()
         {
             adminDashData _admin = new adminDashData();
@@ -432,8 +478,14 @@ namespace HelloDocMVC.Controllers
             }
         }
 
+
+        [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult concludeEncounter(int data)
         {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
+            ViewBag.Menu = roleMenu;
+
             ViewBag.Admin = 4;
             adminDashData _admin = new adminDashData();
             _admin._encounter = _IAdminDash.concludeEncounter(data);
@@ -543,7 +595,9 @@ namespace HelloDocMVC.Controllers
         }
 
         //***************************************Provider**********************************************
-  
+
+
+        [CustomAuthorize("Admin", "Providers")]
         public IActionResult provider(int regionId)
         {
             adminDashData adminDashData = new adminDashData();
@@ -653,12 +707,14 @@ namespace HelloDocMVC.Controllers
         {
             adminDashData data = new adminDashData();
             var createProviderAccount = _IAdminDash.createProviderAccount(obj, physicianRegions);
-            return Json(new { indicate = createProviderAccount.indicate });
+            return Json(new { indicate = createProviderAccount.indicateTwo });
         }
 
 
         //*****************************************************Scheduling****************************************
 
+
+        [CustomAuthorize("Admin", "Scheduling")]
         public IActionResult scheduling()
         {
             scheduling scheduling = new scheduling()
@@ -777,6 +833,7 @@ namespace HelloDocMVC.Controllers
 
         //***************************************Provider Location**********************************************
 
+        [CustomAuthorize("Admin", "Provider Location")]
         public IActionResult providerLocation()
         {            
             return PartialView("_adminDashProviderLocation");
@@ -794,6 +851,8 @@ namespace HelloDocMVC.Controllers
 
         //***************************************Partners**********************************************
 
+
+        [CustomAuthorize("Admin", "Partners")]
         public IActionResult partners(int professionid)
         {
             var Partnersdata = _IAdminDash.GetPartnersdata(professionid);
@@ -858,6 +917,8 @@ namespace HelloDocMVC.Controllers
 
         //***************************************Access**********************************************
 
+
+        [CustomAuthorize("Admin", "Account Access")]
         public IActionResult access()
         {
             accessModel accessModel = new accessModel();
@@ -925,7 +986,7 @@ namespace HelloDocMVC.Controllers
             var sessionEmail = HttpContext.Session.GetString("UserSession");
             _IAdminDash.SetEditAccessAccount(adminAccessCm.CreateAccountAccess, AccountMenu, sessionEmail);
 
-            return Ok();
+            return Json(new {isEdited = true});
         }
 
         [HttpPost]
@@ -933,9 +994,10 @@ namespace HelloDocMVC.Controllers
         {
             _IAdminDash.DeleteAccountAccess(roleid);
             return Ok();
-        }        
+        }
 
 
+        [CustomAuthorize("Admin", "User Access")]
         public IActionResult userAccess(int accounttypeid)
         {
             var userdata = _IAdminDash.GetUserdata(accounttypeid);
@@ -950,6 +1012,7 @@ namespace HelloDocMVC.Controllers
         }
 
 
+        [CustomAuthorize("Admin", "Create Admin")]
         public IActionResult createAdmin()
         {
             adminDashData data = new adminDashData();
@@ -969,6 +1032,7 @@ namespace HelloDocMVC.Controllers
 
         //***************************************Records**********************************************
 
+        [CustomAuthorize("Admin", "Search Records")]
         public IActionResult searchRecords(recordsModel recordsModel)
         {
             recordsModel _data = new recordsModel();
@@ -981,29 +1045,62 @@ namespace HelloDocMVC.Controllers
             }
 
             return PartialView("_adminDashSearchRecords", _data);
-        } 
-        
-        
+        }
+
+        public IActionResult ScheduleExportAll(recordsModel recordsModel)
+        {
+            var exportAll = _IAdminDash.GenerateExcelFile(_IAdminDash.searchRecords(recordsModel));
+            return File(exportAll, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Requests.xlsx");
+        }
+
         public IActionResult recordDltBtn(int reqId)
         {
            _IAdminDash.DeleteRecords(reqId);
 
             return Ok();
-        } 
+        }
 
-
+        [CustomAuthorize("Admin", "Email Logs")]
         public IActionResult emailLogs()
         {
             return PartialView("_adminDashEmailLogs");
         }
+
+
+        [CustomAuthorize("Admin", "SMS Logs")]
         public IActionResult smsLogs()
         {
             return PartialView("_adminDashSmsLogs");
         }
-        public IActionResult records()
+
+
+
+        [CustomAuthorize("Admin", "Patient Records")]
+        public IActionResult records(GetRecordsModel GetRecordsModel)
         {
-            return PartialView("_adminDashRecords");
+            GetRecordsModel _data = new GetRecordsModel();
+            _data.users = _IAdminDash.patientRecords(GetRecordsModel);
+
+            if (_data.users.Count() == 0)
+            {
+               _data.flag = 1;
+            }
+
+            return PartialView("_adminDashRecords", _data);
         }
+        
+        
+        public IActionResult GetPatientRecordExplore(int userId)
+        {
+            recordsModel _data = new recordsModel();
+            _data.getRecordExplore = _IAdminDash.GetPatientRecordExplore(userId);
+
+            return PartialView("_adminDashRecordExplore", _data);
+        }
+
+
+
+        [CustomAuthorize("Admin", "Blocked History")]
         public IActionResult blockedHistory()
         {
             return PartialView("_adminDashBlockedHistory");

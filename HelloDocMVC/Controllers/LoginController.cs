@@ -74,6 +74,7 @@ namespace HelloDocMVC.Controllers
             {
                 HttpContext.Session.SetString("UserSession", sessionUser);
                 HttpContext.Session.SetString("UserSessionName", userName);
+                HttpContext.Session.SetInt32("roleId", data.roleId);
 
                 var jwtToken = _jwtService.GetJwtToken(data);
                 Response.Cookies.Append("jwt", jwtToken);
@@ -127,6 +128,11 @@ namespace HelloDocMVC.Controllers
         public IActionResult ForgotPage()
         {
             ViewBag.Admin = 1;
+            return View();
+        }
+        
+        public IActionResult AccessDenied()
+        {
             return View();
         }
 

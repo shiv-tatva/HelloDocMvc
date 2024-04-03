@@ -436,11 +436,13 @@
                 contentType: false,
 
                 success: function (result) {
-                    if (result.indicate == true) {
+                    if (result.indicate == "done") {
                         createProviderAccount();
                         toastr.success("Account Created Successfully");
-                    } else {
+                    } else if (result.indicate == "email") {
                         toastr.error("Email Already Exists!!");
+                    } else {
+                        toastr.error("Zipcode Not Valid!!");
                     }
                 },
                 error: function () {
@@ -456,17 +458,13 @@
 
         fetch(apiUrl)
             .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
+            .then(data => {               
                     var lat = data[0].lat;
                     var lon = data[0].lon;
                     console.log(lat);
                     console.log(lon);
                     document.getElementById("longitude").setAttribute("value", lon);
-                    document.getElementById("latitude").setAttribute("value", lat);
-                } else {
-                    alert("error");
-                }
+                    document.getElementById("latitude").setAttribute("value", lat);                
             })
             .catch(error => {
                 console.error('Error:', error);

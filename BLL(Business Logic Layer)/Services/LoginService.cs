@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL_Data_Access_Layer_.CustomeModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL_Business_Logic_Layer_.Services
 { 
@@ -24,6 +25,8 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             Users users = new Users();
 
+            var roleIdMain = db.Admins.Where(r => r.Email == obj.Email).Select(x => x.Roleid).First();
+
             var check = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).FirstOrDefault();
             if(check != null)
             {
@@ -33,6 +36,7 @@ namespace BLL_Business_Logic_Layer_.Services
                     Email = obj.Email,
                     Passwordhash = obj.Passwordhash,
                     RoleMain = db.Aspnetroles.Where(y => y.Id == db.Aspnetuserroles.Where(x => x.Userid == r.Id).Select(x => x.Roleid).First()).Select(y => y.Name).First(),
+                    roleId = (int)roleIdMain,
                 }).ToList().FirstOrDefault();
                 return data;
             }

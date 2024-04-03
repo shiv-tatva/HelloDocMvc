@@ -96,9 +96,11 @@
                 url: "/adminDashboard/SetEditAccessAccount",
                 data: $("#AccountEditForm").serialize(),
 
-                success: function (result) {                    
-                    access(accounttypeid, roleid);
-                    alert("Done");
+                success: function (result) {  
+                    if (result.isEdited) {
+                        location.reload();
+                     GetEditAccess(accounttypeid, roleid);
+                    }
                 },
                 error: function () {
                     alert("Error");

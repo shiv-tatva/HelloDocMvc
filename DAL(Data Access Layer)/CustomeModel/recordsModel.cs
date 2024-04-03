@@ -13,6 +13,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class recordsModel
     {
         public List<requestsRecordModel>? requestListMain { get; set; }
+        public List<GetRecordExplore>? getRecordExplore { get; set; }
     }
     public class requestsRecordModel
     {
@@ -50,6 +51,22 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<User>? users { get; set; }
         public List<Request>? requestList { get; set; }
         public List<Requestclient>? requestClient { get; set; }
+        public string? searchRecordOne { get; set; }
+        public string? searchRecordTwo { get; set; }
+        public string? searchRecordThree { get; set; }
+        public string? searchRecordFour { get; set; }
+        public int? flag { get; set; }
 
+    }
+
+    public class GetRecordExplore
+    {
+        public string? fullname { get; set; }
+        public string? confirmationnumber { get; set; }
+        public string? providername { get; set; }
+        public string? concludedate { get; set; }
+        public string? createddate { get; set; }
+        public int? status { get; set; }
+        public int? requestid { get; set; }
     }
 }

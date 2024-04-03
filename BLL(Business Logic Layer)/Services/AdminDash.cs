@@ -90,7 +90,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return query;
         }
 
-        public countMain countService()
+        public countMain countService(string sessionName)
         {
             var requestsWithClients = _context.Requests
                    .Join(_context.Requestclients,
@@ -109,7 +109,27 @@ namespace BLL_Business_Logic_Layer_.Services
                 count6 = requestsWithClients.Count(x => x.Request.Status == 9)
             };
 
+       
+
             return statusCount;
+        }
+
+        public List<string> GetListOfRoleMenu(int roleId)
+        {
+            List<Rolemenu> roleMenus = _context.Rolemenus.Where(u => u.Roleid == roleId).ToList();
+            if (roleMenus.Count > 0)
+            {
+                List<string> menus = new List<string>();
+                foreach (var item in roleMenus)
+                {
+                    menus.Add(_context.Menus.FirstOrDefault(u => u.Menuid == item.Menuid).Name);
+                }
+                return menus;
+            }
+            else
+            {
+                return new List<string>();
+            }
         }
 
         public List<adminDash> adminDataViewCase(int reqId)
@@ -1714,7 +1734,7 @@ namespace BLL_Business_Logic_Layer_.Services
             var aspUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == obj._providerEdit.Email);
 
 
-            if(aspUser == null)
+            if(aspUser == null && obj._providerEdit.latitude != null)
             {
                 
 
@@ -1783,27 +1803,33 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.Aspnetuserroles.Add(_userRole);
                 _context.SaveChanges();
 
-                Physicianlocation _phyLoc = new Physicianlocation();
-                _phyLoc.Physicianid = phy.Physicianid;
-                _phyLoc.Latitude = obj._providerEdit.latitude;
-                _phyLoc.Longitude = obj._providerEdit.longitude;
-                _phyLoc.Createddate = DateTime.Now;
-                _phyLoc.Physicianname = phy.Firstname;
-                _phyLoc.Address = phy.Address1;
+                
+                    Physicianlocation _phyLoc = new Physicianlocation();
+                    _phyLoc.Physicianid = phy.Physicianid;
+                    _phyLoc.Latitude = obj._providerEdit.latitude;
+                    _phyLoc.Longitude = obj._providerEdit.longitude;
+                    _phyLoc.Createddate = DateTime.Now;
+                    _phyLoc.Physicianname = phy.Firstname;
+                    _phyLoc.Address = phy.Address1;
 
-                _context.Physicianlocations.Add(_phyLoc);
-                _context.SaveChanges();
-
-
-
+                    _context.Physicianlocations.Add(_phyLoc);
+                    _context.SaveChanges();
+                             
 
                 AddProviderDocuments(phy.Physicianid, obj._providerEdit.Photo, obj._providerEdit.ContractorAgreement, obj._providerEdit.BackgroundCheck, obj._providerEdit.HIPAA, obj._providerEdit.NonDisclosure);
 
-                flag.indicate = true;
+                flag.indicateTwo = "done";
                 return flag;
             }
+            else if(aspUser != null)
+            {
+                flag.indicateTwo = "email";
+            }
+            else
+            {
+                flag.indicateTwo = "zip";
+            }
 
-            flag.indicate = false;
             return flag;
         }
 
@@ -1903,6 +1929,8 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
+
+        
 
 
         //*************************************************************Access***********************************************************
@@ -2512,7 +2540,7 @@ namespace BLL_Business_Logic_Layer_.Services
             
                 if (recordsModel.requestListMain[0].searchRecordTwo != null)
                 {
-                    requestList = requestList.Where(r => r.patientname.Contains(recordsModel.requestListMain[0].searchRecordTwo)).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.patientname.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();                    
                 } 
             
                 if (recordsModel.requestListMain[0].searchRecordThree != null)
@@ -2522,17 +2550,17 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 if (recordsModel.requestListMain[0].searchRecordSix != null)
                 {
-                    requestList = requestList.Where(r => r.requestor.Contains(recordsModel.requestListMain[0].searchRecordSix)).Select(r => r).ToList();                   
+                    requestList = requestList.Where(r => r.requestor.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSix.Trim().ToLower())).Select(r => r).ToList();                   
                 }
 
                 if (recordsModel.requestListMain[0].searchRecordSeven != null)
                 {
-                    requestList = requestList.Where(r => r.email.Contains(recordsModel.requestListMain[0].searchRecordSeven)).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.email.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSeven.Trim().ToLower())).Select(r => r).ToList();                    
                 }
 
                 if (recordsModel.requestListMain[0].searchRecordEight != null)
                 {
-                    requestList = requestList.Where(r => r.contact.Contains(recordsModel.requestListMain[0].searchRecordEight)).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.contact.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordEight.Trim().ToLower())).Select(r => r).ToList();                    
                 }
             }
 
@@ -2548,6 +2576,95 @@ namespace BLL_Business_Logic_Layer_.Services
                 reqClient.Isdeleted = new BitArray(1, true);
                 _context.SaveChanges();
             }
+        }
+
+        public byte[] GenerateExcelFile(List<requestsRecordModel> recordsModel)
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; using (var excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Requests");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Patient Name";
+                worksheet.Cells[1, 2].Value = "Requestor";
+                worksheet.Cells[1, 3].Value = "Date Of Service";
+                worksheet.Cells[1, 4].Value = "Close Case Date";
+                worksheet.Cells[1, 5].Value = "Email";
+                worksheet.Cells[1, 6].Value = "Phone Number";
+                worksheet.Cells[1, 7].Value = "Address";
+                worksheet.Cells[1, 8].Value = "Zip";
+                worksheet.Cells[1, 9].Value = "Physician";
+                worksheet.Cells[1, 10].Value = "Physician Notes";
+                worksheet.Cells[1, 11].Value = "Admin Note";
+                worksheet.Cells[1, 12].Value = "Patient Notes";
+
+                // Populate data
+                for (int i = 0; i < recordsModel.Count; i++)
+                {
+                    var rowData = recordsModel[i];
+                    worksheet.Cells[i + 2, 1].Value = rowData.patientname;
+                    worksheet.Cells[i + 2, 2].Value = rowData.requestor;
+                    worksheet.Cells[i + 2, 3].Value = rowData.dateOfService;
+                    worksheet.Cells[i + 2, 4].Value = rowData.closeCaseDate;
+                    worksheet.Cells[i + 2, 5].Value = rowData.email;
+                    worksheet.Cells[i + 2, 6].Value = rowData.contact;
+                    worksheet.Cells[i + 2, 7].Value = rowData.address;
+                    worksheet.Cells[i + 2, 8].Value = rowData.zip;
+                    worksheet.Cells[i + 2, 9].Value = rowData.physician;
+                    worksheet.Cells[i + 2, 10].Value = rowData.physicianNote;
+                    worksheet.Cells[i + 2, 11].Value = rowData.AdminNote;
+                    worksheet.Cells[i + 2, 12].Value = rowData.pateintNote;
+                }
+
+                // Convert package to bytes for download
+                return excelPackage.GetAsByteArray();
+            }
+        }
+
+        public List<User> patientRecords(GetRecordsModel GetRecordsModel)
+        {
+            GetRecordsModel data = new GetRecordsModel();
+
+            data.users = _context.Users.ToList();
+
+            if(GetRecordsModel != null)
+            {
+                if(GetRecordsModel.searchRecordOne != null)
+                {
+                    data.users = data.users.Where(r => r.Firstname.Trim().ToLower().Contains(GetRecordsModel.searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if(GetRecordsModel.searchRecordTwo != null)
+                {
+                    data.users = data.users.Where(r => r.Lastname.Trim().ToLower().Contains(GetRecordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if(GetRecordsModel.searchRecordThree != null)
+                {
+                    data.users = data.users.Where(r => r.Email.Trim().ToLower().Contains(GetRecordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if(GetRecordsModel.searchRecordFour != null)
+                {
+                    data.users = data.users.Where(r => r.Mobile.Trim().ToLower().Contains(GetRecordsModel.searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
+                }
+            }
+
+            return data.users;
+        }
+
+        public List<GetRecordExplore> GetPatientRecordExplore(int userId)
+        {
+
+            var dataMain = _context.Requests.Where(r => r.Userid == userId).Select(r => new GetRecordExplore()
+            {
+                requestid = r.Requestid,
+                createddate = r.Createddate.ToString("yyyy-MM-dd"),
+                confirmationnumber = r.Confirmationnumber,
+                providername = _context.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).First(),
+                status = r.Status,
+                fullname = r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Firstname).First() + " " + r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Firstname).First(),
+                concludedate = r.Status == 6 ? Convert.ToDateTime(r.Modifieddate).ToString("yyyy-MM-dd") : null, // Add this condition to check if the status is equal to 6,
+            }).ToList();
+
+            return dataMain;
         }
     }
 }

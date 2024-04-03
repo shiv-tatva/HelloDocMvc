@@ -75,6 +75,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? count5 { get; set; }
         public int? count6 { get; set; }
 
+        public int roleId { get; set; }
+
     }
 
     public class viewNotes
@@ -528,6 +530,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<Role> roles { get; set; }
 
         public bool? indicate { get; set; }
+        public string? indicateTwo { get; set; }
 
         public decimal? longitude { get; set; }
 
