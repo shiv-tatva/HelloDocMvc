@@ -84,8 +84,8 @@
                 <div class="collapse w-100 mx-sm-1 show d-sm-block" id="navbarToggleExternalContent">
                     <div class="px-3">
                         <ul class="nav nav-underline" id="myTab" role="tablist">
-                           @*  @if (ViewBag.Menu.Contains("Dashboard"))
-                            { *@
+                            @if (ViewBag.Menu.Contains("Dashboard"))
+                            {
                                 <li class="nav-item" role="presentation">
                                     <button onclick="adminMain()" class="nav-link active text-muted px-3" id="home-tab" data-bs-toggle="tab"
                                     data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
@@ -117,10 +117,9 @@
                              @if (ViewBag.Menu.Contains("Provider") || ViewBag.Menu.Contains("Scheduling"))
                             {
                                 <li class="nav-item" role="presentation">
-                                    <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="providersDropdown">
+                                    <div class="nav-link text-muted px-3 dropdown customactive" data-bs-toggle="tab" role="tab" id="providersDropdown">
                                         <button  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
-                                            Providers
-                                            <i class="fa-solid fa-chevron-down"></i>
+                                            <span id="providerTabMain">Providers <i class="fa-solid fa-chevron-down"></i></span>                                           
                                         </button>                                        
                                         <div class="dropdown-menu" aria-labelledby="providersDropdown" style="width:134px!important;">
                                             @if (ViewBag.Menu.Contains("Providers"))
@@ -158,8 +157,10 @@
                                 <li class="nav-item" role="presentation">
                                     <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="AccessDropdown">
                                         <button role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
-                                            Access
-                                            <i class="fa-solid fa-chevron-down"></i>
+                                            <span id="accessTabMain">
+                                                Access<i class="fa-solid fa-chevron-down"></i>
+                                                </span>
+                                            
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="AccessDropdown" style="width:134px!important;">
                                             @if (ViewBag.Menu.Contains("Account Access"))
@@ -195,8 +196,10 @@
                                 <li class="nav-item" role="presentation">
                                     <div class="nav-link text-muted px-3 dropdown" data-bs-toggle="tab" role="tab" id="Records-tab">
                                         <button role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;">
-                                            Records
-                                            <i class="fa-solid fa-chevron-down"></i>
+                                            <span id="recordMainTab">
+                                                Records <i class="fa-solid fa-chevron-down"></i>
+                                                </span>
+                                           
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="AccessDropdown" style="width:134px!important;">
                                             @if (ViewBag.Menu.Contains("Search Records"))
@@ -213,7 +216,7 @@
                                                 data-bs-target="#Email-Logs-pane" type="button" role="tab" aria-controls="Email-Logs-pane
                                                 aria-selected="false">
                                                     Email Logs
-                                                </button>
+                                                </button> 
                                             }
                                             @if (ViewBag.Menu.Contains("SMS Logs"))
                                             {

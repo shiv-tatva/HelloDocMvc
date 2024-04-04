@@ -359,6 +359,8 @@ namespace BLL_Business_Logic_Layer_.Services
             blockrequest.Reason = obj._blockCaseModel.description;
             blockrequest.Requestid = obj._blockCaseModel.reqid;
             blockrequest.Createddate = DateTime.Now;
+            blockrequest.Isactive = new BitArray(1);
+            blockrequest.Isactive[0] = true;
 
             _context.Blockrequests.Add(blockrequest);
             _context.SaveChanges();
@@ -1311,6 +1313,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         private void SendRegistrationproviderContactEmail(string provider,string msg, string sessionEmail, int phyIdMain)
         {
+            var phyName = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r.Firstname).First();
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
             SmtpClient client = new SmtpClient("smtp.office365.com")
@@ -1341,8 +1344,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 Createdate = DateTime.Now,
                 Sentdate = DateTime.Now,
                 Isemailsent = new BitArray(1, true),
-
-            };
+                Confirmationnumber = phyName.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+        };
 
             _context.Emaillogs.Add(emailLog);
             _context.SaveChanges();
@@ -2666,5 +2670,203 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return dataMain;
         }
+
+
+        public List<blockHistory> blockHistory(recordsModel recordsModel)
+        {
+            var requestData = _context.Blockrequests.Where(x => x.Isactive == null).Select(x => new blockHistory()
+            {
+                patientname = _context.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Firstname).First(),
+                phonenumber = x.Phonenumber,
+                email = x.Email,
+                createddate = Convert.ToDateTime(x.Createddate).ToString("yyyy-MM-dd"),
+                notes = x.Reason,
+                blockId = x.Blockrequestid,
+                isActive = x.Isactive,
+            }).ToList();
+
+            if(recordsModel.blockHistoryMain != null)
+            {
+                if(recordsModel.blockHistoryMain[0].searchRecordOne != null)
+                {
+                    requestData = requestData.Where(r => r.patientname.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if (recordsModel.blockHistoryMain[0].searchRecordTwo != null)
+                {
+                    requestData = requestData.Where(r => r.createddate == Convert.ToDateTime(recordsModel.blockHistoryMain[0].searchRecordTwo).ToString("yyyy-MM-dd")).Select(r => r).ToList();
+                }
+                if (recordsModel.blockHistoryMain[0].searchRecordThree != null)
+                {
+                    requestData = requestData.Where(r => r.email.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if (recordsModel.blockHistoryMain[0].searchRecordFour != null)
+                {
+                    requestData = requestData.Where(r => r.phonenumber.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
+                }
+            }
+
+
+            return requestData;
+        }
+
+
+        //public blockHistory stopNotificationBlock(int blockId)
+        //{
+        //    blockHistory blockMain = new blockHistory();
+
+        //    var block = _context.Blockrequests.Where(r => r.Blockrequestid == blockId).Select(r => r).First();            
+
+        //    if (block.Isactive == null)
+        //    {
+        //        block.Isactive = new BitArray(1);
+        //        block.Isactive[0] = true;
+        //        _context.SaveChanges();
+
+        //        blockMain.indicate = true;
+        //        return blockMain;
+        //    }
+        //    else
+        //    {
+        //        block.Isactive = new BitArray(1);
+        //        block.Isactive[0] = false;
+        //        _context.SaveChanges();
+
+        //        blockMain.indicate = false;
+        //        return blockMain;
+        //    }
+        //}
+
+        public void unblockBlockHistoryMain(int blockId)
+        {
+            var block = _context.Blockrequests.Where(r => r.Blockrequestid == blockId).Select(r => r).First();
+
+            block.Isactive = null;
+            _context.SaveChanges();
+
+            var request = _context.Requests.Where(r => r.Requestid == block.Requestid).Select(r => r).First();
+
+            request.Status = 1;
+            request.Isdeleted = null;
+            _context.SaveChanges();
+        }
+
+        public recordsModel emailLogsMain(int tempId, recordsModel recordsModel)
+        {
+            recordsModel model = new recordsModel();
+            model.tempid = tempId;
+            model.emailRecords = new List<emailSmsRecords>();
+            if (tempId == 0)
+            {
+                var records = _context.Emaillogs.ToList();
+                foreach (var item in records)
+                {
+                    if(item.Requestid != null)
+                    {
+
+                        var newRecord = new emailSmsRecords
+                        {
+                            email = item.Emailid,
+                            createddate = item.Createdate,
+                            sentdate = item.Sentdate,
+                            sent = item.Isemailsent[0] ? "Yes" : "No",
+                            recipient = _context.Requestclients.Where(i => i.Requestid == item.Requestid).Select(i => i.Firstname).First(),
+                            rolename = _context.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
+                            senttries = item.Senttries,
+                            confirmationNumber = item.Confirmationnumber,
+                        };
+
+                        model.emailRecords.Add(newRecord);
+                    }
+                    else
+                    {
+                        var newRecord = new emailSmsRecords
+                        {
+                            email = item.Emailid,
+                            createddate = item.Createdate,
+                            sentdate = item.Sentdate,
+                            sent = item.Isemailsent[0] ? "Yes" : "No",
+                            recipient = _context.Physicians.Where(i => i.Physicianid == item.Physicianid).Select(i => i.Firstname).FirstOrDefault(),
+                            rolename = _context.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
+                            senttries = item.Senttries,
+                            confirmationNumber = item.Confirmationnumber,
+                        };
+
+                        model.emailRecords.Add(newRecord);
+                    }
+                }
+
+                if(recordsModel != null)
+                {
+                    if (recordsModel.searchRecordOne != null && recordsModel.searchRecordOne != "All")
+                    {
+                       model.emailRecords = model.emailRecords.Where(r => r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordTwo != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordThree != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.email.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFour != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFive != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFive).Select(r => r).ToList();
+                    }
+                }                
+            }
+            
+            else
+            {
+                var records = _context.Smslogs.ToList();
+                foreach (var item in records)
+                {
+
+                    var newRecord = new emailSmsRecords
+                    {
+                        contact = item.Mobilenumber,
+                        createddate = item.Createdate,
+                        sentdate = item.Sentdate,
+                        sent = item.Issmssent[0] ? "Yes" : "No",
+                        recipient = _context.Requestclients.Where(i => i.Requestid == item.Requestid).Select(i => i.Firstname).FirstOrDefault(),
+                        rolename = _context.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
+                        senttries = item.Senttries,
+                        confirmationNumber = item.Confirmationnumber,
+                    };
+
+                    model.emailRecords.Add(newRecord);
+                }
+                if (recordsModel != null)
+                {
+                    if (recordsModel.searchRecordOne != null && recordsModel.searchRecordOne != "All")
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordTwo != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordThree != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.contact.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFour != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFive != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFive).Select(r => r).ToList();
+                    }
+                }
+
+            }
+            return model;
+        }
+
     }
 }

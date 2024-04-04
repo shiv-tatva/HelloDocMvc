@@ -14,6 +14,17 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public List<requestsRecordModel>? requestListMain { get; set; }
         public List<GetRecordExplore>? getRecordExplore { get; set; }
+        public List<blockHistory>? blockHistoryMain { get; set; }
+        public List<emailSmsRecords>? emailRecords { get; set; }
+        public int? tempid { get; set; }
+
+        public string? searchRecordOne { get; set; }
+        public string? searchRecordTwo { get; set; }
+        public string? searchRecordThree { get; set; }
+        public DateTime? searchRecordFour { get; set; }
+        public DateTime? searchRecordFive { get; set; }
+
+
     }
     public class requestsRecordModel
     {
@@ -69,4 +80,43 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? status { get; set; }
         public int? requestid { get; set; }
     }
+
+
+    public class blockHistory
+    {
+        public string? patientname { get; set; }
+        public string? phonenumber { get; set; }
+        public string? email { get; set; }
+        public string? createddate { get; set; }
+        public BitArray? isActive  { get; set; }
+        public string? notes { get; set; }
+
+        public int? blockId { get; set; }
+        public int? flag { get; set; }
+        public string? searchRecordOne { get; set; }
+        public DateTime searchRecordTwo { get; set; }
+        public string? searchRecordThree { get; set; }
+        public string? searchRecordFour { get; set; }
+
+        public bool indicate { get; set; }
+
+    }
+
+    public class emailSmsRecords
+    {
+
+        public int? requestid { get; set; }
+        public string? recipient { get; set; }
+        public string? action { get; set; }
+        public string? rolename { get; set; }
+        public string? email { get; set; }
+        public DateTime? createddate { get; set; }
+        public DateTime? sentdate { get; set; }
+        public string? sent { get; set; }
+        public int? senttries { get; set; }
+        public string? confirmationNumber { get; set; }
+        public string? contact { get; set; }
+    }
+
+
 }

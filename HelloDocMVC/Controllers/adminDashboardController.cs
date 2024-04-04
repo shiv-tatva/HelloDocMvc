@@ -1061,16 +1061,20 @@ namespace HelloDocMVC.Controllers
         }
 
         [CustomAuthorize("Admin", "Email Logs")]
-        public IActionResult emailLogs()
+        public IActionResult emailLogs(recordsModel recordsModel)
         {
-            return PartialView("_adminDashEmailLogs");
+            recordsModel _data = new recordsModel();
+            _data = _IAdminDash.emailLogsMain(0, recordsModel);
+            return PartialView("_adminDashEmailLogs",_data);
         }
 
 
         [CustomAuthorize("Admin", "SMS Logs")]
-        public IActionResult smsLogs()
+        public IActionResult smsLogs(recordsModel recordsModel)
         {
-            return PartialView("_adminDashSmsLogs");
+            recordsModel _data = new recordsModel();
+            _data = _IAdminDash.emailLogsMain(1, recordsModel);
+            return PartialView("_adminDashSmsLogs", _data);
         }
 
 
@@ -1101,9 +1105,30 @@ namespace HelloDocMVC.Controllers
 
 
         [CustomAuthorize("Admin", "Blocked History")]
-        public IActionResult blockedHistory()
+        public IActionResult blockedHistory(recordsModel recordsModel)
         {
-            return PartialView("_adminDashBlockedHistory");
+            recordsModel _data = new recordsModel();
+            _data.blockHistoryMain = _IAdminDash.blockHistory(recordsModel);
+            if (_data.blockHistoryMain.Count() == 0)
+            {
+                blockHistory obj = new blockHistory();
+                obj.flag = 1;
+                _data.blockHistoryMain.Add(obj);
+            }
+            return PartialView("_adminDashBlockedHistory", _data);
         }
+
+        //public IActionResult providerCheckBoxBlock(int blockId)
+        //{
+        //    var stopNotification = _IAdminDash.stopNotificationBlock(blockId);
+        //    return Json(new { indicate = stopNotification.indicate });
+        //}
+
+        public IActionResult unblockBlockHistory(int blockId)
+        {
+           _IAdminDash.unblockBlockHistoryMain(blockId);
+            return Ok();
+        }
+        
     }
 }

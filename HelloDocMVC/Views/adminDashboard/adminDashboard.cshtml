@@ -27,7 +27,6 @@
 <partial name="_ValidationScriptsPartial" />
 
 
-
 <script>
   
     let action = "/adminDashboard" + "/" + "LoadPartialDashboard"
@@ -37,6 +36,9 @@
         data: { req: 1 },
         success: function (result) {
             $('#content').html(result);
+            $("#providerTabMain").removeClass("customactive");
+            $("#accessTabMain").removeClass("customactive");
+            $("#recordMainTab").removeClass("customactive");
         },
         error: function () {
             alert('Error aa loading partial view');
@@ -52,6 +54,9 @@
             data: { req: 1 },
             success: function (result) {
                 $('#content').html(result);
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             }, 
             error: function () {
                 alert('Error aa loading partial view');
@@ -64,9 +69,11 @@
         $.ajax({
             url: action,
             type: 'GET',
-            success: function (result) {
-                
+            success: function (result) {                
                 $('#content').html(result);
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function (e) {
                 console.log(e);
@@ -81,7 +88,10 @@
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);
-                document.getElementById("Scheduling-tab").classList.remove("active")
+                document.getElementById("Scheduling-tab").classList.remove("active");
+                $("#providerTabMain").addClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -95,7 +105,10 @@
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);
-                document.getElementById("Providers-tab").classList.remove("active")
+                document.getElementById("Providers-tab").classList.remove("active");
+                $("#providerTabMain").addClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -109,6 +122,9 @@
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -123,6 +139,9 @@
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -138,6 +157,9 @@
                 $("#content").html(result);
                 document.getElementById("AccessUser-tab").classList.remove("active");
                 document.getElementById("CreateAdmin-tab").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").addClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -148,11 +170,14 @@
     function userAccess() {
         $.ajax({
             url: "/adminDashboard/userAccess",
-            type: 'GET',
+            type: 'GET', 
             success: function (result) {
                 $("#content").html(result);
                 document.getElementById("Access-tab").classList.remove("active");
                 document.getElementById("CreateAdmin-tab").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").addClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -168,6 +193,9 @@
                 $("#content").html(result);
                 document.getElementById("AccessUser-tab").classList.remove("active");
                 document.getElementById("Access-tab").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").addClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -190,44 +218,60 @@
                 document.getElementById("SMS-Logs").classList.remove("active");
                 document.getElementById("Patient-Records").classList.remove("active");
                 document.getElementById("Blocked-History").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").addClass("customactive");
             },
             error: function () {
                 alert("Error");
             },
         });
     }
-    function emailLogs() {
+
+    function emailLogs(tempId) {
+        console.log(tempId);
         $.ajax({
             url: "/adminDashboard/emailLogs",
             type: 'GET',
+            data: { tempId: tempId },
             success: function (result) {
                 $("#content").html(result);
                 document.getElementById("Search-Records").classList.remove("active");
                 document.getElementById("SMS-Logs").classList.remove("active");
                 document.getElementById("Patient-Records").classList.remove("active");
                 document.getElementById("Blocked-History").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").addClass("customactive");
             },
             error: function () {
                 alert("Error");
             },
         });
     }
-    function smsLogs() {
+
+    function smsLogs(tempId) {
+        console.log(tempId);
         $.ajax({
             url: "/adminDashboard/smsLogs",
             type: 'GET',
+            data: { tempId: tempId },
             success: function (result) {
                 $("#content").html(result);
                 document.getElementById("Search-Records").classList.remove("active");
                 document.getElementById("Email-Logs").classList.remove("active");
                 document.getElementById("Patient-Records").classList.remove("active");
                 document.getElementById("Blocked-History").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").addClass("customactive");
             },
             error: function () {
                 alert("Error");
             },
         });
     }
+
     function records() {
         $.ajax({
             url: "/adminDashboard/records",
@@ -238,6 +282,9 @@
                 document.getElementById("Email-Logs").classList.remove("active");
                 document.getElementById("SMS-Logs").classList.remove("active");
                 document.getElementById("Blocked-History").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").addClass("customactive");
             },
             error: function () {
                 alert("Error");
@@ -254,6 +301,9 @@
                 document.getElementById("Email-Logs").classList.remove("active");
                 document.getElementById("SMS-Logs").classList.remove("active");
                 document.getElementById("Patient-Records").classList.remove("active");
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").addClass("customactive");
             },
             error: function () {
                 alert("Error");

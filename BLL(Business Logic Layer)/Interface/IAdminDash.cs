@@ -155,5 +155,12 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<GetRecordExplore>  GetPatientRecordExplore(int userId);
 
+        public List<blockHistory> blockHistory(recordsModel recordsModel);
+
+        //public blockHistory stopNotificationBlock(int blockId);
+
+        public void unblockBlockHistoryMain(int blockId);
+
+        public recordsModel emailLogsMain(int tempId, recordsModel recordsModel);
     }
 }
