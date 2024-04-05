@@ -41,11 +41,11 @@
             </form>
 
             <div class=" mb-3 d-none" id="buttonProvider">
-                <button type="button" class="btn btn-info text-light d-md-block d-none" onclick="GetCreateProvider2()">Create Provider Account</button>
+                <button type="button" class="btn btn-info text-light d-md-block d-none" onclick="createProviderAccountTwo()">Create Provider Account</button>
                 <button type="button" class="btn border-info text-light d-md-none d-block px-2 py-0" onclick="GetCreateProvider2()"><i class="bi bi-plus text-info fs-3"></i></button>
             </div>
             <div class=" mb-3 d-none" id="buttonAdmin">
-                <button type="button" class="btn btn-info text-light d-md-block d-none" onclick="GetCreateProvider()">Create Admin Account</button>
+                <button type="button" class="btn btn-info text-light d-md-block d-none" onclick="createAdmin()">Create Admin Account</button>
                 <button type="button" class="btn border-info text-light d-md-none d-block px-2 py-0" onclick="GetCreateProvider()"><i class="bi bi-plus text-info fs-3"></i></button>
             </div>
         </div>
@@ -80,13 +80,13 @@
                             <td>
                                     @if (@obj.roleid == 1)
                                     {
-                                    <button type="button" class="btn btn-outline-dark border-info text-info" onclick="GetAdminProfile(2,@obj.aspnetid)">
+                                    <button type="button" class="btn btn-outline-dark border-info text-info" onclick="editAdminProfile(@obj.aspnetid)">
                                         Edit
                                     </button>
                                     }
                                     else
                                     {
-                                    <button type="button" class="btn btn-outline-dark border-info text-info" onclick="GetEditProvider(@obj.aspnetid,2)">
+                                    <button type="button" class="btn btn-outline-dark border-info text-info" onclick="editProvider(@obj.aspnetid)">
                                         Edit
                                     </button>
                                     }
@@ -204,6 +204,7 @@
 
 <script>
     function GetUserAccess(accounttypeid) {
+        console.log(accounttypeid);
         event.preventDefault();
         $.ajax({
             method: "GET",
@@ -215,7 +216,7 @@
                 if (accounttypeid == 1) {
                     $("#buttonAdmin").removeClass("d-none");
                 }
-                if (accounttypeid == 2) {
+                if (accounttypeid == 3) {
                     $("#buttonProvider").removeClass("d-none");
                 }
             },
@@ -225,17 +226,50 @@
             },
         });
     }
-    function GetCreateProvider2() {
-        $.ajax({
-            method: "GET",
-            url: "/adminDashboard/GetCreateProvider",
 
+    function createProviderAccountTwo() {
+        $.ajax({
+            url: "/adminDashboard/createProviderAccount",
+            type: 'GET',
             success: function (result) {
-                $("#content").html(result);
+                $('#content').html(result);
             },
             error: function () {
                 alert("Error");
             },
         });
     }
+
+
+    function editProvider(phyId) {
+        let action = "/adminDashboard/providerEdit"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { phyId: phyId },
+            success: function (result) {
+                $('#content').html(result);
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+    
+    
+    function editAdminProfile(adminId) {
+        let action = "/adminDashboard/adminEdit"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { adminId: adminId },
+            success: function (result) {
+                $('#content').html(result);
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+
 </script>

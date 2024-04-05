@@ -32,6 +32,7 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 var data = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).Select(r => new Users()
                 {
+                    Id = r.Id,
                     passwordcheck = "true",
                     Email = obj.Email,
                     Passwordhash = obj.Passwordhash,

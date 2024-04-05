@@ -24,6 +24,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcYWRtaW5EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/adminDashboard/adminEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcYWRtaW5FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/adminDashboard/concludeEncounter.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWRtaW5EYXNoYm9hcmRcY29uY2x1ZGVFbmNvdW50ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -132,6 +136,42 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_CreateShift.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX0NyZWF0ZVNoaWZ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_DayWiseShift.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX0RheVdpc2VTaGlmdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_MDs_OnCall.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX01Ec19PbkNhbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_MonthWiseShift.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX01vbnRoV2lzZVNoaWZ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_MoreShift.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX01vcmVTaGlmdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_Provider_Scheduling.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX1Byb3ZpZGVyX1NjaGVkdWxpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_ShiftReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX1NoaWZ0UmV2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_ViewShift.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX1ZpZXdTaGlmdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/Scheduling/_WeekWiseShift.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNjaGVkdWxpbmdcX1dlZWtXaXNlU2hpZnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminAccessCreateAccess.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkFjY2Vzc0NyZWF0ZUFjY2Vzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -216,10 +256,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hSZWNvcmRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDashScheduling.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hTY2hlZHVsaW5nLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_adminDashSearchRecords.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkRhc2hTZWFyY2hSZWNvcmRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -266,26 +302,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_requestSupport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9yZXF1ZXN0U3VwcG9ydC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_schedulingCreateShift.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9zY2hlZHVsaW5nQ3JlYXRlU2hpZnQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_schedulingDayWiseShift.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9zY2hlZHVsaW5nRGF5V2lzZVNoaWZ0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_schedulingMonthWiseShift.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9zY2hlZHVsaW5nTW9udGhXaXNlU2hpZnQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_schedulingViewShift.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9zY2hlZHVsaW5nVmlld1NoaWZ0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_schedulingWeekWiseShift.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9zY2hlZHVsaW5nV2Vla1dpc2VTaGlmdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/HelloDocMVC/HelloDocMVC/Views/Shared/_sendLink.cshtml]

@@ -120,6 +120,12 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void createAdminAccount(adminDashData obj, List<int> regions);
 
+        public AdminEditPhysicianProfile adminEditPage(int adminId);
+
+        public List<AdminregionTable> GetRegionsAdmin(int adminId);
+
+        public bool EditAdminDetailsDb(adminDashData adminDashData, string email, List<int> adminRegions);
+
         public List<Physicianlocation> GetPhysicianlocations();
 
         //*****************************************************Partners****************************************
@@ -134,14 +140,22 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         //*****************************************************Scheduling****************************************
 
-        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type);
-
-        ShiftDetailsmodal GetShift(int shiftdetailsid);
-
-
-        void createShift(ScheduleModel scheduleModel, int Aspid);
-
         public List<Physician> GetPhysicians(int regionid);
+
+        public List<Physician> GetRegionvalue(int selectedregion);
+
+        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type);
+        ShiftDetailsmodal GetShift(int shiftdetailsid);
+        bool createShift(ScheduleModel scheduleModel, int Aspid);
+        void SetReturnShift(int status, int shiftdetailid, int Aspid);
+        public void SetDeleteShift(int shiftdetailid, int Aspid);
+        public bool SetEditShift(ShiftDetailsmodal shiftDetailsmodal, int Aspid);
+        public OnCallModal GetOnCallDetails(int regionId);
+        public List<ShiftReview> GetShiftReview(int regionId, int callId);
+        public void ApproveSelectedShift(int[] shiftDetailsId, int Aspid);
+        public void DeleteShiftReview(int[] shiftDetailsId, int Aspid);
+
+        public List<Region> GetRegions();
 
         //************************************************Records*********************************************************
 
@@ -157,10 +171,11 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<blockHistory> blockHistory(recordsModel recordsModel);
 
-        //public blockHistory stopNotificationBlock(int blockId);
 
         public void unblockBlockHistoryMain(int blockId);
 
         public recordsModel emailLogsMain(int tempId, recordsModel recordsModel);
+
+        //public blockHistory stopNotificationBlock(int blockId);
     }
 }

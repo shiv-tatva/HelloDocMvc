@@ -101,7 +101,7 @@
     
     function scheduling() {
         $.ajax({
-            url: "/adminDashboard/scheduling",
+            url: "/adminDashboard/GetScheduling",
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);
@@ -185,7 +185,7 @@
         });
     }
 
-    function createAdmin(){        
+    function createAdmin(){    
         $.ajax({
             url: "/adminDashboard/createAdmin",
             type: 'GET',

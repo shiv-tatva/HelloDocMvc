@@ -715,31 +715,41 @@ namespace HelloDocMVC.Controllers
 
 
         [CustomAuthorize("Admin", "Scheduling")]
-        public IActionResult scheduling()
+        public IActionResult GetScheduling()
         {
-            scheduling scheduling = new scheduling()
+            SchedulingCm schedulingCm = new SchedulingCm()
             {
                 regions = _IAdminDash.RegionTable(),
             };
-
-            return PartialView("_adminDashScheduling", scheduling);
+            return PartialView("Scheduling/_Provider_Scheduling", schedulingCm);
         }
 
 
         public IActionResult CreateNewShift()
         {
-            scheduling scheduling = new scheduling();
-            scheduling.regions = _IAdminDash.RegionTable();
-            return PartialView("_schedulingCreateShift", scheduling);
+            SchedulingCm schedulingCm = new SchedulingCm();
+            schedulingCm.regions = _IAdminDash.RegionTable();
+            return PartialView("Scheduling/_CreateShift", schedulingCm);
+        }
+
+
+        public ActionResult GetRegion(int selectedregion)
+        {
+            var data = _IAdminDash.GetRegionvalue(selectedregion);
+            return Json(data);
         }
 
         [HttpPost]
-        public IActionResult createShiftPost(scheduling scheduling)
+        public IActionResult createShiftPost(SchedulingCm schedulingCm)
         {
-            int Aspid = (int)HttpContext.Session.GetInt32("AspId");
-            _IAdminDash.createShift(scheduling.ScheduleModel, Aspid);
+            var Aspid = HttpContext.Session.GetInt32("AspNetUserID");
+            if (_IAdminDash.createShift(schedulingCm.ScheduleModel, (int)Aspid))
+            {
+                return Ok(true);
+            }
+            return Ok(false);
 
-            return Ok();
+
         }
 
 
@@ -766,9 +776,17 @@ namespace HelloDocMVC.Controllers
                     monthShift.daysInMonth = totalDays;
                     monthShift.firstDayOfMonth = firstDayOfMonth;
                     monthShift.startDayIndex = startDayIndex;
-                    monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month");
+                    monthShift.Physicians = _IAdminDash.GetPhysicians(regionid);
+                    if (regionid == 0)
+                    {
+                        monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month");
+                    }
+                    else
+                    {
+                        monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month").Where(i => i.Regionid == regionid).ToList();
+                    }
 
-                    return PartialView("_schedulingMonthWiseShift", monthShift);
+                    return PartialView("Scheduling/_MonthWiseShift", monthShift);
 
                 case "week":
 
@@ -788,7 +806,7 @@ namespace HelloDocMVC.Controllers
                     weekShift.datelist = dlist.ToList();
                     weekShift.dayNames = new string[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 
-                    return PartialView("_schedulingWeekWiseShift", weekShift);
+                    return PartialView("Scheduling/_WeekWiseShift", weekShift);
 
                 case "day":
 
@@ -796,7 +814,7 @@ namespace HelloDocMVC.Controllers
                     dayShift.Physicians = _IAdminDash.GetPhysicians(regionid);
                     dayShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "day");
 
-                    return PartialView("_schedulingDayWiseShift", dayShift);
+                    return PartialView("Scheduling/_DayWiseShift", dayShift);
 
                 default:
                     return PartialView();
@@ -804,28 +822,105 @@ namespace HelloDocMVC.Controllers
 
         }
 
-
-
-        public IActionResult OpenScheduledModal(PartialViewModal partialView)
+        public IActionResult OpenScheduledModal(ViewShiftModal viewShiftModal)
         {
-            HttpContext.Session.SetInt32("shiftdetailsid", partialView.shiftdetailsid);
-            switch (partialView.actionType)
+            HttpContext.Session.SetInt32("shiftdetailsid", viewShiftModal.shiftdetailsid);
+            switch (viewShiftModal.actionType)
             {
                 case "shiftdetails":
-                    ShiftDetailsmodal shift = _IAdminDash.GetShift(partialView.shiftdetailsid);
-                    return PartialView("_schedulingViewShift", shift);
+                    ShiftDetailsmodal shift = _IAdminDash.GetShift(viewShiftModal.shiftdetailsid);
+                    return PartialView("Scheduling/_ViewShift", shift);
 
-                case "moreshifts":
-                    DateTime date = DateTime.Parse(partialView.datestring);
-                    var list = _IAdminDash.ShiftDetailsmodal(date, DateTime.Now, DateTime.Now, "month");
-                    return PartialView("_schedulingMoreShifts", list);
-
+                case "moremonthshifts":
+                    DateTime date = DateTime.Parse(viewShiftModal.datestring);
+                    ShiftDetailsmodal ScheduleModel = new ShiftDetailsmodal();
+                    var list = ScheduleModel.ViewAllList = _IAdminDash.ShiftDetailsmodal(date, DateTime.Now, DateTime.Now, "month").Where(i => i.Shiftdate.Day == viewShiftModal.columnDate.Day).ToList();
+                    ViewBag.TotalShift = list.Count();
+                    return PartialView("Scheduling/_MoreShift", ScheduleModel);
 
                 default:
 
                     return PartialView();
             }
         }
+        public IActionResult OpenScheduledModalWeek(string sundaystring, string saturdaystring, string datestring, DateTime shiftdate, int physicianid)
+        {
+            DateTime sunday = DateTime.Parse(sundaystring);
+            DateTime saturday = DateTime.Parse(saturdaystring);
+
+            DateTime date1 = DateTime.Parse(datestring);
+            ShiftDetailsmodal ScheduleModel = new ShiftDetailsmodal();
+            var list = ScheduleModel.ViewAllList = _IAdminDash.ShiftDetailsmodal(date1, sunday, saturday, "week").Where(i => i.Shiftdate.Day == shiftdate.Day && i.Physicianid == physicianid).ToList();
+            ViewBag.TotalShift = list.Count();
+            return PartialView("Scheduling/_MoreShift", ScheduleModel);
+
+
+        }
+
+        public IActionResult ReturnShift(int status, int shiftdetailid)
+        {
+            var Aspid = HttpContext.Session.GetInt32("AspNetUserID");
+            _IAdminDash.SetReturnShift(status, shiftdetailid, (int)Aspid);
+            return Ok();
+        }
+
+        public IActionResult deleteShift(int shiftdetailid)
+        {
+            var Aspid = HttpContext.Session.GetInt32("AspNetUserID");
+            _IAdminDash.SetDeleteShift(shiftdetailid, (int)Aspid);
+            return Ok();
+        }
+
+        public IActionResult EditShiftDetails(ShiftDetailsmodal shiftDetailsmodal)
+        {
+            var Aspid = HttpContext.Session.GetInt32("AspNetUserID");
+            if (_IAdminDash.SetEditShift(shiftDetailsmodal, (int)Aspid))
+            {
+                return Ok(true);
+            }
+            return Ok(false);
+        }
+
+
+        //MD's On Call
+        public IActionResult GetOnCall(int regionid)
+        {
+
+            var MdsCallModal = _IAdminDash.GetOnCallDetails(regionid);
+            return PartialView("Scheduling/_MDs_OnCall", MdsCallModal);
+        }
+
+        public IActionResult ShiftReview(int regionId, int callId)
+        {
+            SchedulingCm schedulingCm = new SchedulingCm()
+            {
+                regions = _IAdminDash.RegionTable(),
+                ShiftReview = _IAdminDash.GetShiftReview(regionId, callId),
+                regionId = regionId,
+                callId = callId,
+            };
+
+            return PartialView("Scheduling/_ShiftReview", schedulingCm);
+        }
+
+        public IActionResult ApproveShift(int[] shiftDetailsId)
+        {
+            var Aspid = HttpContext.Session.GetInt32("AspNetUserID");
+
+            _IAdminDash.ApproveSelectedShift(shiftDetailsId, (int)Aspid);
+
+            return Ok();
+        }
+
+        public IActionResult DeleteSelectedShift(int[] shiftDetailsId)
+        {
+            var Aspid = HttpContext.Session.GetInt32("AspNetUserID");
+
+            _IAdminDash.DeleteShiftReview(shiftDetailsId, (int)Aspid);
+
+            return Ok();
+        }
+
 
 
 
@@ -1029,6 +1124,51 @@ namespace HelloDocMVC.Controllers
             return Ok();
         }
 
+        //public IActionResult adminEdit(int adminId)
+        //{            
+        //    adminDashData data = new adminDashData();
+        //    data._providerEdit = _IAdminDash.adminEditPage(adminId);
+        //    return View();
+        //}
+
+        public IActionResult adminEdit(int adminId)
+        {
+
+            adminDashData data = new adminDashData();
+            data._providerEdit = _IAdminDash.adminEditPage(adminId);
+            data._adminRegionTable = _IAdminDash.GetRegionsAdmin(adminId);
+            data._RegionTable = _IAdminDash.RegionTable();
+            data._role = _IAdminDash.physicainRole();
+
+            return View("adminEdit", data);
+        }
+
+
+        [HttpPost]
+        public IActionResult adminEdit(adminDashData adminDashData, List<int> adminRegions)
+        {
+
+            ViewBag.Admin = 3;
+
+            var email = HttpContext.Session.GetString("UserSession");
+            bool isaccedited = _IAdminDash.EditAdminDetailsDb(adminDashData, email, adminRegions);
+
+            return Json(new { iseditedacc = isaccedited });
+        }
+
+        //public IActionResult providerEdit(int phyId)
+        //{
+        //    var sessionEmail = HttpContext.Session.GetString("UserSession");
+        //    adminDashData data = new adminDashData();
+        //    data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail);
+        //    data._RegionTable = _IAdminDash.RegionTable();
+        //    data._phyRegionTable = _IAdminDash.PhyRegionTable(phyId);
+        //    data._role = _IAdminDash.physicainRole();
+        //    return View(data);
+        //}
+
+
+
 
         //***************************************Records**********************************************
 
@@ -1118,11 +1258,6 @@ namespace HelloDocMVC.Controllers
             return PartialView("_adminDashBlockedHistory", _data);
         }
 
-        //public IActionResult providerCheckBoxBlock(int blockId)
-        //{
-        //    var stopNotification = _IAdminDash.stopNotificationBlock(blockId);
-        //    return Json(new { indicate = stopNotification.indicate });
-        //}
 
         public IActionResult unblockBlockHistory(int blockId)
         {
@@ -1130,5 +1265,10 @@ namespace HelloDocMVC.Controllers
             return Ok();
         }
         
+        //public IActionResult providerCheckBoxBlock(int blockId)
+        //{
+        //    var stopNotification = _IAdminDash.stopNotificationBlock(blockId);
+        //    return Json(new { indicate = stopNotification.indicate });
+        //}
     }
 }

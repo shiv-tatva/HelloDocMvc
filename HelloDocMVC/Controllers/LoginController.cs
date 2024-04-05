@@ -63,6 +63,7 @@ namespace HelloDocMVC.Controllers
             var data = _login.login(obj);
 
             IActionResult response = Unauthorized();
+                        
 
             //TempData["email"] = obj.Email;
             var sessionUser  = obj.Email;
@@ -74,7 +75,9 @@ namespace HelloDocMVC.Controllers
             {
                 HttpContext.Session.SetString("UserSession", sessionUser);
                 HttpContext.Session.SetString("UserSessionName", userName);
+                HttpContext.Session.SetInt32("AspNetUserID", (int)data.Id);
                 HttpContext.Session.SetInt32("roleId", data.roleId);
+
 
                 var jwtToken = _jwtService.GetJwtToken(data);
                 Response.Cookies.Append("jwt", jwtToken);

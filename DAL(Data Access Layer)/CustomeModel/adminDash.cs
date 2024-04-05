@@ -489,6 +489,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public int PhyID { get; set; }
         public int statusId { get; set; }
+        public int adminId { get; set; }
+        public int aspnetUserId { get; set; }
 
         public List<Region> regions { get; set; }
 
@@ -535,12 +537,31 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public decimal? longitude { get; set; }
 
         public decimal? latitude { get; set; }
+
+        public DateTime? created_date { get; set; }
+
+        public int? createdBy { get; set; }
+        
+        public DateTime? modified_date { get; set; }
+
+        public int? modifiedBy { get; set; }
     }
 
 
     public class PhysicianRegionTable
     {
         public int PhysicianId { get; set; }
+
+        public int Regionid { get; set; }
+
+        public string Name { get; set; }
+
+        public bool ExistsInTable { get; set; }
+    }
+
+    public class AdminregionTable
+    {
+        public int Adminid { get; set; }
 
         public int Regionid { get; set; }
 
@@ -589,6 +610,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public AdminEditPhysicianProfile _providerEdit { get; set; }
         public List<Region> _RegionTable { get; set; }
         public List<PhysicianRegionTable> _phyRegionTable { get; set; }
+        public List<AdminregionTable> _adminRegionTable { get; set; }
 
         public List<Role> _role {  get; set; }
     }
