@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,17 +16,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
+    <style>
+        html[data-bs-theme="dark"] nav.header {
+            background-color: rgb(42, 50, 56) !important;
+        }
+
+        html[data-bs-theme="dark"] .text-testing {
+            color: white !important;
+        }
+
+        html[data-bs-theme="dark"] .modal-dark {
+            color: #212529 !important;
+        }
+
+        html[data-bs-theme="dark"] .dark-mode1 {
+            background-color: rgb(42, 50, 56) !important;
+            color: white !important;
+        }
+    </style>
+
 </head>
-<body >
+<body onload="checkMode()">
     <div class="container-fluid" id="MainDiv" style = "position:relative;padding:0;min-height:100vh;">
         <nav class="navbar shadow  bg-white" id="navMain">
             <div style="width: 150px;height: 78px;">
                 <img src="/images/docLogo.png" alt="" width="100%" class="ps-3">
             </div>
-            <div id="darkMode" style="z-index: 2;cursor:pointer!important;">
-                <i class="fa-regular fa-moon fa-2x me-3 p-1"
-                    style="color: #09d4e3;border: 1px solid #09d4e3;border-radius: 4px;" onclick="darkMode()"
-                    id="darkmodeBtn"></i>
+            <div class="me-2">
+                <button type="button" class="btn shadow border-info"
+                        style="border-radius: 10px; border-color: aqua" id="colorButton">
+                    <i id="moon" class="bi bi-moon text-info fs-4"></i>
+                    <i id="sun" class="bi bi-sun text-info fs-4 d-none"></i>
+                </button>
             </div>
         </nav>
         <div id="mainContainer" style="min-height:100vh">
@@ -76,48 +97,52 @@
 
         // }
 
-        function darkMode() {
+        // function darkMode() {
 
-            let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
-            let moon = document.getElementById("darkmodeBtn");
+        //     let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
+        //     let moon = document.getElementById("darkmodeBtn");
 
-            if (isDarkModeTwo) {
-                moon.classList.remove("fa-sun")
-                moon.classList.add("fa-moon")
-            } else {
-                moon.classList.add("fa-sun")
-                moon.classList.remove("fa-moon")
-            }
+        //     if (isDarkModeTwo) {
+        //         moon.classList.remove("fa-sun")
+        //         moon.classList.add("fa-moon")
+        //     } else {
+        //         moon.classList.add("fa-sun")
+        //         moon.classList.remove("fa-moon")
+        //     }
 
-            const body = document.body;
-            body.classList.toggle('dark-mode');
+        //     const body = document.body;
+        //     body.classList.toggle('dark-mode');
 
-            let nav = document.getElementById("navMain");
-            nav.classList.toggle("dark-mode")
+        //     let nav = document.getElementById("navMain");
+        //     nav.classList.toggle("dark-mode")
 
-            const isDarkMode = body.classList.contains('dark-mode');
+        //     const isDarkMode = body.classList.contains('dark-mode');
 
-            localStorage.setItem('darkMode', isDarkMode);
+        //     localStorage.setItem('darkMode', isDarkMode);
 
-        }
+        // }
 
-        window.onload = function () {
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            let nav = document.getElementById("navMain");
-            let moon = document.getElementById("darkmodeBtn");
+        // window.onload = function () {
+        //     const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        //     let nav = document.getElementById("navMain");
+        //     let moon = document.getElementById("darkmodeBtn");
 
-            if (isDarkMode) {
-                document.body.classList.add('dark-mode');
-                nav.classList.add('dark-mode');
-                moon.classList.remove("fa-moon")
-                moon.classList.add("fa-sun")
-            }
-        }
+        //     if (isDarkMode) {
+        //         document.body.classList.add('dark-mode');
+        //         nav.classList.add('dark-mode');
+        //         moon.classList.remove("fa-moon")
+        //         moon.classList.add("fa-sun")
+        //     }
+        // }
     
 
   
 
     </script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="~/js/darkmode.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
      @* <script src="~/js/darkTheme.js"></script>  *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

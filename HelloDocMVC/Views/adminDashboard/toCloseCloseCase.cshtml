@@ -9,7 +9,7 @@
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
              tabindex="0">
             <div class=" mt-2 d-flex justify-content-between align-items-center">
-                <h4 style="color:black!important;">Close Case</h4>
+                <h4>Close Case</h4>
                 <a asp-controller="adminDashboard" asp-action="adminDashboard"
                    class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
                     <i class="fa-solid fa-angle-left"></i> Back
@@ -19,8 +19,8 @@
             <div class="container-fluid shadow border rounded mt-3 px-4 mb-5 pb-5">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-secondary pt-3 ">Patient Name</div>
-                        <span class="text-info fs-4">@Model._closeCaseMain.fname @Model._closeCaseMain.lname</span> <span class=" text-secondary">
+                        <div class="text-secondary pt-3 dark-mode2">Patient Name</div>
+                        <span class="text-info fs-4">@Model._closeCaseMain.fname @Model._closeCaseMain.lname</span> <span class=" text-secondary dark-mode2">
                             (@Model._closeCaseMain.confirmation_no)
                         </span>
                     </div>
@@ -28,12 +28,12 @@
                         <button type="submit" id="CreateInvoice" class="btn btn-outline-secondary border-info text-info">Create Invoice Through QuickBooks</button>
                     </div>
                 </div>
-                <h5 class="mb-4 pt-2" style="color:black!important;">Documents</h5>
+                <h5 class="mb-4 pt-2 dark-mode2">Documents</h5>
                 <div class="table-responsive">
                     <table class="table ">
                         <thead class="bg-body-tertiary ">
                         <thead>
-                            <tr style="background-color: rgb(219, 219, 219);">
+                            <tr class="dark-mode2">
                                 <th style="background: transparent;">
                                     <span class="ms-5" style="visibility: hidden;">Document</span>
                                 </th>
@@ -44,7 +44,7 @@
                         <tbody>
                                 @foreach (var obj in Model._closeCaseMain._requestWiseFile)
                                 {
-                                    <tr class="align-middle">
+                                <tr class="align-middle dark-mode2">
                                         <td class="first-col">
                                             <input id="reqWiseFileId" type="hidden" value="@obj.Requestwisefileid" />
                                                 <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
@@ -65,16 +65,16 @@
                 <form method="post" asp-action="closeCaseBtn" asp-controller="adminDashboard">
                 <div class="mt-3">
                     <input asp-for="_closeCaseMain.reqid" type="hidden" value="@Model._closeCaseMain.reqid" />
-                    <h5 class="mb-4 pt-2" style="color:black!important;">Patient Information</h5>
+                        <h5 class="mb-4 pt-2 dark-mode2">Patient Information</h5>
                     <div class="row intext">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input asp-for="_closeCaseMain.fname" value="@Model._closeCaseMain.fname" type="text" class=" form-control" id="floatingInputFirst"
+                                <input asp-for="_closeCaseMain.fname" value="@Model._closeCaseMain.fname" type="text" class=" form-control dark-mode2" id="floatingInputFirst"
                                    placeholder="First Name" disabled aria-label="First Name" />
                             <label class="ms-2 text-secondary" for="floatingInputFirst" >First Name</label>
                             <span @* asp-validation-for="FirstName" *@ class="text-danger"></span>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input asp-for="_closeCaseMain.lname" value="@Model._closeCaseMain.lname" type="text" class=" form-control" id="floatingInputLast" disabled placeholder="Last Name"
+                                <input asp-for="_closeCaseMain.lname" value="@Model._closeCaseMain.lname" type="text" class=" form-control dark-mode2" id="floatingInputLast" disabled placeholder="Last Name"
                                    aria-label="Last Name" />
                             <label class="ms-2 text-secondary" for="floatingInputLast">Last Name</label>
                             <span @* asp-validation-for="LastName" *@ class="text-danger"></span>
@@ -82,12 +82,12 @@
                     </div>
                     <div class="row intext">
                         <div class="form-floating mb-3 col-12 col-sm-6">
-                                <input asp-for="_closeCaseMain.fulldateofbirth" value="@Model._closeCaseMain.fulldateofbirth" type="date" class="form-control " id="floatingInputdate" disabled placeholder="02-10-2002">
+                                <input asp-for="_closeCaseMain.fulldateofbirth" value="@Model._closeCaseMain.fulldateofbirth" type="date" class="form-control dark-mode2" id="floatingInputdate" disabled placeholder="02-10-2002">
                             <label for="floatingInputdate" class="ms-2 text-secondary ">Date of Birth</label>
                         </div>
 
                         <div class="form-floating mb-3 col-12 col-sm-5">
-                                <input asp-for="_closeCaseMain.mobile_num" value="@Model._closeCaseMain.mobile_num" type="tel" class="dclass form-control " id="floatingInputdate" disabled placeholder="1234567890">
+                                <input asp-for="_closeCaseMain.mobile_num" value="@Model._closeCaseMain.mobile_num" type="tel" class="dclass form-control dark-mode2" id="floatingInputdate" disabled placeholder="1234567890">
                             <label for="floatingInputdate" class="ms-2 text-secondary ">Phone Number</label>
                         </div>
 
@@ -100,7 +100,7 @@
                     </div>
                     <div class="row mb-3 intext">
                         <div class="form-floating mb-3 col-12 col-sm-6">
-                                <input asp-for="_closeCaseMain.email" value="@Model._closeCaseMain.email" type="email" class="form-control emailInp dclass" id="floatingInput" mailto:placeholder="test@google.com">
+                                <input asp-for="_closeCaseMain.email" value="@Model._closeCaseMain.email" type="email" class="form-control emailInp dclass dark-mode2" id="floatingInput" mailto:placeholder="test@google.com">
                             <label for="floatingInput" class="ms-2 text-secondary">Email</label>
                         </div>
                     </div>

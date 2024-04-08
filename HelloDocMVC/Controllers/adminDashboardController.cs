@@ -440,24 +440,26 @@ namespace HelloDocMVC.Controllers
             adminDashData _admin = new adminDashData();
             var sessionEmail = HttpContext.Session.GetString("UserSession");
             _admin._myProfile = _IAdminDash.myProfile( sessionEmail);
+            _admin._adminRegionTable = _IAdminDash.GetRegionsAdmin((int)_admin._myProfile.admin_id);
+            _admin._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminMyProfile", _admin);
         }
 
 
         [HttpPost]
-        public IActionResult myProfile(myProfile obj)
+        public IActionResult myProfile(adminDashData obj, List<int> adminRegions)
         {
 
-            if(obj.flag == 1)
+            if(obj._myProfile.flag == 1)
             {
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
-                bool isSend = _IAdminDash.myProfileReset(obj, sessionEmail);
+                bool isSend = _IAdminDash.myProfileReset(obj._myProfile, sessionEmail);
                 return Json(new { isSend = isSend});                
             }
-            else if(obj.flag == 2)
+            else if(obj._myProfile.flag == 2)
             {
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
-                var isSend = _IAdminDash.myProfileAdminInfo(obj, sessionEmail);
+                var isSend = _IAdminDash.myProfileAdminInfo(obj._myProfile, sessionEmail, adminRegions);
 
                 var userName = isSend.email.Substring(0, isSend.email.IndexOf('@'));
                 if (isSend.email != null)
@@ -472,7 +474,7 @@ namespace HelloDocMVC.Controllers
             else
             {
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
-                bool isSend = _IAdminDash.myProfileAdminBillingInfo(obj, sessionEmail);
+                bool isSend = _IAdminDash.myProfileAdminBillingInfo(obj._myProfile, sessionEmail);
                 return Json(new { isSend = isSend });
                 
             }
@@ -1156,16 +1158,11 @@ namespace HelloDocMVC.Controllers
             return Json(new { iseditedacc = isaccedited });
         }
 
-        //public IActionResult providerEdit(int phyId)
-        //{
-        //    var sessionEmail = HttpContext.Session.GetString("UserSession");
-        //    adminDashData data = new adminDashData();
-        //    data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail);
-        //    data._RegionTable = _IAdminDash.RegionTable();
-        //    data._phyRegionTable = _IAdminDash.PhyRegionTable(phyId);
-        //    data._role = _IAdminDash.physicainRole();
-        //    return View(data);
-        //}
+        public IActionResult editDeleteAdminAccount(int adminId)
+        {
+            _IAdminDash.editDeleteAdminAccount(adminId);
+            return Ok();
+        }
 
 
 

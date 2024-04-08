@@ -29,11 +29,11 @@
         <button class="btn btn-outline-info rounded-3" onclick="records()"> &lt; <span class="d-none d-sm-inline-block">Back</span> </button>
     </div>
 
-    <div class="shadow rounded-2 bg-white mt-4 table-responsive d-none d-lg-block">
+    <div class="shadow rounded-2 mt-4 table-responsive d-none d-lg-block">
 
         <table class="table">
             <thead class="table-active">
-                <tr>
+                <tr class="dark-mode2">
                     <th scope="col" class="text-center">Client/Member</th>
                     <th scope="col" class="text-center">Created Date <i class="bi bi-arrow-down"></i></th>
                     <th scope="col" class="text-center">Confirmation</th>
@@ -47,7 +47,7 @@
             <tbody>
                 @foreach (var obj in Model.getRecordExplore)
                 {
-                    <tr>
+                    <tr class="dark-mode2">
                         <td class="text-center">@obj.fullname</td>
                         <td class="text-center">@obj.createddate</td>
                         <td class="text-center">@obj.confirmationnumber</td>
@@ -92,7 +92,7 @@
         <div class="accordion container-fluid p-0" id="accordionPanelsStayOpenExample">
             <table class="w-100 requesttable">
                 <thead>
-                    <tr>
+                    <tr class="dark-mode2">
                         <th class="d-none"></th>
                         <th class="d-none"></th>
                     </tr>
@@ -105,7 +105,7 @@
                     {
                         @foreach (var obj in Model.getRecordExplore)
                         {
-                            <tr class="d-flex flex-column">
+                            <tr class="d-flex flex-column dark-mode2">
                                 <td>
                                     <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
 

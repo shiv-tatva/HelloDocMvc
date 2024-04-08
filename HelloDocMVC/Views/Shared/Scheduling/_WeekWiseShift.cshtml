@@ -17,7 +17,7 @@
         </thead>
         <tbody style="font-size:larger;font-weight:400;" class="shiftweektable">
             <tr>
-                <td class="text-center fw-bolder fs-6">Coverege</td>
+                <td class="text-center fw-bolder fs-6 dark-mode2">Coverege</td>
                 <td class="text-center fs-6" style="background-color:#cfcff9;">0/24</td>
                 <td class="text-center fs-6" style="background-color:#cfcff9;">0/24</td>
                 <td class="text-center fs-6" style="background-color:#cfcff9;">0/24</td>
@@ -29,7 +29,7 @@
             @{
                 foreach (var phy in Model.Physicians)
                 {
-                    <tr class="text-center">
+                    <tr class="text-center dark-mode2">
                         <td class="p-2">
                             <div class="d-flex align-items-center h-100 fw-bolder fs-6">
                                 @if (@phy.Photo != null)
@@ -43,7 +43,7 @@
                                 {
                                     <span class="me-1 text-center" style="width:40px;height:40px">
                                         <img class="w-100 h-100 border rounded-5"
-                                             src="~/Documents/check-icon.svg" />
+                                             src="~/Documents/profilePhoto.jpg" />
                                     </span>
 
                                 }

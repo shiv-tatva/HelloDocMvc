@@ -7,7 +7,7 @@
 
 
 <div class="tab-pane fade show active" id="new-tab-pane" role="tabpanel" aria-labelledby="new-tab"
-     tabindex="0" style="background:white">
+     tabindex="0" >
 
     <div class="my-4" id="patients_flex_box">
         <span id="patient_txt">
@@ -123,15 +123,15 @@
                 <table class="table" id="tableDataMain">
                     <thead id="table-heading">
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Date of Birth</th>
-                            <th scope="col">Requestor</th>
-                            <th scope="col">Requested date</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Notes</th>
-                            <th scope="col">Chat With</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" class="dark-mode2 ">Name</th>
+                            <th scope="col" class="dark-mode2 ">Date of Birth</th>
+                            <th scope="col" class="dark-mode2 ">Requestor</th>
+                            <th scope="col" class="dark-mode2 ">Requested date</th>
+                            <th scope="col" class="dark-mode2 ">Phone</th>
+                            <th scope="col" class="dark-mode2 ">Address</th>
+                            <th scope="col" class="dark-mode2 ">Notes</th>
+                            <th scope="col" class="dark-mode2 ">Chat With</th>
+                            <th scope="col" class="dark-mode2 ">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tabledata">
@@ -169,7 +169,7 @@
 
                                             @item.first_name, @item.last_name
                                             <a href="">
-                                                <i class="bi bi-envelope me-3  rounded-5 border p-1 text-info" style="color:white!important"></i>
+                                            <i class="bi bi-envelope me-3 text-white rounded-5 border p-1 text-info"></i>
                                             </a>
                                         </div>
                                     </td>
@@ -179,22 +179,22 @@
                                     <td style="background:@bgColor">
                                         <div class="table_phone">
                                             <a href="">
-                                                <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                            <i class="bi bi-telephone text-white  rounded-5   p-1 text-info"></i>
                                                 @item.mobile_num
                                             </a>
                                         </div>
-                                        <div style="color:white">
+                                        <div >
                                             (Patient)
                                         </div>
                                         @if (item.request_type_id != 1)
                                         {
                                             <div class="table_phone">
                                                 <a href="">
-                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info" ></i>
                                                     @item.requestor_mobile_num
                                                 </a>
                                             </div>
-                                            <div style="color:white">
+                                            <div >
                                                 (@role)
                                             </div>
                                         }

@@ -65,7 +65,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public bool myProfileReset(myProfile obj, string sessionEmail);
 
-        public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail);
+        public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail, List<int> adminRegions);
         public bool myProfileAdminBillingInfo(myProfile obj, string sessionEmail);
 
         public concludeEncounter concludeEncounter(int data);
@@ -125,6 +125,8 @@ namespace BLL_Business_Logic_Layer_.Interface
         public List<AdminregionTable> GetRegionsAdmin(int adminId);
 
         public bool EditAdminDetailsDb(adminDashData adminDashData, string email, List<int> adminRegions);
+
+        public void editDeleteAdminAccount(int adminId);
 
         public List<Physicianlocation> GetPhysicianlocations();
 

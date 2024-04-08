@@ -78,12 +78,12 @@
 
                     <div class="row">
                         <div class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating  ">
-                            <input type="text" class="form-control " id="floatingInputUsername" placeholder="User Name" disabled aria-label="User Name" asp-for="@Model._providerEdit.username">
+                            <input type="text" class="form-control dark-mode2 dark-mode2" id="floatingInputUsername" placeholder="User Name" disabled aria-label="User Name" asp-for="@Model._providerEdit.username">
                             <label class="ms-2 " for="floatingInputUsername">User Name</label>
                         </div>
                         <div style="position: relative;"
                              class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating ">
-                            <input asp-for="@Model._providerEdit.password" value="@Model._providerEdit.password" type="password" class="form-control inputs" placeholder="Password"
+                            <input asp-for="@Model._providerEdit.password" value="@Model._providerEdit.password" type="password" class="form-control dark-mode2 inputs" placeholder="Password"
                                    id="providerEditPassword" />
                             <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
                             <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;"
@@ -95,7 +95,7 @@
                         </div>
                         @*  <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden1" hidden /> *@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
-                            <select class="form-select form-control d1class" disabled id="providerEditStatus" asp-for="editStatusName(@Model._providerEdit.statusId)" value="editStatusName(@Model._providerEdit.statusId)">
+                            <select class="form-select form-control dark-mode2 d1class" disabled id="providerEditStatus" asp-for="editStatusName(@Model._providerEdit.statusId)" value="editStatusName(@Model._providerEdit.statusId)">
                                 <option value="1">Active</option>
                                 <option value="2">Pending</option>
                                 <option value="3">Not Active</option>
@@ -103,7 +103,7 @@
                             <label for="status" class="ms-2 ">Status</label>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
-                            <select class="form-select form-control d1class" disabled id="providerEditRole" asp-for="editRoleNameMain(@Model._providerEdit.Roleid)" value="editRoleNameMain(@Model._providerEdit.Roleid)">
+                            <select class="form-select form-control dark-mode2 d1class" disabled id="providerEditRole" asp-for="editRoleNameMain(@Model._providerEdit.Roleid)" value="editRoleNameMain(@Model._providerEdit.Roleid)">
                                 @foreach (var obj in Model._role)
                                 {
                                     <option value="@obj.Roleid">
@@ -141,44 +141,44 @@
                     <h4 class="mb-4">Physician Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
-                            <input type="text" class="d2class form-control " id="editProviderFirstName" asp-for="@Model._providerEdit.Firstname"
+                            <input type="text" class="d2class form-control dark-mode2 " id="editProviderFirstName" asp-for="@Model._providerEdit.Firstname"
                                    placeholder="First Name" aria-label="First Name">
                             <label class="ms-2 " for="floatingInputFirstName">First Name</label>
                         </div>
                         @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden2" hidden /> *@
                         @* <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden3" hidden /> *@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
-                            <input type="text" class="d2class form-control " id="editProviderLastName" asp-for="@Model._providerEdit.Lastname"
+                            <input type="text" class="d2class form-control dark-mode2 " id="editProviderLastName" asp-for="@Model._providerEdit.Lastname"
                                    placeholder="Last Name" aria-label="Last Name">
                             <label class="ms-2  " for="floatingInputLast">Last Name</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="email" class="d2class form-control " id="editProviderEmail" asp-for="@Model._providerEdit.Email"
+                            <input type="email" class="d2class form-control dark-mode2 " id="editProviderEmail" asp-for="@Model._providerEdit.Email"
                                    placeholder="Email" aria-label="Email">
 
                             <label class="ms-2 " for="floatingInputemail">Email</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input style="height:58px;" id="editProviderPhoneNumber" asp-for="@Model._providerEdit.PhoneNumber"
-                                   class="form-control contact d2class"
+                                   class="form-control dark-mode2 contact d2class"
                                    aria-label="Contact"
                                    type="number" />
                             @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d2class form-control " id="editProviderMedicalLicense" asp-for="@Model._providerEdit.MedicalLicesnse"
+                            <input type="text" class="d2class form-control dark-mode2 " id="editProviderMedicalLicense" asp-for="@Model._providerEdit.MedicalLicesnse"
                                    placeholder="MedicalLicense" aria-label="MedicalLicense">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="MedicalLicense">MedicalLicense #</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d2class form-control " id="editProviderNPINumber" asp-for="@Model._providerEdit.NPInumber"
+                            <input type="text" class="d2class form-control dark-mode2 " id="editProviderNPINumber" asp-for="@Model._providerEdit.NPInumber"
                                    placeholder="NPINumber" aria-label="NPINumber">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="NPINumber">NPI Number</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="email" class="d2class form-control " id="editProviderSynchronizationEmail" asp-for="@Model._providerEdit.SycnEmail"
+                            <input type="email" class="d2class form-control dark-mode2 " id="editProviderSynchronizationEmail" asp-for="@Model._providerEdit.SycnEmail"
                                    placeholder="SynchronizationEmail" aria-label="SynchronizationEmail">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="SynchronizationEmail">Synchronization Email Address</label>
@@ -225,24 +225,24 @@
                     <h4 class="mb-4">Mailing And Billing Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputAddress1" asp-for="@Model._providerEdit.Address1"
+                            <input type="text" class="d3class form-control dark-mode2 " id="floatingInputAddress1" asp-for="@Model._providerEdit.Address1"
                                    placeholder="Address1" aria-label="Address1">
                             @* <span class="text-danger" asp-validation-for="@Model.AdminProfile.Address1"></span> *@
                             <label class="ms-2 " for="floatingInputAddress1">Address1</label>
                         </div>
                         @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden4" hidden /> *@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputAddress2" asp-for="@Model._providerEdit.Address2"
+                            <input type="text" class="d3class form-control dark-mode2 " id="floatingInputAddress2" asp-for="@Model._providerEdit.Address2"
                                    placeholder="Address2" aria-label="Address2">
                             <label class="ms-2 " for="floatingInputAddress2">Address2</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputCity"  asp-for="@Model._providerEdit.city"
+                            <input type="text" class="d3class form-control dark-mode2 " id="floatingInputCity"  asp-for="@Model._providerEdit.city"
                                    placeholder="City" aria-label="City">
                             <label class="ms-2 " for="floatingInputCity">City</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <select class="d3class form-select regionDropdown" id="state" aria-label="Region" asp-for="@Model._providerEdit.Regionid" >
+                            <select class="d3class form-select regionDropdown dark-mode2" id="state" aria-label="Region" asp-for="@Model._providerEdit.Regionid" >
                                 @foreach (var obj in Model._RegionTable)
                                     {
                                     <option value="@obj.Regionid">
@@ -253,14 +253,14 @@
                             <label for="state" class="ms-2 ">State</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputZipCode" asp-for="@Model._providerEdit.zipcode"
+                            <input type="text" class="d3class form-control dark-mode2 " id="floatingInputZipCode" asp-for="@Model._providerEdit.zipcode"
                                    placeholder="Zip Code" aria-label="Zip Code">
 
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input style="height:58px;" id="providerMobileTwo" asp-for="@Model._providerEdit.altPhone"
-                                   class="form-control contact d3class"
+                                   class="form-control dark-mode2 contact d3class"
                                    aria-label="Contact"
                                    type="number" />
                             @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
@@ -288,13 +288,13 @@
                     <h4 class="mb-4">Provider Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d4class form-control " id="Businessname" asp-for="@Model._providerEdit.Businessname"
+                            <input type="text" class="d4class form-control dark-mode2 " id="Businessname" asp-for="@Model._providerEdit.Businessname"
                                    placeholder="Businessname" aria-label="Businessname">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="Businessname">Business Name</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d4class form-control " id="Businesswebsite" asp-for="@Model._providerEdit.BusinessWebsite"
+                            <input type="text" class="d4class form-control dark-mode2 " id="Businesswebsite" asp-for="@Model._providerEdit.BusinessWebsite"
                                    placeholder="Businesswebsite" aria-label="Businesswebsite">
                             <label class="ms-2 " for="Businesswebsite">Business website</label>
                         </div>
@@ -303,7 +303,7 @@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
                             <div>
                                 <div class="input-group rounded d-flex">
-                                    <input asp-for="@Model._providerEdit.Photo"  type="file" class="d4class form-control py-3" id="fileUploadInp">
+                                    <input asp-for="@Model._providerEdit.Photo"  type="file" class="d4class form-control dark-mode2 py-3" id="fileUploadInp">
                                     <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" disabled id="upload-btn" onclick="checkFileExtension()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Profile</span></button>
                                 </div>                                
                             </div>
@@ -318,7 +318,7 @@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <div class="  form-floating mb-3 d-flex">
                                 <div class="input-group">
-                                    <input asp-for="@Model._providerEdit.Signature"  type="file" class="d4class form-control py-3" id="fileUploadInp2">
+                                    <input asp-for="@Model._providerEdit.Signature"  type="file" class="d4class form-control dark-mode2 py-3" id="fileUploadInp2">
                                     <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" id="upload-btn2" disabled onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1 "></i> <span class="d-none d-md-inline-block">Sign</span></button>
                                 </div>                                
                                 <button style="cursor:pointer;" type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
@@ -338,7 +338,7 @@
                         </div>
                                                
                         <div class=" col-12 form-floating mb-3">
-                            <textarea class="form-control d4class" rows="5" placeholder="Admin Notes" id="AdminNotes" asp-for="@Model._providerEdit.Adminnotes"></textarea>
+                            <textarea class="form-control dark-mode2 d4class" rows="5" placeholder="Admin Notes" id="AdminNotes" asp-for="@Model._providerEdit.Adminnotes"></textarea>
                             <label class="ms-2" for="AdminNotes">
                                 Admin Notes
                             </label>
@@ -379,7 +379,7 @@
                             <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
+                            <input type="file" hidden class="form-control dark-mode2 onBoardInpFile" asp-for="@Model._providerEdit.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile1">Upload</label>
                         </div>
                     </div>
@@ -395,7 +395,7 @@
                             <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
+                            <input type="file" hidden class="form-control dark-mode2 onBoardInpFile" asp-for="@Model._providerEdit.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile2">Upload</label>
                         </div>
                     </div>
@@ -411,7 +411,7 @@
                             <a type="button" href="~/Documents/@Model._providerEdit.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
+                            <input type="file" hidden class="form-control dark-mode2 onBoardInpFile" asp-for="@Model._providerEdit.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile3">Upload</label>
                         </div>
                     </div>
@@ -427,7 +427,7 @@
                             <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
+                            <input type="file" hidden class="form-control dark-mode2 onBoardInpFile" asp-for="@Model._providerEdit.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile4">Upload</label>
                         </div>
                     </div>
@@ -443,7 +443,7 @@
                             <a type="button" href="~/Documents/@Model._providerEdit.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model._providerEdit.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
+                            <input type="file" hidden class="form-control dark-mode2 onBoardInpFile" asp-for="@Model._providerEdit.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile5">Upload</label>
                         </div>
                     </div>

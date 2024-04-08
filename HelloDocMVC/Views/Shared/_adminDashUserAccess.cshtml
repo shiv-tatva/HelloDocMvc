@@ -28,7 +28,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
 
             <form role="search" class="d-flex align-items-center border border-rounded rounded border-info mb-3">
-                <i type="search" class="bi bi-search px-2" style="position:absolute;"></i>
+                <i type="search" class="bi bi-search px-2 text-black" style="position:absolute;"></i>
                 <select class="form-select border-0 ps-5" id="AspTypeidRole" value="this.value" aria-label="Default select example" onchange="GetUserAccess(this.value)">
                     <option value="0" selected>All</option>
                     @foreach (var obj in Model.AspnetUserroles)
@@ -53,7 +53,7 @@
             <table class="table">
                 <thead class="bg-body-tertiary ">
                 <thead>
-                    <tr>
+                    <tr class="dark-mode2">
                         <th>Account Type<span><i class="bi bi-arrow-up"></i></span></th>
                         <th>Account POC</th>
                         <th>Phone</th>
@@ -68,7 +68,7 @@
                         {
 
 
-                        <tr class="align-middle">
+                        <tr class="align-middle dark-mode2">
 
                             <td>
                                 <span class="document-name">@obj.Accounttype</span>

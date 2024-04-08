@@ -33,7 +33,7 @@
         </thead>
         <tbody id="dayshiftbody" class="mt-1">
             <tr>
-                <td class="text-center fw-bolder">Coverage</td>
+                <td class="text-center fw-bolder dark-mode2">Coverage</td>
                 @for (int i = 0; i < 24; i += 1)
                 {
                     <td style="background-color:#cfcff9;"></td>
@@ -43,13 +43,13 @@
             @{
                 foreach (var phy in Model.Physicians)
                 {
-                    <tr>
+                    <tr class="dark-mode2">
                         <td class="p-2">
                             <div class="d-flex align-items-center h-100 fw-bolder fs-6">
                                 @if (@phy.Photo == null)
                                 {
                                     <span class="me-1 text-center" style="width:40px;height:40px">
-                                        <img class="w-100 h-100 border rounded-5" src="~/Documents/check-icon.svg" />
+                                        <img class="w-100 h-100 border rounded-5" src="~/Documents/profilePhoto.jpg" />
                                     </span>
                                 }
                                 else

@@ -189,6 +189,10 @@
       "PackagePath": "staticwebassets\\Documents\\profile.png"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\profilePhoto.jpg",
+      "PackagePath": "staticwebassets\\Documents\\profilePhoto.jpg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\search-icon.svg",
       "PackagePath": "staticwebassets\\Documents\\search-icon.svg"
     },
@@ -903,6 +907,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\darkTheme.js",
       "PackagePath": "staticwebassets\\js\\darkTheme.js"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\darkmode.js",
+      "PackagePath": "staticwebassets\\js\\darkmode.js"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\site.js",

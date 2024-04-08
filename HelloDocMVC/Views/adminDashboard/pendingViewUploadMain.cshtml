@@ -27,11 +27,11 @@
             </div>
 
             <div class="container-fluid shadow border rounded mt-3 px-4 mb-5 pb-5">
-                <div class="text-secondary pt-3 my-2">Patient Name</div>
-                <span class="text-info fs-2 my-2">@Model._viewUpload[0].fname @Model._viewUpload[0].lname</span> <span class="my-2 fs-5 text-secondary">
+                <div class="text-secondary pt-3 my-2 dark-mode2">Patient Name</div>
+                <span class="text-info fs-2 my-2">@Model._viewUpload[0].fname @Model._viewUpload[0].lname</span> <span class="my-2 fs-5 text-secondary dark-mode2">
                     (@Model._viewUpload[0].cnf_number)
                 </span>
-                <div class="my-2 text-secondary">
+                <div class="my-2 text-secondary dark-mode2">
                     Check here to review and add files that you or the Client/Member has attached to the request.
                 </div>
                 <form asp-action="pendingViewUploadMain" asp-controller="adminDashboard" method="post" enctype="multipart/form-data">
@@ -74,7 +74,7 @@
                     <table class="table ">
                         <thead class="bg-body-tertiary ">
                         <thead>
-                            <tr>
+                            <tr class="dark-mode2">
                                 <th>
                                     <input  type="checkbox" class="checkbox-main checkbox "  name="selectall"
                                            onchange="tickAll()" />
@@ -90,7 +90,7 @@
                                 {
                                     for (int i = 0; i < obj.documentsname.Count(); i++)
                                     {
-                                    <tr class="align-middle">
+                                    <tr class="align-middle dark-mode2">
                                         <td class="first-col">
                                             <input id="reqWiseFileId"  type="hidden" value="@obj.requestWiseFileId[i]" />
                                             <input id="data" type="hidden"  value="true" />

@@ -6,27 +6,27 @@
 
     <h3 class="ms-2 my-1">Blocked History</h3>
 
-    <div class="shadow rounded-2 bg-white">
+    <div class="shadow rounded-2 ">
         <form id="blockHistoryForm">
             <div class="row g-2 my-2 p-3 mb-4">
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input type="text" class="form-control bg-transparent" id="first_name" placeholder="First Name" asp-for="@Model.blockHistoryMain[0].searchRecordOne">
-                    <label for="first_name" class="ms-2 text-muted">Name</label>
+                    <input type="text" class="form-control dark-mode2" id="first_name" placeholder="First Name" asp-for="@Model.blockHistoryMain[0].searchRecordOne">
+                    <label for="first_name" class="ms-2  ">Name</label>
                 </div>
 
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input type="date" class="form-control bg-transparent" id="dateBlockHistory" placeholder="To Date of Service" asp-for="@Model.blockHistoryMain[0].searchRecordTwo">
-                    <label for="dateBlockHistory" class="ms-2 text-muted">Date</label>
+                    <input type="date" class="form-control dark-mode2" id="dateBlockHistory" placeholder="To Date of Service" asp-for="@Model.blockHistoryMain[0].searchRecordTwo">
+                    <label for="dateBlockHistory" class="ms-2  ">Date</label>
                 </div>
 
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input type="email" class="form-control " id="email" placeholder="Email" aria-label="Email"  asp-for="@Model.blockHistoryMain[0].searchRecordThree">
-                    <label class="ms-2 text-muted" for="Email">Email</label>
+                    <input type="email" class="form-control dark-mode2" id="email" placeholder="Email" aria-label="Email" asp-for="@Model.blockHistoryMain[0].searchRecordThree">
+                    <label class="ms-2  " for="Email">Email</label>
                 </div>
 
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input class="form-control" type="search" placeholder="Phone Number" aria-label="Search" id="phone" asp-for="@Model.blockHistoryMain[0].searchRecordFour">
-                    <label class="text-muted ms-2">Phone Number</label>
+                    <input class="form-control dark-mode2" type="search" placeholder="Phone Number" aria-label="Search" id="phone" asp-for="@Model.blockHistoryMain[0].searchRecordFour">
+                    <label class="  ms-2">Phone Number</label>
                 </div>
 
                 <div class="d-flex justify-content-end">
@@ -39,7 +39,7 @@
             { 
             <table class="table" id="blcokHistoryTable">
                 <thead class="table-active">
-                    <tr>
+                    <tr class="dark-mode2">
                         <th scope="col" class="text-center">Patient Name</th>
                         <th scope="col" class="text-center">Phone Number </th>
                         <th scope="col" class="text-center">Email</th>
@@ -54,7 +54,7 @@
                     @foreach (var obj in Model.blockHistoryMain)
                     {
 
-                        <tr>
+                        <tr class="dark-mode2">
                             <td class="text-center">@obj.patientname</td>
                             <td class="text-center">@obj.phonenumber</td>
                             <td class="text-center">@obj.email</td>
@@ -73,7 +73,7 @@
         {
             <table class="table">
                 <thead class="table-active">
-                    <tr>
+                    <tr class="dark-mode2">
                         <th scope="col" class="text-center">Name</th>
                         <th scope="col" class="text-center">Phone Number </th>
                         <th scope="col" class="text-center">Email</th>
@@ -85,7 +85,7 @@
                 </thead>
             
                 <tbody>
-                    <tr>
+                    <tr class="dark-mode2">
                         <td colspan="7" style="text-align:center;">No Request Found</td>
                     </tr>
                 </tbody>

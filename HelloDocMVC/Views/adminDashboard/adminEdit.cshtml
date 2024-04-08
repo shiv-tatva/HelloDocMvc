@@ -20,18 +20,18 @@
 
     <div class="shadow border rounded my-3">
         <div class="mx-3 my-4 ">
-            <form id="CreateAdminForm" onsubmit="adminAccCreate()">
+            <form id="CreateAdminForm" onsubmit="adminAccCreate(@Model._providerEdit.adminId)">
                 <input type="hidden" asp-for="@Model._providerEdit.adminId" value="@Model._providerEdit.adminId" />
                 <input type="hidden" asp-for="@Model._providerEdit.aspnetUserId" value="@Model._providerEdit.aspnetUserId" />
                 <div class="mt-3">
                     <h4 class="my-4 pt-4">Account Information</h4>
                     <div class="row">
                         <div class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating  ">
-                            <input type="text" class="form-control " asp-for="@Model._providerEdit.username" id="floatingInputUsername" placeholder="User Name" aria-label="User Name">
+                            <input type="text" class="form-control dark-mode2" asp-for="@Model._providerEdit.username" id="floatingInputUsername" placeholder="User Name" aria-label="User Name">
                             <label class="ms-2 " for="floatingInputUsername">User Name</label>
                         </div>
                         <div style="position: relative;" class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating ">
-                            <input asp-for="@Model._providerEdit.password" value="@Model._providerEdit.password" type="password" class="form-control inputs" placeholder="Password" id="adminCreatePassword" />
+                            <input asp-for="@Model._providerEdit.password" value="@Model._providerEdit.password" type="password" class="form-control inputs dark-mode2" placeholder="Password" id="adminCreatePassword" />
                             <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
                             <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;" type="button">
                                 <i class="fa-regular fa-eye" onclick="adminCreatePasswordVisible2()" id="adminCreatePasswordBtn"></i>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12  form-floating mb-3 ">
-                            <select asp-for="@Model._providerEdit.Roleid" class="form-select form-control " id="adminCreateRole">
+                            <select asp-for="@Model._providerEdit.Roleid" class="form-select form-control dark-mode2" id="adminCreateRole">
                                 @foreach (var obj in Model._role)
                                 {
                                     <option value="@obj.Roleid">
@@ -59,28 +59,28 @@
                     <h4 class="mb-4">Administrator Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
-                            <input asp-for="@Model._providerEdit.Firstname" type="text" class="d1class form-control " id="floatingInputFirstName" placeholder="First Name" aria-label="First Name">
+                            <input asp-for="@Model._providerEdit.Firstname" type="text" class="d1class form-control dark-mode2 " id="floatingInputFirstName" placeholder="First Name" aria-label="First Name">
                             <label class="ms-2 " for="floatingInputFirstName">First Name</label>
                         </div>
                         <input hidden />
                         <input hidden />
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
-                            <input asp-for="@Model._providerEdit.Lastname" type="text" class="d1class form-control " id="floatingInputLast" placeholder="Last Name" aria-label="Last Name">
+                            <input asp-for="@Model._providerEdit.Lastname" type="text" class="d1class form-control dark-mode2 " id="floatingInputLast" placeholder="Last Name" aria-label="Last Name">
                             <label class="ms-2  " for="floatingInputLast">Last Name</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.Email" type="email" class="d1class form-control " id="ProfileInputemail" placeholder="Email" aria-label="Email">
+                            <input asp-for="@Model._providerEdit.Email" type="email" class="d1class form-control dark-mode2" id="ProfileInputemail" placeholder="Email" aria-label="Email">
                             @* @ <span class="text-danger" asp-validation-for="@Model.AdminProfile.email"></span> @ *@
                             <label class="ms-2 " for="floatingInputemail">Email</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.Con_Email" type="email" class="d1class form-control " id="ProfileInputemail2" placeholder="ConfirmEmail" aria-label="ConfirmEmail">
+                            <input asp-for="@Model._providerEdit.Con_Email" type="email" class="d1class form-control dark-mode2" id="ProfileInputemail2" placeholder="ConfirmEmail" aria-label="ConfirmEmail">
 
                             @* @ <span class="text-danger" asp-validation-for="@Model.AdminProfile.confirmEmail"></span> @ *@
                             <label class="ms-2 " for="floatingInputConfirmEmail">Confirm Email</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.PhoneNumber" style="height:58px;" id="adminCreatePhoneNumber" class="form-control contact d2class" aria-label="Contact" type="number" />
+                            <input asp-for="@Model._providerEdit.PhoneNumber" style="height:58px;" id="adminCreatePhoneNumber" class="form-control contact d2class dark-mode2" aria-label="Contact" type="number" />
                             @* @ <span class="text-danger" asp-validation-for="@Model.AdminProfile.phonenumber"></span> @ *@
                         </div>
                         <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
@@ -88,26 +88,13 @@
                                     style="height:58px" data-bs-toggle="dropdown" aria-expanded="false">
                                 Select Region
                             </button>
-                            <div class="dropdown-menu d1class">
-                                @* @if (Model._RegionTable is not null && Model._RegionTable.Count > 0)
-
-                                {
-                                    @foreach (var region in Model._adminRegionTable)
-
-                                    {
-                                        <div class="dropdown-item">
-                                            <input type="checkbox" name="regions" id="@region.Regionid" value="@region.Regionid"
-                                                   class="region-checkbox me-1">
-                                            <label for="@region.Regionid">@region.Name</label>
-                                        </div>
-                                    }
-                                } *@
+                            <div class="dropdown-menu d1class dark-mode2">
                                 @if (Model._adminRegionTable is not null && Model._adminRegionTable.Count > 0)
                                 {
                                     @foreach (var region in Model._adminRegionTable)
                                     {
                                         <div class="dropdown-item">
-                                            <input type="checkbox" @(region.ExistsInTable ? "checked" : "") name="adminRegions" id="@region.Regionid" value="@region.Regionid" class="region-checkbox me-1">
+                                            <input type="checkbox" @(region.ExistsInTable ? "checked" : "") name="adminRegions" id="@region.Regionid" value="@region.Regionid" class="region-checkbox me-1 dark-mode2">
                                             <label for="@region.Regionid">@region.Name</label>
                                         </div>
                                     }
@@ -122,22 +109,22 @@
                     <h4 class="mb-4">Mailing And Billing Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.Address1" type="text" class="dclass form-control " id="floatingInputAddress1" placeholder="Address1" aria-label="Address1">
+                            <input asp-for="@Model._providerEdit.Address1" type="text" class="dclass form-control dark-mode2" id="floatingInputAddress1" placeholder="Address1" aria-label="Address1">
                             @* @ <span class="text-danger" asp-validation-for="@Model.AdminProfile.Address1"></span> @ *@
                             <label class="ms-2 " for="floatingInputAddress1">Address1</label>
                         </div>
                         <input id="hidden3" hidden />
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.Address2" type="text" class="dclass form-control " id="floatingInputAddress2" placeholder="Address2" aria-label="Address2">
+                            <input asp-for="@Model._providerEdit.Address2" type="text" class="dclass form-control dark-mode2" id="floatingInputAddress2" placeholder="Address2" aria-label="Address2">
                             <label class="ms-2 " for="floatingInputAddress2">Address2</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.city" type="text" class="dclass form-control " id="floatingInputCity" placeholder="City" aria-label="City">
+                            <input asp-for="@Model._providerEdit.city" type="text" class="dclass form-control dark-mode2" id="floatingInputCity" placeholder="City" aria-label="City">
                             @* @ <span class="text-danger" asp-validation-for="@Model.AdminProfile.city"></span> @ *@
                             <label class="ms-2 " for="floatingInputCity">City</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <select asp-for="@Model._providerEdit.Regionid" class="dclass form-select regionDropdown" id="state" aria-label="Region">
+                            <select asp-for="@Model._providerEdit.Regionid" class="dclass form-select regionDropdown dark-mode2" id="state" aria-label="Region">
                                 @foreach (var obj in Model._RegionTable.ToList())
 
                                 {
@@ -149,12 +136,12 @@
                             <label for="state" class="ms-2 ">State</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.zipcode" type="text" class="dclass form-control " id="floatingInputZipCode" placeholder="Zip Code" aria-label="Zip Code">
+                            <input asp-for="@Model._providerEdit.zipcode" type="text" class="dclass form-control dark-mode2" id="floatingInputZipCode" placeholder="Zip Code" aria-label="Zip Code">
                             @* @ <span class="text-danger" asp-validation-for="@Model.AdminProfile.zipcode"></span> @ *@
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.altPhone" style="height:58px;" id="adminCreateMobileTwo" class="form-control contact d3class" aria-label="Contact" type="number" />
+                            <input asp-for="@Model._providerEdit.altPhone" style="height:58px;" id="adminCreateMobileTwo" class="form-control contact d3class dark-mode2" aria-label="Contact" type="number" />
                         </div>
                     </div>
 
@@ -163,7 +150,7 @@
 
                     <button class="btn btn-info" type="submit" id="saveAcc">Save</button>
 
-                    <button class="btn btn-danger" type="button" id="deleteAcc">Delete Account</button>
+                    <button class="btn btn-danger" type="button" onclick="DeleteAdminAccount(@Model._providerEdit.adminId)" id="deleteAcc">Delete Account</button>
 
                 </div>
 
@@ -209,17 +196,31 @@
         }
     }
 
-    function adminAccCreate() {
+    function adminAccCreate(adminId) {
         event.preventDefault();
-        alert("CALLEDD")
         $.ajax({
             type: 'POST',
-            url: "/adminDashboard/createAdmin",
+            url: "/adminDashboard/adminEdit",
             data: $("#CreateAdminForm").serialize(),
 
             success: function (result) {
-                createAdmin();
-                toastr.success("Account Created Successfully");
+                toastr.success("Account Updated Successfully");
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+
+    function DeleteAdminAccount(adminId) {
+        $.ajax({
+            url: "/adminDashboard/editDeleteAdminAccount",
+            type: 'POST',
+            data: { adminId: adminId },
+            success: function (result) {
+                userAccess();
+                toastr.success("Account Deleted Successfully");
             },
             error: function () {
                 alert("Error");

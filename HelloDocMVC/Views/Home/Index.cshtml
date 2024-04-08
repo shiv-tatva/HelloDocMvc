@@ -25,9 +25,11 @@
     </div>
     <div class="row" style="justify-content: center;">
         <div id="darkMode" style="z-index: 2;cursor:pointer;">
-            <i class="fa-regular fa-moon fa-2x me-5 p-1 mt-5"
-               style="color: #09d4e3;border: 1px solid #09d4e3;border-radius: 4px;position: absolute;right: 0;"
-               onclick="darkMode()" id="darkmodeBtn"></i>
+            <button type="button" class="btn shadow border-info"
+                    style="border-radius: 10px; border-color: aqua;position: absolute;right: 90px;top: 65px;" id="colorButton">
+                <i id="moon" class="bi bi-moon text-info fs-4"></i>
+                <i id="sun" class="bi bi-sun text-info fs-4 d-none"></i>
+            </button>
         </div>
         <div class=" col-sm-12 col-md-12 col-lg-12 col-xl-12" style="height: 100vh;" id="mainDiv">
             <div class="rightLogin  col-sm-10 col-md-10 col-lg-6 col-xl-6">

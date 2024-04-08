@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,10 +13,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
-   
+
+    <style>
+        html[data-bs-theme="dark"] nav.header {
+            background-color: rgb(42, 50, 56) !important;
+        }
+
+        html[data-bs-theme="dark"] .text-testing {
+            color: white !important;
+        }
+
+        html[data-bs-theme="dark"] .modal-dark {
+            color: #212529 !important;
+        }
+
+        html[data-bs-theme="dark"] .dark-mode1 {
+            background-color: rgb(42, 50, 56) !important;
+            color: white !important;
+        }
+    </style>
 
 </head>
-<body>
+<body onload="checkMode()">
     <div class="container-fluid" id="MainDiv" style="height:100vh;position:relative">
         
         <div id="mainContainer">
@@ -27,7 +45,7 @@
 
     </div>
 
-    <script>
+    @* <script>
         function darkMode() {
 
             let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
@@ -38,7 +56,7 @@
                 moon.classList.add("fa-moon")
             } else {
                 moon.classList.add("fa-sun")
-                moon.classList.remove("fa-moon")
+                moon.classList.remove("fa-moon") 
             }
 
             const body = document.body;
@@ -63,9 +81,10 @@
             }
         }
 
-    </script>
+    </script> *@
 
-
+    <script src="~/js/darkmode.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />

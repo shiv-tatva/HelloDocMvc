@@ -722,6 +722,7 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var myProfileMain = _context.Admins.Where(x => x.Email == sessionEmail).Select(x => new myProfile()
             {
+                admin_id = x.Adminid,
                 fname = x.Firstname,
                 lname = x.Lastname,
                 email = x.Email,
@@ -731,8 +732,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 addr2 = x.Address2,
                 city = x.City,
                 zip = x.Zip,
-                state = _context.Regions.Where(r => r.Regionid == x.Regionid).Select(r => r.Name).First(),
+                regionId = (int)x.Regionid,
                 roles = _context.Aspnetroles.ToList(),
+                altphone = x.Altphone,
             }).ToList().FirstOrDefault();
 
             var userName = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First();
@@ -763,14 +765,18 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail)
+        public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail, List<int> adminRegions)
         {
             myProfile _myprofile = new myProfile();
             var aspUser = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
             var adminInfo = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
-            if(adminInfo.Firstname != obj.fname || adminInfo.Lastname != obj.lname || adminInfo.Email != obj.email || adminInfo.Mobile != obj.mobile_no)
+            var abc = _context.Adminregions.Where(x => x.Adminid == obj.admin_id).Select(r => r.Regionid).ToList();
+
+            var changes = abc.Except(adminRegions);
+
+            if (adminInfo.Firstname != obj.fname || adminInfo.Lastname != obj.lname || adminInfo.Email != obj.email || adminInfo.Mobile != obj.mobile_no || changes.Any() || abc.Count() != adminRegions.Count())
             {
                 if(adminInfo.Firstname != obj.fname)
                 {
@@ -794,8 +800,28 @@ namespace BLL_Business_Logic_Layer_.Services
                     adminInfo.Mobile = obj.mobile_no;
                     aspUser.Phonenumber = obj.mobile_no;
                 }
-                    
-                
+
+                if (_context.Adminregions.Any(x => x.Adminid == obj.admin_id))
+                {
+                    var adminRegion = _context.Adminregions.Where(x => x.Adminid == obj.admin_id).ToList();
+
+                    _context.Adminregions.RemoveRange(adminRegion);
+                    _context.SaveChanges();
+                }
+
+                //var phyRegion = _context.Physicianregions.ToList();
+
+                foreach (var item in adminRegions)
+                {
+                    var region = _context.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                    _context.Adminregions.Add(new Adminregion
+                    {
+                        Adminid = (int)obj.admin_id,
+                        Regionid = region.Regionid,
+                    });
+                }
+
                 aspUser.Modifieddate = DateTime.Now;
                 _myprofile.indicate = true;
                 _myprofile.email = obj.email;
@@ -813,7 +839,7 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var adminInfo = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
-            if(adminInfo.Address1 != obj.addr1 || adminInfo.Address2 != obj.addr2 || adminInfo.City != obj.city ||adminInfo.Zip != obj.zip)
+            if(adminInfo.Address1 != obj.addr1 || adminInfo.Address2 != obj.addr2 || adminInfo.City != obj.city ||adminInfo.Zip != obj.zip || adminInfo.Altphone != obj.altphone || adminInfo.Regionid != obj.regionId)
             {
 
                 if(adminInfo.Address1 != obj.addr1)
@@ -835,6 +861,16 @@ namespace BLL_Business_Logic_Layer_.Services
                 {
                     adminInfo.Zip = obj.zip;
                 }
+                if(adminInfo.Altphone != obj.altphone)
+                {
+                    adminInfo.Altphone = obj.altphone;
+                }
+                if(adminInfo.Regionid != obj.regionId)
+                {
+                    adminInfo.Regionid = obj.regionId;
+                }
+
+
                 
                 _context.SaveChanges();
 
@@ -2294,13 +2330,6 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 var query = _context.Admins.Where(x => x.Adminid == adminDashData._providerEdit.adminId).Select(r => r).First();
 
-
-                //query.Aspnetuser.Username = adminProfileVM.username;
-
-                //query.Aspnetuser.Email = adminProfileVM.Email;
-
-                //query.Aspnetuser.Modifieddate = DateTime.Now;
-
                 var asp_row = _context.Aspnetusers.Where(x => x.Id == adminDashData._providerEdit.aspnetUserId).Select(r => r).First();
 
                 if (asp_row.Email != adminDashData._providerEdit.Email || asp_row.Passwordhash != adminDashData._providerEdit.password)
@@ -2327,7 +2356,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 query.City = adminDashData._providerEdit.city;
 
-                query.Regionid = _context.Regions.Where(x => x.Name == adminDashData._providerEdit.State).Select(x => x.Regionid).First();
+                query.Regionid = adminDashData._providerEdit.Regionid;
 
                 query.Zip = adminDashData._providerEdit.zipcode;
 
@@ -2337,11 +2366,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 query.Modifieddate = DateTime.Now;
 
-                query.Status = (short)adminDashData._providerEdit.statusId;
+                query.Status = 1;
 
                 query.Roleid = adminDashData._providerEdit.Roleid;
-
-                query.Isdeleted = false;
 
                 _context.SaveChanges();
 
@@ -2350,30 +2377,65 @@ namespace BLL_Business_Logic_Layer_.Services
                 var changes = abc.Except(adminRegions);
 
 
-                //if (changes.Any() || abc.Count() != adminRegions.Count())
-                //{
-                //    if (_context.Adminregions.Any(x => x.Adminid == adminDashData._providerEdit.adminId))
-                //    {
-                //        var adminRegion = _context.Adminregions.Where(x => x.Adminid == adminDashData._providerEdit.adminId).ToList();
+                if (changes.Any() || abc.Count() != adminRegions.Count())
+                {
+                    if (_context.Adminregions.Any(x => x.Adminid == adminDashData._providerEdit.adminId))
+                    {
+                        var adminRegion = _context.Adminregions.Where(x => x.Adminid == adminDashData._providerEdit.adminId).ToList();
 
-                //        _context.Adminregions.RemoveRange(adminRegion);
+                        _context.Adminregions.RemoveRange(adminRegion);
+                        _context.SaveChanges();
+                    }
+
+                    //var phyRegion = _context.Physicianregions.ToList();
+
+                    foreach (var item in adminRegions)
+                    {
+                        var region = _context.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                        _context.Adminregions.Add(new Adminregion
+                        {
+                            Adminid = adminDashData._providerEdit.adminId,
+                            Regionid = region.Regionid,
+                        });
+                    }
+                    _context.SaveChanges();
+                }
+
+
+
+                //var abc = _context.Physicianregions.Where(x => x.Physicianid == phyId).Select(r => r.Regionid).ToList();
+
+                //var changes = abc.Except(phyRegionArray);
+
+
+                //if (changes.Any() || abc.Count() != phyRegionArray.Length)
+                //{
+                //    if (_context.Physicianregions.Any(x => x.Physicianid == phyId))
+                //    {
+                //        var physicianRegion = _context.Physicianregions.Where(x => x.Physicianid == phyId).ToList();
+
+                //        _context.Physicianregions.RemoveRange(physicianRegion);
                 //        _context.SaveChanges();
                 //    }
 
-                //    //var phyRegion = _context.Physicianregions.ToList();
+                //    var phyRegion = _context.Physicianregions.ToList();
 
-                //    foreach (var item in adminRegions)
+                //    foreach (var item in phyRegionArray)
                 //    {
                 //        var region = _context.Regions.FirstOrDefault(x => x.Regionid == item);
 
-                //        _context.Adminregions.Add(new Adminregion
+                //        _context.Physicianregions.Add(new Physicianregion
                 //        {
-                //            Adminid = adminDashData._providerEdit.adminId,
+                //            Physicianid = phyId,
                 //            Regionid = region.Regionid,
                 //        });
                 //    }
                 //    _context.SaveChanges();
+                //    indicate = true;
                 //}
+
+                //return indicate;
 
 
                 return true;
@@ -2386,6 +2448,25 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+
+        public void editDeleteAdminAccount(int adminId)
+        {
+            var adminMain = _context.Admins.Where(r => r.Adminid == adminId).Select(r => r).First();
+
+            if (adminMain.Isdeleted == null)
+            {
+                adminMain.Isdeleted = true;
+
+                _context.SaveChanges();
+            }
+
+            var adminReg = _context.Adminregions.Where(r => r.Adminid == adminId).ToList();
+            if (adminReg != null)
+            {
+                _context.Adminregions.RemoveRange(adminReg);
+                _context.SaveChanges();
+            }
+        }
 
 
 
@@ -3018,7 +3099,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 confirmationnumber = r.Confirmationnumber,
                 providername = _context.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).First(),
                 status = r.Status,
-                fullname = r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Firstname).First() + " " + r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Firstname).First(),
+                fullname = r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Firstname).First() + " " + r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Lastname).First(),
                 concludedate = r.Status == 6 ? Convert.ToDateTime(r.Modifieddate).ToString("yyyy-MM-dd") : null, // Add this condition to check if the status is equal to 6,
             }).ToList();
 

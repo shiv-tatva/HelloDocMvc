@@ -16,7 +16,7 @@
 
                 <div class="row">
                     <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3 ">
-                        <select asp-for="@Model._activeOrder.healthId"  id="professionDropdown" class="form-select text-secondary"  style="height: 58px;">
+                        <select asp-for="@Model._activeOrder.healthId" id="professionDropdown" class="form-select text-secondary dark-mode2" style="height: 58px;">
                             <option selected="" disabled>Select Profession</option>
                             @foreach (var item in Model._activeOrder.profession)
                             {
@@ -26,7 +26,7 @@
                         <span asp-validation-for="@Model._activeOrder.healthId" class="text-danger"></span>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  mb-3">
-                        <select asp-for="_activeOrder.vendorid" id="businessDropdown" class="form-select text-secondary" id="inputGroupBusiness" style="height: 58px;">
+                        <select asp-for="_activeOrder.vendorid" id="businessDropdown" class="form-select text-secondary dark-mode2" id="inputGroupBusiness" style="height: 58px;">
                             <option selected="" disabled>Business</option>
                         </select>
                         <span asp-validation-for="_activeOrder.vendorid" class="text-danger"></span>
@@ -36,13 +36,13 @@
                 <input asp-for="@Model._activeOrder.profession" type="hidden" value="@Model._activeOrder.profession" />
                 <div class="row ">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3 form-floating">
-                        <input asp-for="_activeOrder.business_contact" type="text" class=" form-control " id="floatingInputBusinessContact"
+                        <input asp-for="_activeOrder.business_contact" type="text" class=" form-control dark-mode2" id="floatingInputBusinessContact"
                                placeholder="BusinessContact" aria-label="BusinessContact">
                         <label class="ms-2 text-secondary" for="floatingInputBusinessContact">Business Contact</label>
                         <span asp-validation-for="_activeOrder.business_contact" class="text-danger"></span>
                     </div>
                     <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                        <input asp-for="_activeOrder.email" type="email" class=" form-control" id="floatingInputemail" placeholder="Email"
+                        <input asp-for="_activeOrder.email" type="email" class=" form-control dark-mode2" id="floatingInputemail" placeholder="Email"
                                aria-label="Email">
                         <label class="ms-2 text-secondary " for="floatingInputemail">Email</label>
                         <span asp-validation-for="_activeOrder.email" class="text-danger"></span>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating">
-                        <input asp-for="_activeOrder.fax_num" type="text" class=" form-control " id="floatingInputFaxNumber"
+                        <input asp-for="_activeOrder.fax_num" type="text" class=" form-control dark-mode2" id="floatingInputFaxNumber"
                                placeholder="Faxnumber" aria-label="Faxnumber">
                         <label class="ms-2 text-secondary" for="floatingInputFaxNumber">Fax Number</label>
                         <span asp-validation-for="_activeOrder.fax_num" class="text-danger"></span>
@@ -58,14 +58,14 @@
                 </div>
                 <div class="row">
                     <div class=" col-12 form-floating mb-3 ">
-                        <textarea asp-for="_activeOrder.prescription" class="form-control h-100 " id="floatingInput" placeholder="Textarea"
+                        <textarea asp-for="_activeOrder.prescription" class="form-control h-100 dark-mode2" id="floatingInput" placeholder="Textarea"
                                   rows="3"></textarea>
                         <label for="floatingInput" class="text-wrap ms-2 text-secondary">Prescription or Order Details</label>                        
                     </div>
                     <span asp-validation-for="_activeOrder.prescription" class="text-danger"></span>
                 </div>
                 <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
-                    <select  asp-for="_activeOrder.Refill" class="form-select" id="inputGroupSelect02" style="width: 619px;">
+                    <select asp-for="_activeOrder.Refill" class="form-select dark-mode2" id="inputGroupSelect02" style="width: 619px;">
                         <option selected="">Not Required</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
