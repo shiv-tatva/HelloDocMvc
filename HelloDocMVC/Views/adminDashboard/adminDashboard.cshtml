@@ -29,22 +29,26 @@
 
 <script>
   
-    let action = "/adminDashboard" + "/" + "LoadPartialDashboard"
-    $.ajax({
-        url: action,
-        type: 'GET',
-        data: { req: 1 },
-        success: function (result) {
-            $('#content').html(result);
-            $("#providerTabMain").removeClass("customactive");
-            $("#accessTabMain").removeClass("customactive");
-            $("#recordMainTab").removeClass("customactive");
-        },
-        error: function () {
-            alert('Error aa loading partial view');
-        }
-    });
-
+    let action = "/adminDashboard" + "/" + "LoadPartialDashboard";
+    if (localStorage.getItem('ajaxSuccess')) {
+        access();        
+    }
+    else {
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: 1 },
+            success: function (result) {
+                $('#content').html(result);
+                $("#providerTabMain").removeClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
+            },
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
 
     function adminMain() {
         let action = "/adminDashboard" + "/" + "LoadPartialDashboard"

@@ -20,6 +20,7 @@
         html[data-bs-theme="dark"] nav.header {
             background-color: rgb(42, 50, 56) !important;
         }
+        
 
         html[data-bs-theme="dark"] .text-testing {
             color: white !important;
@@ -36,17 +37,17 @@
     </style>
 
 </head>
-<body onload="checkMode()">
+<body onload="checkMode()" class="dark-mode1">
     <div class="container-fluid" id="MainDiv" style = "position:relative;padding:0;min-height:100vh;">
-        <nav class="navbar shadow  bg-white" id="navMain">
+        <nav class="navbar shadow " id="navMain">
             <div style="width: 150px;height: 78px;">
                 <img src="/images/docLogo.png" alt="" width="100%" class="ps-3">
             </div>
             <div class="me-2">
-                <button type="button" class="btn shadow border-info"
+                <button type="button" class="btn shadow border-info ms-2"
                         style="border-radius: 10px; border-color: aqua" id="colorButton">
-                    <i id="moon" class="bi bi-moon text-info fs-4"></i>
-                    <i id="sun" class="bi bi-sun text-info fs-4 d-none"></i>
+                    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
                 </button>
             </div>
         </nav>

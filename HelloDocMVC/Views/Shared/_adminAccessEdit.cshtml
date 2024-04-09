@@ -97,10 +97,12 @@
                 data: $("#AccountEditForm").serialize(),
 
                 success: function (result) {  
+                    localStorage.setItem('ajaxSuccess', true);
+                    localStorage.setItem('roleIdForUserAccess', roleid);
+                    localStorage.setItem('accTypeIdForUserAccess', accounttypeid);
                     if (result.isEdited) {
                         location.reload();
-                     GetEditAccess(accounttypeid, roleid);
-                        console.log(accounttypeid, roleid);
+                        toastr.success("Data Updated Successfully");
                     }
                 },
                 error: function () {

@@ -65,18 +65,18 @@
                             <input class="form-control border-0" id="my-search-input-active" type="search" placeholder="Search" aria-label="Search">
                         </form>
 
-                       @*  <select id="regionFilterActive" onchange="regionClickActive()" class="form-select  mb-2" aria-label="Default select example" asp-for="data[0].region_table_id">
+                        <select id="regionFilterActive" onchange="regionClickActive()" class="form-select  mb-2" aria-label="Default select example" >
                             <option id="reason" disabled selected="">
                                 Select Regions
                             </option>
                             <option value="0">
                                 All Regions
                             </option>
-                            @foreach (var item in Model.data[0].region_table)
+                            @foreach (var item in Model._RegionTable)
                             {
                                 <option value="@item.Regionid">@item.Name</option>
                             }
-                        </select> *@
+                        </select>
                     </div>
 
                 </div>
@@ -120,25 +120,27 @@
 
         <div id="table_tabview">
             <div class="table-responsive d-none d-sm-block" id="tableParentDivActive">
-                <table class="table" id="tableDataMainAdmin">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="dark-mode2 ">Name</th>
-                            <th scope="col" class="dark-mode2 ">Date Of Birth</th>
-                            <th scope="col" class="dark-mode2 ">Requestor</th>
-                            <th scope="col" class="dark-mode2 ">Physician Name</th>
-                            <th scope="col" class="dark-mode2 ">Date Of Service</th>
-                            <th scope="col" class="dark-mode2 ">Phone</th>
-                            <th scope="col" class="dark-mode2 ">Address</th>
-                            <th scope="col" class="dark-mode2 ">Notes</th>
-                            <th scope="col" class="dark-mode2 ">Chat With</th>
-                            <th scope="col" class="dark-mode2 ">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.data)
-                        {
-                           
+                 @if (Model.data.Count() > 0)
+                {
+                    <table class="table" id="tableDataMainAdmin">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="dark-mode2 ">Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Birth</th>
+                                <th scope="col" class="dark-mode2 ">Requestor</th>
+                                <th scope="col" class="dark-mode2 ">Physician Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Service</th>
+                                <th scope="col" class="dark-mode2 ">Phone</th>
+                                <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Notes</th>
+                                <th scope="col" class="dark-mode2 ">Chat With</th>
+                                <th scope="col" class="dark-mode2 ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.data)
+                            {
+
                                 var bgColor = "He";
                                 var role = "hello";
 
@@ -174,10 +176,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                <td class="text-white" style="background:@bgColor;">@item.fulldateofbirth</td>
+                                    <td class="text-white" style="background:@bgColor;">@item.fulldateofbirth</td>
                                     <td class="text-white" style="background:@bgColor;">@item.requestor_fname , @item.responseor_lname</td>
                                     <td class="text-white" style="background:@bgColor;">@item.phy_name</td>
-                                <td class="text-white" style="background:@bgColor;">@item.created_date</td>
+                                    <td class="text-white" style="background:@bgColor;">@item.created_date</td>
                                     <td class="text-white" style="background:@bgColor;">
                                         <div class="table_phone">
                                             <a href="">
@@ -209,8 +211,8 @@
                                         <div style="display:flex;">
                                             <div class="dropdown mb-1">
                                                 <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
+                                                id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
                                                     <i class="bi bi-person me-2 d-none d-sm-inline"></i>
                                                     <span>
                                                         Patient
@@ -219,8 +221,8 @@
                                             </div>
                                             <div class="dropdown">
                                                 <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
+                                                id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
                                                     <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
                                                     <span>
                                                         Provider
@@ -233,8 +235,8 @@
                                         <div>
                                             <div class="dropdown">
                                                 <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
+                                                id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
                                                     <span>
                                                         Action
                                                     </span>
@@ -281,64 +283,91 @@
                                         </div>
                                     </td>
                                 </tr>
-                            
-                        }
-                    </tbody>
-                </table>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead id="table-heading">
+                            <tr>
+                                <th scope="col" class="dark-mode2 ">Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Birth</th>
+                                <th scope="col" class="dark-mode2 ">Requestor</th>
+                                <th scope="col" class="dark-mode2 ">Physician Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Service</th>
+                                <th scope="col" class="dark-mode2 ">Phone</th>
+                                <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Notes</th>
+                                <th scope="col" class="dark-mode2 ">Chat With</th>
+                                <th scope="col" class="dark-mode2 ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="10" style="text-align:center;">No Request Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
             </div>
         </div>
 
         <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
-            <table class="table" id="tableDataMainAdminTwo" width="100%">
-                <thead>
-                    <tr>
-                        <th class="d-none">
+             @if (Model.data.Count() > 0)
+            {
+                <table class="table" id="tableDataMainAdminTwo" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="d-none">
 
-                        </th>
-                        <th class="d-none">
+                            </th>
+                            <th class="d-none">
 
-                        </th>
-                    </tr>
-                </thead>
+                            </th>
+                        </tr>
+                    </thead>
 
-                @{
-                    var count = 0;
+                    @{
+                        var count = 0;
 
-                }
+                    }
 
 
-                @foreach (var item in Model.data)
-                {
-                    if (item.status == 4 || item.status == 5)
+                    @foreach (var item in Model.data)
                     {
-                        var bgColor = "He";
-                        var role = "hello";
-
-                        @if (item.request_type_id == 1)
+                        if (item.status == 4 || item.status == 5)
                         {
-                            bgColor = "#60be5e";
-                            role = "Patient";
-                        }
-                        else if (item.request_type_id == 2)
-                        {
-                            bgColor = "#e69232";
-                            role = "FamilyFriend";
-                        }
-                        else if (item.request_type_id == 3)
-                        {
-                            bgColor = "#0b7ebf";
+                            var bgColor = "He";
+                            var role = "hello";
 
-                            role = "Concierge";
-                        }
-                        else if (item.request_type_id == 4)
-                        {
-                            bgColor = "#d76879";
-                            role = "Business";
-                        }
+                            @if (item.request_type_id == 1)
+                            {
+                                bgColor = "#60be5e";
+                                role = "Patient";
+                            }
+                            else if (item.request_type_id == 2)
+                            {
+                                bgColor = "#e69232";
+                                role = "FamilyFriend";
+                            }
+                            else if (item.request_type_id == 3)
+                            {
+                                bgColor = "#0b7ebf";
+
+                                role = "Concierge";
+                            }
+                            else if (item.request_type_id == 4)
+                            {
+                                bgColor = "#d76879";
+                                role = "Business";
+                            }
 
 
-                        <tr style="display: flex;flex-direction: column" class="@role">
-                            <td>
+                            <tr style="display: flex;flex-direction: column" class="@role">
+                                <td>
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
                                         <span class="d-flex flex-column" style="width:100%">
@@ -415,7 +444,32 @@
                         count++;
                     }
                 }
-            </table>
+                </table>
+            }
+            else
+            {
+                <table class="table">
+                    <thead id="table-heading">
+                        <tr>
+                            <th scope="col" class="dark-mode2 ">Name</th>
+                            <th scope="col" class="dark-mode2 ">Date Of Birth</th>
+                            <th scope="col" class="dark-mode2 ">Requestor</th>
+                            <th scope="col" class="dark-mode2 ">Physician Name</th>
+                            <th scope="col" class="dark-mode2 ">Date Of Service</th>
+                            <th scope="col" class="dark-mode2 ">Phone</th>
+                            <th scope="col" class="dark-mode2 ">Address</th>
+                            <th scope="col" class="dark-mode2 ">Notes</th>
+                            <th scope="col" class="dark-mode2 ">Chat With</th>
+                            <th scope="col" class="dark-mode2 ">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="10" style="text-align:center;">No Request Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
         </div>
 
     </div>

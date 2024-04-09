@@ -45,7 +45,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? address { get; set;  }
 
-        public string? notes { get; set; }
+        public List<Requeststatuslog>? notes { get; set; }
 
         public string? region { get; set; }
         public int? region_id { get; set; }
@@ -93,6 +93,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? AdminNotes { get; set; }
         public string? AdminCancleNotes { get; set; }
         public string? PatientCancleNotes { get; set; }
+
+        public List<Requeststatuslog> requeststatuslogs { get; set; }
     }
     
     
@@ -446,59 +448,95 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class AdminEditPhysicianProfile
     {
 
+        [Required(ErrorMessage = "Please Enter Your User Name")]
         public string? username { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Password")]
         public string? password { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Email")]
         public string? Email { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Email")]
+        [Compare("Email", ErrorMessage = "Email Missmatch")]
         public string? Con_Email { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your PhoneNumber")]
         public string? PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your Street Name")]
         public string? Status { get; set; }
 
-
+        [Required(ErrorMessage = "Please Enter Your City Name")]
         public string? city { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your Country Name")]
         public string? country { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your Zipcode")]
         public string? zipcode { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your Firstname")]
         public string? Firstname { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your Lastname")]
         public string? Lastname { get; set; }
 
+        [Required(ErrorMessage = "Please Select Atleast One State")]
         public int? Regionid { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Atleast One Role")]
         public int? Roleid { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your MedicalLicesnse Number")]
         public string? MedicalLicesnse { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your NPInumber")]
         public string? NPInumber { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your SycnEmail")]
         public string? SycnEmail { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your Businessname")]
         public string? Businessname { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Your BusinessWebsite")]
         public string? BusinessWebsite { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Adminnotes")]
         public string? Adminnotes { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Address1")]
         public string? Address1 { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Address2")]
         public string? Address2 { get; set; }
 
+
         public int PhyID { get; set; }
+
+
         public int statusId { get; set; }
+
+
         public int adminId { get; set; }
+
+    
         public int aspnetUserId { get; set; }
 
         public List<Region> regions { get; set; }
 
         //public List<Physicianregion> physicianregions { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Alternative Phonenumber")]
         public string? altPhone { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your State Name")]
         public string? State { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Street Name")]
         public int? StateId { get; set; }
+
         public string? flag { get; set; }
 
         public IFormFile? Photo { get; set; }

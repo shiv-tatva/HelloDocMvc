@@ -49,26 +49,30 @@
                                                     {
                                                         if(item4.Shiftid == item5.Shiftid)
                                                         {
-                                                            if (item5.Starttime.ToTimeSpan() > Model._provider.DateTime.TimeOfDay)
-                                                            {
-                                                            <span>Available</span>
-                                                            }
-                                                            else
-                                                            {
-                                                            <span>Unavailable</span>
-                                                            }
-                                                        }   
+                                                                if (item5.Starttime.ToTimeSpan() > Model._provider.DateTime.TimeOfDay)
+                                                                {
+                                                                    <span>Available</span>
+                                                                    break;
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>Unavailable</span>
+                                                                    break;
+                                                                }
+                                                            }   
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Available</span>
+                                                        break;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <span>Available</span>
+                                                    <span>Unavailable</span>
+                                                    break;
                                                 }
-                                            }
-                                            else
-                                            {
-                                                <span>Unavailable</span>
-                                            }
                                         }
                                         
                                     }

@@ -66,6 +66,7 @@ namespace BLL_Business_Logic_Layer_.Services
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
                             region_id = rc.Regionid,
+                            notes = r.Requeststatuslogs.Where(x => x.Requestid == r.Requestid && x.Transtophysicianid != null || x.Transtoadmin != null).Select(x => x).ToList(),
                             //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
                             //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
                             //region_table = _context.Regions.ToList(),
@@ -186,10 +187,12 @@ namespace BLL_Business_Logic_Layer_.Services
 
             if (a != null)
              {
+
                 viewNotes.AdminNotes = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId).Adminnotes;
                 viewNotes.PhysicianNotes = _context.Requestnotes.FirstOrDefault(p => p.Requestid == reqId).Physiciannotes;
                 //viewNotes.TransferNotes = _context.Requeststatuslogs.Where()
                 viewNotes.cashtagId = Convert.ToInt16(_context.Requests.FirstOrDefault(r => r.Requestid == reqId).Casetag);
+                viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).ToList();
                 if(b != null)
                 {
                     viewNotes.aditional_notes = _context.Requeststatuslogs.FirstOrDefault(r => r.Requestid == reqId).Notes;
@@ -1607,8 +1610,13 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var physician = _context.Physicians.FirstOrDefault(x => x.Physicianid == dataMain._providerEdit.PhyID);
 
+            flag.indicate = false;
+
             if (physician != null)
-            {                
+            {
+
+                if (physician.Businessname != dataMain._providerEdit.Businessname || physician.Businesswebsite != dataMain._providerEdit.BusinessWebsite || physician.Adminnotes != dataMain._providerEdit.Adminnotes ) 
+                {
                     physician.Businessname = dataMain._providerEdit.Businessname;
                     physician.Businesswebsite = dataMain._providerEdit.BusinessWebsite;
                     physician.Adminnotes = dataMain._providerEdit.Adminnotes;
@@ -1616,13 +1624,19 @@ namespace BLL_Business_Logic_Layer_.Services
 
                     _context.SaveChanges();
 
-                    if (dataMain._providerEdit.Photo != null || dataMain._providerEdit.Signature != null)
-                    {
-                        AddProviderBusinessPhotos(dataMain._providerEdit.Photo, dataMain._providerEdit.Signature, dataMain._providerEdit.PhyID);
-                    }                   
-                
+                    flag.indicate = true;
+
+                }
+
+                if (dataMain._providerEdit.Photo != null || dataMain._providerEdit.Signature != null)
+                {
+                    AddProviderBusinessPhotos(dataMain._providerEdit.Photo, dataMain._providerEdit.Signature, dataMain._providerEdit.PhyID);
+                    flag.indicate = true;
+                }
+
+
             }
-            flag.indicate = true;
+            
             flag.PhyID = dataMain._providerEdit.PhyID;
             return flag;
         }
@@ -1666,6 +1680,8 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
 
+            flag.indicate = false;
+
             var physicianData = _context.Physicians.FirstOrDefault(x => x.Physicianid == dataMain._providerEdit.PhyID);
 
             string directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", physicianData.Physicianid.ToString());
@@ -1690,6 +1706,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
 
                 physicianData.Isagreementdoc = new BitArray(1, true);
+
+                flag.indicate = true;
             }
 
             if (dataMain._providerEdit.BackgroundCheck != null)
@@ -1707,6 +1725,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
 
                 physicianData.Isbackgrounddoc = new BitArray(1, true);
+
+                flag.indicate = true;
             }
 
             if (dataMain._providerEdit.HIPAA != null)
@@ -1724,6 +1744,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
 
                 physicianData.Istrainingdoc = new BitArray(1, true);
+
+                flag.indicate = true;
             }
 
             if (dataMain._providerEdit.NonDisclosure != null)
@@ -1741,6 +1763,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
 
                 physicianData.Isnondisclosuredoc = new BitArray(1, true);
+
+                flag.indicate = true;
             }
 
             if (dataMain._providerEdit.LicenseDocument != null)
@@ -1758,12 +1782,13 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
 
                 physicianData.Islicensedoc = new BitArray(1, true);
+
+                flag.indicate = true;
             }
 
             _context.SaveChanges();
 
             flag.PhyID = dataMain._providerEdit.PhyID;
-            flag.indicate = true;
 
             return flag;
 
@@ -1814,6 +1839,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 phy.Businesswebsite = obj._providerEdit.BusinessWebsite;
                 phy.Roleid = obj._providerEdit.Roleid;
                 phy.Syncemailaddress = obj._providerEdit.SycnEmail;
+                phy.Npinumber = obj._providerEdit.NPInumber;
 
                 _context.Physicians.Add(phy);
                 _context.SaveChanges();
@@ -2474,12 +2500,6 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public List<Physicianlocation> GetPhysicianlocations()
         {
-            //var address = "75 Ninth Avenue 2nd and 4th Floors New York, NY 10011";
-            //var locationService = new GoogleLocationService();
-            //var point = locationService.GetLatLongFromAddress(address);
-            //var latitude = point.Latitude;
-            //var longitude = point.Longitude; 
-
             var phyLocation = _context.Physicianlocations.ToList();
             return phyLocation;
         }
@@ -2600,12 +2620,12 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             if (regionid == 0)
             {
-                var physicians = _context.Physicians.ToList();
+                var physicians = _context.Physicians.Where(r => r.Isdeleted == null).Select(r => r).ToList();
                 return physicians;
             }
             else
             {
-                var physicians1 = _context.Physicians.Where(i => i.Regionid == regionid).ToList();
+                var physicians1 = _context.Physicians.Where(i => i.Regionid == regionid && i.Isdeleted == null).ToList();
                 return physicians1;
             }
 

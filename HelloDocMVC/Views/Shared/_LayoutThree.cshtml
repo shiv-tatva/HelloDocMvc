@@ -29,12 +29,11 @@
 
        
         #dashboardMain {
-            color: skyblue;
+            color: skyblue!important;
             border-bottom: 2px solid skyblue;
         }
 
         #profileMain {
-            color: black;
             border-bottom:none;
         }
 
@@ -55,12 +54,11 @@
             background-color: rgb(42, 50, 56) !important;
             color: white !important;
         }
-    
 
     </style>
 
 </head>
-<body onload="checkMode()">
+<body onload="checkMode()" class="dark-mode1">
     <div data-bs-theme="light" id="mainContainer" style="height:100vh;">
 
         <div class="container-fluid mx-0 px-0 ">
@@ -86,7 +84,7 @@
                         <ul class="navbar-nav ms-auto d-flex flex-nowrap">
                             <div class="d-none d-sm-flex ">
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="#">Welcome</a>
+                                <a class="nav-link dark-mode1" aria-current="page" href="#">Welcome</a>
                             </li>
                                
                             <li class="nav-item p-2 fw-bolder">
@@ -95,15 +93,15 @@
                     </div>
                     <li class="nav-item">
                         <button type="button" class="btn logout-btn " onclick=" location.href = '@Url.Action("logoutSession","Home")';">
-                            <span class=" d-none d-md-block">Logout</span><i class="fa-solid fa-arrow-right-from-bracket bi bi-box-arrow-right d-md-none d-block" style="width: 0.7em;height: 1.1em;font-size: 1.4em;"></i>
+                            <span class=" d-none d-md-block dark-mode1">Logout</span><i class="fa-solid fa-arrow-right-from-bracket bi bi-box-arrow-right d-md-none d-block" style="width: 0.7em;height: 1.1em;font-size: 1.4em;"></i>
                         </button>
                     </li>
 
                     <div class="me-2">
-                        <button type="button" class="btn shadow border-info"
+                        <button type="button" class="btn shadow border-info ms-2"
                                 style="border-radius: 10px; border-color: aqua" id="colorButton">
-                            <i id="moon" class="bi bi-moon text-info fs-4"></i>
-                            <i id="sun" class="bi bi-sun text-info fs-4 d-none"></i>
+                            <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                            <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
                         </button>
                     </div>
                     </ul>
@@ -116,10 +114,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <button class="nav-link links " onclick="dashboardBtn()" aria-current="page"  id="dashboardMain">Dashboard</button>
+                            <button class="nav-link links dark-mode1" onclick="dashboardBtn()" aria-current="page" id="dashboardMain">Dashboard</button>
                         </li>
                         <li class="nav-item">
-                            <button  class="nav-link links" onclick="profileBtn()"  id="profileMain">Profile</button>
+                            <button class="nav-link links dark-mode1" onclick="profileBtn()" id="profileMain">Profile</button>
                         </li>
                     </ul>
                 </div>
@@ -138,104 +136,13 @@
 
        
     <script>
-        // function darkMode() {
-        //     let a = document.getElementById("mainContainer")
-        //     let b = document.getElementsByTagName("h4")
-        //     let c = document.getElementsByClassName("nav-link")
-        //     let e = document.getElementById("innerContainer")
-
-
-        //     if (a.classList.contains("active")) {
-        //         a.classList.remove("active")
-        //         a.style.backgroundColor = "white"
-        //         for (let i = 0; i < b.length; i++) {
-        //             b[i].style.color = "black"
-        //         }
-        //         for (let i = 0; i < c.length; i++) {
-        //             c[i].style.color = "black"
-        //         }
-        //         e.classList.remove("active")
-        //         e.style.backgroundColor = "white"
-                
-        //     } else {
-        //         a.classList.add("active")
-        //         a.style.backgroundColor = "black"
-
-        //         for (let i = 0; i < b.length; i++) {
-        //             b[i].style.color = "white"
-        //         }
-        //         for (let i = 0; i < c.length; i++) {
-        //             c[i].style.color = "white"
-        //         }
-        //         e.classList.remove("active")
-        //         e.style.backgroundColor = "black"
-                
-        //     }
-
-        // }
-
-        // function darkMode() {
-
-        //     let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
-        //     let moon = document.getElementById("darkModeMoon");
-
-        //     if (isDarkModeTwo) {
-        //         moon.classList.remove("fa-sun")
-        //         moon.classList.add("fa-moon")
-        //     }else{
-        //         moon.classList.add("fa-sun")
-        //         moon.classList.remove("fa-moon")
-        //     }
-
-        //     const body = document.body;
-        //     body.classList.toggle('dark-mode');
-
-        //     let nav = document.getElementById("navMain");
-        //     nav.classList.toggle("dark-mode")
-
-        //     let profileBtn = document.getElementById("profileMain")
-        //     profileBtn.classList.toggle("dark-mode")
-
-        //     const isDarkMode = body.classList.contains('dark-mode');
-
-        //     localStorage.setItem('darkMode', isDarkMode);
-
-        // }
-
-        // window.onload = function () {
-        //     const isDarkMode = localStorage.getItem('darkMode') === 'true';
-        //     let nav = document.getElementById("navMain");
-        //     let profileBtn = document.getElementById("profileMain");
-        //     let moon = document.getElementById("darkModeMoon");
-
-        //     if (isDarkMode) {
-        //         document.body.classList.add('dark-mode');
-        //         nav.classList.add('dark-mode');
-        //         profileBtn.classList.add('dark-mode');
-        //         moon.classList.remove("fa-moon")
-        //         moon.classList.add("fa-sun")
-        //     }
-        // }
-
 
         function profileBtn() {
-            // event.preventDefault()
-            // let a = document.getElementById("profileMain");
-            // let b = document.getElementById("dashboardMain")
-
-            // a.classList.add("active")
-            // b.classList.remove("active")
 
             window.location.href = "@Url.Action("profileMain","patientDashboard")";
         }
         
         function dashboardBtn() {
-            // event.preventDefault()
-            // let a = document.getElementById("dashboardMain");
-            // let b = document.getElementById("profileMain")
-
-            // b.classList.add("active")
-            // a.classList.remove("active")
 
             window.location.href = "@Url.Action("patientDashboard","patientDashboard")"
         }

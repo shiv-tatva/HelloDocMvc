@@ -63,18 +63,18 @@
                         </form>
                         
                         
-                       @*  <select disabled id="regionFilter" onchange="regionClick()" class="form-select  mb-2" aria-label="Default select example" asp-for="data[0].region_table_id" >
+                        <select id="regionFilter" onchange="regionClick()" class="form-select  mb-2" aria-label="Default select example"  >
                                 <option id="reason" disabled selected="">
                                     Select Regions
                                 </option>
                                 <option value="0" >
                                     All Regions
                                 </option>
-                            @foreach (var item in Model.data[0].region_table)
+                            @foreach (var item in Model._RegionTable)
                             {
                                 <option value="@item.Regionid">@item.Name</option>
                             }
-                        </select> *@
+                        </select>
                        
                     </div>
 
@@ -120,6 +120,7 @@
         <div id="table_tabview">
 
             <div class="table-responsive" id="tableParentDiv">
+                @if (Model.data.Count() > 0){
                 <table class="table" id="tableDataMain">
                     <thead id="table-heading">
                         <tr>
@@ -200,7 +201,21 @@
                                         }
                                     </td>
                                     <td style="background:@bgColor">@item.address</td>
-                                    <td style="background:@bgColor">-</td>
+                                    <td style="background:@bgColor">
+                                    @if(item.notes.Count() != 0)
+                                    {
+                                        @if (item.notes.Last().Transtophysicianid != null)
+                                        {
+                                            <span>Admin Transfer To </span>
+                                            @item.notes.Last().Transtophysicianid
+                                            <span> On @item.created_date</span>
+                                        }
+                                        else
+                                        {
+                                            <span>-</span>
+                                        }
+                                    }
+                                    </td>
                                     <td style="background:@bgColor; ">
 
                                         <div style="display:flex;">
@@ -265,137 +280,187 @@
                             
                         }
                     </tbody>
-                </table>
+                    </table>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead id="table-heading">
+                            <tr>
+                                <th scope="col" class="dark-mode2 ">Name</th>
+                                <th scope="col" class="dark-mode2 ">Date of Birth</th>
+                                <th scope="col" class="dark-mode2 ">Requestor</th>
+                                <th scope="col" class="dark-mode2 ">Requested date</th>
+                                <th scope="col" class="dark-mode2 ">Phone</th>
+                                <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Notes</th>
+                                <th scope="col" class="dark-mode2 ">Chat With</th>
+                                <th scope="col" class="dark-mode2 ">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="9" style="text-align:center;">No Request Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
             </div>
 
 
         </div>
 
         <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
-            <table class="table" id="tableDataMainTwo" width="100%">
+            @if (Model.data.Count() > 0)
+            {
+                <table class="table" id="tableDataMainTwo" width="100%">
 
-                <thead>
-                    <tr>
-                        <th class="d-none">
+                    <thead>
+                        <tr>
+                            <th class="d-none">
 
-                        </th>
-                        <th class="d-none">
+                            </th>
+                            <th class="d-none">
 
-                        </th>
-                    </tr>
-                </thead>
+                            </th>
+                        </tr>
+                    </thead>
 
-                @{
-                    var count = 0;
-                }
+                    @{
+                        var count = 0;
+                    }
 
-                <tbody>
-                    @foreach (var item in Model.data)
-                    {
-
-                        if (item.status == 1)
+                    <tbody>
+                        @foreach (var item in Model.data)
                         {
 
-                            var bgColor = "He";
-                            var role = "hello";
-
-                            @if (item.request_type_id == 1)
+                            if (item.status == 1)
                             {
-                                bgColor = "#60be5e";
-                                role = "Patient";
-                            }
-                            else if (item.request_type_id == 2)
-                            {
-                                bgColor = "#e69232";
-                                role = "FamilyFriend";
-                            }
-                            else if (item.request_type_id == 3)
-                            {
-                                bgColor = "#0b7ebf";
 
-                                role = "Concierge";
-                            }
-                            else if (item.request_type_id == 4)
-                            {
-                                bgColor = "#d76879";
-                                role = "Business";
-                            }
+                                var bgColor = "He";
+                                var role = "hello";
 
-                            <tr style="display: flex;flex-direction: column" class="@role">
+                                @if (item.request_type_id == 1)
+                                {
+                                    bgColor = "#60be5e";
+                                    role = "Patient";
+                                }
+                                else if (item.request_type_id == 2)
+                                {
+                                    bgColor = "#e69232";
+                                    role = "FamilyFriend";
+                                }
+                                else if (item.request_type_id == 3)
+                                {
+                                    bgColor = "#0b7ebf";
 
-                                <td>
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
-                                            <span class="d-flex flex-column" style="width:100%">
-                                                <span class="d-flex justify-content-between">
-                                                    <span class="mb-3">@item.first_name @item.last_name</span>
-                                                    <span>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="pe-2">@role</div>
-                                                            <i class="fa-solid fa-circle" style="color:@bgColor"></i>
-                                                        </div>
+                                    role = "Concierge";
+                                }
+                                else if (item.request_type_id == 4)
+                                {
+                                    bgColor = "#d76879";
+                                    role = "Business";
+                                }
+
+                                <tr style="display: flex;flex-direction: column" class="@role">
+
+                                    <td>
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                <span class="d-flex flex-column" style="width:100%">
+                                                    <span class="d-flex justify-content-between">
+                                                        <span class="mb-3">@item.first_name @item.last_name</span>
+                                                        <span>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="pe-2">@role</div>
+                                                                <i class="fa-solid fa-circle" style="color:@bgColor"></i>
+                                                            </div>
+                                                        </span>
+                                                    </span>
+                                                    <span class="d-flex align-items-center justify-content-between mb-3">
+                                                        <span>
+                                                            @item.street,<br>
+                                                            @item.city
+                                                        </span>
+                                                        <span class="btn btn-outline-primary" style="font-size:12px;cursor:pointer">Map Location</span>
+
+                                                    </span>
+                                                    <span class="d-flex align-items-center mt">
+
+                                                        <i class="fa-regular fa-clock pe-2 " style="color:#2acbcb"></i> <span>Wait Time: </span>
                                                     </span>
                                                 </span>
-                                                <span class="d-flex align-items-center justify-content-between mb-3">
-                                                    <span>
-                                                        @item.street,<br>
-                                                        @item.city
+
+                                            </button>
+                                        </h2>
+                                    </td>
+                                    <td style="z-index:5">
+                                        <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body mt-1">
+                                                <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
+                                            </div>
+                                            <div class="accordion-body mt-1">
+                                                <i class="fa-regular fa-envelope"></i> Email: @item.email
+                                            </div>
+                                            <div class="accordion-body mt-1">
+                                                <i class="fa-solid fa-phone"></i> Patient: @item.mobile_num
+                                            </div>
+                                            <div class="accordion-body mt-1">
+                                                <i class="fa-regular fa-user"></i> Requestor: @item.requestor_fname @item.responseor_lname
+                                            </div>
+                                            <div class="accordion-body">
+                                                <span class="d-flex flex-column">
+                                                    <span class="d-flex justify-content-between mt-1">
+                                                        <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="assignCase(@item.reqid)">Assign Case</button>
+                                                        <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="calcelCase(@item.reqid)">Cancel Case</button>
                                                     </span>
-                                                    <span class="btn btn-outline-primary" style="font-size:12px;cursor:pointer">Map Location</span>
-
+                                                    <span class="d-flex justify-content-between mt-1">
+                                                        <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Notes</button>
+                                                        <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="blockCase(@item.reqid)">Block Patient</button>
+                                                    </span>
+                                                    <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
                                                 </span>
-                                                <span class="d-flex align-items-center mt">
+                                            </div>
 
-                                                    <i class="fa-regular fa-clock pe-2 " style="color:#2acbcb"></i> <span>Wait Time: </span>
-                                                </span>
-                                            </span>
 
-                                        </button>
-                                    </h2>
-                                </td>
-                                <td style="z-index:5">
-                                    <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body mt-1">
-                                            <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
+
                                         </div>
-                                        <div class="accordion-body mt-1">
-                                            <i class="fa-regular fa-envelope"></i> Email: @item.email
-                                        </div>
-                                        <div class="accordion-body mt-1">
-                                            <i class="fa-solid fa-phone"></i> Patient: @item.mobile_num
-                                        </div>
-                                        <div class="accordion-body mt-1">
-                                            <i class="fa-regular fa-user"></i> Requestor: @item.requestor_fname @item.responseor_lname
-                                        </div>
-                                        <div class="accordion-body">
-                                            <span class="d-flex flex-column">
-                                                <span class="d-flex justify-content-between mt-1">
-                                                    <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="assignCase(@item.reqid)">Assign Case</button>
-                                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="calcelCase(@item.reqid)">Cancel Case</button>
-                                                </span>
-                                                <span class="d-flex justify-content-between mt-1">
-                                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Notes</button>
-                                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="blockCase(@item.reqid)">Block Patient</button>
-                                                </span>
-                                                <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
-                                            </span>
-                                        </div>
+                                    </td>
 
+                                </tr>
 
+                                count++;
 
-                                    </div>
-                                </td>
-
-                            </tr>
-
-                            count++;
+                            }
 
                         }
+                    </tbody>
 
-                    }
-                </tbody>
-
-            </table>
+                </table>
+            }
+            else
+            {                
+                <table class="table">
+                    <thead id="table-heading">
+                        <tr>
+                            <th scope="col" class="dark-mode2 ">Name</th>
+                            <th scope="col" class="dark-mode2 ">Date of Birth</th>
+                            <th scope="col" class="dark-mode2 ">Requestor</th>
+                            <th scope="col" class="dark-mode2 ">Requested date</th>
+                            <th scope="col" class="dark-mode2 ">Phone</th>
+                            <th scope="col" class="dark-mode2 ">Address</th>
+                            <th scope="col" class="dark-mode2 ">Notes</th>
+                            <th scope="col" class="dark-mode2 ">Chat With</th>
+                            <th scope="col" class="dark-mode2 ">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="9" style="text-align:center;">No Request Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
 

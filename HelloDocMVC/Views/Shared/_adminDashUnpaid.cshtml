@@ -64,18 +64,18 @@ th{
                             <input class="form-control border-0" id="my-search-input-unpaid" type="search" placeholder="Search" aria-label="Search">
                         </form>
 
-                        @* <select id="regionFilterUnpiad" onchange="regionClickUnpiad()" class="form-select  mb-2" aria-label="Default select example" asp-for="data[0].region_table_id">
+                        <select id="regionFilterUnpiad" onchange="regionClickUnpiad()" class="form-select  mb-2" aria-label="Default select example" >
                             <option id="reason" disabled selected="">
                                 Select Regions
                             </option>
                             <option value="0">
                                 All Regions
                             </option>
-                            @foreach (var item in Model.data[0].region_table)
+                            @foreach (var item in Model._RegionTable)
                             {
                                 <option value="@item.Regionid">@item.Name</option>
                             }
-                        </select> *@
+                        </select>
                     </div>
 
                 </div>
@@ -119,22 +119,24 @@ th{
 
         <div id="table_tabview">
             <div class="container-fluid d-none d-sm-block" id="tableParentDivUnpaid">
-                <table class="table" id="tableDataMainUnpaid">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="dark-mode2 ">Name</th>
-                            <th scope="col" class="dark-mode2 ">Physican Name</th>
-                            <th scope="col" class="dark-mode2 ">Date of Service</th>
-                            <th scope="col" class="dark-mode2 ">Phone</th>
-                            <th scope="col" class="dark-mode2 ">Address</th>
-                            <th scope="col" class="dark-mode2 ">Chat with</th>
-                            <th scope="col" class="dark-mode2 ">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.data)
-                        {
-                            
+                @if (Model.data.Count() > 0)
+                {
+                    <table class="table" id="tableDataMainUnpaid">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="dark-mode2 ">Name</th>
+                                <th scope="col" class="dark-mode2 ">Physican Name</th>
+                                <th scope="col" class="dark-mode2 ">Date of Service</th>
+                                <th scope="col" class="dark-mode2 ">Phone</th>
+                                <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Chat with</th>
+                                <th scope="col" class="dark-mode2 ">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.data)
+                            {
+
                                 var bgColor = "He";
                                 var role = "hello";
 
@@ -172,7 +174,7 @@ th{
                                         </div>
                                     </td>
                                     <td class="text-white" style="background:@bgColor">@item.phy_name</td>
-                                <td class="text-white" style="background:@bgColor">@item.created_date</td>
+                                    <td class="text-white" style="background:@bgColor">@item.created_date</td>
                                     <td class="text-white" style="background:@bgColor">
                                         <div class="table_phone">
                                             <a href="">
@@ -256,64 +258,89 @@ th{
                                         </div>
                                     </td>
                                 </tr>
-                            
-                        }
-                    </tbody>
-                </table>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead id="table-heading">
+                            <tr>
+                                <th scope="col" class="dark-mode2 ">Name</th>
+                                <th scope="col" class="dark-mode2 ">Physican Name</th>
+                                <th scope="col" class="dark-mode2 ">Date of Service</th>
+                                <th scope="col" class="dark-mode2 ">Phone</th>
+                                <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Chat with</th>
+                                <th scope="col" class="dark-mode2 ">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7" style="text-align:center;">No Request Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+
             </div>
         </div>
 
         <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
-            <table class="table" id="tableDataMainUnpaidTwo" width="100%">
+             @if (Model.data.Count() > 0)
+            {
+                <table class="table" id="tableDataMainUnpaidTwo" width="100%">
 
-                <thead>
-                    <tr>
-                        <th class="d-none">
+                    <thead>
+                        <tr>
+                            <th class="d-none">
 
-                        </th>
-                        <th class="d-none">
+                            </th>
+                            <th class="d-none">
 
-                        </th>
-                    </tr>
-                </thead>
+                            </th>
+                        </tr>
+                    </thead>
 
 
-                @{
-                    var count = 0;
+                    @{
+                        var count = 0;
 
-                }
-                @foreach (var item in Model.data)
-                {
-                    if (item.status == 9)
+                    }
+                    @foreach (var item in Model.data)
                     {
-                        var bgColor = "He";
-                        var role = "hello";
-
-                        @if (item.request_type_id == 1)
+                        if (item.status == 9)
                         {
-                            bgColor = "#60be5e";
-                            role = "Patient";
-                        }
-                        else if (item.request_type_id == 2)
-                        {
-                            bgColor = "#e69232";
-                            role = "FamilyFriend";
-                        }
-                        else if (item.request_type_id == 3)
-                        {
-                            bgColor = "#0b7ebf";
+                            var bgColor = "He";
+                            var role = "hello";
 
-                            role = "Concierge";
-                        }
-                        else if (item.request_type_id == 4)
-                        {
-                            bgColor = "#d76879";
-                            role = "Business";
-                        }
+                            @if (item.request_type_id == 1)
+                            {
+                                bgColor = "#60be5e";
+                                role = "Patient";
+                            }
+                            else if (item.request_type_id == 2)
+                            {
+                                bgColor = "#e69232";
+                                role = "FamilyFriend";
+                            }
+                            else if (item.request_type_id == 3)
+                            {
+                                bgColor = "#0b7ebf";
+
+                                role = "Concierge";
+                            }
+                            else if (item.request_type_id == 4)
+                            {
+                                bgColor = "#d76879";
+                                role = "Business";
+                            }
 
 
-                        <tr style="display: flex;flex-direction: column" class="@role">
-                            <td>
+                            <tr style="display: flex;flex-direction: column" class="@role">
+                                <td>
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
                                         <span class="d-flex flex-column" style="width:100%">
@@ -381,7 +408,29 @@ th{
                     }
                 }
 
-            </table>
+                </table>
+            }
+            else
+            {
+                <table class="table">
+                    <thead id="table-heading">
+                        <tr>
+                            <th scope="col" class="dark-mode2 ">Name</th>
+                            <th scope="col" class="dark-mode2 ">Physican Name</th>
+                            <th scope="col" class="dark-mode2 ">Date of Service</th>
+                            <th scope="col" class="dark-mode2 ">Phone</th>
+                            <th scope="col" class="dark-mode2 ">Address</th>
+                            <th scope="col" class="dark-mode2 ">Chat with</th>
+                            <th scope="col" class="dark-mode2 ">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="7" style="text-align:center;">No Request Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
         </div>
 
 

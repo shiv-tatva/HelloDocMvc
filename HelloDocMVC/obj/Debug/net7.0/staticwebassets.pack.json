@@ -61,6 +61,18 @@
       "PackagePath": "staticwebassets\\Documents\\2\\Independent_Contractor.pdf"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\33\\Profile.jpg",
+      "PackagePath": "staticwebassets\\Documents\\33\\Profile.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\34\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\34\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\34\\Profile.jpg",
+      "PackagePath": "staticwebassets\\Documents\\34\\Profile.jpg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig25. Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\Documents\\Fig25. Contact your Provider.jpg"
     },

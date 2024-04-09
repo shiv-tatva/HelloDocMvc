@@ -125,6 +125,14 @@
 </div>
 
 <script>
+    if (localStorage.getItem('ajaxSuccess')) {
+    GetEditAccess(localStorage.getItem('accTypeIdForUserAccess'), localStorage.getItem('roleIdForUserAccess'));
+        localStorage.removeItem('ajaxSuccess'); // Remove the flag
+        localStorage.removeItem('accTypeIdForUserAccess'); // Remove the flag
+        localStorage.removeItem('roleIdForUserAccess'); // Remove the flag
+        document.getElementById("home-tab").classList.remove("active");
+    }
+
     function GetCreateAccess() {
         event.preventDefault();
         $.ajax({

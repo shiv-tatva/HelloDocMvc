@@ -129,10 +129,10 @@
                             </a>
                         </div>
                         <div class="me-2">
-                            <button type="button" class="btn shadow border-info"
+                            <button type="button" class="btn shadow border-info ms-2"
                                     style="border-radius: 10px; border-color: aqua" id="colorButton">
-                                <i id="moon" class="bi bi-moon text-info fs-4"></i>
-                                <i id="sun" class="bi bi-sun text-info fs-4 d-none"></i>
+                                <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                                <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
                             </button>
                         </div>
                         @* <div id="darkMode" style="z-index: 2;">
@@ -327,85 +327,6 @@
         </div>
 
     </div>
-
-    <script>
-        // function darkMode() {
-
-        //     let isDarkModeTwo = localStorage.getItem('darkMode') === 'true'
-        //     let moon = document.getElementById("darkmodeBtn");
-        //     let navLink = document.getElementsByClassName("nav-link");
-        //     let navLinkTwo = document.getElementsByClassName("dropDownMain");
-
-        //     if (isDarkModeTwo) {
-        //         moon.classList.remove("fa-sun")
-        //         moon.classList.add("fa-moon")
-        //     } else {
-        //         moon.classList.add("fa-sun")
-        //         moon.classList.remove("fa-moon")
-        //     }
-
-        //     for (let i = 0; i < navLink.length; i++) {
-        //         navLink[i].classList.toggle("dark-mode");
-        //     }
-
-        //     for (let i = 0; i < navLinkTwo.length; i++) {
-        //         navLinkTwo[i].classList.toggle("dark-mode");
-        //     }
-
-        //     document.getElementById("new-tab").classList.toggle('dark-mode-two');
-        //     document.getElementById("Pending-tab").classList.toggle('dark-mode-two');
-        //     document.getElementById("Active-tab").classList.toggle('dark-mode-two');
-        //     document.getElementById("Conclude-tab").classList.toggle('dark-mode-two');
-        //     document.getElementById("ToClose-tab").classList.toggle('dark-mode-two');
-        //     document.getElementById("Unpaid-tab").classList.toggle('dark-mode-two');
-
-        //     const body = document.body;
-        //     body.classList.toggle('dark-mode');
-
-        //     const isDarkMode = body.classList.contains('dark-mode');
-
-        //     localStorage.setItem('darkMode', isDarkMode);
-
-        // }
-
-
-
-        // window.onload = function () {
-        //     setTimeout(() => {
-        //         const isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-        //         let moon = document.getElementById("darkmodeBtn");
-
-        //         let navLink = document.getElementsByClassName("nav-link");
-        //         let navLinkTwo = document.getElementsByClassName("dropDownMain");
-
-        //         if (isDarkMode) {
-        //             document.body.classList.add('dark-mode');
-        //             document.getElementById("myTab").classList.add('dark-mode');
-
-
-        //             for (let i = 0; i < navLink.length; i++) {
-        //                 navLink[i].classList.add("dark-mode");
-        //             }
-
-        //             for (let i = 0; i < navLinkTwo.length; i++) {
-        //                 navLinkTwo[i].classList.add("dark-mode");
-        //             }
-
-        //             moon.classList.remove("fa-moon");
-        //             moon.classList.add("fa-sun");
-
-        //             document.getElementById("new-tab").classList.add('dark-mode-two');
-        //             document.getElementById("Pending-tab").classList.add('dark-mode-two');
-        //             document.getElementById("Active-tab").classList.add('dark-mode-two');
-        //             document.getElementById("Conclude-tab").classList.add('dark-mode-two');
-        //             document.getElementById("ToClose-tab").classList.add('dark-mode-two');
-        //             document.getElementById("Unpaid-tab").classList.add('dark-mode-two');
-        //         }
-        //     },1000)
-        // }
-
-    </script>
 
     <script src="~/js/darkmode.js"></script>
 

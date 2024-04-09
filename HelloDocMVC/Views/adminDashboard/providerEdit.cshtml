@@ -91,7 +91,7 @@
                                 <i class="fa-regular fa-eye" onclick="ProviderEditPasswordVisible2()"
                                    id="providerEditPasswordBtn"></i>
                             </button>
-                            @* <span asp-validation-for="@Model._myProfile.password" class="text-danger"></span> *@
+                            <span asp-validation-for="@Model._providerEdit.password" class="text-danger"></span>
                         </div>
                         @*  <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden1" hidden /> *@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
@@ -144,6 +144,7 @@
                             <input type="text" class="d2class form-control dark-mode2 " id="editProviderFirstName" asp-for="@Model._providerEdit.Firstname"
                                    placeholder="First Name" aria-label="First Name">
                             <label class="ms-2 " for="floatingInputFirstName">First Name</label>
+                            <span asp-validation-for="@Model._providerEdit.Firstname" class="text-danger"></span>
                         </div>
                         @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden2" hidden /> *@
                         @* <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden3" hidden /> *@
@@ -151,18 +152,21 @@
                             <input type="text" class="d2class form-control dark-mode2 " id="editProviderLastName" asp-for="@Model._providerEdit.Lastname"
                                    placeholder="Last Name" aria-label="Last Name">
                             <label class="ms-2  " for="floatingInputLast">Last Name</label>
+                            <span asp-validation-for="@Model._providerEdit.Lastname" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="email" class="d2class form-control dark-mode2 " id="editProviderEmail" asp-for="@Model._providerEdit.Email"
                                    placeholder="Email" aria-label="Email">
 
                             <label class="ms-2 " for="floatingInputemail">Email</label>
+                            <span asp-validation-for="@Model._providerEdit.Email" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input style="height:58px;" id="editProviderPhoneNumber" asp-for="@Model._providerEdit.PhoneNumber"
                                    class="form-control dark-mode2 contact d2class"
                                    aria-label="Contact"
                                    type="number" />
+                            <span asp-validation-for="@Model._providerEdit.PhoneNumber" class="text-danger"></span>
                             @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
@@ -170,18 +174,21 @@
                                    placeholder="MedicalLicense" aria-label="MedicalLicense">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="MedicalLicense">MedicalLicense #</label>
+                            <span asp-validation-for="@Model._providerEdit.MedicalLicesnse" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="text" class="d2class form-control dark-mode2 " id="editProviderNPINumber" asp-for="@Model._providerEdit.NPInumber"
                                    placeholder="NPINumber" aria-label="NPINumber">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="NPINumber">NPI Number</label>
+                            <span asp-validation-for="@Model._providerEdit.NPInumber" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="email" class="d2class form-control dark-mode2 " id="editProviderSynchronizationEmail" asp-for="@Model._providerEdit.SycnEmail"
                                    placeholder="SynchronizationEmail" aria-label="SynchronizationEmail">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="SynchronizationEmail">Synchronization Email Address</label>
+                            <span asp-validation-for="@Model._providerEdit.SycnEmail" class="text-danger"></span>
                         </div>
                         <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <button class="btn border d-flex align-items-center w-100 regionbtn d2class" type="button" style="height:58px" data-bs-toggle="dropdown" aria-expanded="false">
@@ -227,7 +234,7 @@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="text" class="d3class form-control dark-mode2 " id="floatingInputAddress1" asp-for="@Model._providerEdit.Address1"
                                    placeholder="Address1" aria-label="Address1">
-                            @* <span class="text-danger" asp-validation-for="@Model.AdminProfile.Address1"></span> *@
+                            <span asp-validation-for="@Model._providerEdit.Address1" class="text-danger"></span>
                             <label class="ms-2 " for="floatingInputAddress1">Address1</label>
                         </div>
                         @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden4" hidden /> *@
@@ -235,11 +242,13 @@
                             <input type="text" class="d3class form-control dark-mode2 " id="floatingInputAddress2" asp-for="@Model._providerEdit.Address2"
                                    placeholder="Address2" aria-label="Address2">
                             <label class="ms-2 " for="floatingInputAddress2">Address2</label>
+                            <span asp-validation-for="@Model._providerEdit.Address2" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="text" class="d3class form-control dark-mode2 " id="floatingInputCity"  asp-for="@Model._providerEdit.city"
                                    placeholder="City" aria-label="City">
                             <label class="ms-2 " for="floatingInputCity">City</label>
+                            <span asp-validation-for="@Model._providerEdit.city" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <select class="d3class form-select regionDropdown dark-mode2" id="state" aria-label="Region" asp-for="@Model._providerEdit.Regionid" >
@@ -257,13 +266,14 @@
                                    placeholder="Zip Code" aria-label="Zip Code">
 
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>
+                            <span asp-validation-for="@Model._providerEdit.zipcode" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input style="height:58px;" id="providerMobileTwo" asp-for="@Model._providerEdit.altPhone"
                                    class="form-control dark-mode2 contact d3class"
                                    aria-label="Contact"
                                    type="number" />
-                            @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
+                            <span asp-validation-for="@Model._providerEdit.altPhone" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mb-3">
@@ -292,11 +302,13 @@
                                    placeholder="Businessname" aria-label="Businessname">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="Businessname">Business Name</label>
+                            <span asp-validation-for="@Model._providerEdit.Businessname" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="text" class="d4class form-control dark-mode2 " id="Businesswebsite" asp-for="@Model._providerEdit.BusinessWebsite"
                                    placeholder="Businesswebsite" aria-label="Businesswebsite">
                             <label class="ms-2 " for="Businesswebsite">Business website</label>
+                            <span asp-validation-for="@Model._providerEdit.BusinessWebsite" class="text-danger"></span>
                         </div>
 
 
@@ -342,6 +354,7 @@
                             <label class="ms-2" for="AdminNotes">
                                 Admin Notes
                             </label>
+                            <span asp-validation-for="@Model._providerEdit.Adminnotes" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="d-grid gap-2 d-flex justify-content-end justify-content-md-end mb-3">
@@ -565,6 +578,10 @@
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
+    
+
+    
+
     function ProviderEditPasswordVisible2() {
         let a = document.getElementById("providerEditPasswordBtn")
         console.log(a)
@@ -592,43 +609,48 @@
         var editRole = $("#providerEditRole").val();
         var editPhyId = $("#providerEditOne").val();
 
-        $.ajax({
-            url: "/adminDashboard/providerEditFirst",
-            type: 'POST',
-            data: { password: editPass,phyId: editPhyId ,email:email},
-            success: function (result) {
-                editProvider(result.phyId);
-                if(result.indicate == true){
-                    toastr.success("Password Reset Successfully");
-                }else{
-                    toastr.error("For reset password you need to change old password");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
+        if ($("#ResetPasswordForm").valid()) {
+            $.ajax({
+                url: "/adminDashboard/providerEditFirst",
+                type: 'POST',
+                data: { password: editPass, phyId: editPhyId, email: email },
+                success: function (result) {
+                    editProvider(result.phyId);
+                    if (result.indicate == true) {
+                        toastr.success("Password Reset Successfully");
+                    } else {
+                        toastr.error("For reset password you need to change old password");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        }
     }
 
     function editProviderForm1(phyId){
         var statusId = $("#providerEditStatus").val();
         var roleId = $("#providerEditRole").val();
-        $.ajax({
-            url: "/adminDashboard/editProviderForm1",
-            type: 'POST',
-            data: {phyId: phyId, roleId: roleId, statusId: statusId },
-            success: function (result) {                
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
+
+        if ($("#ResetPasswordForm").valid()) {
+            $.ajax({
+                url: "/adminDashboard/editProviderForm1",
+                type: 'POST',
+                data: { phyId: phyId, roleId: roleId, statusId: statusId },
+                success: function (result) {
+                    if (result.indicate == true) {
+                        editProvider(result.phyId);
+                        toastr.success("Data Updated Successfully");
+                    } else {
+                        toastr.error("Change Atleast One Field");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        }
     }
     
     
@@ -651,23 +673,24 @@
             phyRegionArray.push(parseInt(this.value))
         });
 
-
-        $.ajax({
-            url: "/adminDashboard/editProviderForm2",
-            type: 'POST',
-            data: { fname:fname,lname:lname,email:email,phone:phone,medical:medical,npi:npi,sync:sync,phyId:phyId, phyRegionArray },
-            success: function (result) {                
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
+        if ($("#AdministratorForm").valid()) {
+            $.ajax({
+                url: "/adminDashboard/editProviderForm2",
+                type: 'POST',
+                data: { fname: fname, lname: lname, email: email, phone: phone, medical: medical, npi: npi, sync: sync, phyId: phyId, phyRegionArray },
+                success: function (result) {
+                    if (result.indicate == true) {
+                        editProvider(result.phyId);
+                        toastr.success("Data Updated Successfully");
+                    } else {
+                        toastr.error("Change Atleast One Field");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        }
     }
     
     
@@ -675,28 +698,29 @@
 
         var zipcode = $("#floatingInputZipCode").val();
 
+        if ($("#MailingForm").valid()) {
+
         fetchCoordinates(zipcode);
+            setTimeout(() => {
+                $.ajax({
+                    url: "/adminDashboard/editProviderForm3",
+                    type: 'POST',
+                    data: $("#MailingForm").serializeArray(),
+                    success: function (result) {
+                        if (result.indicate == true) {
+                            editProvider(result.phyId);
+                            toastr.success("Data Updated Successfully");
+                        } else {
+                            toastr.error("Change Atleast One Field");
+                        }
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                });
+            }, 1000);
 
-        // var payloadMain = $("#MailingForm").serializeArray();
-
-        setTimeout(() => {
-        $.ajax({
-            url: "/adminDashboard/editProviderForm3",
-            type: 'POST',
-                data: $("#MailingForm").serializeArray(),
-            success: function (result) {                
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
-        }, 1000);
+        }
     }
 
     function fetchCoordinates(postalCode) {
@@ -766,6 +790,8 @@
 
     function PhysicianBusinessInfoEdit() {
 
+        if ($("#PhysicianBusinessInfoForm").valid()) {
+
             $.ajax({
                 method: "POST",
                 url: "/adminDashboard/PhysicianBusinessInfoEdit",
@@ -774,18 +800,20 @@
                 contentType: false,
 
                 success: function (result) {
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
+                    if (result.indicate == true) {
+                        editProvider(result.phyId);
+                        toastr.success("Data Updated Successfully");
+                    } else {
+                        toastr.error("Change Atleast One Field");
+                    }
                 },
 
                 error: function () {
                     alert("Oops!", "Something is Wrong !!!", "error");
                 }
-            });        
+            });
+
+        }
     }
 
 
@@ -798,18 +826,18 @@
                 contentType: false,
 
                 success: function (result) {
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
+                    if (result.indicate == true) {
+                        editProvider(result.phyId);
+                        toastr.success("Data Updated Successfully");
+                    } else {
+                        toastr.error("Upload Atleast One File");
+                    }
                 },
 
                 error: function () {
                     alert("error in edit onboarding");
                 }
-            });
+            });       
     }
 
     function checkOnboardingFiles(inputid) {

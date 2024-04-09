@@ -6,6 +6,7 @@
     .foot {
         position: absolute;
     }
+
 </style>
 
 
@@ -33,8 +34,23 @@
                             <i class="bi bi-arrow-left-right fs-5"></i>
                         </div>
                         <div class="mt-2">
-                            <h6> Transfer Notes</h6>
-                            <small class="text-secondary">TransferNotes</small>
+                            <div class="dropdown">
+                                <div class="btn  dropdown-toggle w-100 text-start notes text-black border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @* <img src="~/images/transfer-horizontal-svgrepo-com.svg" class="svg mx-2" /> *@
+                                    Transfer Notes
+                                </div>
+                                @if (Model._viewNote.requeststatuslogs != null && Model._viewNote.requeststatuslogs.Count() > 0)
+                                {
+                                    <ul class="dropdown-menu w-100" style="width: 368px !important;">
+                                        @foreach (var item in Model._viewNote.requeststatuslogs)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" style="display: inline-block;width: 368px;white-space: nowrap;overflow: hidden !important;text-overflow: ellipsis;">@item.Notes on @item.Createddate</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
