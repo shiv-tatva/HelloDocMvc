@@ -461,7 +461,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public void reviewAgree(PatientDashboard obj)
         {
-            Requeststatuslog requeststatuslog = new Requeststatuslog();
+            Requeststatuslog requeststatuslog = new Requeststatuslog(); 
 
             requeststatuslog.Requestid = obj._reviewAgreement.reqid;
             requeststatuslog.Status = 7;

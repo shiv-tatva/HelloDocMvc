@@ -194,13 +194,15 @@ namespace BLL_Business_Logic_Layer_.Services
                 viewNotes.PhysicianNotes = _context.Requestnotes.FirstOrDefault(p => p.Requestid == reqId).Physiciannotes;
                 //viewNotes.TransferNotes = _context.Requeststatuslogs.Where()
                 viewNotes.cashtagId = Convert.ToInt16(_context.Requests.FirstOrDefault(r => r.Requestid == reqId).Casetag);
-                viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).ToList();
+                viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).ToList(); 
                 if(b != null)
                 {
-                    viewNotes.aditional_notes = _context.Requeststatuslogs.FirstOrDefault(r => r.Requestid == reqId).Notes;
+                    viewNotes.AdminCancleNotes = _context.Requeststatuslogs.Where(r => r.Requestid == reqId && r.Status == 3).Select(x => x.Notes).First();
+                    viewNotes.PatientCancleNotes = _context.Requeststatuslogs.Where(x => x.Requestid == reqId && x.Status == 7).Select(x => x.Notes).First();//status 7 is for Request Status Cancelled By Patient 
                 }
-                
-             }else
+
+            }
+            else
              {
                 _reqNote.Createddate = DateTime.Now.Date;
                 _reqNote.Createdby = (int)_context.Requests.Where(x => x.Requestid == reqId).Select(x => x.User.Aspnetuserid).First();

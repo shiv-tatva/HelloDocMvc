@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Forgot Page";
 }
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
 <div class="row" style="justify-content: center;">
     <div id="darkMode" style="z-index: 2;">
         <i class="fa-regular fa-moon fa-2x me-5 p-1 mt-5"
@@ -103,7 +108,8 @@
             data: $("#formMain").serialize(),
             type: 'POST',
             success: function (result) {
-                if (result.isSend = 1) {
+                console.log(result);
+                if (result.isSend == 1) {
                     toastr.success("Reset Password Link Sent Successfully");
                 } else {
                     toastr.error("Email Does Not Exists");
@@ -116,3 +122,5 @@
     }
 
 </script>
+
+

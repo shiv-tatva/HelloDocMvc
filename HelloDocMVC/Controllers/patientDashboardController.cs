@@ -246,7 +246,7 @@ namespace HelloDocMVC.Controllers
         public IActionResult pendingReviewAgreement(PatientDashboard obj)
         {
             if(obj._reviewAgreement.flag == 1) {
-                if (_patientDashInfo.checkstatus(obj._reviewAgreement.reqid) == false)
+                if (_patientDashInfo.checkstatus(obj._reviewAgreement.reqid) == false) 
                 {
                     _patientDashInfo.reviewAgree(obj);
                     TempData["success"] = "Status changed Successfully!";
