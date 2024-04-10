@@ -146,7 +146,7 @@
                             <label for="state" class="ms-2 ">State</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.zipcode" type="text" class="dclass form-control dark-mode2" id="floatingInputZipCode" placeholder="Zip Code" aria-label="Zip Code">
+                            <input asp-for="@Model._providerEdit.zipcode" type="number" class="dclass form-control dark-mode2" id="floatingInputZipCode" placeholder="Zip Code" aria-label="Zip Code">
                             @* @ <span class="text-danger" asp-validation-for="@Model.AdminProfile.zipcode"></span> @ *@
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>
                             <span asp-validation-for="@Model._providerEdit.zipcode" class="text-danger"></span>

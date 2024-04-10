@@ -246,7 +246,7 @@
         $.ajax({
             url: action,
             type: 'GET',
-            data: { phyId: phyId },
+            data: { phyId: phyId , flag : 2},
             success: function (result) {
                 $('#content').html(result);
             },
@@ -271,5 +271,7 @@
             }
         });
     }
+
+
 
 </script>

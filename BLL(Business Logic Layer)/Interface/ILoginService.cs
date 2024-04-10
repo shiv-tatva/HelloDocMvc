@@ -11,5 +11,7 @@ namespace BLL_Business_Logic_Layer_.Interface
     public interface ILoginService 
     {
         Users login(Users obj);
+
+        public Users forgotPassword(Users obj);
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DAL_Data_Access_Layer_.CustomeModel.Users;
+
+@{
     ViewData["Title"] = "Forgot Page";
 }
 <div class="row" style="justify-content: center;">
@@ -23,7 +25,7 @@
             </div>
             <form class="login-form-control" id="formMain">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput"
+                    <input type="email" class="form-control" id="floatingInput" asp-for="@Model.Email"
                            placeholder="name@example.com" style="border: 1px solid gray;">
                     <label for="floatingInput">Email</label>
                     <button class="btn show-password" type="button">
@@ -31,8 +33,8 @@
                     </button>
                 </div>
                 <div class="login-button mb-5">
-                    <a href="#" class="btn btn-primary mb-3"
-                       style="background-color: #09d4e3;border: 0;padding: 10px 0px;">Reset Password</a>
+                    <div onclick="forgotPasswordSubmitBtn()" class="btn btn-primary mb-3"
+                       style="background-color: #09d4e3;border: 0;padding: 10px 0px;width:100%;">Reset Password</div>
                     <a title="Forgot password" class="link-default ps-3" asp-controller="Login" asp-action="LoginPage"
                        style="color: #09d4e3;text-decoration: none;font-weight: 600!important;">
                         <i class="fa-solid fa-chevron-left me-2" style="color: #09d4e3;"></i>Back To Login
@@ -94,4 +96,23 @@
             console.log("hi2")
         }
     }
+
+    function forgotPasswordSubmitBtn(){
+        $.ajax({
+            url: "/Login/ForgotPasswordPage",
+            data: $("#formMain").serialize(),
+            type: 'POST',
+            success: function (result) {
+                if (result.isSend = 1) {
+                    toastr.success("Reset Password Link Sent Successfully");
+                } else {
+                    toastr.error("Email Does Not Exists");
+                }
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
 </script>

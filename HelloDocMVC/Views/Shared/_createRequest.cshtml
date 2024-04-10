@@ -50,12 +50,10 @@
                     <span asp-validation-for="   phone" class="text-danger"></span> *@
                 </div>
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="   email" type="email" class="form-control bg-transparent" id="floatingInputEmail"
+                    <input asp-for="email" type="email" class="form-control bg-transparent" id="floatingInputEmail"
                            placeholder="name@example.com">
                     <label for="floatingInputEmail" class="ms-2">Email</label>
-                    <span asp-validation-for="   email" class="text-danger"></span>
-
-
+                    <span asp-validation-for="email" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-6 form-floating mb-3">
                     <input asp-for="   dateofbirth" type="date" class="form-control bg-transparent" id="datePickerId" placeholder="DateOfBirth">
@@ -88,7 +86,7 @@
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="zipcode" type="text" class="form-control bg-transparent" id="floatingInputZipcode"
+                    <input asp-for="zipcode" type="number" class="form-control bg-transparent" id="floatingInputZipcode"
                            placeholder="zipcode">
                     <label for="floatingInputZipcode" class="ms-2">Zip Code (Optional)</label>
                     <span asp-validation-for="zipcode" class="text-danger"></span>
@@ -203,7 +201,7 @@
         var state = $("#floatingInputState").val();
         var zipcode = $("#floatingInputZipcode").val();
 
-        window.location.href = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+        window.open("https://www.google.com/maps/search/?api=1&query=" + street + "+" + city + "+" + state + "+" + zipcode, "_blank");
     }
 
 

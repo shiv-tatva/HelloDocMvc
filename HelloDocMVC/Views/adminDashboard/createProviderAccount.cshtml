@@ -41,7 +41,7 @@
                     <input type="hidden" id="latitude" asp-for="@Model._providerEdit.latitude" />
                     <div class="row">
                         <div class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating  ">
-                            <input type="text" asp-for="@Model._providerEdit.username" class="form-control dark-mode2 " id="floatingInputUsername" placeholder="User Name" aria-label="User Name">
+                            <input disabled type="text" asp-for="@Model._providerEdit.username" class="form-control dark-mode2 " id="floatingInputUsername" placeholder="User Name" aria-label="User Name">
                             <label class="ms-2 " for="floatingInputUsername">User Name</label>
                             <span class="text-danger" asp-validation-for="@Model._providerEdit.username"></span>
                         </div>
@@ -161,7 +161,7 @@
                             <span class="text-danger" asp-validation-for="@Model._providerEdit.Regionid"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.zipcode" type="text" class=" form-control dark-mode2  " id="floatingInputZipCode"
+                            <input asp-for="@Model._providerEdit.zipcode" type="number" class=" form-control dark-mode2  " id="floatingInputZipCode"
                                    placeholder="Zip Code" aria-label="Zip Code">
 
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>

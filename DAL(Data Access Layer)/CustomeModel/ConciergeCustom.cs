@@ -12,10 +12,12 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
 
         [Required(ErrorMessage = "Please Enter Your First Name")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? concierge_firstname { get; set; }
 
 
         [Required(ErrorMessage = "Please Enter Your Last Name")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? concierge_lastname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Phone Number")]
@@ -43,9 +45,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? symptoms { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your First Name")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? firstname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Last Name")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? lastname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Date Of Birth")]

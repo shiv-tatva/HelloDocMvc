@@ -243,25 +243,25 @@
                                                 </button>
                                                 <ul class="dropdown-menu table_dropdowns">
                                                     <li>
-                                                        <button onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'" class="dropdown-item">
+                                                        <button class="dropdown-item" onclick="activeViewCase(@item.reqid)">
                                                             <i class="fa-brands fa-searchengin"></i>
                                                             View Case
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'" class="dropdown-item">
+                                                        <button onclick="activeViewUploads(@item.reqid)" class="dropdown-item">
                                                             <i class="fa-solid fa-file-arrow-up"></i>
                                                             View Uploads
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="activeViewNote(@item.reqid)">
                                                             <i class="fa-solid fa-book"></i>
                                                             View Notes
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="activeOrders(@item.reqid)">
                                                             <i class="fa-solid fa-file-circle-check"></i>
                                                             Orders
                                                         </button>
@@ -273,7 +273,7 @@
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="activeEncounter(@item.reqid)">
                                                             <i class="fa-regular fa-file-lines"></i>
                                                             Encounter
                                                         </button>
@@ -420,18 +420,18 @@
                                     <div class="accordion-body">
                                         <span class="d-flex flex-column">
                                             <span class="d-flex justify-content-between mt-1">
-                                                <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Notes</button>
+                                                <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="activeViewNote(@item.reqid)">View Notes</button>
                                                 <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">Doctors Notes</button>
                                             </span>
                                             <span class="d-flex justify-content-between mt-1">
-                                                <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'" class="dropdown-item">View Uploads</button>
-                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'">Encounter</button>
+                                                <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="activeViewUploads(@item.reqid)" class="dropdown-item">View Uploads</button>
+                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="activeEncounter(@item.reqid)">Encounter</button>
                                             </span>
                                             <span class="d-flex justify-content-between mt-1">
-                                                <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'">Orders</button>
+                                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="activeOrders(@item.reqid)">Orders</button>
                                                 <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
                                             </span>
-                                            <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
+                                                <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="activeViewCase(@item.reqid)">View Case</button>
                                         </span>
                                     </div>
 
@@ -634,36 +634,36 @@
 
     //*************************************************************Editing View************************************/
 
+    function activeViewCase(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewCase",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
-    // function activeViewNote(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/newViewNote",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
-
-    // function activeViewCase(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/newViewCase",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
+    function activeViewNote(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewNote",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+  
 
     function activeViewUploads(reqid) {
         console.log(reqid)

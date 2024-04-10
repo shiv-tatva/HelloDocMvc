@@ -320,9 +320,6 @@
 
             success: function (res) {
                 $('#ViewScheduledModal').modal('hide');
-                Swal.fire({
-                    title: "HalloDoc", text: "Shift Return Successfully ", icon: "success", timer: 1500, timerProgressBar: true
-                });
                 switch (schedulingtype) {
                     case 'month':
 
@@ -339,10 +336,12 @@
                         break;
                 }
 
+                toastr.success("Shift Return Successfully");
+
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something is Wrong !!!", "error");
+                toastr.error("Error");
             }
         });
 
@@ -358,9 +357,6 @@
 
             success: function (res) {
                 $('#ViewScheduledModal').modal('hide');
-                Swal.fire({
-                    title: "HalloDoc", text: "Shift deleted Successfully ", icon: "success", timer: 1500, timerProgressBar: true
-                });
                 switch (schedulingtype) {
                     case 'month':
 
@@ -376,10 +372,12 @@
                         ShiftCalender('week');
                         break;
                 }
+
+                toastr.success("Shift deleted Successfully");
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something is Wrong !!!", "error");
+                toastr.error("Error");
             }
         });
     }
@@ -398,9 +396,6 @@
                     if (res) {
 
                         $('#ViewScheduledModal').modal('hide');
-                        Swal.fire({
-                            title: "HalloDoc", text: "Shift Edited Successfully ", icon: "success", timer: 1500, timerProgressBar: true
-                        });
                         switch (schedulingtype) {
                             case 'month':
 
@@ -417,17 +412,15 @@
                                 break;
                         }
 
+                        toastr.success("Shift Edited Successfully");
                     }
                     else {
-                        Swal.fire({
-                            title: "Oops!", text: "Phyasician is busy on your selected Time!!! ", icon: "error", timer: 1500, timerProgressBar: true
-                        });
+                        toastr.error("Phyasician is busy on your selected Time!!!");
                     }
                 },
 
                 error: function () {
-                    Swal.fire("Oops!", "Something is Wrong !!!", "error");
-
+                    toastr.error("Error");
                 }
             });
         }
@@ -444,7 +437,7 @@
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something is Wrong !!!", "error");
+                toastr.error("Something is Wrong");
             },
         });
     }
@@ -460,7 +453,7 @@
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something is Wrong !!!", "error");
+                toastr.error("Error");
             },
         });
     }
@@ -477,7 +470,7 @@
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something is Wrong !!!", "error");
+                toastr.error("Error");
             },
         });
     }

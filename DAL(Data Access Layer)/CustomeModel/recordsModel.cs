@@ -28,6 +28,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     }
     public class requestsRecordModel
     {
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Patient Name must contain only letters")]
         public string? patientname { get; set; }
         public string? requestor { get; set; }
         public DateTime? dateOfService { get; set; }

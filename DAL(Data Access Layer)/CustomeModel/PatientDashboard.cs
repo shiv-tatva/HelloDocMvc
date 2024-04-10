@@ -28,12 +28,15 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? cnf_number { get; set; }
 
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string fname { get; set; }
 
         public string phy_fname { get; set; }
 
         public string? email { get; set; }
 
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string lname { get; set; }
 
         public int? user_id_param { get; set; }

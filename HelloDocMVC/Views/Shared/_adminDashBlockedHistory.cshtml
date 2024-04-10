@@ -1,43 +1,177 @@
 ﻿@model DAL_Data_Access_Layer_.CustomeModel.recordsModel;
 
+
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
 
-<div class="w-100 px-2 px-sm-5">
+<div class="w-100 px-3 pb-3 px-sm-5">
 
-    <h3 class="ms-2 my-1">Blocked History</h3>
+    <h4 class="ms-2 mb-2">Blocked History</h4>
 
-    <div class="shadow rounded-2 ">
+    <div class="shadow rounded border ">
+
         <form id="blockHistoryForm">
-            <div class="row g-2 my-2 p-3 mb-4">
+            <div class="row p-3">
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input type="text" class="form-control dark-mode2" id="first_name" placeholder="First Name" asp-for="@Model.blockHistoryMain[0].searchRecordOne">
-                    <label for="first_name" class="ms-2  ">Name</label>
+                    <input type="text" class="form-control bg-transparent" id="first_name" placeholder="First Name"
+                           asp-for="@Model.blockHistoryMain[0].searchRecordOne">
+                    <label for="first_name" class="ms-2 text-muted">Name</label>
                 </div>
 
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input type="date" class="form-control dark-mode2" id="dateBlockHistory" placeholder="To Date of Service" asp-for="@Model.blockHistoryMain[0].searchRecordTwo">
-                    <label for="dateBlockHistory" class="ms-2  ">Date</label>
+                    <input type="date" class="form-control bg-transparent" id="dateBlockHistory"
+                           placeholder="To Date of Service" asp-for="@Model.blockHistoryMain[0].searchRecordTwo">
+                    <label for="dateBlockHistory" class="ms-2 text-muted">Date</label>
                 </div>
 
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input type="email" class="form-control dark-mode2" id="email" placeholder="Email" aria-label="Email" asp-for="@Model.blockHistoryMain[0].searchRecordThree">
-                    <label class="ms-2  " for="Email">Email</label>
+                    <input type="email" class="form-control " id="email" placeholder="Email" aria-label="Email"
+                           asp-for="@Model.blockHistoryMain[0].searchRecordThree">
+                    <label class="ms-2 text-muted" for="Email">Email</label>
                 </div>
 
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
-                    <input class="form-control dark-mode2" type="search" placeholder="Phone Number" aria-label="Search" id="phone" asp-for="@Model.blockHistoryMain[0].searchRecordFour">
-                    <label class="  ms-2">Phone Number</label>
+                    <input class="form-control" type="search" placeholder="Phone Number" aria-label="Search" id="phone"
+                           asp-for="@Model.blockHistoryMain[0].searchRecordFour">
+                    <label class="text-muted ms-2">Phone Number</label>
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-outline-info me-2 px-3 py-2" type="button" id="clear_button" onclick="blockedHistory()">Clear</button>
-                    <button class="btn btn-info text-white ms-1 px-3 py-2" onclick="blockHistorySearch()" type="button" id="search_button">Search</button>
+                    <button class="btn btn-outline-info me-2 px-3 py-2" type="button" id="clear_button"
+                            onclick="blockedHistory()">
+                        Clear
+                    </button>
+                    <button class="btn btn-info text-white ms-1 px-3 py-2" onclick="blockHistorySearch()" type="button"
+                            id="search_button">
+                        Search
+                    </button>
                 </div>
             </div>
         </form>
-        @if (Model.blockHistoryMain[0].flag != 1)
-            { 
-            <table class="table" id="blcokHistoryTable">
+
+        @if (Model.blockHistoryMain.Count() > 0)
+        {
+            <div class="table-responsive d-none d-lg-block m-3">
+                <table class="table Blockrequesttable">
+                    <thead class="table-active">
+                        <tr>
+                            <th scope="col" class="text-center">Patient Name</th>
+                            <th scope="col" class="text-center">Phone Number </th>
+                            <th scope="col" class="text-center">Email</th>
+                            <th scope="col" class="text-center">Created Date<i class="bi bi-arrow-down"></i></th>
+                            <th scope="col" class="text-center">Notes</th>
+                            <th scope="col" class="text-center">Is Active</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var obj in Model.blockHistoryMain)
+                        {
+
+                            <tr>
+                                <td class="text-center">@obj.patientname</td>
+                                <td class="text-center">@obj.phonenumber</td>
+                                <td class="text-center">@obj.email</td>
+                                <td class="text-center">@obj.createddate</td>
+                                <td class="text-center">@obj.notes</td>
+                                <td class="text-center">
+                                    <input type="checkbox" name="Mark" class="checkbox fileCheckbox px-4 providerCheckBox"
+                                    checked onchange="checkBoxBlock(@obj.blockId)" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-info rounded-2"
+                                    onclick="unblockBlockHistory(@obj.blockId)">
+                                        Unblock
+                                    </button>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <div class=" d-block d-lg-none">
+                <div class="accordion container-fluid p-0" id="accordionPanelsStayOpenExample">
+                    <table class="w-100 Blockrequesttable">
+                        <thead>
+                            <tr>
+                                <th class="d-none"></th>
+                                <th class="d-none"></th>
+                            </tr>
+                        </thead>
+                        @{
+                            var counter = 1;
+                        }
+                        <tbody>
+                            @if (Model.blockHistoryMain != null)
+                            {
+                                @foreach (var obj in Model.blockHistoryMain)
+                                {
+                                    <tr class="d-flex flex-column">
+                                        <td>
+                                            <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
+
+                                            <div class="accordion-button collapsed d-flex flex-column pb-0"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapse@(counter)"
+                                            aria-expanded="false" aria-controls="flush-collapse@(counter)">
+
+                                                <div class="w-100 fw-bolder">
+                                                    @obj.patientname
+                                                </div>
+                                                <div class="w-100 mt-2 fw-bolder">
+                                                    <div class="mobile-font2">
+                                                        @obj.email
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div id="flush-collapse@(counter)" class="accordion-collapse collapse"
+                                            aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body main-flex pt-2">
+                                                    <div class="w-100">
+
+                                                        <div class="">
+                                                            <span class="fw-bolder">Phone: </span> @obj.phonenumber
+                                                        </div>
+                                                        <div class="">
+                                                            <span class="fw-bolder">Created Date: </span> @obj.createddate
+                                                        </div>
+                                                        <div class="">
+                                                            <span class="fw-bolder">Notes: </span> @obj.notes
+                                                        </div>
+                                                        <div class="">
+                                                            <input type="checkbox" name="Mark"
+                                                            class="checkbox fileCheckbox px-4 providerCheckBox" checked
+                                                            onchange="checkBoxBlock(@obj.blockId)" />
+                                                        </div>
+
+                                                        <div class="inner-flex d-flex justify-content-end">
+                                                            <button class="btn btn-outline-info rounded-2"
+                                                            onclick="unblockBlockHistory(@obj.blockId)">
+                                                                Unblock
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    counter++;
+                                }
+                            }
+                        </tbody>
+                </table>
+            </div>
+            </div>
+        }
+        else
+        {
+            <table class="table">
                 <thead class="table-active">
                     <tr class="dark-mode2">
                         <th scope="col" class="text-center">Patient Name</th>
@@ -51,123 +185,15 @@
                 </thead>
 
                 <tbody>
-                    @foreach (var obj in Model.blockHistoryMain)
-                    {
-
-                        <tr class="dark-mode2">
-                            <td class="text-center">@obj.patientname</td>
-                            <td class="text-center">@obj.phonenumber</td>
-                            <td class="text-center">@obj.email</td>
-                            <td class="text-center">@obj.createddate</td>
-                            <td class="text-center">@obj.notes</td>
-                            <td class="text-center"><input type="checkbox" name="Mark" class="checkbox fileCheckbox px-4 providerCheckBox" checked @* onchange="checkBoxBlock(@obj.blockId)" *@ /></td>
-                            <td><button class="btn btn-outline-info rounded-2" onclick="unblockBlockHistory(@obj.blockId)">Unblock</button></td>
-                        </tr>
-
-                    }
-                </tbody>
-
-            </table>
-            }
-        else
-        {
-            <table class="table">
-                <thead class="table-active">
-                    <tr class="dark-mode2">
-                        <th scope="col" class="text-center">Name</th>
-                        <th scope="col" class="text-center">Phone Number </th>
-                        <th scope="col" class="text-center">Email</th>
-                        <th scope="col" class="text-center">Created Date<i class="bi bi-arrow-down"></i></th>
-                        <th scope="col" class="text-center">Notes</th>
-                        <th scope="col" class="text-center">Is Active</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-            
-                <tbody>
-                    <tr class="dark-mode2">
+                    <tr>
                         <td colspan="7" style="text-align:center;">No Request Found</td>
                     </tr>
                 </tbody>
             </table>
         }
-
-    </div>
-    <div class="border rounded shadow d-block d-lg-none">
-        <div class="accordion container-fluid p-0" id="accordionPanelsStayOpenExample">
-            <table class="w-100 requesttable">
-               @*  <thead>
-                    <tr>
-                        <th class="d-none"></th>
-                        <th class="d-none"></th>
-                    </tr>
-                </thead>
-                @{
-                    var counter = 1;
-                }
-                <tbody>
-                    @if (Model.getRecordExplore != null)
-                    {
-                        @foreach (var obj in Model.getRecordExplore)
-                        {
-                            <tr class="d-flex flex-column">
-                                <td>
-                                    <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
-
-                                    <div class="accordion-button collapsed d-flex flex-column pb-0" data-bs-toggle="collapse" data-bs-target="#flush-collapse@(counter)" aria-expanded="false" aria-controls="flush-collapse@(counter)">
-
-                                        <div class="w-100 ">
-                                            <span class="fw-bolder">
-                                                @obj.fullname
-                                            </span>
-                                        </div>
-                                        <div class="w-100 mt-2">
-                                            <div class="">
-                                                @obj.confirmationnumber
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </td>
-                                <td>
-                                    <div id="flush-collapse@(counter)" class="accordion-collapse collapse" aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body main-flex pt-2">
-                                            <div class="w-100">
-                                                <div class="">
-                                                    <span class="fw-bolder">Created Date: </span> @obj.createddate
-                                                </div>
-                                                <div class="">
-                                                    <span class="fw-bolder">Provider: </span> Provider Name
-                                                </div>
-                                                <div class="">
-                                                    <span class="fw-bolder">Conclude Date: </span> Conclude Date
-                                                </div>
-                                                <div class="">
-                                                    <span class="fw-bolder">Status: </span> @obj.status
-                                                </div>
-                                                <div class="inner-flex d-flex justify-content-end flex-column">
-                                                    <button style="cursor : pointer" class=" mx-3 mt-1 btn btn-outline-info rounded-2" aria-expanded="false" onclick="viewCaseRecords(@obj.requestid,@obj.status,1)">
-                                                        View Case
-                                                    </button>
-                                                    <button style="cursor : pointer" class="m-3 btn btn-outline-info rounded-2" aria-expanded="false" onclick="viewUploadsRecords(@obj.requestid,1)">
-                                                        Documents
-                                                    </button>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                </td>
-                            </tr>
-                            counter++;
-                        }
-                    }
-                </tbody> *@
-            </table>
-        </div>
     </div>
 </div>
+
 
 <script>
     $("#dateBlockHistory").val(" ")
@@ -242,20 +268,12 @@
 
     $(document).ready(function () {
 
-        $('#blcokHistoryTable').DataTable({
-            "initComplete": function (settings, json) {
-
-                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
-
-                $('#my-search-input').on('keyup', function () {
-                    var searchValue = $(this).val();
-                    settings.oPreviousSearch.sSearch = searchValue;
-                    settings.oApi._fnReDraw(settings);
-                });
-            },
-            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+        $('.Blockrequesttable').DataTable({
+            "destroy": true,
             "pageLength": 5,
-            // "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+            "pagingType": "full",
+            "ordering": false,
+
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -264,7 +282,7 @@
                 }
             }
         });
-        // $('.dataTables_length').hide();
+        $('.dataTables_length').hide();
         $('.dataTables_filter').hide();
     });
 

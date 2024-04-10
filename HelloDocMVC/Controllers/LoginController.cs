@@ -144,5 +144,11 @@ namespace HelloDocMVC.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult ForgotPasswordPage(Users obj)
+        {
+            var user = _login.forgotPassword(obj);
+            return Json(new {isSend = user.flagId});
+        }
     }
 }

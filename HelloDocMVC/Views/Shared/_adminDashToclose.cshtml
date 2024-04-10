@@ -217,31 +217,31 @@
                                                 </button>
                                                 <ul class="dropdown-menu table_dropdowns">
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="toCloseViewCase(@item.reqid)">
                                                             <i class="fa-brands fa-searchengin"></i>
                                                             View Case
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'" class="dropdown-item" href="#">
+                                                        <button onclick="toCloseViewUploads(@item.reqid)" class="dropdown-item" href="#">
                                                             <i class="fa-solid fa-file-arrow-up"></i>
                                                             View Uploads
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="toCloseViewNote(@item.reqid)">
                                                             <i class="fa-solid fa-book"></i>
                                                             View Notes
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("activeOrders","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="toCloseOrders(@item.reqid)">
                                                             <i class="fa-solid fa-file-circle-check"></i>
                                                             Orders
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("toCloseCloseCase","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="toCloseCloseCase(@item.reqid)">
                                                             <i class="fa-regular fa-circle-xmark"></i>
                                                             Close Case
                                                         </button>
@@ -259,7 +259,7 @@
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'">
+                                                        <button class="dropdown-item" onclick="toCloseEncounter(@item.reqid)">
                                                             <i class="fa-regular fa-file-lines"></i>
                                                             Encounter
                                                         </button>
@@ -402,21 +402,21 @@
                                     <div class="accordion-body">
                                         <span class="d-flex flex-column">
                                             <span class="d-flex justify-content-between mt-1">
-                                                <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("toCloseCloseCase","adminDashboard",new {data = item.reqid})'">Close Case</button>
-                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("newViewNote","adminDashboard",new {data = item.reqid})'">View Notes</button>
+                                                <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="toCloseCloseCase(@item.reqid)">Close Case</button>
+                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="toCloseViewNote(@item.reqid)">View Notes</button>
                                             </span>
                                             <span class="d-flex justify-content-between mt-1">
                                                 <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Doctors Note</button>
-                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = item.reqid})'">View Uploads</button>
+                                                <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="toCloseViewUploads(@item.reqid)">View Uploads</button>
                                             </span>
                                             <span class="d-flex justify-content-between mt-1">
-                                                <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("concludeEncounter","adminDashboard",new {data = item.reqid})'">Enacounter</button>
+                                                <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="toCloseEncounter(@item.reqid)">Enacounter</button>
                                                 <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="clearCaseToClose(@item.reqid)">Clear Case</button>
                                             </span>
                                             <span class="d-flex justify-content-between mt-1">
                                                 <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
                                             </span>
-                                            <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = item.reqid})'">View Case</button>
+                                                <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="toCloseViewCase(@item.reqid)">View Case</button>
                                         </span>
                                     </div>
 
@@ -623,95 +623,95 @@
     //*************************************************************Editing View************************************/
 
 
-    // function toCloseViewNote(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/newViewNote",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
+    function toCloseViewNote(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewNote",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
-    // function toCloseViewCase(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/newViewCase",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
+    function toCloseViewCase(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewCase",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
-    // function toCloseViewUploads(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/pendingViewUploadMain",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
+    function toCloseViewUploads(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/pendingViewUploadMain",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
-    // function toCloseOrders(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/activeOrders",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
+    function toCloseOrders(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/activeOrders",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
-    // function toCloseEncounter(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/concludeEncounter",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
+    function toCloseEncounter(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/concludeEncounter",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
     
-    // function toCloseCloseCase(reqid) {
-    //     console.log(reqid)
-    //     $.ajax({
-    //         url: "/adminDashboard/toCloseCloseCase",
-    //         data: { data: reqid },
-    //         type: 'GET',
-    //         success: function (result) {
-    //             $("#content").html(result);
-    //         },
-    //         error: function () {
-    //             alert('Error loading partial view');
-    //         }
-    //     });
-    // }
+    function toCloseCloseCase(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/toCloseCloseCase",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
     function clearCaseToClose(reqid) {
         let action = "/adminDashboard" + "/" + "clearCase"

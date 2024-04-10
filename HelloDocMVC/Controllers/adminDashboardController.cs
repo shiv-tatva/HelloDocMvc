@@ -175,26 +175,17 @@ namespace HelloDocMVC.Controllers
 
 
         [CustomAuthorize("Admin", "Dashboard")]
-        public IActionResult newViewCase(int data)
+        public IActionResult newViewCase(int data,int flag)
         {
-            var roleMain = HttpContext.Session.GetInt32("roleId");
-            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
-            ViewBag.Menu = roleMenu;
 
-            ViewBag.Admin = 4;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminDataViewCase(data);
+            adminDashObj.data = _IAdminDash.adminDataViewCase(data, flag);
             return View(adminDashObj);
         }
 
         [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult newViewNote(int data)
         {
-            var roleMain = HttpContext.Session.GetInt32("roleId");
-            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
-            ViewBag.Menu = roleMenu;
-
-            ViewBag.Admin = 4;
             adminDashData adminDashObj = new adminDashData();
             adminDashObj._viewNote = _IAdminDash.adminDataViewNote(data);
 
@@ -269,15 +260,10 @@ namespace HelloDocMVC.Controllers
 
         [CustomAuthorize("Admin", "Dashboard")]
 
-        public IActionResult pendingViewUploadMain(int data)
+        public IActionResult pendingViewUploadMain(int data,int flag)
         {
-            var roleMain = HttpContext.Session.GetInt32("roleId");
-            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
-            ViewBag.Menu = roleMenu;
-
-            ViewBag.Admin = 4;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj._viewUpload = _IAdminDash.viewUploadMain(data);
+            adminDashObj._viewUpload = _IAdminDash.viewUploadMain(data,flag);
             return View(adminDashObj);
         }
 
@@ -320,11 +306,6 @@ namespace HelloDocMVC.Controllers
         [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult activeOrders(int data)
         {
-            var roleMain = HttpContext.Session.GetInt32("roleId");
-            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
-            ViewBag.Menu = roleMenu;
-
-            ViewBag.Admin = 4;
             adminDashData _data = new adminDashData();
             _data._activeOrder = _IAdminDash.viewOrder(data);
             return View(_data);
@@ -410,11 +391,6 @@ namespace HelloDocMVC.Controllers
         [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult toCloseCloseCase(int data)
         {
-            var roleMain = HttpContext.Session.GetInt32("roleId");
-            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
-            ViewBag.Menu = roleMenu;
-
-            ViewBag.Admin = 4;
             adminDashData obj = new adminDashData();
             obj._closeCaseMain = _IAdminDash.closeCaseMain(data);
             return View(obj);
@@ -495,11 +471,6 @@ namespace HelloDocMVC.Controllers
         [CustomAuthorize("Admin", "Dashboard")]
         public IActionResult concludeEncounter(int data)
         {
-            var roleMain = HttpContext.Session.GetInt32("roleId");
-            List<string> roleMenu = _IAdminDash.GetListOfRoleMenu((int)roleMain);
-            ViewBag.Menu = roleMenu;
-
-            ViewBag.Admin = 4;
             adminDashData _admin = new adminDashData();
             _admin._encounter = _IAdminDash.concludeEncounter(data);
             return View(_admin);
@@ -647,11 +618,11 @@ namespace HelloDocMVC.Controllers
             return Json(new {indicate = stopNotification.indicate });
         }
 
-        public IActionResult providerEdit(int phyId)
+        public IActionResult providerEdit(int phyId,int flag)
         {
             var sessionEmail = HttpContext.Session.GetString("UserSession");
             adminDashData data = new adminDashData();
-            data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail);
+            data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail, flag);
             data._RegionTable = _IAdminDash.RegionTable();
             data._phyRegionTable = _IAdminDash.PhyRegionTable(phyId);
             data._role = _IAdminDash.physicainRole();

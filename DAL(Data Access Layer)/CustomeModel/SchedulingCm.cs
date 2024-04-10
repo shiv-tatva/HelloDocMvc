@@ -57,7 +57,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Select the Start Time")]
         public TimeOnly Starttime { get; set; }
 
-        [Required(ErrorMessage = "Please Select the End Date")]
+        [Required(ErrorMessage = "Please Select the End Time")]
         public TimeOnly Endtime { get; set; }
 
         public bool Isrepeat { get; set; }

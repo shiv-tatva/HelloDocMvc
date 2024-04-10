@@ -67,13 +67,13 @@
                                 </button>
                                 <ul class="dropdown-menu ps-1 py-2">
                                     <li>
-                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("newViewCase","adminDashboard",new {data = obj.requestid})'">
+                                        <button class="dropdown-item" onclick="activeViewCase(@obj.requestid,2)">
                                             View Case
                                         </button>
                                     </li>
 
                                     <li>
-                                        <button class="dropdown-item" onclick="window.location.href = '@Url.Action("pendingViewUploadMain","adminDashboard",new {data = obj.requestid})'">
+                                        <button class="dropdown-item" onclick="activeViewUploads(@obj.requestid,2)">
                                             Documents
                                         </button>
                                     </li>
@@ -142,10 +142,10 @@
                                                     <span class="fw-bolder">Status: </span> @obj.status
                                                 </div>
                                                 <div class="inner-flex d-flex justify-content-end flex-column">
-                                                    <button style="cursor : pointer" class=" mx-3 mt-1 btn btn-outline-info rounded-2" aria-expanded="false" onclick="viewCaseRecords(@obj.requestid,@obj.status,1)">
+                                                    <button style="cursor : pointer" class=" mx-3 mt-1 btn btn-outline-info rounded-2" aria-expanded="false" onclick="activeViewCase(@obj.requestid,2)">
                                                         View Case
                                                     </button>
-                                                    <button style="cursor : pointer" class="m-3 btn btn-outline-info rounded-2" aria-expanded="false" onclick="viewUploadsRecords(@obj.requestid,1)">
+                                                    <button style="cursor : pointer" class="m-3 btn btn-outline-info rounded-2" aria-expanded="false" onclick="activeViewUploads(@obj.requestid,2)">
                                                         Documents
                                                     </button>
 
@@ -163,3 +163,36 @@
         </div>
     </div>
 </div>
+
+<script>
+    function activeViewCase(reqid,flag) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewCase",
+            data: { data: reqid , flag :flag},
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    function activeViewUploads(reqid,flag) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/pendingViewUploadMain",
+            data: { data: reqid, flag: flag },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+</script>

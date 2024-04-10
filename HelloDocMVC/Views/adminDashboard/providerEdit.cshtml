@@ -63,10 +63,22 @@
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
         <h4>My Profile</h4>
-        <button onclick="providers()"
-                class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
-            <i class="fa-solid fa-angle-left fs-6"></i> Back
-        </button>
+        @if (Model._providerEdit.flagId == 1)
+        {
+            <button onclick="providers()"
+                    class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+                <i class="fa-solid fa-angle-left fs-6"></i> Back
+            </button>
+        }        
+        
+        @if (Model._providerEdit.flagId == 2)
+        {
+            <button onclick="userAccess()"
+                    class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+                <i class="fa-solid fa-angle-left fs-6"></i> Back
+            </button>
+        }
+        
     </div>
     @*  <form action="" class="shadow border rounded my-3" method="post"> *@
     <div class="shadow border rounded my-3">
@@ -262,7 +274,7 @@
                             <label for="state" class="ms-2 ">State</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control dark-mode2 " id="floatingInputZipCode" asp-for="@Model._providerEdit.zipcode"
+                            <input type="number" class="d3class form-control dark-mode2 " id="floatingInputZipCode" asp-for="@Model._providerEdit.zipcode"
                                    placeholder="Zip Code" aria-label="Zip Code">
 
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>

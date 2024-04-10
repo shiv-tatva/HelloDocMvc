@@ -28,6 +28,7 @@ using Geocoding.Microsoft;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Humanizer;
 using System.Threading.Channels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -135,13 +136,13 @@ namespace BLL_Business_Logic_Layer_.Services
             }
         }
 
-        public List<adminDash> adminDataViewCase(int reqId)
+        public List<adminDash> adminDataViewCase(int reqId, int flag = 1)
         {
-            
+
 
             var query = from r in _context.Requests
                         join rc in _context.Requestclients on r.Requestid equals rc.Requestid
-                        where r.Requestid== reqId
+                        where r.Requestid == reqId
                         select new adminDash
                         {
                             first_name = rc.Firstname,
@@ -165,6 +166,7 @@ namespace BLL_Business_Logic_Layer_.Services
                             email = rc.Email,
                             fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
                             cnf_number = r.Confirmationnumber,
+                            flagId = flag,
                         };
                         
 
@@ -371,7 +373,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
         }
 
-        public List<viewUploads> viewUploadMain(int reqId)
+        public List<viewUploads> viewUploadMain(int reqId, int flag)
         {
 
 
@@ -387,6 +389,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 documentsname = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Filename).ToList(),
                 created_date = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Createddate).ToList(),
                 requestWiseFileId = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Requestwisefileid).ToList(),
+                flagId = flag,
             }).ToList();
              
             return query;
@@ -1285,6 +1288,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 DateTime = DateTime.Now,
             };
 
+            
+
             if(regionId != 0)
             {
                 provider._physician = _context.Physicians.Where(r => r.Regionid == regionId).ToList();
@@ -1397,7 +1402,7 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
-        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail)
+        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag)
         {
             var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
 
@@ -1431,7 +1436,8 @@ namespace BLL_Business_Logic_Layer_.Services
                 IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
                 IsHIPAA = phy.Istrainingdoc == null ? false : true,
                 IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
-                IsLicenseDocument = phy.Islicensedoc == null ? false : true,                
+                IsLicenseDocument = phy.Islicensedoc == null ? false : true,      
+                flagId = (int)flag,
 
                 username = user.Username,
                 password = user.Passwordhash,
@@ -1807,8 +1813,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 Aspnetuser _user = new Aspnetuser();
                 Physician phy = new Physician();
-
-                _user.Username = obj._providerEdit.username;
+                _user.Username = "MD." + obj._providerEdit.Lastname + "." + obj._providerEdit.Firstname.Substring(0, 1);
                 _user.Passwordhash = obj._providerEdit.password;
                 _user.Email = obj._providerEdit.Email;
                 _user.Phonenumber = obj._providerEdit.PhoneNumber;
@@ -1892,10 +1897,12 @@ namespace BLL_Business_Logic_Layer_.Services
             else if(aspUser != null)
             {
                 flag.indicateTwo = "email";
+                return flag;
             }
             else
             {
                 flag.indicateTwo = "zip";
+                return flag;
             }
 
             return flag;
@@ -2994,17 +3001,17 @@ namespace BLL_Business_Logic_Layer_.Services
             {           
                 if (recordsModel.requestListMain[0].searchRecordOne != null && recordsModel.requestListMain[0].searchRecordOne != 0)
                 {
-                    requestList = requestList.Where(r => r.statusId == recordsModel.requestListMain[0].searchRecordOne).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.statusId != null && r.statusId == recordsModel.requestListMain[0].searchRecordOne).Select(r => r).ToList();                    
                 }
             
                 if (recordsModel.requestListMain[0].searchRecordTwo != null)
                 {
-                    requestList = requestList.Where(r => r.patientname.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.patientname != null && r.patientname.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();                    
                 } 
             
                 if (recordsModel.requestListMain[0].searchRecordThree != null && recordsModel.requestListMain[0].searchRecordThree != 0)
                 {
-                    requestList = requestList.Where(r =>  r.requesttypeid == recordsModel.requestListMain[0].searchRecordThree).Select(r => r).ToList();                   
+                    requestList = requestList.Where(r => r.requesttypeid != null && r.requesttypeid == recordsModel.requestListMain[0].searchRecordThree).Select(r => r).ToList();                   
                 }
 
                 if (recordsModel.requestListMain[0].searchRecordSix != null )
@@ -3014,12 +3021,12 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 if (recordsModel.requestListMain[0].searchRecordSeven != null)
                 {
-                    requestList = requestList.Where(r => r.email.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSeven.Trim().ToLower())).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.email != null && r.email.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSeven.Trim().ToLower())).Select(r => r).ToList();                    
                 }
 
                 if (recordsModel.requestListMain[0].searchRecordEight != null)
                 {
-                    requestList = requestList.Where(r => r.contact.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordEight.Trim().ToLower())).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.contact != null && r.contact.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordEight.Trim().ToLower())).Select(r => r).ToList();                    
                 }
             }
 
@@ -3090,19 +3097,19 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 if(GetRecordsModel.searchRecordOne != null)
                 {
-                    data.users = data.users.Where(r => r.Firstname.Trim().ToLower().Contains(GetRecordsModel.searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
+                    data.users = data.users.Where(r => r.Firstname != null && r.Firstname.Trim().ToLower().Contains(GetRecordsModel.searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
                 }
                 if(GetRecordsModel.searchRecordTwo != null)
                 {
-                    data.users = data.users.Where(r => r.Lastname.Trim().ToLower().Contains(GetRecordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                    data.users = data.users.Where(r => r.Lastname != null && r.Lastname.Trim().ToLower().Contains(GetRecordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
                 }
                 if(GetRecordsModel.searchRecordThree != null)
                 {
-                    data.users = data.users.Where(r => r.Email.Trim().ToLower().Contains(GetRecordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                    data.users = data.users.Where(r => r.Email != null && r.Email.Trim().ToLower().Contains(GetRecordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
                 }
                 if(GetRecordsModel.searchRecordFour != null)
                 {
-                    data.users = data.users.Where(r => r.Mobile.Trim().ToLower().Contains(GetRecordsModel.searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
+                    data.users = data.users.Where(r => r.Mobile != null && r.Mobile.Trim().ToLower().Contains(GetRecordsModel.searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
                 }
             }
 
@@ -3144,19 +3151,19 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 if(recordsModel.blockHistoryMain[0].searchRecordOne != null)
                 {
-                    requestData = requestData.Where(r => r.patientname.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
+                    requestData = requestData.Where(r => r.patientname != null && r.patientname.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
                 }
                 if (recordsModel.blockHistoryMain[0].searchRecordTwo != null && recordsModel.blockHistoryMain[0].searchRecordTwo != DateTime.MinValue)
                 {
-                    requestData = requestData.Where(r => r.createddate == Convert.ToDateTime(recordsModel.blockHistoryMain[0].searchRecordTwo).ToString("yyyy-MM-dd")).Select(r => r).ToList();
+                    requestData = requestData.Where(r => r.createddate != null && r.createddate == Convert.ToDateTime(recordsModel.blockHistoryMain[0].searchRecordTwo).ToString("yyyy-MM-dd")).Select(r => r).ToList();
                 }
                 if (recordsModel.blockHistoryMain[0].searchRecordThree != null)
                 {
-                    requestData = requestData.Where(r => r.email.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                    requestData = requestData.Where(r => r.email != null && r.email.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
                 }
                 if (recordsModel.blockHistoryMain[0].searchRecordFour != null)
                 {
-                    requestData = requestData.Where(r => r.phonenumber.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
+                    requestData = requestData.Where(r => r.phonenumber != null && r.phonenumber.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
                 }
             }
 
@@ -3191,8 +3198,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 var records = _context.Emaillogs.ToList();
                 foreach (var item in records)
                 {
-                    if(item.Requestid != null)
-                    {
+                    
 
                         var newRecord = new emailSmsRecords
                         {
@@ -3200,53 +3206,37 @@ namespace BLL_Business_Logic_Layer_.Services
                             createddate = item.Createdate,
                             sentdate = item.Sentdate,
                             sent = item.Isemailsent[0] ? "Yes" : "No",
-                            recipient = _context.Requestclients.Where(i => i.Requestid == item.Requestid).Select(i => i.Firstname).First(),
+                            recipient = _context.Aspnetusers.Any(x => x.Email == item.Emailid) ?  _context.Aspnetusers.Where(x => x.Email == item.Emailid).Select(x => x.Username).First() : null,
                             rolename = _context.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
                             senttries = item.Senttries,
                             confirmationNumber = item.Confirmationnumber,
                         };
 
                         model.emailRecords.Add(newRecord);
-                    }
-                    else
-                    {
-                        var newRecord = new emailSmsRecords
-                        {
-                            email = item.Emailid,
-                            createddate = item.Createdate,
-                            sentdate = item.Sentdate,
-                            sent = item.Isemailsent[0] ? "Yes" : "No",
-                            recipient = _context.Physicians.Where(i => i.Physicianid == item.Physicianid).Select(i => i.Firstname).FirstOrDefault(),
-                            rolename = _context.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
-                            senttries = item.Senttries,
-                            confirmationNumber = item.Confirmationnumber,
-                        };
-
-                        model.emailRecords.Add(newRecord);
-                    }
+                   
                 }
 
                 if(recordsModel != null)
                 {
                     if (recordsModel.searchRecordOne != null && recordsModel.searchRecordOne != "All")
                     {
-                       model.emailRecords = model.emailRecords.Where(r => r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
+                       model.emailRecords = model.emailRecords.Where(r => r.rolename != null &&  r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordTwo != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(r => r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(r => r.recipient != null && r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordThree != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(r => r.email.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(r => r.email != null && r.email.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordFour != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate != null && item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordFive != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(item => item.createddate <= recordsModel.searchRecordFive).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate != null && item.createddate <= recordsModel.searchRecordFive).Select(r => r).ToList();
                     }
                 }                
             }
@@ -3275,23 +3265,23 @@ namespace BLL_Business_Logic_Layer_.Services
                 {
                     if (recordsModel.searchRecordOne != null && recordsModel.searchRecordOne != "All")
                     {
-                        model.emailRecords = model.emailRecords.Where(r => r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(r => r.rolename != null && r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordTwo != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(r => r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(r => r.recipient != null && r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordThree != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(r => r.contact.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(r => r.contact != null && r.contact.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordFour != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate != null && item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordFive != null)
                     {
-                        model.emailRecords = model.emailRecords.Where(item => item.createddate <= recordsModel.searchRecordFive).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate != null && item.createddate <= recordsModel.searchRecordFive).Select(r => r).ToList();
                     }
                 }
 

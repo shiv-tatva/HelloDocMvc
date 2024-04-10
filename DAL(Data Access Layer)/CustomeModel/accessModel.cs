@@ -26,6 +26,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<Aspnetrole> AspnetUserroles { get; set; }
 
         public int Aspid { get; set; }
+
+        public int? flag { get; set; }
     }
 
     public class AccountAccess

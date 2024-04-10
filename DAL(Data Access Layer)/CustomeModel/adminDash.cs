@@ -13,8 +13,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 {
     public class adminDash
     {
-         public string? first_name {  get; set; }
 
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
+        public string? first_name {  get; set; }
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? last_name { get; set; }
 
 
@@ -63,6 +66,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<Region> region_table { get; set; }
 
         public int? region_table_id { get; set; }
+
+        public int? flagId {  get; set; }
                       
     }
 
@@ -163,7 +168,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? cnf_number { get; set; }
 
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string fname { get; set; }
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string lname { get; set; }
 
         public int? user_id_param { get; set; }
@@ -176,6 +185,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public IFormFile Upload { get; set; }
 
         public bool dlt_data { get; set; }
+
+        public int? flagId {  get; set; }
     }
 
 
@@ -251,7 +262,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int reqid { get; set; }
         public string? email { get; set; }
         public string? mobile_num { get; set; }
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string fname { get; set; }
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string lname { get; set; }
         public string? fulldateofbirth { get; set; }
         public string? str_month { get; set; }
@@ -320,7 +335,13 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class concludeEncounter
     {
         public int reqid { get; set; }
+
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? FirstName { get; set; }
+
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? LastName { get; set; }
         public string? Location { get; set; }
         public string? BirthDate { get; set; }
@@ -358,7 +379,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     public class sendLink
     {
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? FirstName { get; set; }
+
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? LastName { get; set; }
 
         [Required(ErrorMessage = "Please Enter Email")]
@@ -387,9 +412,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? zipcode { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Name")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? firstname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Last Name")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? lastname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Date Of Birth")]
@@ -477,9 +504,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? zipcode { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Firstname")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? Firstname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Lastname")]
+        [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? Lastname { get; set; }
 
         [Required(ErrorMessage = "Please Select Atleast One State")]
@@ -583,6 +612,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public DateTime? modified_date { get; set; }
 
         public int? modifiedBy { get; set; }
+        public int? flagId { get; set; }
     }
 
 
@@ -651,5 +681,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<AdminregionTable> _adminRegionTable { get; set; }
 
         public List<Role> _role {  get; set; }
+
+        public int? flag {  get; set; }
     }
 }

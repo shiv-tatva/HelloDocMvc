@@ -28,7 +28,8 @@
                                             {
                                             <text>checked</text>                                                
                                             }                                        />                                         }
-                                    }                                                                   </td>                                <td>                                    <span class="document-name mx-2">@item.Firstname</span>                                </td>                                <td>@foreach(var item3 in Model._provider._roles)
+                                    }                                                                   </td>                                <td>                                    <span class="document-name mx-2">@item.Firstname</span>                                </td>                                <td>
+                                    @foreach(var item3 in Model._provider._roles)
                                     {
                                         if (item.Roleid == item3.Roleid)
                                         {
@@ -104,7 +105,7 @@
     }
 
     function editProvider(phyId) {        let action = "/adminDashboard/providerEdit"        $.ajax({            url: action,            type: 'GET',
-            data: { phyId: phyId },            success: function (result) {                $('#content').html(result);            },            error: function () {                alert('Error aa loading partial view');            }        });    }
+            data: { phyId: phyId , flag : 1 },            success: function (result) {                $('#content').html(result);            },            error: function () {                alert('Error aa loading partial view');            }        });    }
 
     function createProviderAccount() {        $.ajax({
             url: "/adminDashboard/createProviderAccount",

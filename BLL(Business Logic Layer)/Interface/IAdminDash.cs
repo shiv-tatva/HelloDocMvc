@@ -17,7 +17,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public countMain countService(string sessionName);
 
         public List<string> GetListOfRoleMenu(int roleId);
-        public List<adminDash> adminDataViewCase(int reqId);
+        public List<adminDash> adminDataViewCase(int reqId, int flag);
         public viewNotes adminDataViewNote(int reqId);
         public void adminDataViewNote(adminDashData obj);
 
@@ -35,7 +35,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void blockcase(adminDashData obj, string sessionEmail);
 
-        public List<viewUploads> viewUploadMain(int reqId);
+        public List<viewUploads> viewUploadMain(int reqId, int flag);
 
         public void viewUploadMain(adminDashData obj);
         public void DeleteFile(bool data,int reqFileId);
@@ -86,7 +86,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public provider providerContactEmail(int phyIdMain, string msg,string sessionEmail);
 
-        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail);
+        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag);
 
         public List<Region> RegionTable();
         public List<PhysicianRegionTable> PhyRegionTable(int phyId);
