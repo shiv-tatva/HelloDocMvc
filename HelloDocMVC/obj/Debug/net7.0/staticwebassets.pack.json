@@ -73,6 +73,14 @@
       "PackagePath": "staticwebassets\\Documents\\34\\Profile.jpg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\37\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\Documents\\37\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\37\\Profile.jpg",
+      "PackagePath": "staticwebassets\\Documents\\37\\Profile.jpg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig25. Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\Documents\\Fig25. Contact your Provider.jpg"
     },
@@ -259,6 +267,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\LoginPage.css",
       "PackagePath": "staticwebassets\\css\\LoginPage.css"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\ProviderDashboard.css",
+      "PackagePath": "staticwebassets\\css\\ProviderDashboard.css"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\SubmitRequest.css",
@@ -911,6 +923,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\images\\warning-icon.svg",
       "PackagePath": "staticwebassets\\images\\warning-icon.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\ProviderJS.js",
+      "PackagePath": "staticwebassets\\js\\ProviderJS.js"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\adminDashboard.js",

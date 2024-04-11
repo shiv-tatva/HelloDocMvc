@@ -86,7 +86,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public provider providerContactEmail(int phyIdMain, string msg,string sessionEmail);
 
-        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag);
+        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId);
 
         public List<Region> RegionTable();
         public List<PhysicianRegionTable> PhyRegionTable(int phyId);

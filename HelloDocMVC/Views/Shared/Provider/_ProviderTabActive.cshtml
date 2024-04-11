@@ -1,0 +1,757 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+
+<style>
+    th {
+        color: #575757 !important;
+        font-size: 14px;
+        font-weight: 500;
+        background-color: #f0f0f0;
+        padding-top: 22px;
+        padding-bottom: 22px;
+    }
+</style>
+
+<div class="tab-pane fade show active" id="Active-tab-pane" role="tabpanel" aria-labelledby="Active-tab" tabindex="0">
+    <div class="my-4" id="patients_flex_box">
+        <span id="patient_txt">
+            Patients <span id="patient_sub">(Active)</span>
+        </span>
+
+        <span id="patiens_five-link-mediaquerry" style="display:flex;">
+            <button onclick="newSendLinkInActive()" class="btn btn-info patient_five_button mx-1 " role="button">
+                <i class="bi bi-send"></i>
+                <span>
+                    Send link
+                </span>
+            </button>
+            <button onclick="createRequestActive()" class="btn btn-info patient_five_button  mx-1" role="button">
+                <i class="bi bi-pencil-square"></i>
+                <span>
+                    create request
+                </span>
+            </button>
+            @using (Html.BeginForm("Export", "AdminDashboard", FormMethod.Post))
+            {
+                <input type="hidden" name="GridHtml" />
+                <button type="submit" value="Export" class="btn btn-info patient_five_button  mx-1" onclick="exportBtnActive()">
+                    <i class="bi bi-arrow-up-right me-1"></i><span class="d-none d-sm-inline-block">Export</span>
+                </button>
+
+            }
+            <button class="btn btn-info patient_five_button  mx-1" role="button" onclick="window.location.href='@Url.Action("ExportAll","AdminDashboard")'">
+                <i class="bi bi-box-arrow-up-right"></i>
+                <span>
+                    Export All
+                </span>
+            </button>
+            <button onclick="requestSupportActive()" class="btn btn-info patient_five_button  mx-1" role="button">
+                <i class="bi bi-person-plus"></i>
+                <span>
+                    Request DTY support
+                </span>
+            </button>
+        </span>
+    </div>
+    <div class="mt-2 mb-2 container-fluid" style="box-shadow: 0px 0px 5px grey;">
+
+        <div class="container-fluid p-0">
+            <div id="tablehead-container">
+
+                <div id="tablehead-left">
+                    <div class="d-md-flex gap-1">
+                        <form role="search" class="bg-light d-flex align-items-center border border-rounded rounded mb-2">
+                            <!-- <i class="bi bi-search"></i> -->
+                            <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;"></i>
+                            <input class="form-control border-0" id="my-search-input-active" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+
+                        <select id="regionFilterActive" onchange="regionClickActive()" class="form-select  mb-2" aria-label="Default select example">
+                            <option id="reason" disabled selected="">
+                                Select Regions
+                            </option>
+                            <option value="0">
+                                All Regions
+                            </option>
+                            @foreach (var item in Model._RegionTable)
+                            {
+                                <option value="@item.Regionid">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+                <span id="tablehead-right">
+                    <span class="table_head_five" id="all" type="button" onclick="tableFilter3(0)" style="cursor:pointer">
+                        All
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter3(1)" style="cursor:pointer">
+
+                        <span class="patient_circle"></span>
+                        <span>
+                            Patients
+                        </span>
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter3(2)" style="cursor:pointer">
+
+                        <span class="family_circle"></span>
+
+                        <span>
+                            Family/Friends
+                        </span>
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter3(4)" style="cursor:pointer">
+
+                        <span class="Bussiness_circle"></span>
+                        <span>
+                            Bussiness
+                        </span>
+                    </span>
+                    <span class="table_head_five" onclick="tableFilter3(3)" style="cursor:pointer">
+
+                        <span class="Concierge_circle"></span>
+
+                        <span>
+                            Concierge
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div id="table_tabview">
+            <div class="table-responsive d-none d-sm-block" id="tableParentDivActive">
+                @if (Model.data.Count() > 0)
+                {
+                    <table class="table" id="tableDataMainAdmin">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="dark-mode2 ">Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Birth</th>
+                                <th scope="col" class="dark-mode2 ">Requestor</th>
+                                <th scope="col" class="dark-mode2 ">Physician Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Service</th>
+                                <th scope="col" class="dark-mode2 ">Phone</th>
+                                <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Notes</th>
+                                <th scope="col" class="dark-mode2 ">Chat With</th>
+                                <th scope="col" class="dark-mode2 ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.data)
+                            {
+
+                                var bgColor = "He";
+                                var role = "hello";
+
+                                @if (item.request_type_id == 1)
+                                {
+                                    bgColor = "#60be5e";
+                                    role = "Patient";
+                                }
+                                else if (item.request_type_id == 2)
+                                {
+                                    bgColor = "#e69232";
+                                    role = "FamilyFriend";
+                                }
+                                else if (item.request_type_id == 3)
+                                {
+                                    bgColor = "#0b7ebf";
+                                    role = "Concierge";
+                                }
+                                else if (item.request_type_id == 4)
+                                {
+                                    bgColor = "#d76879";
+                                    role = "Business";
+                                }
+
+
+                                <tr class="tablerows @role">
+                                    <td class="text-white" style="background:@bgColor;">
+                                        <div class="table_name_email">
+
+                                            @item.first_name, @item.last_name
+                                            <a href="">
+                                                <i class="bi bi-envelope me-3  rounded-5 border p-1 text-info" style="color:white!important"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-white" style="background:@bgColor;">@item.fulldateofbirth</td>
+                                    <td class="text-white" style="background:@bgColor;">@item.requestor_fname , @item.responseor_lname</td>
+                                    <td class="text-white" style="background:@bgColor;">@item.phy_name</td>
+                                    <td class="text-white" style="background:@bgColor;">@item.created_date</td>
+                                    <td class="text-white" style="background:@bgColor;">
+                                        <div class="table_phone">
+                                            <a href="">
+                                                <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                @item.mobile_num
+                                            </a>
+                                        </div>
+                                        <div style="color:white">
+                                            (Patient)
+                                        </div>
+                                        @if (item.request_type_id != 1)
+                                        {
+                                            <div class="table_phone">
+                                                <a href="">
+                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                    @item.requestor_mobile_num
+                                                </a>
+                                            </div>
+                                            <div style="color:white">
+                                                (@role)
+                                            </div>
+                                        }
+
+                                    </td>
+                                    <td class="text-white" style="background:@bgColor;">Room Location:101</td>
+                                    <td class="text-white" style="background:@bgColor;">-</td>
+                                    <td class="text-white" style="background:@bgColor;">
+
+                                        <div style="display:flex;">
+                                            <div class="dropdown mb-1">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="bi bi-person me-2 d-none d-sm-inline"></i>
+                                                    <span>
+                                                        Patient
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
+                                                    <span>
+                                                        Provider
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="background:@bgColor;color:">
+                                        <div>
+                                            <div class="dropdown">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <span>
+                                                        Action
+                                                    </span>
+                                                </button>
+                                                <ul class="dropdown-menu table_dropdowns">
+                                                    <li>
+                                                        <button class="dropdown-item" onclick="activeViewCase(@item.reqid)">
+                                                            <i class="fa-brands fa-searchengin"></i>
+                                                            View Case
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button onclick="activeViewUploads(@item.reqid)" class="dropdown-item">
+                                                            <i class="fa-solid fa-file-arrow-up"></i>
+                                                            View Uploads
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item" onclick="activeViewNote(@item.reqid)">
+                                                            <i class="fa-solid fa-book"></i>
+                                                            View Notes
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item" onclick="activeOrders(@item.reqid)">
+                                                            <i class="fa-solid fa-file-circle-check"></i>
+                                                            Orders
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item">
+                                                            <i class="fa-regular fa-file-lines"></i>
+                                                            Doctor Note
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="dropdown-item" onclick="activeEncounter(@item.reqid)">
+                                                            <i class="fa-regular fa-file-lines"></i>
+                                                            Encounter
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead id="table-heading">
+                            <tr>
+                                <th scope="col" class="dark-mode2 ">Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Birth</th>
+                                <th scope="col" class="dark-mode2 ">Requestor</th>
+                                <th scope="col" class="dark-mode2 ">Physician Name</th>
+                                <th scope="col" class="dark-mode2 ">Date Of Service</th>
+                                <th scope="col" class="dark-mode2 ">Phone</th>
+                                <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Notes</th>
+                                <th scope="col" class="dark-mode2 ">Chat With</th>
+                                <th scope="col" class="dark-mode2 ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="10" style="text-align:center;">No Request Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+
+        <div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
+            @if (Model.data.Count() > 0)
+            {
+                <table class="table" id="tableDataMainAdminTwo" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="d-none">
+
+                            </th>
+                            <th class="d-none">
+
+                            </th>
+                        </tr>
+                    </thead>
+
+                    @{
+                        var count = 0;
+
+                    }
+
+
+                    @foreach (var item in Model.data)
+                    {
+                        if (item.status == 4 || item.status == 5)
+                        {
+                            var bgColor = "He";
+                            var role = "hello";
+
+                            @if (item.request_type_id == 1)
+                            {
+                                bgColor = "#60be5e";
+                                role = "Patient";
+                            }
+                            else if (item.request_type_id == 2)
+                            {
+                                bgColor = "#e69232";
+                                role = "FamilyFriend";
+                            }
+                            else if (item.request_type_id == 3)
+                            {
+                                bgColor = "#0b7ebf";
+
+                                role = "Concierge";
+                            }
+                            else if (item.request_type_id == 4)
+                            {
+                                bgColor = "#d76879";
+                                role = "Business";
+                            }
+
+
+                            <tr style="display: flex;flex-direction: column" class="@role">
+                                <td>
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            <span class="d-flex flex-column" style="width:100%">
+                                                <span class="d-flex justify-content-between">
+                                                    <span class="mb-3">@item.first_name @item.last_name</span>
+                                                    <span>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="pe-2">@role</div>
+                                                            <i class="fa-solid fa-circle" style="color:@bgColor"></i>
+                                                        </div>
+                                                    </span>
+                                                </span>
+                                                <span class="d-flex align-items-center justify-content-between mb-3">
+                                                    <span>
+                                                        @item.street,<br>
+                                                        @item.city
+                                                    </span>
+                                                    <span class="btn btn-outline-primary" style="font-size:12px;cursor:pointer">Map Location</span>
+
+                                                </span>
+                                                <span class="d-flex align-items-center mt">
+
+                                                    <i class="fa-regular fa-clock pe-2 " style="color:#2acbcb"></i> <span>Wait Time: </span>
+                                                </span>
+                                            </span>
+
+                                        </button>
+                                    </h2>
+                                </td>
+                                <td style="z-index:5">
+                                    <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body mt-1">
+                                            <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.str_month @item.int_date, @item.int_year
+                                        </div>
+                                        <div class="accordion-body mt-1">
+                                            <i class="fa-regular fa-envelope"></i> Email: @item.email
+                                        </div>
+                                        <div class="accordion-body mt-1">
+                                            <i class="fa-solid fa-phone"></i> Patient: @item.mobile_num
+                                        </div>
+                                        <div class="accordion-body mt-1">
+                                            <i class="fa-solid fa-phone"></i> Transfer: @item.notes
+                                        </div>
+                                        <div class="accordion-body mt-1">
+                                            <i class="fa-solid fa-phone"></i> Date of Service: @item.created_date
+                                        </div>
+                                        <div class="accordion-body mt-1">
+                                            <i class="fa-regular fa-user"></i> Physician: @item.phy_name
+                                        </div>
+                                        <div class="accordion-body">
+                                            <span class="d-flex flex-column">
+                                                <span class="d-flex justify-content-between mt-1">
+                                                    <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="activeViewNote(@item.reqid)">View Notes</button>
+                                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">Doctors Notes</button>
+                                                </span>
+                                                <span class="d-flex justify-content-between mt-1">
+                                                    <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="activeViewUploads(@item.reqid)" class="dropdown-item">View Uploads</button>
+                                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="activeEncounter(@item.reqid)">Encounter</button>
+                                                </span>
+                                                <span class="d-flex justify-content-between mt-1">
+                                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="activeOrders(@item.reqid)">Orders</button>
+                                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
+                                                </span>
+                                                <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="activeViewCase(@item.reqid)">View Case</button>
+                                            </span>
+                                        </div>
+
+
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                            count++;
+                        }
+                    }
+                </table>
+            }
+            else
+            {
+                <table class="table">
+                    <thead id="table-heading">
+                        <tr>
+                            <th scope="col" class="dark-mode2 ">Name</th>
+                            <th scope="col" class="dark-mode2 ">Date Of Birth</th>
+                            <th scope="col" class="dark-mode2 ">Requestor</th>
+                            <th scope="col" class="dark-mode2 ">Physician Name</th>
+                            <th scope="col" class="dark-mode2 ">Date Of Service</th>
+                            <th scope="col" class="dark-mode2 ">Phone</th>
+                            <th scope="col" class="dark-mode2 ">Address</th>
+                            <th scope="col" class="dark-mode2 ">Notes</th>
+                            <th scope="col" class="dark-mode2 ">Chat With</th>
+                            <th scope="col" class="dark-mode2 ">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="10" style="text-align:center;">No Request Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+        </div>
+
+    </div>
+
+    <div id="sendLinkActivePopUp">
+    </div>
+
+    <div id="requestSupportActivePopUp">
+    </div>
+</div>
+
+
+
+<script>
+
+    function tableFilter3(typeId) {
+        $.ajax({
+            method: "GET",
+            url: "/adminDashboard/tableRecords3",
+            traditional: true,
+            contentType: "application/json",
+            data: { arr: [4, 5], typeId: typeId },
+            success: function (result) {
+                $("#myTabContent1").html(result);
+                $("#Active-tab-pane").addClass("show active");
+            },
+
+            error: function () {
+                alert("Error loading partial view");
+            },
+        });
+    }
+
+
+
+    $(document).ready(function () {
+
+        $('#tableDataMainAdmin').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input-active').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input-active').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            "order": [[4, "desc"]],
+            "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            }
+        });
+        // $('.dataTables_length').hide();
+        $('.dataTables_filter').hide();
+    });
+
+    $(document).ready(function () {
+
+        $('#tableDataMainAdminTwo').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input-active').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input-active').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            }
+        });
+        // $('.dataTables_length').hide();
+        $('.dataTables_filter').hide();
+    });
+
+
+    function viewCaseClick(a) {
+
+        console.log(a)
+        let action = "/adminDashboard" + "/" + "newViewCase"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { req: a },
+            success: function (result) {
+                $('#content').html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function newSendLinkInActive() {
+        let action = "/adminDashboard" + "/" + "sendLinkPopUp"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (response) {
+                console.log(response);
+                $('#sendLinkActivePopUp').html(response);
+                $('#sendLinkPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function requestSupportActive() {
+        console.log("hi")
+        let action = "/adminDashboard" + "/" + "requestSupportPopUp"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                console.log(result)
+                $('#requestSupportActivePopUp').html(result);
+                $('#requestSupportPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+
+    function createRequestActive() {
+        $.ajax({
+            url: "/adminDashboard/createRequest",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    //*************************************************************Editing View************************************/
+
+    function activeViewCase(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewCase",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    function activeViewNote(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/newViewNote",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function activeViewUploads(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/pendingViewUploadMain",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    function activeOrders(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/activeOrders",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function activeEncounter(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/concludeEncounter",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    function exportBtnActive() {
+        // Get the HTML content of the table
+        var htmlContent = $("#tableParentDivActive").html();
+        console.log(htmlContent)
+
+        // Set the modified HTML content to the input value
+        $("input[name='GridHtml']").val(htmlContent);
+    }
+
+    $(document).ready(function () {
+        $("#my-search-input-active").bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+    });
+
+
+    function regionClickActive() {
+        var value = $("#regionFilterActive").val();
+        console.log(value);
+
+        $.ajax({
+            url: "/adminDashboard/RegionFilter3",
+            data: { arr: [4, 5], regionId: value },
+            traditional: true,
+            contentType: "application/json",
+            type: 'GET',
+            success: function (result) {
+                $("#myTabContent1").html(result);
+                $("#Active-tab-pane").addClass("show active");
+                $("#regionFilterActive").val(value);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+
+    }
+
+</script>
+
+
+

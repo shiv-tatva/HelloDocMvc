@@ -622,7 +622,7 @@ namespace HelloDocMVC.Controllers
         {
             var sessionEmail = HttpContext.Session.GetString("UserSession");
             adminDashData data = new adminDashData();
-            data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail, flag);
+            data._providerEdit = _IAdminDash.adminEditPhysicianProfile(phyId, sessionEmail, flag,0);
             data._RegionTable = _IAdminDash.RegionTable();
             data._phyRegionTable = _IAdminDash.PhyRegionTable(phyId);
             data._role = _IAdminDash.physicainRole();

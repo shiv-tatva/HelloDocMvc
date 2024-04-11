@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "//7eRVnWkX6T8C8IKZ6r3c68QQCXchCEb7PxDXiyRms=",
+  "Hash": "+8w9CHNrZ8y46BIbTt4IVrC0iE4+5q6b43PSeDvArVY=",
   "Source": "HelloDocMVC",
   "BasePath": "_content/HelloDocMVC",
   "Mode": "Default",
@@ -270,6 +270,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\profileMain.css"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\ProviderDashboard.css",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "css/ProviderDashboard.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\ProviderDashboard.css"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\css\\site.css",
@@ -610,6 +627,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Documents\\34\\Profile.jpg"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\37\\Independent_Contractor.pdf",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Documents/37/Independent_Contractor.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Documents\\37\\Independent_Contractor.pdf"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\37\\Profile.jpg",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Documents/37/Profile.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Documents\\37\\Profile.jpg"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\check-icon (1).svg",
@@ -3959,6 +4010,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\darkTheme.js"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\ProviderJS.js",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "js/ProviderJS.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\ProviderJS.js"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\js\\site.js",

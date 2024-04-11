@@ -283,6 +283,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class myProfile
     {
         public int? admin_id { get; set; }
+        public int? phy_id { get; set; }
         public int? aspnetuserid { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your First Name")]
@@ -319,10 +320,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public DateTime createdDate { get; set; }
         public int status { get; set; }
         public int? roleid { get; set; }
-        public string username { get; set; }
+        public string? username { get; set; }
 
         [Required(ErrorMessage = "Please Enter Password")]
-        public string password { get; set; }
+        public string? password { get; set; }
 
         [Required(ErrorMessage = "Please Enter State")]
         public string state { get; set; }

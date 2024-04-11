@@ -96,6 +96,11 @@ namespace HelloDocMVC.Controllers
                     TempData["success"] = "Login Successfully!";
                     return RedirectToAction("adminDashboard", "adminDashboard");
                 }
+                else if(data.RoleMain == "Provider")
+                {
+                    TempData["success"] = "Login Successfully!";
+                    return RedirectToAction("Provider", "Provider");
+                }
                 else
                 {
                     return View();

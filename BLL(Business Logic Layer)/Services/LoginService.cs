@@ -28,12 +28,17 @@ namespace BLL_Business_Logic_Layer_.Services
             Users users = new Users();
 
             var checkRoleId = db.Admins.FirstOrDefault(r => r.Email == obj.Email);
+            var checkRoleIdTwo = db.Physicians.FirstOrDefault(r => r.Email == obj.Email);
 
             var roleIdMain = 0;
 
             if (checkRoleId != null)
             {
                 roleIdMain = db.Admins.Where(r => r.Email == obj.Email).Select(x => (int)x.Roleid).First();
+            }
+            if (checkRoleIdTwo != null)
+            {
+                roleIdMain = db.Physicians.Where(r => r.Email == obj.Email).Select(x => (int)x.Roleid).First();
             }
 
             var check = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).FirstOrDefault();

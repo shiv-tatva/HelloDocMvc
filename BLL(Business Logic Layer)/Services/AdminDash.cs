@@ -197,8 +197,10 @@ namespace BLL_Business_Logic_Layer_.Services
                 viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).ToList(); 
                 if(b != null)
                 {
-                    viewNotes.AdminCancleNotes = _context.Requeststatuslogs.Where(r => r.Requestid == reqId && r.Status == 3).Select(x => x.Notes).First();
-                    viewNotes.PatientCancleNotes = _context.Requeststatuslogs.Where(x => x.Requestid == reqId && x.Status == 7).Select(x => x.Notes).First();//status 7 is for Request Status Cancelled By Patient 
+                    if(_context.Requeststatuslogs.Any(r => r.Requestid == reqId && r.Status == 3))
+                        viewNotes.AdminCancleNotes = _context.Requeststatuslogs.Where(r => r.Requestid == reqId && r.Status == 3).Select(x => x.Notes).First();
+                    if (_context.Requeststatuslogs.Any(r => r.Requestid == reqId && r.Status == 7))
+                        viewNotes.PatientCancleNotes = _context.Requeststatuslogs.Where(x => x.Requestid == reqId && x.Status == 7).Select(x => x.Notes).First();//status 7 is for Request Status Cancelled By Patient 
                 }
 
             }
@@ -1404,48 +1406,97 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
-        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag)
+        public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId)
         {
-            var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+            if(statusId != 2)
+            {
+                var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
 
-            var user = _context.Aspnetusers.Where(r => r.Email == phy.Email).First();
+                var user = _context.Aspnetusers.Where(r => r.Email == phy.Email).First();
 
-            AdminEditPhysicianProfile _profile = new AdminEditPhysicianProfile()
-            {              
-                //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
-                Firstname = phy.Firstname,
-                Lastname = phy.Lastname,
-                Email = phy.Email,
-                PhoneNumber = phy.Mobile,
-                MedicalLicesnse = phy.Medicallicense,
-                NPInumber = phy.Npinumber,
-                SycnEmail = phy.Syncemailaddress,
-                Address1 = phy.Address1,
-                Address2 = phy.Address2,
-                city = phy.City,
-                zipcode = phy.Zip,
-                altPhone = phy.Altphone,
-                Businessname = phy.Businessname,
-                BusinessWebsite = phy.Businesswebsite,
-                Adminnotes = phy.Adminnotes,
-                statusId = (int)phy.Status,
-                PhyID = phyId,
-                Roleid = phy.Roleid,
-                Regionid = phy.Regionid,
-                PhotoValue = phy.Photo,
-                SignatureValue = phy.Signature,
-                IsContractorAgreement = phy.Isagreementdoc == null ? false : true,
-                IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
-                IsHIPAA = phy.Istrainingdoc == null ? false : true,
-                IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
-                IsLicenseDocument = phy.Islicensedoc == null ? false : true,      
-                flagId = (int)flag,
+                AdminEditPhysicianProfile _profile = new AdminEditPhysicianProfile()
+                {
+                    //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
+                    Firstname = phy.Firstname,
+                    Lastname = phy.Lastname,
+                    Email = phy.Email,
+                    PhoneNumber = phy.Mobile,
+                    MedicalLicesnse = phy.Medicallicense,
+                    NPInumber = phy.Npinumber,
+                    SycnEmail = phy.Syncemailaddress,
+                    Address1 = phy.Address1,
+                    Address2 = phy.Address2,
+                    city = phy.City,
+                    zipcode = phy.Zip,
+                    altPhone = phy.Altphone,
+                    Businessname = phy.Businessname,
+                    BusinessWebsite = phy.Businesswebsite,
+                    Adminnotes = phy.Adminnotes,
+                    statusId = (int)phy.Status,
+                    PhyID = phyId,
+                    Roleid = phy.Roleid,
+                    Regionid = phy.Regionid,
+                    PhotoValue = phy.Photo,
+                    SignatureValue = phy.Signature,
+                    IsContractorAgreement = phy.Isagreementdoc == null ? false : true,
+                    IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
+                    IsHIPAA = phy.Istrainingdoc == null ? false : true,
+                    IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
+                    IsLicenseDocument = phy.Islicensedoc == null ? false : true,
+                    flagId = (int)flag,
 
-                username = user.Username,
-                password = user.Passwordhash,
-            };
+                    username = user.Username,
+                    password = user.Passwordhash,
+                };
 
-            return _profile;
+                return _profile;
+            }
+            else
+            {
+                var phy = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+                var user = _context.Aspnetusers.Where(r => r.Email == phy.Email).First();
+
+                AdminEditPhysicianProfile _profile = new AdminEditPhysicianProfile()
+                {
+                    //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
+                    Firstname = phy.Firstname,
+                    Lastname = phy.Lastname,
+                    Email = phy.Email,
+                    PhoneNumber = phy.Mobile,
+                    MedicalLicesnse = phy.Medicallicense,
+                    NPInumber = phy.Npinumber,
+                    SycnEmail = phy.Syncemailaddress,
+                    Address1 = phy.Address1,
+                    Address2 = phy.Address2,
+                    city = phy.City,
+                    zipcode = phy.Zip,
+                    altPhone = phy.Altphone,
+                    Businessname = phy.Businessname,
+                    BusinessWebsite = phy.Businesswebsite,
+                    Adminnotes = phy.Adminnotes,
+                    statusId = (int)phy.Status,
+                    PhyID = phy.Physicianid,
+                    Roleid = phy.Roleid,
+                    Regionid = phy.Regionid,
+                    PhotoValue = phy.Photo,
+                    SignatureValue = phy.Signature,
+                    IsContractorAgreement = phy.Isagreementdoc == null ? false : true,
+                    IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
+                    IsHIPAA = phy.Istrainingdoc == null ? false : true,
+                    IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
+                    IsLicenseDocument = phy.Islicensedoc == null ? false : true,
+                    flagId = (int)flag,
+
+                    username = user.Username,
+                    password = user.Passwordhash,
+                };
+
+                return _profile;
+            }
+
+
+           
         }
 
         List<DAL_Data_Access_Layer_.DataModels.Region> IAdminDash.RegionTable()
@@ -3187,6 +3238,10 @@ namespace BLL_Business_Logic_Layer_.Services
 
             request.Status = 1;
             request.Isdeleted = null;
+            _context.SaveChanges();
+
+            var requestStatus = _context.Requeststatuslogs.Where(r => r.Requestid == block.Requestid).Select(r => r).First();
+            requestStatus.Status = 1;
             _context.SaveChanges();
         }
 

@@ -44,6 +44,7 @@ builder.Services.AddScoped<IPatientDash, PatientDash>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IAdminDash, AdminDash>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IProviderDash, ProviderDash>();
 
 builder.Services.AddSession();//For Session
 
