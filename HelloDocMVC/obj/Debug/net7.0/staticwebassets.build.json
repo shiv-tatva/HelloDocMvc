@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+8w9CHNrZ8y46BIbTt4IVrC0iE4+5q6b43PSeDvArVY=",
+  "Hash": "vv9ux3TuMqnwta/GhOtsjTEHDwtm2xcfbkXJ+4Vm6nU=",
   "Source": "HelloDocMVC",
   "BasePath": "_content/HelloDocMVC",
   "Mode": "Default",
@@ -663,6 +663,23 @@
       "OriginalItemSpec": "wwwroot\\Documents\\37\\Profile.jpg"
     },
     {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\7774236_3736765.jpg",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Documents/7774236_3736765.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Documents\\7774236_3736765.jpg"
+    },
+    {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\check-icon (1).svg",
       "SourceId": "HelloDocMVC",
       "SourceType": "Discovered",
@@ -746,6 +763,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Documents\\cloud-upload-icon.svg"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-outline.svg",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Documents/cloud-upload-outline.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Documents\\cloud-upload-outline.svg"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\dashboard-active (1).svg",

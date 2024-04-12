@@ -41,7 +41,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _context = context;
         }
 
-        public List<adminDash> adminData(int[] status, int typeId, int regionId)
+        public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName, int dataFlag)
         {
             var requestList = _context.Requests.Where(i => status.Contains(i.Status));
 
@@ -62,6 +62,7 @@ namespace BLL_Business_Logic_Layer_.Services
                             city = rc.City,
                             state = rc.State,
                             street = rc.Street,
+                            phy_id = r.Physicianid,
                             zipcode = rc.Zipcode,
                             address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
                             request_type_id = r.Requesttypeid,
@@ -85,6 +86,28 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 query = query.Where(x => x.region_id == regionId).Select(r => r).ToList();
             }
+
+            if(dataFlag == 11)
+            {
+                var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
+                query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && x.status == 1).Select(r => r).ToList();
+            }
+            if(dataFlag == 12)
+            {
+                var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
+                query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && x.status == 2).Select(r => r).ToList();
+            }
+            if(dataFlag == 13)
+            {
+                var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
+                query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && (x.status == 4 || x.status == 5)).Select(r => r).ToList();
+            }
+            if(dataFlag == 14)
+            {
+                var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
+                query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && x.status == 6).Select(r => r).ToList();
+            }
+
             //if(query.Count() == 0)
             //{
             //    query[0].status = status[0];
@@ -94,28 +117,54 @@ namespace BLL_Business_Logic_Layer_.Services
             return query;
         }
 
-        public countMain countService(string sessionName)
+        public countMain countService(string sessionName,int flagCount)
         {
-            var requestsWithClients = _context.Requests
+            if(flagCount != 10)
+            {
+                var requestsWithClients = _context.Requests
                    .Join(_context.Requestclients,
                        r => r.Requestid,
                        rc => rc.Requestid,
                        (r, rc) => new { Request = r, RequestClient = rc })
                    .ToList();
 
-            countMain statusCount = new countMain
+                countMain statusCount = new countMain
+                {
+                    count1 = requestsWithClients.Count(x => x.Request.Status == 1),
+                    count2 = requestsWithClients.Count(x => x.Request.Status == 2),
+                    count3 = requestsWithClients.Count(x => x.Request.Status == 4 || x.Request.Status == 5),
+                    count4 = requestsWithClients.Count(x => x.Request.Status == 6),
+                    count5 = requestsWithClients.Count(x => x.Request.Status == 3 || x.Request.Status == 7 || x.Request.Status == 8),
+                    count6 = requestsWithClients.Count(x => x.Request.Status == 9)
+                };
+
+                return statusCount;
+            }
+            else
             {
-                count1 = requestsWithClients.Count(x => x.Request.Status == 1),
-                count2 = requestsWithClients.Count(x => x.Request.Status == 2),
-                count3 = requestsWithClients.Count(x => x.Request.Status == 4 || x.Request.Status == 5),
-                count4 = requestsWithClients.Count(x => x.Request.Status == 6),
-                count5 = requestsWithClients.Count(x => x.Request.Status == 3 || x.Request.Status == 7 || x.Request.Status == 8),
-                count6 = requestsWithClients.Count(x => x.Request.Status == 9)
-            };
+                var phyDetail = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
 
-       
+                var requestsWithClients = _context.Requests
+                   .Join(_context.Requestclients,
+                       r => r.Requestid,
+                       rc => rc.Requestid,
+                       (r, rc) => new { Request = r, RequestClient = rc })
+                   .ToList();
 
-            return statusCount;
+                requestsWithClients = requestsWithClients.Where(r => r.Request.Physicianid == phyDetail.Physicianid).ToList();
+
+                countMain statusCount = new countMain
+                {
+                    count1 = requestsWithClients.Count(x => x.Request.Status == 1),
+                    count2 = requestsWithClients.Count(x => x.Request.Status == 2),
+                    count3 = requestsWithClients.Count(x => x.Request.Status == 4 || x.Request.Status == 5),
+                    count4 = requestsWithClients.Count(x => x.Request.Status == 6),
+                    count5 = requestsWithClients.Count(x => x.Request.Status == 3 || x.Request.Status == 7 || x.Request.Status == 8),
+                    count6 = requestsWithClients.Count(x => x.Request.Status == 9)
+                };
+
+                return statusCount;
+            }
         }
 
         public List<string> GetListOfRoleMenu(int roleId)
@@ -160,6 +209,7 @@ namespace BLL_Business_Logic_Layer_.Services
                             zipcode = rc.Zipcode,
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
+                            phy_id = r.Physicianid,
                             phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
                             region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
                             reqid = r.Requestid,
@@ -234,6 +284,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
+        
+        
+        
 
         public CloseCase closeCaseNote(int reqId)
         {
@@ -314,13 +367,16 @@ namespace BLL_Business_Logic_Layer_.Services
                 requeststatuslog.Requestid = assignObj.assignCase.reqid;
                 requeststatuslog.Notes = assignObj.assignCase.description;
                 requeststatuslog.Createddate = DateTime.Now;
-                requeststatuslog.Status = 2;
+                requeststatuslog.Status = 1;
+                requeststatuslog.Adminid = 1;
+                requeststatuslog.Transtophysicianid = assignObj.assignCase.phy_id_main;
+
 
                 _context.Add(requeststatuslog);
                 _context.SaveChanges();
 
                 requestedRowPatient.Physicianid = assignObj.assignCase.phy_id_main;
-                requestedRowPatient.Status = 2;
+                requestedRowPatient.Status = 1;
 
                 _context.SaveChanges();
             

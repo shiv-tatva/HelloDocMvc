@@ -1,13 +1,11 @@
-﻿
-
-function DashboardMain() {
+﻿function DashboardMain() {
     let action = "/Provider" + "/" + "LoadPartialDashboard"
     $.ajax({
         url: action,
         type: 'GET',
         data: { req: 1 },
         success: function (result) {
-            $('#home-tab-pane').html(result);
+            $('#content').html(result);
             $("#providerTabMain").removeClass("customactive");
             $("#accessTabMain").removeClass("customactive");
             $("#recordMainTab").removeClass("customactive");
@@ -18,15 +16,32 @@ function DashboardMain() {
     });
 }
 
+
+function ScheduleMain() {
+    $.ajax({
+        url: "/Provider/GetScheduling",
+        type: 'GET',
+        success: function (result) {
+            $("#content").html(result);
+            document.getElementById("Providers-tab").classList.remove("active");
+            $("#providerTabMain").addClass("customactive");
+            $("#accessTabMain").removeClass("customactive");
+            $("#recordMainTab").removeClass("customactive");
+        },
+        error: function () {
+            alert("Error");
+        },
+    });
+}
+
 function MyProfileMain() {
     let action = "/Provider" + "/" + "myProfile"
     $.ajax({
         url: action,
+        data: { statusId : 2},
         type: 'GET',
-        data: {statusId : 2},
         success: function (result) {
-            console.log(result)
-            $('#Provider-profile-tab-pane').html(result);
+            $('#content').html(result);
             $("#providerTabMain").removeClass("customactive");
             $("#accessTabMain").removeClass("customactive");
             $("#recordMainTab").removeClass("customactive");
@@ -38,37 +53,25 @@ function MyProfileMain() {
     });
 }
 
-function ScheduleMain() {
-    $.ajax({
-        url: "/Provider/GetScheduling",
-        type: 'GET',
-        success: function (result) {
-            $("#ProSchedule-tab-pane").html(result);
-            document.getElementById("Providers-tab").classList.remove("active");
-            $("#providerTabMain").addClass("customactive");
-            $("#accessTabMain").removeClass("customactive");
-            $("#recordMainTab").removeClass("customactive");
-        },
-        error: function () {
-            alert("Error");
-        },
-    });
-}
-function newTabTwo() {
+function newTabThree() {
+    document.getElementById("triangle1").style.display = "block"
+    document.getElementById("triangle2").style.display = "none"
+    document.getElementById("triangle3").style.display = "none"
+    document.getElementById("triangle4").style.display = "none"
+    document.getElementById("Pending-tab").classList.remove("active")
+    document.getElementById("Active-tab").classList.remove("active")
+    document.getElementById("Conclude-tab").classList.remove("active")
+
     var action = "/Provider" + "/" + "newTabTwo"
     $.ajax({
         url: action,
         type: 'GET',
         traditional: true,
         contentType: "application/json",
-        data: { arr: [1] },
+        data: { arr: [1], dataFlag : 11},
         success: function (result) {
-            event.preventDefault();
-            $('#myTabContent2').html(result);
-            $("#new-tab").addClass("show active")
-            $("#Pending-tab").removeClass("show active")
-            $("#Active-tab").removeClass("show active")
-            $("#Conclude-tab").removeClass("show active")
+            $('#myTabContent1').html(result);
+            $("#New-tab-pane").addClass("show active")
         },
         error: function () {
             alert('Error aa loading partial view');
@@ -77,21 +80,27 @@ function newTabTwo() {
 }
 
 
-function pendingTabTwo() {
+
+function pendingTabThree() {
+
+    document.getElementById("triangle1").style.display = "none"
+    document.getElementById("triangle2").style.display = "block"
+    document.getElementById("triangle3").style.display = "none"
+    document.getElementById("triangle4").style.display = "none"
+    document.getElementById("new-tab").classList.remove("active")
+    document.getElementById("Active-tab").classList.remove("active")
+    document.getElementById("Conclude-tab").classList.remove("active")
+
     var action = "/Provider" + "/" + "pendingTabTwo"
     $.ajax({
         url: action,
         type: 'GET',
         traditional: true,
         contentType: "application/json",
-        data: { arr: [2] },
+        data: { arr: [2], dataFlag : 12 },
         success: function (result) {
-            event.preventDefault();
-            $('#myTabContent2').html(result);
-            $("#Pending-tab").addClass("show active")
-            $("#new-tab").removeClass("show active")
-            $("#Active-tab").removeClass("show active")
-            $("#Conclude-tab").removeClass("show active")
+            $('#myTabContent1').html(result);
+            $("#Pending-tab-pane").addClass("show active")
         },
         error: function () {
             alert('Error aa loading partial view');
@@ -100,21 +109,26 @@ function pendingTabTwo() {
 }
 
 
-function activeTabTwo() {
+function activeTabThree() {
+
+    document.getElementById("triangle1").style.display = "none"
+    document.getElementById("triangle2").style.display = "none"
+    document.getElementById("triangle3").style.display = "block"
+    document.getElementById("triangle4").style.display = "none"
+    document.getElementById("Pending-tab").classList.remove("active")
+    document.getElementById("new-tab").classList.remove("active")
+    document.getElementById("Conclude-tab").classList.remove("active")
+
     var action = "/Provider" + "/" + "activeTabTwo"
     $.ajax({
         url: action,
         type: 'GET',
         traditional: true,
         contentType: "application/json",
-        data: { arr: [4, 5] },
+        data: { arr: [4, 5], dataFlag : 13 },
         success: function (result) {
-            event.preventDefault();
-            $('#myTabContent2').html(result);
-            $("#Active-tab").addClass("show active")
-            $("#Pending-tab").removeClass("show active")
-            $("#new-tab").removeClass("show active")
-            $("#Conclude-tab").removeClass("show active")
+            $('#myTabContent1').html(result);
+            $("#Active-tab-pane").addClass("show active")
         },
         error: function () {
             alert('Error aa loading partial view');
@@ -123,20 +137,26 @@ function activeTabTwo() {
 }
 
 
-function concludeTabTwo() {
+function concludeTabThree() {
+
+    document.getElementById("triangle1").style.display = "none"
+    document.getElementById("triangle2").style.display = "none"
+    document.getElementById("triangle3").style.display = "none"
+    document.getElementById("triangle4").style.display = "block"
+    document.getElementById("Pending-tab").classList.remove("active")
+    document.getElementById("Active-tab").classList.remove("active")
+    document.getElementById("new-tab").classList.remove("active")
+
     var action = "/Provider" + "/" + "concludeTabTwo"
     $.ajax({
         url: action,
         type: 'GET',
         traditional: true,
         contentType: "application/json",
-        data: { arr: [6] },
+        data: { arr: [6], dataFlag : 14},
         success: function (result) {
-            $('#myTabContent2').html(result);
-            $("#Conclude-tab").addClass("show active");
-            $("#Active-tab").removeClass("show active")
-            $("#Pending-tab").removeClass("show active")
-            $("#new-tab").removeClass("show active")
+            $('#myTabContent1').html(result);
+            $("#Conclude-tab-pane").addClass("show active");
         },
         error: function () {
             alert('Error aa loading partial view');
@@ -145,99 +165,34 @@ function concludeTabTwo() {
 }
 
 
-//$("#new-tab").on('click', function (event) {
-//    if (document.getElementById("new-tab").classList.contains("active")) {
-//        document.getElementById("triangle1").style.display = "block"
-//        document.getElementById("triangle2").style.display = "none"
-//        document.getElementById("triangle3").style.display = "none"
-//        document.getElementById("triangle4").style.display = "none"
-//        document.getElementById("Pending-tab").classList.remove("active")
-//        document.getElementById("Active-tab").classList.remove("active")
-//        document.getElementById("Conclude-tab").classList.remove("active")
-//    }
-//})
-
-//$("#Pending-tab").on('click', function (event) {
-//    if (document.getElementById("Pending-tab").classList.contains("active")) {
-//        document.getElementById("triangle2").style.display = "block"
-//        document.getElementById("triangle1").style.display = "none"
-//        document.getElementById("triangle3").style.display = "none"
-//        document.getElementById("triangle4").style.display = "none"
-//        document.getElementById("new-tab").classList.remove("active")
-//        document.getElementById("Active-tab").classList.remove("active")
-//        document.getElementById("Conclude-tab").classList.remove("active")
-//    }
-//})
-
-//$("#Active-tab").on('click', function (event) {
-
-//    if (document.getElementById("Active-tab").classList.contains("active")) {
-//        document.getElementById("triangle3").style.display = "block"
-//        document.getElementById("triangle2").style.display = "none"
-//        document.getElementById("triangle1").style.display = "none"
-//        document.getElementById("triangle4").style.display = "none"
-//        document.getElementById("Pending-tab").classList.remove("active")
-//        document.getElementById("new-tab").classList.remove("active")
-//        document.getElementById("Conclude-tab").classList.remove("active")
-//    }
-//})
-
-//$("#Conclude-tab").on('click', function (event) {
-//    if (document.getElementById("Conclude-tab").classList.contains("active")) {
-//        document.getElementById("triangle4").style.display = "block"
-//        document.getElementById("triangle2").style.display = "none"
-//        document.getElementById("triangle3").style.display = "none"
-//        document.getElementById("triangle1").style.display = "none"
-//        document.getElementById("Pending-tab").classList.remove("active")
-//        document.getElementById("Active-tab").classList.remove("active")
-//        document.getElementById("new-tab").classList.remove("active")
-//    }
-//})
-
-//document.getElementById("Pending-tab").addEventListener('click', function () {
-//    if (document.getElementById("Pending-tab").classList.contains("active")) {
-//        document.getElementById("triangle2").style.display = "block"
-//        document.getElementById("triangle1").style.display = "none"
-//        document.getElementById("triangle3").style.display = "none"
-//        document.getElementById("triangle4").style.display = "none"
-//        document.getElementById("new-tab").classList.remove("active")
-//        document.getElementById("Active-tab").classList.remove("active")
-//        document.getElementById("Conclude-tab").classList.remove("active")
-//    }
-//})
-
-//document.getElementById("new-tab").addEventListener('click', function () {
-//    if (document.getElementById("new-tab").classList.contains("active")) {
-//        document.getElementById("triangle1").style.display = "block"
-//        document.getElementById("triangle2").style.display = "none"
-//        document.getElementById("triangle3").style.display = "none"
-//        document.getElementById("triangle4").style.display = "none"
-//        document.getElementById("Pending-tab").classList.remove("active")
-//        document.getElementById("Active-tab").classList.remove("active")
-//        document.getElementById("Conclude-tab").classList.remove("active")
-//    }
-//})
-//document.getElementById("Active-tab").addEventListener('click', function () {
-//    if (document.getElementById("Active-tab").classList.contains("active")) {
-//        document.getElementById("triangle3").style.display = "block"
-//        document.getElementById("triangle2").style.display = "none"
-//        document.getElementById("triangle1").style.display = "none"
-//        document.getElementById("triangle4").style.display = "none"
-//        document.getElementById("Pending-tab").classList.remove("active")
-//        document.getElementById("new-tab").classList.remove("active")
-//        document.getElementById("Conclude-tab").classList.remove("active")
-//    }
-//})
-//document.getElementById("Conclude-tab").addEventListener('click', function () {
-//    if (document.getElementById("Conclude-tab").classList.contains("active")) {
-//        document.getElementById("triangle4").style.display = "block"
-//        document.getElementById("triangle2").style.display = "none"
-//        document.getElementById("triangle3").style.display = "none"
-//        document.getElementById("triangle1").style.display = "none"
-//        document.getElementById("Pending-tab").classList.remove("active")
-//        document.getElementById("Active-tab").classList.remove("active")
-//        document.getElementById("new-tab").classList.remove("active")
-//    }
-//})
+function newViewNote(reqid) {
+    console.log(reqid)
+    $.ajax({
+        url: "/Provider/newViewNote",
+        data: { data: reqid },
+        type: 'GET',
+        success: function (result) {
+            $("#content").html(result);
+        },
+        error: function () {
+            alert('Error loading partial view');
+        }
+    });
+}
 
 
+
+function newViewCase(reqid) {
+    console.log(reqid)
+    $.ajax({
+        url: "/Provider/newViewCase",
+        data: { data: reqid },
+        type: 'GET',
+        success: function (result) {
+            $("#content").html(result);
+        },
+        error: function () {
+            alert('Error loading partial view');
+        }
+    });
+}

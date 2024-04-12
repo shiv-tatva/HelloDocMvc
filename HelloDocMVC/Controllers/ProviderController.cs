@@ -48,51 +48,130 @@ namespace HelloDocMVC.Controllers
             int[] status = { 1 };
             adminDashData adminDashObj = new adminDashData();
             var sessionName = HttpContext.Session.GetString("UserSession");
-            adminDashObj._countMain = _IAdminDash.countService(sessionName);
+            adminDashObj._countMain = _IAdminDash.countService(sessionName,10);
 
             return PartialView("Provider/_ProviderDashboard", adminDashObj);
         }
 
-        public IActionResult newTabTwo(int[] arr)
+        public IActionResult newTabTwo(int[] arr, int dataFlag)
         {
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
             return PartialView("Provider/_ProviderNewTab", adminDashObj);
         }
 
-        public IActionResult pendingTabTwo(int[] arr)
+
+        [HttpPost]
+        public IActionResult ProivderAccept(int reqId)
+        {
+            _IProviderDash.ProivderAccept(reqId);
+            return Ok();
+        }
+
+        public IActionResult newViewCase(int data, int flag)
+        {
+
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj.data = _IAdminDash.adminDataViewCase(data, flag);
+            return PartialView("Provider/_ProviderViewCase", adminDashObj);
+        }
+
+
+        public IActionResult newViewNote(int data)
+        {
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj._viewNote = _IAdminDash.adminDataViewNote(data);
+            return PartialView("Provider/_ProviderViewNote", adminDashObj);
+        }
+
+        [HttpPost]
+        public IActionResult newViewNote(adminDashData obj)
+        {
+            _IProviderDash.physicianDataViewNote(obj);
+            return Json(new { data = obj._viewNote.reqid });
+        }
+
+        public IActionResult pendingViewUploadMain(int data, int flag)
+        {
+            adminDashData adminDashObj = new adminDashData();
+            adminDashObj._viewUpload = _IAdminDash.viewUploadMain(data, flag);
+            return PartialView("Provider/_ProviderViewUpload", adminDashObj);
+        }
+
+
+        [HttpPost]
+        public IActionResult pendingViewUploadMain(adminDashData obj)
+        {
+            adminDashData adminDashObj = new adminDashData();
+            _IAdminDash.viewUploadMain(obj);
+            return Json(new { data = obj._viewUpload[0].reqid });
+        }
+
+        public IActionResult DownloadFile(string data)
+        {
+            string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(pathname);//filepath will relative as per the filename
+            string fileName = data;
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, data);
+
+        }
+
+        public IActionResult sendMail(string email, string id, string[] data)
+        {
+
+            //string emailMain = "20it029.shiv.santoki@vvpedulink.ac.in";
+            //string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data);
+            _IAdminDash.sendMail(email, data);
+            return RedirectToAction("pendingViewUploadMain", "Provider", new { data = id });
+
+        }
+
+        [HttpPost]
+        public IActionResult DeleteFile(bool data, int id, int reqFileId)
+        {
+            _IAdminDash.DeleteFile(data, reqFileId);
+            return RedirectToAction("pendingViewUploadMain", "Provider", new { data = id });
+
+        }
+
+
+        public IActionResult pendingTabTwo(int[] arr, int dataFlag)
         {
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
             return PartialView("Provider/_ProviderTabPending", adminDashObj);
         }
 
-        public IActionResult activeTabTwo(int[] arr)
+        public IActionResult activeTabTwo(int[] arr, int dataFlag)
         {
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
             return PartialView("Provider/_ProviderTabActive", adminDashObj);
         }
 
-        public IActionResult concludeTabTwo(int[] arr)
+        public IActionResult concludeTabTwo(int[] arr, int dataFlag)
         {
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 

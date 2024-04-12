@@ -1,0 +1,303 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+
+
+
+@{
+    ViewData["Title"] = "View Uploads";
+}
+@*
+<link href="~/css/Admin/ViewCase.css" rel="stylesheet" type="text/css" />
+ *@
+@* @await Html.PartialAsync("_Admin_Header")
+ *@
+@*
+<link href="~/css/PatientDashboard.css" rel="stylesheet" type="text/css" /> *@
+<!-- main-container -->
+<!-- main-container -->
+<div class="container p-sm-2 p-md-5">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+             tabindex="0">
+            <div class=" mt-2 d-flex justify-content-between align-items-center">
+                <h4>Document</h4>
+
+                <button onclick="DashboardMain()"
+                            class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+                        <i class="fa-solid fa-angle-left"></i> Back
+                    </button>
+                
+            </div>
+
+            <div class="container-fluid shadow border rounded mt-3 px-4 mb-5 pb-5">
+                <div class="text-secondary pt-3 my-2 dark-mode2">Patient Name</div>
+                <span class="text-info fs-2 my-2">@Model._viewUpload[0].fname @Model._viewUpload[0].lname</span> <span class="my-2 fs-5 text-secondary dark-mode2">
+                    (@Model._viewUpload[0].cnf_number)
+                </span>
+                <div class="my-2 text-secondary dark-mode2">
+                    Check here to review and add files that you or the Client/Member has attached to the request.
+                </div>
+                <form method="post" enctype="multipart/form-data" id="ProviderUploadForm">
+                    <input id="reqId" type="hidden" asp-for="@Model._viewUpload[0].reqid" value="@Model._viewUpload[0].reqid" />
+                    <div class="input-group mb-3  rounded my-4">
+                        <input asp-for="@Model._viewUpload[0].Upload" type="file" class="form-control  py-3" id="inputGroupFile">
+                        <button type="button" onclick="ProviderUploadBtn()" class="input-group-text fw-bold bg-info upload">
+                            <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
+                            <span class="text-white">Upload</span>
+                        </button>
+                    </div>
+                    <span asp-validation-for="@Model._viewUpload[0].Upload" class="text-danger"></span>
+                </form>
+                <div class="d-flex justify-content-end">
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button onclick="downloadSelectedFiles()" type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                            <span class="d-none d-sm-inline-block">Download All</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button onclick="deleteAll()" type="button"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info deleteAll">
+                            <span class="d-none d-sm-inline-block">Delete All</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+                    <div class="text-end pt-3 pe-0 mb-4 ms-3">
+                        <button type="button" onclick="sendMailTwo()"
+                                class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
+                            <span class="d-none d-sm-inline-block">Send Mail</span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="container-fluid table-responsive">
+
+                    <table class="table ">
+                        <thead class="bg-body-tertiary ">
+                        <thead>
+                            <tr class="dark-mode2">
+                                <th>
+                                    <input type="checkbox" class="checkbox-main checkbox " name="selectall"
+                                           onchange="tickAll()" />
+                                </th>
+                                <th>Upload Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                                @foreach (var obj in Model._viewUpload)
+                                {
+                                    for (int i = 0; i < obj.documentsname.Count(); i++)
+                                    {
+                                    <tr class="align-middle dark-mode2">
+                                        <td class="first-col">
+                                            <input id="reqWiseFileId" type="hidden" value="@obj.requestWiseFileId[i]" />
+                                            <input id="data" type="hidden" value="true" />
+                                            <input id="data" asp-for="@obj.email" type="hidden" value="@obj.email" />
+                                            <input id="inputMain" value="@obj.documentsname[i]" data-mailMain="@obj.email" data-reqid="@obj.reqid" data-reqwisefileid="@obj.requestWiseFileId[i]" type="checkbox" name="Mark" class="checkbox fileCheckbox" /><span class="document-combo ms-5">
+                                                <i class="fa-solid fa-file fa-sm" style="color: #005ca3;"></i>
+                                                <span class="document-name mx-2">@obj.documentsname[i]</span>
+                                            </span>
+                                        </td>
+                                        <td>@obj.created_date[i]</td>
+
+                                        <td>
+                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='@Url.Action("DownloadFile","Provider",new {data = @obj.documentsname[i]})'"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                                            <button class="btn btn-outline-info delete-btn" onclick="ProviderDeleteBtn(@obj.reqid)"> <i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+
+                                    </tr>
+                                    }
+
+                                }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+    }
+
+
+<script>
+
+    function ProviderUploadBtn(){
+
+        $.ajax({
+            url: '/Provider/pendingViewUploadMain',
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: new FormData($('#ProviderUploadForm')[0]),
+            success: function (response) {
+                pendingViewUploads(response.data);
+                toastr.success("Data Uploaded Successfully");
+            },
+            error: function (error) {
+                toastr.error("Error");
+            }
+        });
+
+    }
+
+
+    function ProviderDeleteBtn(id) {
+        alert("clicked");
+         console.log(id)
+        console.log($("#reqWiseFileId"))
+        // $.ajax({
+        //     url: '/Provider/DeleteFile',
+        //     type: 'POST',
+        //     data: {id: id, reqFileId: reqFileId },
+        //     success: function (response) {
+        //         pendingViewUploads(response.data);
+        //         toastr.success("Data Uploaded Successfully");
+        //     },
+        //     error: function (error) {
+        //         toastr.error("Error");
+        //     }
+        // });
+    }
+
+
+    function sendMailTwo() {
+
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        let filenames = []
+
+        let count = 0;
+
+        checkboxes.forEach((checkbox) => {
+
+            if (count != 0) {
+                console.log("value", checkbox.value)
+                filenames.push(checkbox.value)
+            }
+            count++;
+        })
+
+
+        if (checkboxes.length === 0) {
+            toastr.error("Please select at least one file to send")
+            return;
+        } else {
+            const reqIdMain = document.getElementById("inputMain").getAttribute("data-reqid")
+            const mailMain = document.getElementById("inputMain").getAttribute("data-mailMain")
+
+            $.ajax({
+                url: "/Provider/sendMail",
+                type: 'GET',
+                traditional: true,
+                contentType: 'application/json',
+                data: { email: mailMain, data: filenames, id: reqIdMain },
+
+                success: function () {
+                    alert("sucess")
+                },
+                error: function () {
+                    alert('Error');
+                }
+            });
+            toastr.success("Mail Sent successfully");
+        }
+
+    }
+
+    function downloadSelectedFiles() {
+        // Get all checkboxes
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+
+        if (checkboxes.length === 0) {
+            toastr.error("Please select at least one file to Download");
+            return;
+        }
+
+
+        let count = 0;
+
+        // Create an anchor element for each selected file
+        checkboxes.forEach((checkbox) => {
+            if (count != 0) {
+                const fileName = checkbox.value;
+                const downloadLink = document.createElement('a');
+                downloadLink.href = '/Provider/DownloadFile?data=' + encodeURIComponent(fileName);
+                downloadLink.download = fileName;
+                downloadLink.style.display = 'none';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            }
+            count++;
+        });
+        toastr.success("Download successfully");
+    }
+
+
+    function deleteAll() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+
+        if (checkboxes.length === 0) {
+            toastr.error("Please select at least one file to Delete");
+            return;
+        }
+
+        let count = 0;
+
+
+        checkboxes.forEach((checkbox) => {
+            if (count != 0) {
+                const reqIdMain = checkbox.getAttribute("data-reqid")
+                const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
+                const dataMain = true;
+
+                console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
+                const deleteLink = document.createElement('a');
+                deleteLink.href = '/Provider/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
+                deleteLink.style.display = 'none';
+                document.body.appendChild(deleteLink);
+                deleteLink.click();
+                document.body.removeChild(deleteLink);
+            }
+            count++;
+        });
+        toastr.success("Delete successfully");
+
+    }
+
+
+
+    const tickAll = () => {
+        const checkboxes = document.getElementsByClassName("checkbox")
+        if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
+            for (let i = 0; i < checkboxes.length; ++i) {
+                checkboxes[i].checked = true;
+            }
+        }
+        else {
+            for (let i = 0; i < checkboxes.length; ++i) {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+
+    
+
+</script>
+
+<script src="~/js/PatientDashboard.js"></script>
+<script src="~/js/view_document.js"></script>

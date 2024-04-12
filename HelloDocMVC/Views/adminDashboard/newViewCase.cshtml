@@ -201,7 +201,7 @@
 
                     </div>
                     <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
-                        @if(item.status == 1)
+                        @if (item.phy_id == null && item.status == 1)
                         {
                             <button type="button" class="btn text-white btn-info" onclick="assignCase(@item.reqid)">Assign</button>
                         }
@@ -209,7 +209,7 @@
 
                         <button type="button" class="btn text-white btn-info" onclick="viewCaseViewNote(@item.reqid)">View Notes</button>
 
-                        @if(item.status == 1)
+                        @if (item.phy_id == null && item.status == 1)
                         {
                             <button type="button" class="btn text-white btn-danger" onclick="viewCaseCancel(@item.reqid)">Cancel</button>
                         }

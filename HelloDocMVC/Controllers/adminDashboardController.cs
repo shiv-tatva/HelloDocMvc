@@ -48,7 +48,7 @@ namespace HelloDocMVC.Controllers
             int[] status = { 1 };
             adminDashData adminDashObj = new adminDashData();
             var sessionName = HttpContext.Session.GetString("UserSession");
-            adminDashObj._countMain = _IAdminDash.countService(sessionName);
+            adminDashObj._countMain = _IAdminDash.countService(sessionName,0);
 
             return PartialView("_adminDash", adminDashObj);
         }
@@ -59,7 +59,7 @@ namespace HelloDocMVC.Controllers
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
             return PartialView("_adminDashNew", adminDashObj);
@@ -70,7 +70,7 @@ namespace HelloDocMVC.Controllers
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId,regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId,regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
@@ -82,7 +82,7 @@ namespace HelloDocMVC.Controllers
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
@@ -94,7 +94,7 @@ namespace HelloDocMVC.Controllers
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
@@ -106,7 +106,7 @@ namespace HelloDocMVC.Controllers
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
@@ -119,7 +119,7 @@ namespace HelloDocMVC.Controllers
             int typeId = 0;
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
@@ -130,7 +130,8 @@ namespace HelloDocMVC.Controllers
         {
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId, null,0);
+            adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashNew", adminDashObj);
         }
 
@@ -138,14 +139,16 @@ namespace HelloDocMVC.Controllers
         {
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId, null,0);
+            adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashPending", adminDashObj);
         }
         public IActionResult tableRecords3(int[] arr,int typeId)
         {
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId, null,0);
+            adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashActive", adminDashObj);
         }
 
@@ -153,7 +156,8 @@ namespace HelloDocMVC.Controllers
         {
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId, null,0);
+            adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashConclude", adminDashObj);
         }
 
@@ -161,7 +165,8 @@ namespace HelloDocMVC.Controllers
         {
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId, null,0);
+            adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashToClose", adminDashObj);
         }
 
@@ -169,7 +174,8 @@ namespace HelloDocMVC.Controllers
         {
             int regionId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr,typeId, regionId, null,0);
+            adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashUnpaid", adminDashObj);
         }
 
@@ -531,7 +537,7 @@ namespace HelloDocMVC.Controllers
             int regionId = 0;
             int typeId = 0;
             int[] status = { 1 ,2,3,4,5,6,7,8,9};
-            var exportAll = _IAdminDash.GenerateExcelFile(_IAdminDash.adminData(status, typeId, regionId));
+            var exportAll = _IAdminDash.GenerateExcelFile(_IAdminDash.adminData(status, typeId, regionId, null,0));
             return File(exportAll, "application/vnd.ms-excel", "ExportAll.xls");
         }
 
@@ -539,7 +545,7 @@ namespace HelloDocMVC.Controllers
         {
             int typeId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashNew", adminDashObj);
         }
@@ -547,7 +553,7 @@ namespace HelloDocMVC.Controllers
         {
             int typeId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashPending", adminDashObj);
         }
@@ -555,7 +561,7 @@ namespace HelloDocMVC.Controllers
         {
             int typeId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashActive", adminDashObj);
         }
@@ -563,7 +569,7 @@ namespace HelloDocMVC.Controllers
         {
             int typeId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashConclude", adminDashObj);
         }
@@ -571,7 +577,7 @@ namespace HelloDocMVC.Controllers
         {
             int typeId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashToClose", adminDashObj);
         }
@@ -579,7 +585,7 @@ namespace HelloDocMVC.Controllers
         {
             int typeId = 0;
             adminDashData adminDashObj = new adminDashData();
-            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId);
+            adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null,0);
             adminDashObj._RegionTable = _IAdminDash.RegionTable();
             return PartialView("_adminDashUnpaid", adminDashObj);
         }

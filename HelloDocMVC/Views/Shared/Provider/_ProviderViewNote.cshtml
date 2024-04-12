@@ -1,0 +1,244 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+@{
+    ViewData["Title"] = "View Notes";
+}
+<style>
+    .foot {
+        position: absolute;
+    }
+
+</style>
+
+
+
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mx-3 mt-5">
+        <h4>Notes</h4>
+
+        <a onclick="DashboardMain()"
+           class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+            <i class="fa-solid fa-angle-left"></i> Back
+        </a>
+    </div>
+
+
+
+    <form method="post" id="ProviderViewNote">
+        <input value="@Model._viewNote.reqid" asp-for="@Model._viewNote.reqid" type="hidden" />
+        <div class="m-3">
+            <div class="row mt-1">
+                <div class="form-floating mb-3 col-12 col-sm-6 ">
+                    <div class=" border shadow rounded d-flex">
+                        <div class="m-3">
+                            <i class="bi bi-arrow-left-right fs-5"></i>
+                        </div>
+                        <div class="mt-2">
+                            <div class="dropdown">
+                                <div class="btn  dropdown-toggle w-100 text-start notes dark-mode2 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Transfer Notes
+                                </div>
+                                @if (Model._viewNote.requeststatuslogs != null && Model._viewNote.requeststatuslogs.Count() > 0)
+                                {
+                                    <ul class="dropdown-menu w-100" style="width: 368px !important;">
+                                        @foreach (var item in Model._viewNote.requeststatuslogs)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" style="display: inline-block;width: 368px;white-space: nowrap;overflow: hidden !important;text-overflow: ellipsis;">@item.Notes on @item.Createddate</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 col-12 col-sm-6 ">
+                    <div class=" border shadow rounded d-flex">
+                        <div class="m-3">
+                            <i class="fa-solid fa-user-doctor fs-5"></i>
+                        </div>
+                        <div class="mt-2">
+                            <h6> Physician Notes</h6>
+                            @{
+                                if (@Model._viewNote.PhysicianNotes != null)
+                                {
+                                    <small class="text-secondary">
+                                        @Model._viewNote.PhysicianNotes
+                                    </small>
+                                }
+                                else
+                                {
+                                    <small class="text-secondary">
+                                        -
+                                    </small>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="form-floating mb-3 col-12 col-sm-6 ">
+                    <div class="border shadow rounded d-flex">
+
+                        <div class="m-3">
+                            <i class="bi bi-person fs-5"></i>
+
+                        </div>
+                        <div class="mt-2">
+                            <h6> Admin notes</h6>
+                            <small class="text-secondary">@Model._viewNote.AdminNotes</small>
+                        </div>
+                    </div>
+
+                </div>
+
+                @if (Model._viewNote.AdminCancleNotes != null)
+                {
+                    <div class="form-floating mb-3 col-12 col-sm-6 ">
+                        <div class="border shadow rounded d-flex">
+
+                            <div class="m-3">
+                                <i class="bi bi-person fs-5"></i>
+
+                            </div>
+                            <div class="mt-2">
+                                <h6> Admin Cancellation notes</h6>
+                                @{
+                                    if (Model._viewNote.AdminCancleNotes != null)
+                                    {
+                                                        <small class="text-secondary">
+                                                            @Model._viewNote.AdminCancleNotes
+                                                        </small>
+                                    }
+                                    else
+                                    {
+                                                        <small class="text-secondary">
+                                                            -
+                                                        </small>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+                @if (Model._viewNote.PatientCancleNotes != null)
+                {
+                    <div class="form-floating mb-3 col-12 col-sm-6 ">
+                        <div class="border shadow rounded d-flex">
+
+                            <div class="m-3">
+                                <i class="bi bi-person fs-5"></i>
+
+                            </div>
+                            <div class="mt-2">
+                                <h6> Patient Cancellation notes</h6>
+                                @{
+                                    if (Model._viewNote.PatientCancleNotes != null)
+                                    {
+                                                        <small class="text-secondary">
+                                                            @Model._viewNote.PatientCancleNotes
+                                                        </small>
+                                    }
+                                    else
+                                    {
+                                                        <small class="text-secondary">
+                                                            -
+                                                        </small>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+
+
+            <div class="border shadow rounded mt-3">
+                <div class="row m-3 mx-0 mx-sm-1">
+                    <div class=" col-12 form-floating mb-3 ">
+                        <textarea class="form-control h-100 dclass dark-mode2" id="floatingInput" placeholder="Textarea" rows="5" asp-for="@Model._viewNote.PhysicianNotes"></textarea>
+                        <label for="floatingInput" class="text-wrap ms-2">Physician Notes</label>
+                    </div>
+                    <span asp-validation-for="@Model._viewNote.PhysicianNotes" class="text-danger"></span>
+                </div>
+                <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end m-4 pt-4 ">
+
+                    <button type="button" onclick="ProviderViewNoteBtn()" class="btn text-white btn-info">Save Changes</button>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </form>
+
+
+
+</div>
+
+
+@section scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+            }
+
+<script>
+
+    function ProviderViewNoteBtn() {
+        $.ajax({
+            url: "/Provider/newViewNote",
+            type: 'POST',
+            data: $("#ProviderViewNote").serialize(),
+            success: function (result) {
+                newViewNote(result.data);
+                toastr.success("Data Updated Successfully");
+            },
+            error: function () {
+                toastr.success("Error");
+            },
+        });
+    }
+
+
+    function adminMain() {
+        location.reload();
+        let action = "/adminDashboard/adminDashboard"
+        $.ajax({
+            url: action,
+            type: 'GET',
+
+            error: function () {
+                alert('Error aa loading partial view');
+            }
+        });
+    }
+
+    function myProfile() {
+        let action = "/adminDashboard" + "/" + "myProfile"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+
+                $('#content').html(result);
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Error   vv loading partial view');
+            }
+        });
+    }
+</script>

@@ -81,6 +81,10 @@
       "PackagePath": "staticwebassets\\Documents\\37\\Profile.jpg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\7774236_3736765.jpg",
+      "PackagePath": "staticwebassets\\Documents\\7774236_3736765.jpg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig25. Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\Documents\\Fig25. Contact your Provider.jpg"
     },
@@ -103,6 +107,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-icon.svg",
       "PackagePath": "staticwebassets\\Documents\\cloud-upload-icon.svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-outline.svg",
+      "PackagePath": "staticwebassets\\Documents\\cloud-upload-outline.svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\dashboard-active (1).svg",

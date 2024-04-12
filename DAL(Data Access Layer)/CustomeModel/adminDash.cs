@@ -66,8 +66,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<Region> region_table { get; set; }
 
         public int? region_table_id { get; set; }
+        public int? phy_id { get; set; }
 
         public int? flagId {  get; set; }
+
+        public int? assignCaseIndicate {  get; set; }
                       
     }
 

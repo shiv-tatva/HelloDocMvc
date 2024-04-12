@@ -27,26 +27,6 @@
                     create request
                 </span>
             </button>
-            @using (Html.BeginForm("Export", "AdminDashboard", FormMethod.Post))
-            {
-                <input type="hidden" name="GridHtml" />
-                <button type="submit" value="Export" class="btn btn-info patient_five_button  mx-1" onclick="exportBtnNew()">
-                    <i class="bi bi-arrow-up-right me-1"></i><span class="d-none d-sm-inline-block">Export</span>
-                </button>
-
-            }
-            <button class="btn btn-info patient_five_button  mx-1" role="button" onclick="window.location.href='@Url.Action("ExportAll","AdminDashboard")'">
-                <i class="bi bi-box-arrow-up-right"></i>
-                <span>
-                    Export All
-                </span>
-            </button>
-            <button onclick="requestSupport()" class="btn btn-info patient_five_button  mx-1" role="button">
-                <i class="bi bi-person-plus"></i>
-                <span>
-                    Request DTY support
-                </span>
-            </button>
         </span>
     </div>
     <div class="mt-2 mb-2 container-fluid" style="box-shadow: 0px 0px 5px grey;">
@@ -126,13 +106,8 @@
                         <thead id="table-heading">
                             <tr>
                                 <th scope="col" class="dark-mode2 ">Name</th>
-                                <th scope="col" class="dark-mode2 ">Date of Birth</th>
-                                <th scope="col" class="dark-mode2 ">Requestor</th>
-                                <th scope="col" class="dark-mode2 ">Requested date</th>
                                 <th scope="col" class="dark-mode2 ">Phone</th>
                                 <th scope="col" class="dark-mode2 ">Address</th>
-                                <th scope="col" class="dark-mode2 ">Notes</th>
-                                <th scope="col" class="dark-mode2 ">Chat With</th>
                                 <th scope="col" class="dark-mode2 ">Action</th>
                             </tr>
                         </thead>
@@ -171,13 +146,10 @@
 
                                             @item.first_name, @item.last_name
                                             <a href="">
-                                                <i class="bi bi-envelope me-3 text-white rounded-5 border p-1 text-info border-white"></i>
+                                                <i class="bi bi-envelope me-5 text-white rounded-5 border p-1 text-info border-white"></i>
                                             </a>
                                         </div>
                                     </td>
-                                    <td style="background:@bgColor">@item.fulldateofbirth</td>
-                                    <td style="background:@bgColor">@item.requestor_fname , @item.responseor_lname</td>
-                                    <td style="background:@bgColor">@item.created_date</td>
                                     <td style="background:@bgColor">
                                         <div class="table_phone">
                                             <a href="">
@@ -203,36 +175,6 @@
                                     </td>
                                     <td style="background:@bgColor">@item.address</td>
                                     <td style="background:@bgColor">
-                                        @if (item.notes.Count() != 0)
-                                        {
-                                            @if (item.notes.Last().Transtophysicianid != null)
-                                            {
-                                                <span>Admin Transfer To </span>
-                                                @item.notes.Last().Transtophysicianid
-                                                <span> On @item.created_date</span>
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        }
-                                    </td>
-                                    <td style="background:@bgColor; ">
-
-                                        <div style="display:flex;">
-                                            <div class="dropdown">
-                                                <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
-                                                    <span>
-                                                        Provider
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="background:@bgColor">
                                         <div>
                                             <div class="dropdown">
                                                 <button class="btn text-white border border-white py-1 "
@@ -244,33 +186,21 @@
                                                 </button>
                                                 <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
                                                     <li>
-                                                        <button class="dropdown-item" onclick="assignCase(@item.reqid)">
-                                                            <i class="fa-regular fa-building"></i>
-                                                            Assign Case
+                                                        <button class="dropdown-item" onclick="providerAcceptBtn(@item.reqid)">
+                                                            <i class="fa-solid fa-list-check pe-2 fs-6"></i>
+                                                            Accept
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button class="dropdown-item" onclick="newViewCase(@item.reqid)">
-                                                            <i class="fa-brands fa-searchengin"></i>
+                                                            <i class="bi bi-briefcase pe-2 fs-6"></i>
                                                             View Case
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button id="CancleCase" class="dropdown-item" onclick="calcelCase(@item.reqid)">
-                                                            <i class="fa-regular fa-circle-xmark"></i>
-                                                            Cancel Case
-                                                        </button>
-                                                    </li>
-                                                    <li>
                                                         <button class="dropdown-item" onclick="newViewNote(@item.reqid)">
-                                                            <i class="fa-solid fa-book"></i>
-                                                            View Notes
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button class="dropdown-item" onclick="blockCase(@item.reqid)">
-                                                            <i class="fa-solid fa-ban"></i>
-                                                            Block Patient
+                                                            <i class="bi bi-journals pe-2 fs-6"></i>
+                                                            View Note
                                                         </button>
                                                     </li>
                                                 </ul>
@@ -289,19 +219,14 @@
                         <thead id="table-heading">
                             <tr>
                                 <th scope="col" class="dark-mode2 ">Name</th>
-                                <th scope="col" class="dark-mode2 ">Date of Birth</th>
-                                <th scope="col" class="dark-mode2 ">Requestor</th>
-                                <th scope="col" class="dark-mode2 ">Requested date</th>
                                 <th scope="col" class="dark-mode2 ">Phone</th>
                                 <th scope="col" class="dark-mode2 ">Address</th>
-                                <th scope="col" class="dark-mode2 ">Notes</th>
-                                <th scope="col" class="dark-mode2 ">Chat With</th>
                                 <th scope="col" class="dark-mode2 ">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="9" style="text-align:center;">No Request Found</td>
+                            <tr class="dark-mode2">
+                                <td colspan="4" style="text-align:center;">No Request Found</td>
                             </tr>
                         </tbody>
                     </table>
@@ -456,7 +381,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr class="dark-mode2">
                             <td colspan="9" style="text-align:center;">No Request Found</td>
                         </tr>
                     </tbody>
@@ -584,8 +509,8 @@
             },
             "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
             "pageLength": 5,
-            "order": [[3, "desc"]],
-            "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+            // "order": [[3, "desc"]],
+            // "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -681,11 +606,26 @@
 
     //*************************************************************Editing View************************************/
 
+    function providerAcceptBtn(reqId){
+        $.ajax({
+            url: "/Provider/ProivderAccept",
+            type: 'POST',
+            data: { reqId: reqId },
+            success: function (result) {
+                newTabThree();
+                toastr.success("Request Accepted Successfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
 
     function newViewNote(reqid) {
         console.log(reqid)
         $.ajax({
-            url: "/adminDashboard/newViewNote",
+            url: "/Provider/newViewNote",
             data: { data: reqid },
             type: 'GET',
             success: function (result) {
@@ -702,7 +642,7 @@
     function newViewCase(reqid) {
         console.log(reqid)
         $.ajax({
-            url: "/adminDashboard/newViewCase",
+            url: "/Provider/newViewCase",
             data: { data: reqid },
             type: 'GET',
             success: function (result) {
