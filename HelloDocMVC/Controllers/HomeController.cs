@@ -5,6 +5,7 @@ using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using BLL_Business_Logic_Layer_.Interface;
 using DAL_Data_Access_Layer_.CustomeModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelloDocMVC.Controllers
 {
@@ -17,11 +18,15 @@ namespace HelloDocMVC.Controllers
             return View();
         }
 
+
+
+        private readonly IPatientDash _patientDashInfo;
         private readonly ICreateAccount createAccount;
 
-        public HomeController(ICreateAccount createAccount)
+        public HomeController(ICreateAccount createAccount, IPatientDash patientDashInfo)
         {
             this.createAccount = createAccount;
+            _patientDashInfo = patientDashInfo;
         }
 
         public IActionResult CreateAccount(int aspuserId)
@@ -53,6 +58,47 @@ namespace HelloDocMVC.Controllers
             HttpContext.Session.Clear();
             Response.Cookies.Delete("jwt");
             return RedirectToAction("LoginPage", "Login");
+        }
+
+
+        public IActionResult pendingReviewAgreement(int reqId)
+        {
+            ViewBag.Admin = 1;
+            PatientDashboard patientDashboardMain = new PatientDashboard();
+            patientDashboardMain._reviewAgreement = _patientDashInfo.reviewAgree(reqId);
+            return View(patientDashboardMain);
+        }
+
+
+        [HttpPost]
+        public IActionResult pendingReviewAgreement(PatientDashboard obj)
+        {
+            if (obj._reviewAgreement.flag == 1)
+            {
+                if (_patientDashInfo.checkstatus(obj._reviewAgreement.reqid) == false)
+                {
+                    _patientDashInfo.reviewAgree(obj);
+                    TempData["success"] = "Status changed Successfully!";
+                }
+                else
+                {
+                    TempData["error"] = "Status Already changed!";
+                }
+            }
+            else
+            {
+                if (_patientDashInfo.checkstatus(obj._reviewAgreement.reqid) == false)
+                {
+                    _patientDashInfo.agreeMain(obj._reviewAgreement.reqid);
+                    TempData["success"] = "Status changed Successfully!";
+                }
+                else
+                {
+                    TempData["error"] = "Status Already changed!";
+                }
+            }
+            return RedirectToAction("pendingReviewAgreement", new { reqId = obj._reviewAgreement.reqid });
+
         }
 
     }

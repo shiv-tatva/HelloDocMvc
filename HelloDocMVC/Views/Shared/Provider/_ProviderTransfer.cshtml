@@ -1,0 +1,57 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+<div class="modal fade" id="TranferModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <div class="modal-title text-light" id="exampleModalLongTitle">Transfer Request</div>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <form class="p-3" method="post" id="TranferRequestForm" onsubmit="PostTransferRequest()">
+                <input type="text" asp-for="@Model._ProviderTransferTab.reqId" hidden />
+                <div class="text-secondary">
+                    This request will be transferred to admin.
+                </div>
+
+                <div class="mt-4 form-floating text-secondary">
+                    <textarea asp-for="@Model._ProviderTransferTab.Note" class="form-control h-100" id="floatingInputDescription" placeholder="Description" rows="3"></textarea>
+                    <span class="text-danger" asp-validation-for="_ProviderTransferTab.Note"></span>
+                    <label for="floatingInputDescription" class="text-wrap">Description</label>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-info text-white confirm-btn mx-2">Submit</button>
+                    <button type="button" class="btn border-info text-info cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    //provider Transfer request
+    
+    function PostTransferRequest() {
+        event.preventDefault();
+        var formdata = $('#TranferRequestForm').serialize();
+        if ($('#TranferRequestForm').valid()) {
+            $.ajax({
+                method: "POST",
+                url: "/Provider/PostTransferRequest",
+                data: formdata,
+                success: function () {
+                    $('#TranferModal').modal('hide');
+                    toastr.success("Data Updated Successfully");
+                    DashboardMain();
+                },
+                error: function () {
+                    toastr.error("Error");
+                }
+            })
+        }
+    }
+</script>

@@ -56,7 +56,7 @@
                         </button>
                     </div>
                     <div class="text-end pt-3 pe-0 mb-4 ms-3">
-                        <button onclick="deleteAll()" type="button"
+                        <button onclick="deleteAll(@Model._viewUpload[0].reqid)" type="button"
                                 class="btn btn-outline-dark border-info rounded-2 p-2 text-info deleteAll">
                             <span class="d-none d-sm-inline-block">Delete All</span>
                             <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
@@ -106,7 +106,7 @@
 
                                         <td>
                                             <button class="btn btn-outline-info" type="button" onclick="window.location.href='@Url.Action("DownloadFile","Provider",new {data = @obj.documentsname[i]})'"><i class="fa-solid fa-cloud-arrow-down"></i></button>
-                                            <button class="btn btn-outline-info delete-btn" onclick="ProviderDeleteBtn(@obj.reqid)"> <i class="fa-solid fa-trash-can"></i></button>
+                                            <button class="btn btn-outline-info delete-btn" onclick="ProviderDeleteBtn('@obj.reqid','@obj.requestWiseFileId[i]')"> <i class="fa-solid fa-trash-can"></i></button>
                                         </td>
 
                                     </tr>
@@ -153,22 +153,19 @@
     }
 
 
-    function ProviderDeleteBtn(id) {
-        alert("clicked");
-         console.log(id)
-        console.log($("#reqWiseFileId"))
-        // $.ajax({
-        //     url: '/Provider/DeleteFile',
-        //     type: 'POST',
-        //     data: {id: id, reqFileId: reqFileId },
-        //     success: function (response) {
-        //         pendingViewUploads(response.data);
-        //         toastr.success("Data Uploaded Successfully");
-        //     },
-        //     error: function (error) {
-        //         toastr.error("Error");
-        //     }
-        // });
+    function ProviderDeleteBtn(id,ReqWiseId) {
+        $.ajax({
+            url: '/Provider/DeleteFile',
+            type: 'POST',
+            data: { id: id, reqFileId: ReqWiseId },
+            success: function (response) {
+                pendingViewUploads(response.data);
+                toastr.success("Data Deleted Successfully");
+            },
+            error: function (error) {
+                toastr.error("Error");
+            }
+        });
     }
 
 
@@ -216,7 +213,7 @@
 
     }
 
-    function downloadSelectedFiles() {
+    function downloadSelectedFiles(reqId) {
         // Get all checkboxes
         const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 
@@ -243,41 +240,47 @@
             }
             count++;
         });
+        pendingViewUploads(reqId);
         toastr.success("Download successfully");
     }
 
-
-    function deleteAll() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-
-
-        if (checkboxes.length === 0) {
-            toastr.error("Please select at least one file to Delete");
-            return;
-        }
-
-        let count = 0;
-
-
-        checkboxes.forEach((checkbox) => {
-            if (count != 0) {
-                const reqIdMain = checkbox.getAttribute("data-reqid")
-                const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
-                const dataMain = true;
-
-                console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
-                const deleteLink = document.createElement('a');
-                deleteLink.href = '/Provider/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
-                deleteLink.style.display = 'none';
-                document.body.appendChild(deleteLink);
-                deleteLink.click();
-                document.body.removeChild(deleteLink);
-            }
-            count++;
+    $('.deleteAll').click(function () {
+        $('.fileCheckbox:checked').each(function () {
+            var filePath = $(this).closest('tr').find('.delete-btn')[0].click();
         });
-        toastr.success("Delete successfully");
+    });
 
-    }
+    // function deleteAll() {
+    //     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    //     alert("clicked")
+
+    //     if (checkboxes.length === 0) {
+    //         toastr.error("Please select at least one file to Delete");
+    //         return;
+    //     }
+
+    //     let count = 0;
+
+
+    //     checkboxes.forEach((checkbox) => {
+    //         if (count != 0) {
+    //             const reqIdMain = checkbox.getAttribute("data-reqid")
+    //             const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
+    //             const dataMain = true;
+
+    //             console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
+    //             const deleteLink = document.createElement('a');
+    //             deleteLink.href = '/Provider/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
+    //             deleteLink.style.display = 'none';
+    //             document.body.appendChild(deleteLink);
+    //             deleteLink.click();
+    //             document.body.removeChild(deleteLink);
+    //         }
+    //         count++;
+    //     });
+    //     toastr.success("Delete successfully");
+
+    // }
 
 
 

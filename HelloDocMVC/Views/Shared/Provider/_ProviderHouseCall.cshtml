@@ -1,0 +1,47 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+
+<div class="modal fade" id="HousecallModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-5">
+                <form method="post" id="HousecallModalForm">
+                    <input type="hidden" asp-for="@Model._ProviderEncounterPopUp.reqId" value="@Model._ProviderEncounterPopUp.reqId" id="HouseCallConcludeReqId" />
+                    <div class="d-flex justify-content-center ">
+                        <i class="bi bi-info-circle-fill text-success d-flex justify-content-center display-4 mb-3 border border-2 border-success  rounded-circle  p-2"></i>
+                    </div>
+                    <h5 class="d-flex justify-content-center mb-3">Confirmation for Conclude Request</h5>
+                    <p class="text-secondary fw-lighter text-center  mb-3">
+                        Are you sure you want to Conclude this request?
+                    </p>
+
+                    <div class="mt-4 d-flex justify-content-center">
+                        <button type="button" onclick="HouseCallConcludeBtn()" class="btn btn-info continue-btn mx-2">Conclude</button>
+                        <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function HouseCallConcludeBtn() {
+        var reqId = $("#HouseCallConcludeReqId").val();
+
+        $.ajax({
+            url: "/Provider/HouseCallConclude",
+            type: "POST",
+            data: { reqId: reqId },
+            success: function (result) {
+                $('#HousecallModal').modal('hide');
+                toastr.success("House Call Successfully");
+                DashboardMain();
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+</script>

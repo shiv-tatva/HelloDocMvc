@@ -67,8 +67,11 @@ namespace BLL_Business_Logic_Layer_.Services
                             address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
                             request_type_id = r.Requesttypeid,
                             status = r.Status,
+                            call_type = (int)r.Calltype,
                             region_id = rc.Regionid,
-                            notes = r.Requeststatuslogs.Where(x => x.Requestid == r.Requestid && x.Transtophysicianid != null || x.Transtoadmin != null).Select(x => x).ToList(),
+                            //transfer_notes = r.Requeststatuslogs.OrderBy(i => i.Requeststatuslogid).LastOrDefault().Notes,
+                            notes = r.Requeststatuslogs.Where(x => x.Requestid == r.Requestid && (x.Transtophysicianid != null || x.Transtoadmin != null)).Select(x => x).ToList(),
+                            isFinalize = r.EncounterForms.Where(x => x.Requestid == r.Requestid).Select(x => x.IsFinalized).First(),
                             //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
                             //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
                             //region_table = _context.Regions.ToList(),
@@ -693,7 +696,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public void sendAgree(adminDashData dataMain)
         {
-            string registrationLink = "http://localhost:5145/patientDashboard/pendingReviewAgreement?reqId=" + dataMain._sendAgreement.reqid;
+            string registrationLink = "http://localhost:5145/Home/pendingReviewAgreement?reqId=" + dataMain._sendAgreement.reqid;
 
             try
             {
@@ -1043,35 +1046,43 @@ namespace BLL_Business_Logic_Layer_.Services
             }
                 else
                 {
-                    var obj2 = _context.EncounterForms.Where(r => r.Requestid == obj.reqid).Select(r => r).First();
-                    obj2.Requestid = obj.reqid;
-                    obj2.HistoryIllness = obj.HistoryIllness;
-                    obj2.MedicalHistory = obj.MedicalHistory;
-                    obj2.Date = obj.Date;
-                    obj2.Medications = obj.Medications;
-                    obj2.Allergies = obj.Allergies;
-                    obj2.Temp = obj.Temp;
-                    obj2.Hr = obj.Hr;
-                    obj2.Rr = obj.Rr;
-                    obj2.BpS = obj.BpS;
-                    obj2.BpD = obj.BpD;
-                    obj2.O2 = obj.O2;
-                    obj2.Pain = obj.Pain;
-                    obj2.Heent = obj.Heent;
-                    obj2.Cv = obj.Cv;
-                    obj2.Chest = obj.Chest;
-                    obj2.Abd = obj.Abd;
-                    obj2.Extr = obj.Extr;
-                    obj2.Skin = obj.Skin;
-                    obj2.Neuro = obj.Neuro;
-                    obj2.Other = obj.Other;
-                    obj2.Diagnosis = obj.Diagnosis;
-                    obj2.TreatmentPlan = obj.TreatmentPlan;
-                    obj2.MedicationDispensed = obj.MedicationDispensed;
-                    obj2.Procedures = obj.Procedures;
-                    obj2.FollowUp = obj.FollowUp;
+                _obj.indicate = false;
+
+                var obj2 = _context.EncounterForms.Where(r => r.Requestid == obj.reqid).Select(r => r).First();
+
+                    if (obj2.Requestid != obj.reqid || obj2.HistoryIllness != obj.HistoryIllness ||  obj2.MedicalHistory != obj.MedicalHistory || obj2.Date != obj.Date ||  obj2.Medications != obj.Medications ||  obj2.Allergies != obj.Allergies ||  obj2.Temp != obj.Temp || obj2.Hr != obj.Hr || obj2.Rr != obj.Rr ||  obj2.BpS != obj.BpS || obj2.BpD != obj.BpD || obj2.O2 != obj.O2 ||  obj2.Pain != obj.Pain || obj2.Heent != obj.Heent || obj2.Cv != obj.Cv || obj2.Chest != obj.Chest || obj2.Abd != obj.Abd ||  obj2.Extr != obj.Extr || obj2.Skin != obj.Skin ||  obj2.Neuro != obj.Neuro || obj2.Other != obj.Other || obj2.Diagnosis != obj.Diagnosis || obj2.TreatmentPlan != obj.TreatmentPlan || obj2.MedicationDispensed != obj.MedicationDispensed ||  obj2.Procedures != obj.Procedures || obj2.FollowUp != obj.FollowUp)
+                    {
+                        obj2.Requestid = obj.reqid;
+                        obj2.HistoryIllness = obj.HistoryIllness;
+                        obj2.MedicalHistory = obj.MedicalHistory;
+                        obj2.Date = obj.Date;
+                        obj2.Medications = obj.Medications;
+                        obj2.Allergies = obj.Allergies;
+                        obj2.Temp = obj.Temp;
+                        obj2.Hr = obj.Hr;
+                        obj2.Rr = obj.Rr;
+                        obj2.BpS = obj.BpS;
+                        obj2.BpD = obj.BpD;
+                        obj2.O2 = obj.O2;
+                        obj2.Pain = obj.Pain;
+                        obj2.Heent = obj.Heent;
+                        obj2.Cv = obj.Cv;
+                        obj2.Chest = obj.Chest;
+                        obj2.Abd = obj.Abd;
+                        obj2.Extr = obj.Extr;
+                        obj2.Skin = obj.Skin;
+                        obj2.Neuro = obj.Neuro;
+                        obj2.Other = obj.Other;
+                        obj2.Diagnosis = obj.Diagnosis;
+                        obj2.TreatmentPlan = obj.TreatmentPlan;
+                        obj2.MedicationDispensed = obj.MedicationDispensed;
+                        obj2.Procedures = obj.Procedures;
+                        obj2.FollowUp = obj.FollowUp;
 
                     _obj.indicate = true;
+                }
+
+                
             };
 
            

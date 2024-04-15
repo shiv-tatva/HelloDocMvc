@@ -187,7 +187,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu table_dropdowns">
                                                     <li>
-                                                        <button class="dropdown-item" onclick="pendingViewCase(@item.reqid)">
+                                                        <button class="dropdown-item" onclick="sendAgreement(@item.reqid)">
                                                             <i class="bi bi-file-text pe-2 fs-6"></i>
                                                             Send Agreement
                                                         </button>
@@ -211,7 +211,7 @@
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="clearCase(@item.reqid)">
+                                                        <button class="dropdown-item" onclick="ProviderTransferRequest(@item.reqid)">
                                                             <i class="fa-regular fa-note-sticky pe-2 fs-6"></i>
                                                             Transfer
                                                         </button>
@@ -571,7 +571,7 @@
 
 
     function sendAgreement(reqId) {
-        let action = "/adminDashboard" + "/" + "sendAgreement"
+        let action = "/Provider" + "/" + "sendAgreement"
         $.ajax({
             url: action,
             type: 'GET',
@@ -637,6 +637,21 @@
         });
     }
 
+    function ProviderTransferRequest(requestid) {
+        event.preventDefault();
+        $.ajax({
+            method: "GET",
+            url: "/Provider/ProviderTransferRequest",
+            data: { requestid: requestid },
+            success: function (result) {
+                $('#transferNote').html(result);
+                $('#TranferModal').modal('show');
+            },
+            error: function () {
+                toastr.error("Error");
+            }
+        });
+    }
 
     //*************************************************************Editing View************************************/
 

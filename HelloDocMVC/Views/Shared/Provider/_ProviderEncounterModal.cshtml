@@ -1,0 +1,61 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+<div class="modal fade" id="EncounterModalBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <div class="modal-title text-light" id="exampleModalLongTitle">Select Type of care</div>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <form class="p-3" method="post" id="EncounterModalForm" >
+                <input type="text" asp-for="@Model._ProviderEncounterPopUp.reqId" value="@Model._ProviderEncounterPopUp.reqId" hidden />
+
+                <div class="text-center">
+
+                    <input type="radio" class="modal_radio btn-check" id="HouseCall" value="1"
+                           asp-for="@Model._ProviderEncounterPopUp.flag" checked>
+                    <label class=" btn btn-outline-info border-info mx-2" for="HouseCall">HouseCall</label>
+
+                    <input type="radio" class="modal_radio btn-check" id="Consult" value="2"
+                           asp-for="@Model._ProviderEncounterPopUp.flag">
+                    <label class="btn-outline-info border-info btn mx-2" for="Consult">Consult</label>
+                </div>
+                <span asp-validation-for="@Model._ProviderEncounterPopUp.flag" class="text-danger"></span>
+
+                <div class="mt-4 d-flex justify-content-end">
+                    <button type="button" onclick="ProviderEncounterPopUpSaveBtn()" class="btn btn-info text-white confirm-btn mx-2">Save</button>
+                    <button type="button" class="btn border-info text-info cancel-btn"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal_radio:checked + label {
+        color: white !important;
+    }
+</style>
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    function ProviderEncounterPopUpSaveBtn() {
+        $.ajax({
+            url: "/Provider/ProviderEncounterPopUp",
+            data: $("#EncounterModalForm").serialize(),
+            type: 'POST',
+            success: function (result) {
+                $('#EncounterModalBox').modal('hide');
+                activeTabThree();
+                toastr.success("Option Selected Successfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+</script>

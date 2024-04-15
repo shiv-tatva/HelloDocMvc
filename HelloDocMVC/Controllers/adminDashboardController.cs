@@ -272,13 +272,14 @@ namespace HelloDocMVC.Controllers
             adminDashObj._viewUpload = _IAdminDash.viewUploadMain(data,flag);
             return View(adminDashObj);
         }
+          
 
         [HttpPost]
         public IActionResult pendingViewUploadMain(adminDashData obj)
         {
             adminDashData adminDashObj = new adminDashData();
             _IAdminDash.viewUploadMain(obj);
-            return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = obj._viewUpload[0].reqid });
+            return Json(new { data = obj._viewUpload[0].reqid });
         }
 
         public IActionResult DownloadFile(string data)
@@ -301,10 +302,11 @@ namespace HelloDocMVC.Controllers
         }
 
 
+        [HttpPost]
         public IActionResult DeleteFile(bool data, int id, int reqFileId)
         {
             _IAdminDash.DeleteFile(data, reqFileId);
-            return RedirectToAction("pendingViewUploadMain", "adminDashboard", new { data = id });
+            return Json(new { data = id });
 
         }
 

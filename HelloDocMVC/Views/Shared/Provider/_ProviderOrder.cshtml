@@ -1,0 +1,174 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<div class="container">
+    <div class=" mt-4 d-flex justify-content-between align-items-center">
+        <h4>Send Orders</h4>
+        <a onclick="DashboardMain()"
+           class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+            <i class="fa-solid fa-angle-left"></i> Back
+        </a>
+    </div>
+    <form asp-action="activeOrders" asp-controller="adminDashboard" method="post" class="shadow border rounded my-3" id="formOrders">
+        <div class="mx-3 my-4 ">
+            <div class="mt-3">
+
+                <div class="row">
+                    <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3 ">
+                        <select asp-for="@Model._activeOrder.healthId" id="professionDropdown" class="form-select text-secondary dark-mode2" style="height: 58px;">
+                            <option selected="" disabled>Select Profession</option>
+                            @foreach (var item in Model._activeOrder.profession)
+                            {
+                                <option value="@item.Healthprofessionalid">@item.Professionname</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model._activeOrder.healthId" class="text-danger"></span>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <select asp-for="_activeOrder.vendorid" id="businessDropdown" class="form-select text-secondary dark-mode2" id="inputGroupBusiness" style="height: 58px;">
+                            <option selected="" disabled>Business</option>
+                        </select>
+                        <span asp-validation-for="_activeOrder.vendorid" class="text-danger"></span>
+                    </div>
+                </div>
+                <input asp-for="@Model._activeOrder.reqid" type="hidden" value="@Model._activeOrder.reqid" />
+                <input asp-for="@Model._activeOrder.profession" type="hidden" value="@Model._activeOrder.profession" />
+                <div class="row ">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3 form-floating">
+                        <input asp-for="_activeOrder.business_contact" type="text" class=" form-control dark-mode2" id="floatingInputBusinessContact"
+                               placeholder="BusinessContact" aria-label="BusinessContact">
+                        <label class="ms-2 text-secondary" for="floatingInputBusinessContact">Business Contact</label>
+                        <span asp-validation-for="_activeOrder.business_contact" class="text-danger"></span>
+                    </div>
+                    <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                        <input asp-for="_activeOrder.email" type="email" class=" form-control dark-mode2" id="floatingInputemail" placeholder="Email"
+                               aria-label="Email">
+                        <label class="ms-2 text-secondary " for="floatingInputemail">Email</label>
+                        <span asp-validation-for="_activeOrder.email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating">
+                        <input asp-for="_activeOrder.fax_num" type="text" class=" form-control dark-mode2" id="floatingInputFaxNumber"
+                               placeholder="Faxnumber" aria-label="Faxnumber">
+                        <label class="ms-2 text-secondary" for="floatingInputFaxNumber">Fax Number</label>
+                        <span asp-validation-for="_activeOrder.fax_num" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-12 form-floating mb-3 ">
+                        <textarea asp-for="_activeOrder.prescription" class="form-control h-100 dark-mode2" id="floatingInput" placeholder="Textarea"
+                                  rows="3"></textarea>
+                        <label for="floatingInput" class="text-wrap ms-2 text-secondary">Prescription or Order Details</label>
+                    </div>
+                    <span asp-validation-for="_activeOrder.prescription" class="text-danger"></span>
+                </div>
+                <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
+                    <select asp-for="_activeOrder.Refill" class="form-select dark-mode2" id="inputGroupSelect02" style="width: 619px;">
+                        <option selected="">Not Required</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <label for="inputGroupSelect02" class="text-wrap small text-secondary">Number Of Refills</label>
+                </div>
+            </div>
+
+
+            <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
+
+                <button type="button" onclick="ProviderOrderBtn()" id="submitBtn" class="btn btn-info text-white EditBtn">Submit</button>
+
+                <button type="button" id="cancelBtn" class="btn btn-outline-info EditBtn">Cancel</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+            }
+
+
+<script>
+    $("#professionDropdown").on("change", function () {
+        doctorsName($(this).val());
+    })
+
+    function doctorsName(proff_id) {
+        let action = "/Provider" + "/" + "GetBusiness"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { profession_id: proff_id },
+            success: function (data) {
+                console.log(data)
+                console.log(data.business_id)
+                console.log(data.business_name)
+                $('#businessDropdown').html("<option disabled selected value>" + "Business" + "</option>");
+                for (var i = 0; i < data.business_name.length; i++) {
+                    $("#businessDropdown").append('<option value = "' + data.business_id[i] + '" >' + data.business_name[i] + '</option>')
+
+                }
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+
+    $("#businessDropdown").on("change", function () {
+        BusinessName($(this).val());
+    })
+
+    function BusinessName(buss_id) {
+        let action = "/Provider" + "/" + "BusinessDetail"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { business_id: buss_id },
+            success: function (data) {
+                document.getElementById("floatingInputBusinessContact").setAttribute("value", data.contact)
+                document.getElementById("floatingInputemail").setAttribute("value", data.email)
+                document.getElementById("floatingInputFaxNumber").setAttribute("value", data.fax)
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+   
+
+    function ProviderOrderBtn(){
+        let action = "/Provider" + "/" + "activeOrders"
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: $("#formOrders").serialize(),
+            success: function (result) {
+                activeOrders(result.data);
+                toastr.success("Data Updated Successfully");
+            },
+            error: function (e) {
+                alert('Error   vv loading partial view');
+            },
+        });
+    }
+
+   
+
+</script>

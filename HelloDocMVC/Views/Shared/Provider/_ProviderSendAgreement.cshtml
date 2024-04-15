@@ -1,0 +1,93 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+@{
+    var Color = "He";
+    var role = "hello";
+}
+
+
+@if (@Model._sendAgreement.request_type_id == 1)
+{
+    Color = "#60be5e";
+    role = "Patient";
+}
+else if (@Model._sendAgreement.request_type_id == 2)
+{
+    Color = "#e69232";
+    role = "FamilyFriend";
+}
+else if (@Model._sendAgreement.request_type_id == 3)
+{
+    Color = "#0b7ebf";
+
+    role = "Concierge";
+}
+else if (@Model._sendAgreement.request_type_id == 4)
+{
+    Color = "#d76879";
+    role = "Business";
+}
+
+<div class="modal fade" id="newRequestModelFive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="SendAgreementLabel" aria-hidden="true">
+    <div class="modal-dialog" style="top: 22%;">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h1 class="modal-title fs-5 text-white" id="SendAgreementLabel">Send Agreement</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" id="cancelCaseForm" asp-action="SendAgreement">
+                <input value="@Model._sendAgreement.reqid" asp-for="@Model._sendAgreement.reqid" type="hidden" />
+                <div class="modal-body text-secondary">
+                    <i class="bi bi-circle-fill me-2" style="color:@Color"></i>
+                    <span class="fw-bold">@role</span>
+                    <div class="text-secondary">
+                        To send agreement make sure you are updating the correct contact information billow for the responsible party.
+                    </div>
+                    <input type="hidden"></input>
+                    <div class="form-floating mt-3">
+                        <input value="@Model._sendAgreement.mobile_num" asp-for="@Model._sendAgreement.mobile_num" type="tel" class="form-control" id="floatingInputphone" placeholder="phone" aria-label="phone">
+                        <label class="" for="floatingInputphone">Phone Number</label>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <input value="@Model._sendAgreement.email" asp-for="@Model._sendAgreement.email" type="email" class="form-control" id="floatingInputemail" placeholder="Email" aria-label="Email">
+                        <label class="" for="floatingInputemail">Email</label>
+                        <span asp-validation-for="@Model._sendAgreement.email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="m-3 d-flex justify-content-end">
+                    <button type="button" onclick="ProviderSendAgreement()" class="btn btn-info confirm-btn text-white">Send</button>
+                    <button type="button" id="sendAgreeCloseBtn" class="btn cancel-btn border-info text-info ms-3"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<partial name="_ValidationScriptsPartial" />
+
+
+<script>
+
+    function ProviderSendAgreement(){
+        $.ajax({
+            url: '/Provider/sendAgreement',
+            type: 'POST',
+            data: $("#cancelCaseForm").serialize(),
+            success: function (response) {
+                $("#sendAgreeCloseBtn").click();
+                pendingTabThree();
+                toastr.success("Mail Sent Successfully");
+            },
+            error: function (error) {
+                toastr.error("Error");
+            }
+        });
+    }
+    
+</script>

@@ -1,4 +1,5 @@
-﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
+﻿@using System.Collections;
+@model DAL_Data_Access_Layer_.CustomeModel.adminDashData
 
 <style>
     th {
@@ -108,6 +109,7 @@
                                 <th scope="col" class="dark-mode2 ">Name</th>
                                 <th scope="col" class="dark-mode2 ">Phone</th>
                                 <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Status</th>
                                 <th scope="col" class="dark-mode2 ">Chat With</th>
                                 <th scope="col" class="dark-mode2 ">Actions</th>
                             </tr>
@@ -177,6 +179,12 @@
                                     </td>
                                     <td class="text-white" style="background:@bgColor;">@item.address</td>
                                     <td class="text-white" style="background:@bgColor;">
+                                        @if(item.call_type == 1)
+                                        {
+                                        <button class="btn btn-info text-white" type="button" onclick="Housecall(@item.reqid)">House Call</button>                                            
+                                        }
+                                    </td>
+                                    <td class="text-white" style="background:@bgColor;">
 
                                         <div style="display:flex;">
                                             <div class="dropdown mb-1">
@@ -237,10 +245,30 @@
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button class="dropdown-item" onclick="activeEncounter(@item.reqid)">
-                                                            <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
-                                                            Encounter
-                                                        </button>
+                                                        @if (item.call_type == 1)
+                                                        {
+                                                            @if (item.isFinalize[0])
+                                                            {      
+                                                                <button class="dropdown-item" onclick="ProviderEncounterFormDownload(@item.reqid)">
+                                                                    <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
+                                                                    EncounterDownload
+                                                                </button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button class="dropdown-item" onclick="ProviderEncounterForm(@item.reqid)">
+                                                                    <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
+                                                                    EncounterForm
+                                                                </button>
+                                                            }                                                            
+                                                        }
+                                                        else
+                                                        {
+                                                            <button class="dropdown-item" onclick="ProviderEncounterPopUp(@item.reqid)">
+                                                                <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
+                                                                Encounter
+                                                            </button>
+                                                        }                                                        
                                                     </li>
                                                 </ul>
                                             </div>
@@ -438,6 +466,14 @@
 
     <div id="requestSupportActivePopUp">
     </div>
+    
+    <div id="ProviderEncounterPopUp">
+    </div>
+
+    <div id="HouseCall">
+       
+    </div>
+   
 </div>
 
 
@@ -555,6 +591,39 @@
             }
         });
     }
+    
+    
+    function Housecall(reqId) {
+        let action = "/Provider" + "/" + "HousecallPopUp"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: {reqId : reqId},
+            success: function (response) {
+                $('#HouseCall').html(response);
+                $('#HousecallModal').modal('show');
+            },
+            error: function () {
+                alert('Error loading partial view');
+            },
+        });
+    }
+
+
+    function activeEncounter(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/adminDashboard/concludeEncounter",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
 
 
     function requestSupportActive() {
@@ -591,6 +660,7 @@
         });
     }
 
+   
     //*************************************************************Editing View************************************/
 
     function activeViewCase(reqid) {
@@ -640,7 +710,7 @@
     function activeOrders(reqid) {
         console.log(reqid)
         $.ajax({
-            url: "/adminDashboard/activeOrders",
+            url: "/Provider/activeOrders",
             data: { data: reqid },
             type: 'GET',
             success: function (result) {
@@ -653,10 +723,27 @@
     }
 
 
-    function activeEncounter(reqid) {
+    function ProviderEncounterPopUp(reqid) {
+        $.ajax({
+            url: "/Provider/ProviderEncounterPopUp",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $('#ProviderEncounterPopUp').html(result);
+                $('#EncounterModalBox').modal('show');
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+
+    function ProviderEncounterForm(reqid) {
         console.log(reqid)
         $.ajax({
-            url: "/adminDashboard/concludeEncounter",
+            url: "/Provider/concludeEncounter",
             data: { data: reqid },
             type: 'GET',
             success: function (result) {
@@ -667,6 +754,7 @@
             }
         });
     }
+
 
     function exportBtnActive() {
         // Get the HTML content of the table
@@ -707,6 +795,10 @@
         });
 
     }
+
+
+   
+
 
 </script>
 

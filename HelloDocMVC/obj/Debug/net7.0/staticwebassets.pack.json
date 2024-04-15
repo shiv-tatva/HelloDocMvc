@@ -85,8 +85,36 @@
       "PackagePath": "staticwebassets\\Documents\\7774236_3736765.jpg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig Contact your Provider.jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig Contact your Provider.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig24. Provider Menu.jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig24. Provider Menu.jpg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig25. Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\Documents\\Fig25. Contact your Provider.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig3. Admin Dashboard.jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig3. Admin Dashboard.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig4. Admin dashboard in New state.jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig4. Admin dashboard in New state.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig5. Admin dashboard in pending state.jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig5. Admin dashboard in pending state.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig6. Admin dashboard in Active state.jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig6. Admin dashboard in Active state.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig7. Admin dashboard in Conclude state.jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig7. Admin dashboard in Conclude state.jpg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\check-icon (1).svg",

@@ -49,9 +49,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? address { get; set;  }
 
         public List<Requeststatuslog>? notes { get; set; }
+        public string? transfer_notes { get; set; }
 
         public string? region { get; set; }
         public int? region_id { get; set; }
+        public int? call_type { get; set; }
 
         public int? request_type_id { get; set; }
 
@@ -71,6 +73,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? flagId {  get; set; }
 
         public int? assignCaseIndicate {  get; set; }
+        public BitArray isFinalize {  get; set; }
                       
     }
 
@@ -379,6 +382,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? FollowUp { get; set; }
 
         public bool? indicate { get; set; }
+        public BitArray isFinalize { get; set; }
     }
 
     public class sendLink
@@ -642,6 +646,25 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public bool ExistsInTable { get; set; }
     }
 
+
+    public class ProviderTransferTab
+    {
+        public int? reqId { get; set; }
+
+        public string? Note { get; set; }
+
+    }
+    
+    
+    public class ProviderEncounterPopUp
+    {
+        public int? reqId { get; set; }
+
+        public int? flag { get; set; }
+
+    }
+
+
     //*****************************************************************************************************
     public class adminDashData
     {
@@ -687,5 +710,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<Role> _role {  get; set; }
 
         public int? flag {  get; set; }
+
+        public ProviderTransferTab _ProviderTransferTab {  get; set; }
+
+        public ProviderEncounterPopUp _ProviderEncounterPopUp {  get; set; }
     }
 }

@@ -44,11 +44,11 @@
                 <div class="my-2 text-secondary dark-mode2">
                     Check here to review and add files that you or the Client/Member has attached to the request.
                 </div>
-                <form asp-action="pendingViewUploadMain" asp-controller="adminDashboard" method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" id="ProviderUploadForm">
                     <input id="reqId" type="hidden" asp-for="@Model._viewUpload[0].reqid" value="@Model._viewUpload[0].reqid" />
                     <div class="input-group mb-3  rounded my-4">
                         <input asp-for="@Model._viewUpload[0].Upload" type="file" class="form-control  py-3" id="inputGroupFile">
-                        <button type="submit" class="input-group-text fw-bold bg-info upload">
+                        <button type="button" onclick="ProviderUploadBtn()" class="input-group-text fw-bold bg-info upload">
                             <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
                             <span class="text-white">Upload</span>
                         </button>
@@ -64,7 +64,7 @@
                         </button>
                     </div>
                     <div class="text-end pt-3 pe-0 mb-4 ms-3">
-                        <button onclick="deleteAll()" type="button"
+                        <button type="button"
                                 class="btn btn-outline-dark border-info rounded-2 p-2 text-info deleteAll">
                             <span class="d-none d-sm-inline-block">Delete All</span>
                             <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
@@ -114,7 +114,7 @@
 
                                         <td>
                                             <button class="btn btn-outline-info" type="button" onclick="window.location.href='@Url.Action("DownloadFile","adminDashboard",new {data = @obj.documentsname[i]})'"><i class="fa-solid fa-cloud-arrow-down"></i></button>
-                                            <button class="btn btn-outline-info delete-btn" onclick="window.location.href='@Url.Action("DeleteFile","adminDashboard",new {data = true,id = obj.reqid,reqFileId = obj.requestWiseFileId})'"> <i class="fa-solid fa-trash-can"></i></button>
+                                            <button class="btn btn-outline-info delete-btn" onclick="ProviderDeleteBtn('@obj.reqid','@obj.requestWiseFileId[i]')"> <i class="fa-solid fa-trash-can"></i></button>
                                         </td>
 
                                     </tr>
@@ -216,37 +216,79 @@
         }
 
 
-        function deleteAll() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    function ProviderUploadBtn() {
+
+        $.ajax({
+            url: '/adminDashboard/pendingViewUploadMain',
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: new FormData($('#ProviderUploadForm')[0]),
+            success: function (response) {
+                console.log(response);
+                pendingViewUploads(response.data);
+                toastr.success("Data Uploaded Successfully");
+            },
+            error: function (error) {
+                toastr.error("Error");
+            }
+        });
+
+    }
+
+    function ProviderDeleteBtn(id, ReqWiseId) {
+        $.ajax({
+            url: '/adminDashboard/DeleteFile',
+            type: 'POST',
+            data: { id: id, reqFileId: ReqWiseId },
+            success: function (response) {
+                pendingViewUploads(response.data);
+                toastr.success("Data Deleted Successfully");
+            },
+            error: function (error) {
+                toastr.error("Error");
+            }
+        });
+    }
+
+
+    $('.deleteAll').click(function () {
+        $('.fileCheckbox:checked').each(function () {
+            var filePath = $(this).closest('tr').find('.delete-btn')[0].click();
+        });
+    });
+
+        // function deleteAll() {
+        //     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
        
 
-            if (checkboxes.length === 0) {
-            toastr.error("Please select at least one file to Delete");
-                return;
-            }
+        //     if (checkboxes.length === 0) {
+        //     toastr.error("Please select at least one file to Delete");
+        //         return;
+        //     }
 
-        let count = 0;
+        // let count = 0;
 
         
-            checkboxes.forEach((checkbox) => {
-            if (count != 0) {
-                const reqIdMain = checkbox.getAttribute("data-reqid")
-                const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
-                const dataMain = true;
+        //     checkboxes.forEach((checkbox) => {
+        //     if (count != 0) {
+        //         const reqIdMain = checkbox.getAttribute("data-reqid")
+        //         const reqWiseFileIdMain = checkbox.getAttribute("data-reqwisefileid");
+        //         const dataMain = true;
 
-                console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
-                const deleteLink = document.createElement('a');
-                deleteLink.href = '/adminDashboard/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
-                deleteLink.style.display = 'none';
-                document.body.appendChild(deleteLink);
-                deleteLink.click();
-                document.body.removeChild(deleteLink);
-            }
-            count++;
-            });
-        toastr.success("Delete successfully");
+        //         console.log("id" + reqIdMain + "fileid" + reqWiseFileId + "data" + data)
+        //         const deleteLink = document.createElement('a');
+        //         deleteLink.href = '/adminDashboard/DeleteFile?data=' + encodeURIComponent(dataMain) + "&id=" + encodeURIComponent(reqIdMain) + "&reqFileId=" + encodeURIComponent(reqWiseFileIdMain);
+        //         deleteLink.style.display = 'none';
+        //         document.body.appendChild(deleteLink);
+        //         deleteLink.click();
+        //         document.body.removeChild(deleteLink);
+        //     }
+        //     count++;
+        //     });
+        // toastr.success("Delete successfully");
        
-        }
+        // }
 
         
 

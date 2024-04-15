@@ -135,7 +135,7 @@ namespace HelloDocMVC.Controllers
         public IActionResult DeleteFile(bool data, int id, int reqFileId)
         {
             _IAdminDash.DeleteFile(data, reqFileId);
-            return RedirectToAction("pendingViewUploadMain", "Provider", new { data = id });
+            return Json(new { data = id });
 
         }
 
@@ -152,6 +152,74 @@ namespace HelloDocMVC.Controllers
             return PartialView("Provider/_ProviderTabPending", adminDashObj);
         }
 
+
+        public IActionResult sendAgreement(int req)
+        {
+            adminDashData obj = new adminDashData();
+            obj._sendAgreement = _IAdminDash.sendAgree(req);
+            return PartialView("Provider/_ProviderSendAgreement", obj);
+        }
+
+
+        [HttpPost]
+        public IActionResult sendAgreement(adminDashData dataMain)
+        {
+            _IAdminDash.sendAgree(dataMain);
+            TempData["success"] = "Mail Sent Successfully";
+            return Ok();
+        }
+
+        //provider Transfer request
+        public IActionResult ProviderTransferRequest(int requestid)
+        {
+
+            var adminDashData = _IProviderDash.ProviderTransferMain(requestid);
+
+            return PartialView("Provider/_ProviderTransfer", adminDashData);
+        }
+        public IActionResult PostTransferRequest(adminDashData adminDashData)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IProviderDash.PostTransferRequest(adminDashData._ProviderTransferTab.Note, (int)adminDashData._ProviderTransferTab.reqId, sessionEmail);
+            return Ok();
+        }
+
+        public IActionResult activeOrders(int data)
+        {
+            adminDashData _data = new adminDashData();
+            _data._activeOrder = _IAdminDash.viewOrder(data);
+            return PartialView("Provider/_ProviderOrder", _data);
+        }
+
+        public IActionResult GetBusiness(int profession_id)
+        {
+            adminDashData adminDashData = new adminDashData();
+            adminDashData._activeOrder = _IAdminDash.businessName(profession_id);
+
+            return Json(new { business_id = adminDashData._activeOrder.business_id, business_name = adminDashData._activeOrder.business_data });
+        }
+
+
+        public IActionResult BusinessDetail(int business_id)
+        {
+            adminDashData adminDashData = new adminDashData();
+            adminDashData._activeOrder = _IAdminDash.businessDetail(business_id);
+
+            return Json(new { email = adminDashData._activeOrder.email, contact = adminDashData._activeOrder.business_contact, fax = adminDashData._activeOrder.fax_num });
+        }
+
+        [HttpPost]
+        public IActionResult activeOrders(adminDashData adminDashData)
+        {
+            adminDashData _data = new adminDashData();
+            _IAdminDash.viewOrder(adminDashData);
+            return Json(new { data = adminDashData._activeOrder.reqid });
+        }
+        
+        
+
+
+
         public IActionResult activeTabTwo(int[] arr, int dataFlag)
         {
             int typeId = 0;
@@ -164,6 +232,58 @@ namespace HelloDocMVC.Controllers
 
             return PartialView("Provider/_ProviderTabActive", adminDashObj);
         }
+
+
+        public IActionResult ProviderEncounterPopUp(int data)
+        {
+            adminDashData adminDashData = new adminDashData();
+            adminDashData = _IProviderDash.ProviderEncounterPopUp(data);
+            return PartialView("Provider/_ProviderEncounterModal", adminDashData);
+        }
+
+        [HttpPost]
+        public IActionResult ProviderEncounterPopUp(adminDashData data)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IProviderDash.ProviderEncounterPopUp(data, sessionEmail);
+            return Ok();
+        }
+
+        public IActionResult HousecallPopUp(int reqId)
+        {
+            adminDashData adminDashData = new adminDashData();
+            adminDashData = _IProviderDash.HousecallPopUp(reqId);
+            return PartialView("Provider/_ProviderHouseCall", adminDashData);
+        }
+        
+        
+        public IActionResult HouseCallConclude(int reqId)
+        {
+            var sessionEmail = HttpContext.Session.GetString("UserSession");
+            _IProviderDash.HouseCallConclude(reqId, sessionEmail);
+            return Ok();
+        }
+
+        public IActionResult concludeEncounter(int data)
+        {
+            adminDashData _admin = new adminDashData();
+            _admin._encounter = _IAdminDash.concludeEncounter(data);
+            return PartialView("Provider/_ProviderEncounterForm", _admin);
+        }
+
+        [HttpPost]
+        public IActionResult concludeEncounter(concludeEncounter encounter)
+        {
+            var isSend = _IAdminDash.concludeEncounter(encounter);
+            return Json(new { isSend = isSend.indicate , data = encounter.reqid });
+        }
+        
+        public IActionResult FinalizeEncounter(int reqId)
+        {
+            _IProviderDash.FinalizeEncounter(reqId);
+            return Ok();
+        }
+
 
         public IActionResult concludeTabTwo(int[] arr, int dataFlag)
         {
