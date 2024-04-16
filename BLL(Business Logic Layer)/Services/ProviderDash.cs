@@ -2,10 +2,13 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -190,6 +193,67 @@ namespace BLL_Business_Logic_Layer_.Services
             encounter.IsFinalized = new BitArray(1, true);
 
             _context.SaveChanges();
+        }
+
+
+        public adminDashData ProviderEncounterFormDownload(int reqId)
+        {
+            adminDashData data = new adminDashData();
+
+            ProviderEncounterPopUp _ProviderEncounterPopUp = new ProviderEncounterPopUp();
+            _ProviderEncounterPopUp.reqId = reqId;
+
+            data._ProviderEncounterPopUp = _ProviderEncounterPopUp;
+
+            return data;
+
+        }
+
+
+        public void ProviderConcludeCarePost(adminDashData adminDashData, string sessionEmail)
+        {
+            var reqData = _context.Requests.Where(r => r.Requestid == adminDashData._viewUpload[0].reqid).Select(r => r).First();
+            var providerId = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+            Requeststatuslog requeststatuslog = new Requeststatuslog();
+
+
+            reqData.Status = 7;
+            reqData.Modifieddate = DateTime.Now;
+            _context.SaveChanges();
+
+            requeststatuslog.Requestid = adminDashData._viewUpload[0].reqid;
+            requeststatuslog.Status = 6;
+            requeststatuslog.Createddate = DateTime.Now;
+            requeststatuslog.Physicianid = providerId.Physicianid;
+            requeststatuslog.Notes = adminDashData._viewUpload[0].notes;
+
+            _context.Requeststatuslogs.Add(requeststatuslog);
+            _context.SaveChanges();
+        }
+
+        public SchedulingCm PhysicainRegionTable(string sessionEmail)
+        {
+            SchedulingCm model = new SchedulingCm();
+
+            var providerId = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+            if (providerId.Physicianid != null)
+            {
+                var regions = _context.Physicianregions
+                                       .Where(pr => pr.Physicianid == providerId.Physicianid)
+                                       .Select(pr => pr.Regionid)
+                                       .ToList();
+                model.regions = _context.Regions
+                                        .Where(r => regions.Contains(r.Regionid))
+                                        .ToList();
+
+                model.phyId = providerId.Physicianid;
+
+            }            
+
+            return model;
+
         }
 
     }

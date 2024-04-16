@@ -33,6 +33,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int regionId { get; set; }
 
         public int callId { get; set; }
+        public int? phyId { get; set; }
     }
 
     public class ScheduleModel

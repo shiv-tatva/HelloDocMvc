@@ -12,6 +12,7 @@
     }
 </style>
 
+
 <div class="tab-pane fade show active" id="Active-tab-pane" role="tabpanel" aria-labelledby="Active-tab" tabindex="0">
     <div class="my-4" id="patients_flex_box">
         <span id="patient_txt">
@@ -44,9 +45,8 @@
                             <!-- <i class="bi bi-search"></i> -->
                             <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;"></i>
                             <input class="form-control border-0" id="my-search-input-active" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-
-                        <select id="regionFilterActive" onchange="regionClickActive()" class="form-select  mb-2" aria-label="Default select example">
+                        </form>     
+                        <select id="regionFilterActive" onchange="regionClickActive()" class="form-select d-none mb-2" aria-label="Default select example">
                             <option id="reason" disabled selected="">
                                 Select Regions
                             </option>
@@ -247,7 +247,7 @@
                                                     <li>
                                                         @if (item.call_type == 1)
                                                         {
-                                                            @if (item.isFinalize[0])
+                                                            @if (item.isFinalize != null && item.isFinalize[0])
                                                             {      
                                                                 <button class="dropdown-item" onclick="ProviderEncounterFormDownload(@item.reqid)">
                                                                     <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
@@ -473,6 +473,26 @@
     <div id="HouseCall">
        
     </div>
+
+    <div class="modal fade" id="encounterModalDownload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-white" id="exampleModalLongTitle">Encounter Form</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/Provider/GeneratePDF" method="post">
+                        <p class="text-secondary">Encounter Form is Finalized successfully</p>
+                        <input type="hidden" class="requestId" value="" name="requestid" id="requestIdForDownloadPopUp" />
+                        <div class="text-center">
+                            <button type="submit" id="downenc" class="btn btn-info text-white" data-bs-dismiss="modal">Download</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
    
 </div>
 
@@ -576,7 +596,7 @@
 
 
     function newSendLinkInActive() {
-        let action = "/adminDashboard" + "/" + "sendLinkPopUp"
+        let action = "/Provider" + "/" + "sendLinkPopUp"
         $.ajax({
             url: action,
             type: 'GET',
@@ -624,6 +644,23 @@
             }
         });
     }
+    
+    
+    function ProviderEncounterFormDownload(reqid) {
+        $.ajax({
+            url: "/Provider/ProviderEncounterFormDownload",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $('#encounterModalDownload').modal('show');
+                $("#requestIdForDownloadPopUp").val(result.isSend);
+            },
+            error: function (e) {
+                console.log(e);
+                toastr.error("Error");
+            },
+        });
+    }
 
 
     function requestSupportActive() {
@@ -649,7 +686,7 @@
 
     function createRequestActive() {
         $.ajax({
-            url: "/adminDashboard/createRequest",
+            url: "/Provider/createRequest",
             type: 'GET',
             success: function (result) {
                 $("#content").html(result);

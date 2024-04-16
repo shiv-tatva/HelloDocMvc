@@ -96,8 +96,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int cashtagId { get; set; }
 
         [Required(ErrorMessage = "Please Enter Admin Note")]
-        public string? aditional_notes { get; set; }
+        public string? aditional_notes { get; set; } 
         public List<char> TransferNotes { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Physician Note")]
         public string? PhysicianNotes { get; set; }
 
         [Required(ErrorMessage = "Please Enter Admin Note")]
@@ -193,6 +196,12 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public bool dlt_data { get; set; }
 
         public int? flagId {  get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Note")]
+        public string? notes {  get; set; }
+
+        public BitArray isFinalize { get; set; }
     }
 
 
@@ -258,8 +267,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public int? status { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Your Email")]
+        [Required(ErrorMessage = "Please Enter Email")]
         public string? email { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Mobile Number")]
         public string? mobile_num { get; set; }
     }
 
@@ -351,34 +362,89 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? LastName { get; set; }
         public string? Location { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Your Zipcode")]
         public string? BirthDate { get; set; }
         public DateTime? Date { get; set; }
         public string? fullDate { get; set; }
         public string? Email { get; set; }
+
+        [Required(ErrorMessage = "Please Enter PhoneNumber")]
         public string? PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Please Enter HistoryIllness")]
         public string? HistoryIllness { get; set; }
+
+        [Required(ErrorMessage = "Please Enter MedicalHistory")]
         public string? MedicalHistory { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Medications")]
         public string? Medications { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Allergies")]
         public string? Allergies { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Temp")]
         public decimal? Temp { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Hr")]
         public decimal? Hr { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Rr")]
         public decimal? Rr { get; set; }
+
+        [Required(ErrorMessage = "Please Enter BpS")]
         public int? BpS { get; set; }
+
+        [Required(ErrorMessage = "Please Enter BpD")]
         public int? BpD { get; set; }
+
+        [Required(ErrorMessage = "Please Enter O2")]
         public decimal? O2 { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Pain")]
         public string? Pain { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Heent")]
         public string? Heent { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Cv")]
         public string? Cv { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Chest")]
         public string? Chest { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Abd")]
         public string? Abd { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Extr")]
         public string? Extr { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Skin")]
         public string? Skin { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Neuro")]
         public string? Neuro { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Other")]
         public string? Other { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Diagnosis")]
         public string? Diagnosis { get; set; }
+
+        [Required(ErrorMessage = "Please Enter TreatmentPlan")]
         public string? TreatmentPlan { get; set; }
+
+        [Required(ErrorMessage = "Please Enter MedicationDispensed")]
         public string? MedicationDispensed { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Procedures")]
         public string? Procedures { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter FollowUp")]
         public string? FollowUp { get; set; }
 
         public bool? indicate { get; set; }
@@ -651,6 +717,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int? reqId { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Description")]
         public string? Note { get; set; }
 
     }

@@ -25,7 +25,7 @@
                     Send link
                 </span>
             </button>
-            <button onclick="createRequestConclude()" class="btn btn-info patient_five_button  mx-1" role="button">
+            <button onclick="createRequestActive()" class="btn btn-info patient_five_button  mx-1" role="button">
                 <i class="bi bi-pencil-square"></i>
                 <span>
                     create request
@@ -44,9 +44,8 @@
                             <!-- <i class="bi bi-search"></i> -->
                             <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;"></i>
                             <input class="form-control border-0" id="my-search-input-conclude" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-
-                        <select id="regionFilterConclude" onchange="regionClickConclude()" class="form-select  mb-2" aria-label="Default select example">
+                        </form>               
+                        <select id="regionFilterActive" onchange="regionClickActive()" class="form-select d-none mb-2" aria-label="Default select example">
                             <option id="reason" disabled selected="">
                                 Select Regions
                             </option>
@@ -187,7 +186,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu table_dropdowns">
                                                     <li>
-                                                        <button class="dropdown-item" onclick="activeOrders(@item.reqid)">
+                                                        <button class="dropdown-item" onclick="ConcludeCare(@item.reqid)">
                                                             <i class="bi bi-heart-pulse"></i>
                                                             Conclude Case
                                                         </button>
@@ -199,7 +198,7 @@
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button onclick="activeViewUploads(@item.reqid)" class="dropdown-item">
+                                                        <button onclick="pendingViewUploads(@item.reqid)" class="dropdown-item">
                                                             <i class="bi bi-upload pe-2 fs-6"></i>
                                                             View Uploads
                                                         </button>
@@ -211,10 +210,21 @@
                                                         </button>
                                                     </li>                                                    
                                                     <li>
-                                                        <button onclick="activeEncounter(@item.reqid)" class="dropdown-item">
-                                                            <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
-                                                            Encounter
-                                                        </button>
+                                                            @if (item.isFinalize != null && item.isFinalize[0])
+                                                            {
+                                                                <button class="dropdown-item" onclick="ProviderEncounterFormDownload(@item.reqid)">
+                                                                    <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
+                                                                    EncounterDownload
+                                                                </button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button class="dropdown-item" onclick="ProviderEncounterForm(@item.reqid)">
+                                                                    <i class="fa-regular fa-note-sticky fs-6 pe-2"></i>
+                                                                    EncounterForm
+                                                                </button>
+                                                            }
+                                                        
                                                     </li>
                                                 </ul>
                                             </div>
@@ -401,11 +411,35 @@
     </div>
 
 
-    <div id="sendLinkConcludePopUp">
+    <div id="sendLinkActivePopUp">
     </div>
 
     <div id="requestSupportConcludePopUp">
     </div>
+
+    <div id="ProviderEncounterPopUp">
+    </div>
+
+    <div class="modal fade" id="encounterModalDownload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-white" id="exampleModalLongTitle">Encounter Form</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/Provider/GeneratePDF" method="post">
+                        <p class="text-secondary">Encounter Form is Finalized successfully</p>
+                        <input type="hidden" class="requestId" value="" name="requestid" id="requestIdForDownloadPopUp" />
+                        <div class="text-center">
+                            <button type="submit" id="downenc" class="btn btn-info text-white" data-bs-dismiss="modal">Download</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -522,10 +556,10 @@
     }
 
 
-    function activeViewUploads(reqid) {
+    function pendingViewUploads(reqid) {
         console.log(reqid)
         $.ajax({
-            url: "/adminDashboard/pendingViewUploadMain",
+            url: "/Provider/pendingViewUploadMain",
             data: { data: reqid },
             type: 'GET',
             success: function (result) {
@@ -656,6 +690,102 @@
             },
         });
 
+    }
+
+
+    function ConcludeCare(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/Provider/ConcludeCare",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+    function createRequestActive() {
+        $.ajax({
+            url: "/Provider/createRequest",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function ProviderEncounterFormDownload(reqid) {
+        $.ajax({
+            url: "/Provider/ProviderEncounterFormDownload",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $('#encounterModalDownload').modal('show');
+                $("#requestIdForDownloadPopUp").val(result.isSend);
+            },
+            error: function (e) {
+                console.log(e);
+                toastr.error("Error");
+            },
+        });
+    }
+
+
+    function ProviderEncounterForm(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/Provider/concludeEncounter",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function ProviderEncounterPopUp(reqid) {
+        $.ajax({
+            url: "/Provider/ProviderEncounterPopUp",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $('#ProviderEncounterPopUp').html(result);
+                $('#EncounterModalBox').modal('show');
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function newSendLinkInActive() {
+        let action = "/Provider" + "/" + "sendLinkPopUp"
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (response) {
+                console.log(response);
+                $('#sendLinkActivePopUp').html(response);
+                $('#sendLinkPopUpOne').modal('show');
+
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
     }
 
 </script>

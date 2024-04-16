@@ -71,7 +71,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public concludeEncounter concludeEncounter(int data);
         public concludeEncounter concludeEncounter(concludeEncounter obj);
         public sendLink sendLink(sendLink data);
-        public createRequest createRequest(createRequest data,string sessionEmail);
+        public createRequest createRequest(createRequest data,string sessionEmail,int flag);
 
         public createRequest verifyState(string state);
 
@@ -146,7 +146,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<Physician> GetRegionvalue(int selectedregion);
 
-        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type);
+        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type,int flag,string email);
         ShiftDetailsmodal GetShift(int shiftdetailsid);
         bool createShift(ScheduleModel scheduleModel, int Aspid);
         void SetReturnShift(int status, int shiftdetailid, int Aspid);

@@ -1,6 +1,7 @@
 ﻿using DAL_Data_Access_Layer_.CustomeModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +25,8 @@ namespace BLL_Business_Logic_Layer_.Interface
         
         public void HouseCallConclude(int reqId, string sessionEmail);
         public void FinalizeEncounter(int reqId);
+        public adminDashData ProviderEncounterFormDownload(int reqId);
+        public void ProviderConcludeCarePost(adminDashData adminDashData,string sessionEmail);
+        public SchedulingCm PhysicainRegionTable(string sessionEmail);
     }
 }

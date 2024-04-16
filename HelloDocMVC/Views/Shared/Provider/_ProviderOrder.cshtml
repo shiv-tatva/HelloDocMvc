@@ -89,11 +89,8 @@
 </div>
 
 
-@section scripts{
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-            }
+<partial name="_ValidationScriptsPartial" />
+
 
 
 <script>
@@ -154,19 +151,21 @@
    
 
     function ProviderOrderBtn(){
-        let action = "/Provider" + "/" + "activeOrders"
-        $.ajax({
-            url: action,
-            type: 'POST',
-            data: $("#formOrders").serialize(),
-            success: function (result) {
-                activeOrders(result.data);
-                toastr.success("Data Updated Successfully");
-            },
-            error: function (e) {
-                alert('Error   vv loading partial view');
-            },
-        });
+        if ($("#formOrders").valid()) {
+            let action = "/Provider" + "/" + "activeOrders"
+            $.ajax({
+                url: action,
+                type: 'POST',
+                data: $("#formOrders").serialize(),
+                success: function (result) {
+                    activeOrders(result.data);
+                    toastr.success("Data Updated Successfully");
+                },
+                error: function (e) {
+                    alert('Error   vv loading partial view');
+                },
+            });
+        }
     }
 
    

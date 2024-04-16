@@ -22,7 +22,7 @@
             <i class="fa-solid fa-angle-left"></i> Back
         </a>
     </div>
-    <form action="" class="shadow border rounded my-3" method="post">
+    <form action="" class="shadow border rounded my-3" method="post" id="EncounterFormMain">
         <input type="hidden" value="@Model._encounter.reqid" id="encounterReqId" />
         <div class="mx-3 my-4 mt-3">
             <h3 class="mb-3 text-center text-info">Medical Report-Confidential</h3>
@@ -49,6 +49,7 @@
                     <input value="@Model._encounter.BirthDate" type="date" asp-format="{0:yyyy-MM-dd}" name="DOB" class="form-control dark-mode2 " id="dob"
                            placeholder="Date Of Birth">
                     <label for="dob" class="form-label ms-2">Date Of Birth</label>
+                    <span asp-validation-for="@Model._encounter.BirthDate" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <input type="date" asp-for="@Model._encounter.Date" class="form-control dark-mode2 dclass" id="Date" placeholder="Date" disabled>
@@ -59,49 +60,58 @@
                            class=" form-control dark-mode2 contact"
                            aria-label="Contact"
                            type="number" />
+                    <span asp-validation-for="@Model._encounter.PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <input name="email" value="@Model._encounter.Email" type="email" class="form-control dark-mode2 " id="email"
                            placeholder="Email" disabled>
                     <label for="email" class="form-label ms-2">Email</label>
+                    <span asp-validation-for="@Model._encounter.Email" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.HistoryIllness" value="@Model._encounter.HistoryIllness" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="encounter_hl" 
                               style="height: 100px"></textarea>
                     <label for="encounter_hl" class="ms-2">History Of present illness or Injury</label>
+                    <span asp-validation-for="@Model._encounter.HistoryIllness" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.MedicalHistory" value="@Model._encounter.MedicalHistory" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="encounter_mh" 
                               style="height: 100px"></textarea>
                     <label for="encounter_mh" class="ms-2">Medical History</label>
+                    <span asp-validation-for="@Model._encounter.MedicalHistory" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Medications" value="@Model._encounter.Medications" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="encounter_medications" 
                               style="height: 100px"></textarea>
                     <label for="encounter_medications" class="ms-2">Medications</label>
+                    <span asp-validation-for="@Model._encounter.Medications" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Allergies" value="@Model._encounter.Allergies" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="encounter_al" 
                               style="height: 100px"></textarea>
                     <label for="encounter_al" class="ms-2">Allergies</label>
+                    <span asp-validation-for="@Model._encounter.Allergies" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
                     <input asp-for="@Model._encounter.Temp" value="@Model._encounter.Temp" type="number" class="form-control dark-mode2 dclass" id="temp"
                            placeholder="Temp" >
                     <label for="temp" class="form-label ms-2">Temp</label>
                     <span class="text-danger"></span>
+                    <span asp-validation-for="@Model._encounter.Temp" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
                     <input asp-for="@Model._encounter.Hr" value="@Model._encounter.Hr" type="number" class="form-control dark-mode2 dclass" id="hr"
                            placeholder="HR" >
                     <label for="hr" class="form-label ms-2">HR</label>
                     <span class="text-danger"></span>
+                    <span asp-validation-for="@Model._encounter.Hr" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
                     <input asp-for="@Model._encounter.Rr" value="@Model._encounter.Rr" type="number" class="form-control dark-mode2 dclass" id="rr"
                            placeholder="RR" >
                     <label for="rr" class="form-label ms-2">RR</label>
                     <span class="text-danger"></span>
+                    <span asp-validation-for="@Model._encounter.Rr" class="text-danger"></span>
                 </div>
 
                 <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
@@ -112,6 +122,7 @@
                         (Systolic)
                     </label>
                     <span class="text-danger"></span>
+                    <span asp-validation-for="@Model._encounter.BpS" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
                     <input asp-for="@Model._encounter.BpD" value="@Model._encounter.BpD" type="number" class="form-control dark-mode2 dclass" id="bpd"
@@ -121,83 +132,99 @@
                         (Diastolic)
                     </label>
                     <span class="text-danger"></span>
+                    <span asp-validation-for="@Model._encounter.BpD" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
                     <input asp-for="@Model._encounter.O2" value="@Model._encounter.O2" type="number" class="form-control dark-mode2 dclass" id="o2"
                            placeholder="O2" >
                     <label for="o2" class="form-label ms-2">O2</label>
                     <span class="text-danger"></span>
+                    <span asp-validation-for="@Model._encounter.O2" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
                     <input asp-for="@Model._encounter.Pain" value="@Model._encounter.Pain" type="text" class="form-control dark-mode2 dclass" id="pain"
                            placeholder="Pain" >
                     <label for="pain" class="form-label ms-2">Pain</label>
                     <span class="text-danger"></span>
+                    <span asp-validation-for="@Model._encounter.Pain" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Heent" value="@Model._encounter.Heent" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="heent" 
                               style="height: 100px"></textarea>
                     <label for="heent" class="ms-2">Heent</label>
+                    <span asp-validation-for="@Model._encounter.Heent" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Cv" value="@Model._encounter.Cv" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="cv" 
                               style="height: 100px"></textarea>
                     <label for="cv" class="ms-2">CV</label>
+                    <span asp-validation-for="@Model._encounter.Cv" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Chest" value="@Model._encounter.Chest" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="chest" 
                               style="height: 100px"></textarea>
                     <label for="chest" class="ms-2">Chest</label>
+                    <span asp-validation-for="@Model._encounter.Chest" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Abd" value="@Model._encounter.Abd" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="abd" 
                               style="height: 100px"></textarea>
                     <label for="abd" class="ms-2">ABD</label>
+                    <span asp-validation-for="@Model._encounter.Abd" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Extr" value="@Model._encounter.Extr" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="extr" 
                               style="height: 100px"></textarea>
                     <label for="extr" class="ms-2">Extr</label>
+                    <span asp-validation-for="@Model._encounter.Extr class=" text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Skin" value="@Model._encounter.Skin" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="skin" 
                               style="height: 100px"></textarea>
                     <label for="skin" class="ms-2">Skin</label>
+                    <span asp-validation-for="@Model._encounter.Skin" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Neuro" value="@Model._encounter.Neuro" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="neuro" 
                               style="height: 100px"></textarea>
                     <label for="neuro" class="ms-2">Neuro</label>
+                    <span asp-validation-for="@Model._encounter.Neuro" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Other" value="@Model._encounter.Other" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="other" 
                               style="height: 100px"></textarea>
                     <label for="other" class="ms-2">Other</label>
+                    <span asp-validation-for="@Model._encounter.Other" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Diagnosis" value="@Model._encounter.Diagnosis" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="daignosis" 
                               style="height: 100px"></textarea>
                     <label for="daignosis" class="ms-2">Diagnosis</label>
+                    <span asp-validation-for="@Model._encounter.Diagnosis" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.TreatmentPlan" value="@Model._encounter.TreatmentPlan" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="treatmentplan" 
                               style="height: 100px"></textarea>
                     <label for="treatmentplan" class="ms-2">Treatment Plan</label>
+                    <span asp-validation-for="@Model._encounter.TreatmentPlan" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.MedicationDispensed" value="@Model._encounter.MedicationDispensed" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="encounter_md" 
                               style="height: 100px"></textarea>
                     <label for="encounter_md" class="ms-2">Medications Dispensed</label>
+                    <span asp-validation-for="@Model._encounter.MedicationDispensed" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.Procedures" value="@Model._encounter.Procedures" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="procedures" 
                               style="height: 100px"></textarea>
                     <label for="procedures" class="ms-2">Procedures</label>
+                    <span asp-validation-for="@Model._encounter.Procedures" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3 text-muted">
                     <textarea asp-for="@Model._encounter.FollowUp" value="@Model._encounter.FollowUp" class="form-control dark-mode2 dclass" placeholder="Leave a comment here" id="followup" 
                               style="height: 100px"></textarea>
                     <label for="followup" class="ms-2">Followup</label>
+                    <span asp-validation-for="@Model._encounter.FollowUp" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
@@ -212,7 +239,7 @@
         </div>
     </form>
 </div>
-
+<partial name="_ValidationScriptsPartial" />
 <script>
 
     function encounterBtn() {
@@ -245,23 +272,25 @@
             FollowUp: $("#followup").val(),
         };
 
-        $.ajax({
-            url: "/Provider/concludeEncounter",
-            type: 'POST',
-            data: payload,
-            success: function (result) {
-                if (result.isSend == true) {
-                    toastr.success("Encounter Form Update Successfully");
-                    ProviderEncounterForm(result.data);
-                } else {
-                    toastr.error("Change atleast one field");
-                    ProviderEncounterForm(result.data);
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
+        if ($("#EncounterFormMain").valid()) {
+            $.ajax({
+                url: "/Provider/concludeEncounter",
+                type: 'POST',
+                data: payload,
+                success: function (result) {
+                    if (result.isSend == true) {
+                        toastr.success("Encounter Form Update Successfully");
+                        ProviderEncounterForm(result.data);
+                    } else {
+                        toastr.error("Change atleast one field");
+                        ProviderEncounterForm(result.data);
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        }
     }
 
     var phoneInputPatientEncounter = document.querySelector("#phoneEncounter");
@@ -342,18 +371,20 @@
 
         let action = "/Provider/FinalizeEncounter";
         setTimeout(() => {
-        $.ajax({
-            url: action,
-            type: 'GET',
-            data: { reqId: reqId },
-            success: function (result) {
-               DashboardMain();
-               toastr.success("Encounter Form Update Successfully");                   
-            },
-            error: function () {
-                toastr.error("Error");
-            },
-        });
+            if ($("#EncounterFormMain").valid()) {
+                $.ajax({
+                    url: action,
+                    type: 'GET',
+                    data: { reqId: reqId },
+                    success: function (result) {
+                        DashboardMain();
+                        toastr.success("Encounter Form Update Successfully");
+                    },
+                    error: function () {
+                        toastr.error("Error");
+                    },
+                });
+            }
         }, 1000);
     }
 

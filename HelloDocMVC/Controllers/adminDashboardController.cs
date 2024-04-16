@@ -203,7 +203,7 @@ namespace HelloDocMVC.Controllers
         public IActionResult newViewNote(adminDashData obj)
         {
             _IAdminDash.adminDataViewNote(obj);
-            return RedirectToAction("newViewNote", "adminDashboard", new { data = obj._viewNote.reqid });
+            return Json(new { data = obj._viewNote.reqid });
         }
 
         public IActionResult cancelCase(int req) {
@@ -518,8 +518,9 @@ namespace HelloDocMVC.Controllers
         [HttpPost]
         public IActionResult createRequestMain(createRequest data)
         {
+            int flag = 0;
             var sessionEmail = HttpContext.Session.GetString("UserSession");
-            var isSend = _IAdminDash.createRequest(data, sessionEmail);
+            var isSend = _IAdminDash.createRequest(data, sessionEmail, flag);
             return Json(new { createReq = isSend.indicate });
         }
 
@@ -777,11 +778,11 @@ namespace HelloDocMVC.Controllers
                     monthShift.Physicians = _IAdminDash.GetPhysicians(regionid);
                     if (regionid == 0)
                     {
-                        monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month");
+                        monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month",0,"");
                     }
                     else
                     {
-                        monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month").Where(i => i.Regionid == regionid).ToList();
+                        monthShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "month",0,"").Where(i => i.Regionid == regionid).ToList();
                     }
 
                     return PartialView("Scheduling/_MonthWiseShift", monthShift);
@@ -791,7 +792,7 @@ namespace HelloDocMVC.Controllers
                     WeekShiftModal weekShift = new WeekShiftModal();
 
                     weekShift.Physicians = _IAdminDash.GetPhysicians(regionid);
-                    weekShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "week");
+                    weekShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "week",0,"");
 
                     List<int> dlist = new List<int>();
 
@@ -810,7 +811,7 @@ namespace HelloDocMVC.Controllers
 
                     DayShiftModal dayShift = new DayShiftModal();
                     dayShift.Physicians = _IAdminDash.GetPhysicians(regionid);
-                    dayShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "day");
+                    dayShift.shiftDetailsmodals = _IAdminDash.ShiftDetailsmodal(date, sunday, saturday, "day",0, "");
 
                     return PartialView("Scheduling/_DayWiseShift", dayShift);
 
@@ -832,8 +833,8 @@ namespace HelloDocMVC.Controllers
                 case "moremonthshifts":
                     DateTime date = DateTime.Parse(viewShiftModal.datestring);
                     ShiftDetailsmodal ScheduleModel = new ShiftDetailsmodal();
-                    var list = ScheduleModel.ViewAllList = _IAdminDash.ShiftDetailsmodal(date, DateTime.Now, DateTime.Now, "month").Where(i => i.Shiftdate.Day == viewShiftModal.columnDate.Day).ToList();
-                    ViewBag.TotalShift = list.Count();
+                    var list = ScheduleModel.ViewAllList = _IAdminDash.ShiftDetailsmodal(date, DateTime.Now, DateTime.Now, "month",0,"").Where(i => i.Shiftdate.Day == viewShiftModal.columnDate.Day).ToList();
+                    ViewBag.TotalShift = list.Count(); 
                     return PartialView("Scheduling/_MoreShift", ScheduleModel);
 
                 default:
@@ -848,7 +849,7 @@ namespace HelloDocMVC.Controllers
 
             DateTime date1 = DateTime.Parse(datestring);
             ShiftDetailsmodal ScheduleModel = new ShiftDetailsmodal();
-            var list = ScheduleModel.ViewAllList = _IAdminDash.ShiftDetailsmodal(date1, sunday, saturday, "week").Where(i => i.Shiftdate.Day == shiftdate.Day && i.Physicianid == physicianid).ToList();
+            var list = ScheduleModel.ViewAllList = _IAdminDash.ShiftDetailsmodal(date1, sunday, saturday, "week",0,"").Where(i => i.Shiftdate.Day == shiftdate.Day && i.Physicianid == physicianid).ToList();
             ViewBag.TotalShift = list.Count();
             return PartialView("Scheduling/_MoreShift", ScheduleModel);
 

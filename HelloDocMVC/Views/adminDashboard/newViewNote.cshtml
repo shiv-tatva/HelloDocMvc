@@ -24,7 +24,7 @@
 
 
 
-    <form method="post" asp-action="newViewNote" asp-controller="adminDashboard">
+    <form method="post" id="ProviderViewNote">
         <input value="@Model._viewNote.reqid" asp-for="@Model._viewNote.reqid" type="hidden" />
         <div class="m-3">
             <div class="row mt-1">
@@ -173,7 +173,7 @@
                 </div>
                 <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end m-4 pt-4 ">
 
-                    <button type="submit" class="btn text-white btn-info">Save Changes</button>
+                    <button onclick="NewViewNote()" type="button" class="btn text-white btn-info">Save Changes</button>
 
 
                 </div>
@@ -189,11 +189,8 @@
 </div>
 
 
-@section scripts{
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-            }
+
+<partial name="_ValidationScriptsPartial" />
 
 <script>
     // function adminMain() {
@@ -210,6 +207,23 @@
     //         }
     //     });
     // }
+
+    function NewViewNote() {
+        if ($("#ProviderViewNote").valid()) {
+            $.ajax({
+                url: "/adminDashboard/newViewNote",
+                type: 'POST',
+                data: $("#ProviderViewNote").serialize(),
+                success: function (result) {
+                    newViewNote(result.data);
+                    toastr.success("Data Updated Successfully");
+                },
+                error: function () {
+                    toastr.success("Error");
+                },
+            });
+        }
+    }
 
     function adminMain() {
         location.reload();

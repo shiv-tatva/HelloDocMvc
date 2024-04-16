@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "daOwoBzdFOr4QtagM+CfVkzBw5Nr/d7opZ+TqxztVJXpJOm9hzIqoO8eKkC1qJfaIoEXpIAqjw72JmU2eE7SDw==",
+  "dgSpecHash": "bSL0WPzOhZj+dz8hL9DFaC1Z8whXkvF207spC9/L3TEVAHgMfPN3dB8xa3Ql1gfn9uyex1vRIXG5w5uBfsvksA==",
   "success": true,
   "projectFilePath": "D:\\Project\\HelloDocMVC\\BLL(Business Logic Layer)\\BLL(Business Logic Layer).csproj",
   "expectedPackageFiles": [
@@ -130,6 +130,7 @@
     "C:\\Users\\pce151\\.nuget\\packages\\nuget.projectmodel\\6.6.1\\nuget.projectmodel.6.6.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\nuget.protocol\\6.6.1\\nuget.protocol.6.6.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\nuget.versioning\\6.6.1\\nuget.versioning.6.6.1.nupkg.sha512",
+    "C:\\Users\\pce151\\.nuget\\packages\\rotativa.aspnetcore\\1.3.2\\rotativa.aspnetcore.1.3.2.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

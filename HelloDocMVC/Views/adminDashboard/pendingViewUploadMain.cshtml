@@ -64,7 +64,7 @@
                         </button>
                     </div>
                     <div class="text-end pt-3 pe-0 mb-4 ms-3">
-                        <button type="button"
+                        <button onclick="deleteAll(@Model._viewUpload[0].reqid)" type="button"
                                 class="btn btn-outline-dark border-info rounded-2 p-2 text-info deleteAll">
                             <span class="d-none d-sm-inline-block">Delete All</span>
                             <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
@@ -132,11 +132,9 @@
     </div>
 </div>
 
-@section scripts{
-    @{
+
     <partial name="_ValidationScriptsPartial" />
-    }
-    }
+
 
 
     <script>
@@ -217,22 +215,23 @@
 
 
     function ProviderUploadBtn() {
-
-        $.ajax({
-            url: '/adminDashboard/pendingViewUploadMain',
-            type: 'POST',
-            processData: false,
-            contentType: false,
-            data: new FormData($('#ProviderUploadForm')[0]),
-            success: function (response) {
-                console.log(response);
-                pendingViewUploads(response.data);
-                toastr.success("Data Uploaded Successfully");
-            },
-            error: function (error) {
-                toastr.error("Error");
-            }
-        });
+        if ($("#ProviderUploadForm").valid()) {
+            $.ajax({
+                url: '/adminDashboard/pendingViewUploadMain',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: new FormData($('#ProviderUploadForm')[0]),
+                success: function (response) {
+                    console.log(response);
+                    pendingViewUploads(response.data);
+                    toastr.success("Data Uploaded Successfully");
+                },
+                error: function (error) {
+                    toastr.error("Error");
+                }
+            });
+        }
 
     }
 
@@ -290,10 +289,10 @@
        
         // }
 
-        
+         
 
-        const tickAll = () => {
-            const checkboxes = document.getElementsByClassName("checkbox")
+        var tickAll = () => {
+            var checkboxes = document.getElementsByClassName("checkbox")
             if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
                 for (let i = 0; i < checkboxes.length; ++i) {
                     checkboxes[i].checked = true;

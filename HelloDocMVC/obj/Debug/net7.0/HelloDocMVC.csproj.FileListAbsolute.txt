@@ -526,3 +526,5 @@ D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\runtimes\win\lib\net7.0\Syst
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\GoogleMaps.LocationServices.dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Geocoding.Core.dll
 D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Geocoding.Microsoft.dll
+D:\Project\HelloDocMVC\HelloDocMVC\bin\Debug\net7.0\Rotativa.AspNetCore.dll
+D:\Project\HelloDocMVC\HelloDocMVC\obj\Debug\net7.0\HelloDocMVC.MvcApplicationPartsAssemblyInfo.cs

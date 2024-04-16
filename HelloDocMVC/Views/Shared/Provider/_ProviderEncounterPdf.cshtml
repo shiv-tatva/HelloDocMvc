@@ -1,0 +1,78 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.adminDashData;
+
+@section style{
+    <style>
+        body {
+            height: 100vh !important;
+        }
+
+        .encounterForm {
+            font-family: "poppins";
+        }
+
+            .encounterForm h2 {
+                width: 100%;
+                text-align: center;
+            }
+
+        .details {
+            margin: auto;
+            height: 100%;
+            margin-top: 20px;
+            display: grid;
+        }
+
+        .data-row {
+            font-size: 25px;
+        }
+
+        h2 {
+            text-decoration: underline;
+            font-weight: bold;
+            color: #01BCE9;
+        }
+
+        h5 {
+            height: 50px;
+        }
+    </style>
+}
+
+<div class="encounterForm h-100 mt-3">
+    <div class="text-center text-info w-100 fw-semibold fs-5">
+        <h2 class="fs-4">Encounter Form Details</h2>
+    </div>
+    <div class="details p-3">
+        <div class="data-row fs-4"><span class="fw-bold">First Name: </span> @Model._encounter.FirstName </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Last Name: </span> @Model._encounter.LastName </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Location: </span> @Model._encounter.Location </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Date of Birth: </span> @Model._encounter.BirthDate </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Date of Request: </span> @Model._encounter.Date </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Phone: </span> @Model._encounter.PhoneNumber </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Email: </span> @Model._encounter.Email </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">History of Present Illness or Injury: </span> @Model._encounter.HistoryIllness </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Medical History: </span> @Model._encounter.MedicalHistory </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Medications: </span> @Model._encounter.Medications </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Allergies: </span> @Model._encounter.Allergies </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Temp: </span> @Model._encounter.Temp </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">HR: </span> @Model._encounter.Hr </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">RR: </span> @Model._encounter.Rr </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Blood Pressure Diastolic: </span> @Model._encounter.BpS </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Blood Pressure Systolic: </span> @Model._encounter.BpD </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">O2: </span> @Model._encounter.O2 </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Heent: </span> @Model._encounter.Heent </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Pain: </span> @Model._encounter.Pain </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">CV: </span> @Model._encounter.Cv </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Chest: </span> @Model._encounter.Chest </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">ABD: </span> @Model._encounter.Abd </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Extremities: </span> @Model._encounter.Extr </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Skin: </span> @Model._encounter.Skin </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Neuro: </span> @Model._encounter.Neuro </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Other: </span> @Model._encounter.Other </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Diagnosis: </span> @Model._encounter.Diagnosis </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Treatment Plan: </span> @Model._encounter.TreatmentPlan </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Medical Dispensed: </span> @Model._encounter.MedicationDispensed </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">Procedures: </span> @Model._encounter.Procedures </div><hr class="m-0 mb-1">
+        <div class="data-row"><span class="fw-bold">FollowUp: </span> @Model._encounter.FollowUp </div>
+    </div>
+</div>

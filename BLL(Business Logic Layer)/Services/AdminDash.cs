@@ -446,13 +446,14 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 reqid = reqId,
                 email = r.Requestclients.Where(r =>r.Requestid == reqId).Select(r => r.Email).First(),
-                fname = r.Firstname,
-                lname = r.Lastname,
+                fname = r.Requestclients.Where(r => r.Requestid == reqId).Select(r => r.Firstname).First(),
+                lname = r.Requestclients.Where(r => r.Requestid == reqId).Select(r => r.Lastname).First(),
                 cnf_number = r.Confirmationnumber,
                 documentsname = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Filename).ToList(),
                 created_date = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Createddate).ToList(),
                 requestWiseFileId = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(r => r.Requestwisefileid).ToList(),
                 flagId = flag,
+                isFinalize = r.EncounterForms.Where(x => x.Requestid == r.Requestid).Select(x => x.IsFinalized).First(),
             }).ToList();
              
             return query;
@@ -1141,9 +1142,125 @@ namespace BLL_Business_Logic_Layer_.Services
 
       
 
-        public createRequest createRequest(createRequest data, string sessionEmail)
+        public createRequest createRequest(createRequest data, string sessionEmail,int flag)
         {
-            createRequest _create = new createRequest();
+            if(flag != 15)
+            {
+                createRequest _create = new createRequest();
+
+                var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).FirstOrDefault();
+
+                if (stateMain == null)
+                {
+                    _create.indicate = false;
+                }
+                else
+                {
+                    Request _req = new Request();
+                    Requestclient _reqClient = new Requestclient();
+                    User _user = new User();
+                    Aspnetuser _asp = new Aspnetuser();
+                    Requestnote _note = new Requestnote();
+                    Aspnetuserrole _role = new Aspnetuserrole();
+
+                    var _admin = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+                    var existUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == data.email);
+
+                    if (existUser == null)
+                    {
+                        _asp.Username = data.firstname + "_" + data.lastname;
+                        _asp.Email = data.email;
+                        _asp.Phonenumber = data.phone;
+                        _asp.Createddate = DateTime.Now;
+                        _context.Aspnetusers.Add(_asp);
+                        _context.SaveChanges();
+
+                        _user.Aspnetuserid = _asp.Id;
+                        _user.Firstname = data.firstname;
+                        _user.Lastname = data.lastname;
+                        _user.Email = data.email;
+                        _user.Mobile = data.phone;
+                        _user.City = data.city;
+                        _user.State = data.state;
+                        _user.Street = data.street;
+                        _user.Zipcode = data.zipcode;
+                        _user.Strmonth = data.dateofbirth.Substring(5, 2);
+                        _user.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                        _user.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                        _user.Createdby = _asp.Id;
+                        _user.Createddate = DateTime.Now;
+                        _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                        _context.Users.Add(_user);
+                        _context.SaveChanges();
+
+                        _role.Userid = _asp.Id;
+                        _role.Roleid = 2;
+
+                        _context.Aspnetuserroles.Add(_role);
+                        _context.SaveChanges();
+
+                        string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _asp.Id;
+
+                        try
+                        {
+                            SendRegistrationEmailCreateRequest(data.email, registrationLink);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                    }
+
+                    _req.Requesttypeid = 1;
+                    _req.Userid = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
+                    _req.Firstname = _admin.Firstname;
+                    _req.Lastname = _admin.Lastname;
+                    _req.Phonenumber = _admin.Mobile;
+                    _req.Email = _admin.Email;
+                    _req.Status = 1;
+                    _req.Confirmationnumber = _admin.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+                    _req.Createddate = DateTime.Now;
+
+                    _context.Requests.Add(_req);
+                    _context.SaveChanges();
+
+
+
+                    _reqClient.Requestid = _req.Requestid;
+                    _reqClient.Firstname = data.firstname;
+                    _reqClient.Lastname = data.lastname;
+                    _reqClient.Phonenumber = data.phone;
+                    _reqClient.Strmonth = data.dateofbirth.Substring(5, 2);
+                    _reqClient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                    _reqClient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                    _reqClient.Street = data.street;
+                    _reqClient.City = data.city;
+                    _reqClient.State = data.state;
+                    _reqClient.Zipcode = data.zipcode;
+                    _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                    _reqClient.Email = data.email;
+
+                    _context.Requestclients.Add(_reqClient);
+                    _context.SaveChanges();
+
+                    _note.Requestid = _req.Requestid;
+                    _note.Adminnotes = data.admin_notes;
+                    _note.Createdby = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r.Id).FirstOrDefault();
+                    _note.Createddate = DateTime.Now;
+                    _context.Requestnotes.Add(_note);
+                    _context.SaveChanges();
+
+                    _create.indicate = true;
+
+
+                }
+
+                return _create;
+            }
+            else
+            {
+                 createRequest _create = new createRequest();
 
             var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).FirstOrDefault();
 
@@ -1160,7 +1277,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 Requestnote _note = new Requestnote();
                 Aspnetuserrole _role = new Aspnetuserrole();
 
-                var _admin = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
+                var _phy = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
                 var existUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == data.email);
 
@@ -1211,12 +1328,13 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 _req.Requesttypeid = 1;
                 _req.Userid = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
-                _req.Firstname = _admin.Firstname;
-                _req.Lastname = _admin.Lastname;
-                _req.Phonenumber = _admin.Mobile;
-                _req.Email = _admin.Email;
-                _req.Status = 1;
-                _req.Confirmationnumber = _admin.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+                _req.Firstname = _phy.Firstname;
+                _req.Lastname = _phy.Lastname;
+                _req.Phonenumber = _phy.Mobile;
+                _req.Email = _phy.Email;
+                _req.Status = 2;
+                _req.Physicianid = _phy.Physicianid;
+                _req.Confirmationnumber = _phy.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
                 _req.Createddate = DateTime.Now;
 
                 _context.Requests.Add(_req);
@@ -1254,6 +1372,8 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
             return _create;
+            }
+           
         }
 
 
@@ -2878,45 +2998,96 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type)
+        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type,int flag,string email)
         {
-            var shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year);
 
-            BitArray deletedBit = new BitArray(new[] { true });
 
-            switch (type)
+            if (flag != 15)
             {
-                case "month":
-                    shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year && !u.Isdeleted.Equals(deletedBit));
-                    break;
+                var shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year);
 
-                case "week":
-                    shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate >= sunday.Date && u.Shiftdate <= saturday && !u.Isdeleted.Equals(deletedBit));
-                    break;
+                BitArray deletedBit = new BitArray(new[] { true });
 
-                case "day":
-                    shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year && u.Shiftdate.Day == date.Day && !u.Isdeleted.Equals(deletedBit));
-                    break;
+                switch (type)
+                {
+                    case "month":
+                        shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year && !u.Isdeleted.Equals(deletedBit));
+                        break;
+
+                    case "week":
+                        shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate >= sunday.Date && u.Shiftdate <= saturday && !u.Isdeleted.Equals(deletedBit));
+                        break;
+
+                    case "day":
+                        shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year && u.Shiftdate.Day == date.Day && !u.Isdeleted.Equals(deletedBit));
+                        break;
+                }
+
+
+                var list = shiftdetails.Select(s => new ShiftDetailsmodal
+                {
+                    Shiftid = s.Shiftid,
+                    Shiftdetailid = s.Shiftdetailid,
+                    Shiftdate = s.Shiftdate,
+                    Startdate = s.Shift.Startdate,
+                    Starttime = s.Starttime,
+                    Endtime = s.Endtime,
+                    Physicianid = s.Shift.Physicianid,
+                    PhysicianName = s.Shift.Physician.Firstname,
+                    Status = s.Status,
+                    regionname = _context.Regions.FirstOrDefault(i => i.Regionid == s.Regionid).Name,
+                    Abberaviation = _context.Regions.FirstOrDefault(i => i.Regionid == s.Regionid).Abbreviation,
+                    Regionid = s.Regionid,
+                }).ToList();
+
+                return list;
+            }
+            else
+            {
+                var phyMain = _context.Physicians.Where(r => r.Email == email).Select(r => r).First();
+
+                var shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year);
+
+                BitArray deletedBit = new BitArray(new[] { true });
+
+                switch (type)
+                {
+                    case "month":
+                        shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year && !u.Isdeleted.Equals(deletedBit));
+                        break;
+
+                    case "week":
+                        shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate >= sunday.Date && u.Shiftdate <= saturday && !u.Isdeleted.Equals(deletedBit));
+                        break;
+
+                    case "day":
+                        shiftdetails = _context.Shiftdetails.Where(u => u.Shiftdate.Month == date.Month && u.Shiftdate.Year == date.Year && u.Shiftdate.Day == date.Day && !u.Isdeleted.Equals(deletedBit));
+                        break;
+                }
+
+
+                var list = shiftdetails.Select(s => new ShiftDetailsmodal
+                {
+                    Shiftid = s.Shiftid,
+                    Shiftdetailid = s.Shiftdetailid,
+                    Shiftdate = s.Shiftdate,
+                    Startdate = s.Shift.Startdate,
+                    Starttime = s.Starttime,
+                    Endtime = s.Endtime,
+                    Physicianid = s.Shift.Physicianid,
+                    PhysicianName = s.Shift.Physician.Firstname,
+                    Status = s.Status,
+                    regionname = _context.Regions.FirstOrDefault(i => i.Regionid == s.Regionid).Name,
+                    Abberaviation = _context.Regions.FirstOrDefault(i => i.Regionid == s.Regionid).Abbreviation,
+                    Regionid = s.Regionid,
+                }).ToList();
+
+                list = list.Where(r => r.Physicianid == phyMain.Physicianid).Select(r => r).ToList();
+
+                return list;
             }
 
-
-            var list = shiftdetails.Select(s => new ShiftDetailsmodal
-            {
-                Shiftid = s.Shiftid,
-                Shiftdetailid = s.Shiftdetailid,
-                Shiftdate = s.Shiftdate,
-                Startdate = s.Shift.Startdate,
-                Starttime = s.Starttime,
-                Endtime = s.Endtime,
-                Physicianid = s.Shift.Physicianid,
-                PhysicianName = s.Shift.Physician.Firstname,
-                Status = s.Status,
-                regionname = _context.Regions.FirstOrDefault(i => i.Regionid == s.Regionid).Name,
-                Abberaviation = _context.Regions.FirstOrDefault(i => i.Regionid == s.Regionid).Abbreviation,
-                Regionid = s.Regionid,
-            }).ToList();
-
-            return list;
+            
         }
 
         public ShiftDetailsmodal GetShift(int shiftdetailsid)

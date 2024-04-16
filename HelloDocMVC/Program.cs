@@ -12,6 +12,7 @@ using DAL_Data_Access_Layer_.DataModels;
 using NuGet.Protocol;
 using System.Text;
 using BusinessLogic.Interfaces;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,7 +86,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseRotativa();
 app.UseAuthentication();
 app.UseAuthorization();
 

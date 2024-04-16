@@ -124,31 +124,30 @@
     </div>
 </div>
 
-@section scripts{
-    @{
+
     <partial name="_ValidationScriptsPartial" />
-    }
-    }
+
 
 
 <script>
 
     function ProviderUploadBtn(){
-
-        $.ajax({
-            url: '/Provider/pendingViewUploadMain',
-            type: 'POST',
-            processData: false,
-            contentType: false,
-            data: new FormData($('#ProviderUploadForm')[0]),
-            success: function (response) {
-                pendingViewUploads(response.data);
-                toastr.success("Data Uploaded Successfully");
-            },
-            error: function (error) {
-                toastr.error("Error");
-            }
-        });
+        if ($("#ProviderUploadForm").valid()) {
+            $.ajax({
+                url: '/Provider/pendingViewUploadMain',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: new FormData($('#ProviderUploadForm')[0]),
+                success: function (response) {
+                    pendingViewUploads(response.data);
+                    toastr.success("Data Uploaded Successfully");
+                },
+                error: function (error) {
+                    toastr.error("Error");
+                }
+            });
+        }
 
     }
 
@@ -249,7 +248,7 @@
             var filePath = $(this).closest('tr').find('.delete-btn')[0].click();
         });
     });
-
+     
     // function deleteAll() {
     //     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     //     alert("clicked")
@@ -284,8 +283,8 @@
 
 
 
-    const tickAll = () => {
-        const checkboxes = document.getElementsByClassName("checkbox")
+    var tickAll = () => {
+        var checkboxes = document.getElementsByClassName("checkbox")
         if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
             for (let i = 0; i < checkboxes.length; ++i) {
                 checkboxes[i].checked = true;

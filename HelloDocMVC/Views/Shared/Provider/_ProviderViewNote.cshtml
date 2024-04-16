@@ -64,15 +64,15 @@
                             @{
                                 if (@Model._viewNote.PhysicianNotes != null)
                                 {
-                                    <small class="text-secondary">
-                                        @Model._viewNote.PhysicianNotes
-                                    </small>
+                                        <small class="text-secondary">
+                                            @Model._viewNote.PhysicianNotes
+                                        </small>
                                 }
                                 else
                                 {
-                                    <small class="text-secondary">
-                                        -
-                                    </small>
+                                        <small class="text-secondary">
+                                            -
+                                        </small>
                                 }
                             }
                         </div>
@@ -111,15 +111,15 @@
                                 @{
                                     if (Model._viewNote.AdminCancleNotes != null)
                                     {
-                                                        <small class="text-secondary">
-                                                            @Model._viewNote.AdminCancleNotes
-                                                        </small>
+                                                            <small class="text-secondary">
+                                                                @Model._viewNote.AdminCancleNotes
+                                                            </small>
                                     }
                                     else
                                     {
-                                                        <small class="text-secondary">
-                                                            -
-                                                        </small>
+                                                            <small class="text-secondary">
+                                                                -
+                                                            </small>
                                     }
                                 }
                             </div>
@@ -142,15 +142,15 @@
                                 @{
                                     if (Model._viewNote.PatientCancleNotes != null)
                                     {
-                                                        <small class="text-secondary">
-                                                            @Model._viewNote.PatientCancleNotes
-                                                        </small>
+                                                            <small class="text-secondary">
+                                                                @Model._viewNote.PatientCancleNotes
+                                                            </small>
                                     }
                                     else
                                     {
-                                                        <small class="text-secondary">
-                                                            -
-                                                        </small>
+                                                            <small class="text-secondary">
+                                                                -
+                                                            </small>
                                     }
                                 }
                             </div>
@@ -189,27 +189,25 @@
 </div>
 
 
-@section scripts{
-    @{
     <partial name="_ValidationScriptsPartial" />
-    }
-            }
 
 <script>
 
     function ProviderViewNoteBtn() {
-        $.ajax({
-            url: "/Provider/newViewNote",
-            type: 'POST',
-            data: $("#ProviderViewNote").serialize(),
-            success: function (result) {
-                newViewNote(result.data);
-                toastr.success("Data Updated Successfully");
-            },
-            error: function () {
-                toastr.success("Error");
-            },
-        });
+        if ($("#ProviderViewNote").valid()) {
+            $.ajax({
+                url: "/Provider/newViewNote",
+                type: 'POST',
+                data: $("#ProviderViewNote").serialize(),
+                success: function (result) {
+                    newViewNote(result.data);
+                    toastr.success("Data Updated Successfully");
+                },
+                error: function () {
+                    toastr.success("Error");
+                },
+            });
+        }
     }
 
 

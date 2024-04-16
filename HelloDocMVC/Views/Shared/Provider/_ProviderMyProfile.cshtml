@@ -618,11 +618,11 @@
 
         if ($("#ResetPasswordForm").valid()) {
             $.ajax({
-                url: "/adminDashboard/providerEditFirst",
+                url: "/Provider/providerEditFirst",
                 type: 'POST',
                 data: { password: editPass, phyId: editPhyId, email: email },
                 success: function (result) {
-                    editProvider(result.phyId);
+                    MyProfileMain();
                     if (result.indicate == true) {
                         toastr.success("Password Reset Successfully");
                     } else {
