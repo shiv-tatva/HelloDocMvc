@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,7 @@ namespace HelloDocMVC.CustomeModel
 
 
         [Required(ErrorMessage = "Please Enter Your Zipcode")]
+        [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
         public string? zipcode { get; set; }
 
         public string? room { get; set; }
@@ -54,10 +56,16 @@ namespace HelloDocMVC.CustomeModel
 
 
         [StringLength(15, MinimumLength = 4, ErrorMessage = "Password Have 4 to 15 Char")]
+        [Required(ErrorMessage = "Please Enter Password")]
         public string? password { get; set; }
 
         [Compare("password", ErrorMessage = "Password Missmatch")]
+        [Required(ErrorMessage = "Please Enter Confirm Password")]
         public string? confirmPassword { get; set; }
+
+        public List<DAL_Data_Access_Layer_.DataModels.Region> _RegionTable { get; set; }
+
+        public int? regionId {  get; set; }
 
     }
 }

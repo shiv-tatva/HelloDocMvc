@@ -60,6 +60,10 @@
         html[data-bs-theme="dark"] .dark-mode3 {
             background-color: rgb(42, 50, 56) !important;
         }
+        html[data-bs-theme="dark"] .dark-mode4 {
+            background-color: rgb(35 38 40) !important;
+            color: white !important;
+        }
 
         html[data-bs-theme="dark"] .new {
             color: white !important;
@@ -136,6 +140,8 @@
                 <div class="collapse w-100 mx-sm-1 show d-sm-block" id="navbarToggleExternalContent">
                     <div class="px-3">
                         <ul class="nav nav-underline" id="myTab" role="tablist">
+                             @if (ViewBag.Menu.Contains("Dashboard"))
+                            {
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active  text-muted px-3 dark-mode3" id="home-tab" data-bs-toggle="tab"
                                         data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
@@ -143,21 +149,27 @@
                                     Dashboard
                                 </button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link text-muted px-3 dark-mode3" onclick="ScheduleMain()" id="ProSchedule-tab" data-bs-toggle="tab"
-                                        data-bs-target="#ProSchedule-tab-pane" type="button" role="tab"
-                                        aria-controls="ProSchedule-tab-pane" aria-selected="false">
-                                    My Schedule
-                                </button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link text-muted px-3 dark-mode3" onclick="MyProfileMain()" id="Provider-profile-tab" data-bs-toggle="tab"
-                                        data-bs-target="#Provider-profile-tab-pane" type="button" role="tab" aria-controls="Provider-profile-tab-pane"
-                                        aria-selected="false">
-                                    My Profile
-                                </button>
-                            </li>
+                            }
+                            @if (ViewBag.Menu.Contains("My Schedule"))
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link text-muted px-3 dark-mode3" onclick="ScheduleMain()" id="ProSchedule-tab" data-bs-toggle="tab"
+                                    data-bs-target="#ProSchedule-tab-pane" type="button" role="tab"
+                                    aria-controls="ProSchedule-tab-pane" aria-selected="false">
+                                        My Schedule
+                                    </button>
+                                </li>
+                            }
+                            @if (ViewBag.Menu.Contains("My Profile"))
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link text-muted px-3 dark-mode3" onclick="MyProfileMain()" id="Provider-profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#Provider-profile-tab-pane" type="button" role="tab" aria-controls="Provider-profile-tab-pane"
+                                    aria-selected="false">
+                                        My Profile
+                                    </button>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

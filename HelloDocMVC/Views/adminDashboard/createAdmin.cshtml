@@ -8,8 +8,8 @@
     .iti__country-list {
         z-index: 3 !important;
     }
-</style><div class="container">    <div class=" mt-2 d-flex justify-content-between align-items-center">        <h4>Admin Profile</h4>        <a onclick="GetUserAccess(0)" class="btn shadow  btn-outline-info px-3 ">            <i class="fa-solid fa-angle-left fs-6"></i> Back        </a>    </div>    <div class="shadow border rounded my-3">        <div class="mx-3 my-4 ">            <form id="CreateAdminForm" onsubmit="adminAccCreate()">                <div class="mt-3">                    <h4 class="my-4 pt-4">Account Information</h4>                    <div class="row">                        <div class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating  ">
-                            <input type="text" class="form-control dark-mode2" asp-for="@Model._providerEdit.username" id="floatingInputUsername" placeholder="User Name" aria-label="User Name">                            <label class="ms-2 " for="floatingInputUsername">User Name</label>
+</style><div class="container">    @* <div class=" mt-2 d-flex justify-content-between align-items-center">        <h4>Admin Profile</h4>        <a onclick="GetUserAccess(0)" class="btn shadow  btn-outline-info px-3 ">            <i class="fa-solid fa-angle-left fs-6"></i> Back        </a>    </div> *@    <div class="shadow border rounded my-3">        <div class="mx-3 my-4 ">            <form id="CreateAdminForm" onsubmit="adminAccCreate()">                <div class="mt-3">                    <h4 class="my-4 pt-4">Account Information</h4>                    <div class="row">                        <div class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating  ">
+                            <input disabled type="text" class="form-control dark-mode2" asp-for="@Model._providerEdit.username" id="floatingInputUsername" placeholder="User Name" aria-label="User Name">                            <label class="ms-2 " for="floatingInputUsername">User Name</label>
                             <span class="text-danger" asp-validation-for="@Model._providerEdit.username"></span>                        </div>                        <div style="position: relative;" class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating ">
                             <input asp-for="@Model._providerEdit.password" type="password" class="form-control inputs dark-mode2" placeholder="Password" id="adminCreatePassword" />                            <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>                            <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;" type="button">                                <i class="fa-regular fa-eye" onclick="adminCreatePasswordVisible2()" id="adminCreatePasswordBtn"></i>                            </button>
                             <span class="text-danger" asp-validation-for="@Model._providerEdit.password"></span>                            @* <span asp-validation-for="@Model._myProfile.password" class="text-danger"></span> *@                        </div>                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12  form-floating mb-3 ">
@@ -65,7 +65,7 @@
                     toastr.success("Account Created Successfully");
                 },
                 error: function () {
-                    alert("Error");
+                    toastr.error("Error To Load Partial View");
                 },
             });
         }

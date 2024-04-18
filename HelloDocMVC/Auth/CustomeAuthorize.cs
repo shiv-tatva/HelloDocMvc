@@ -1,8 +1,6 @@
 ﻿
 using BLL_Business_Logic_Layer_.Interface;
-using BLL_Business_Logic_Layer_.Services;
 using BusinessLogic.Interfaces;
-using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,7 +8,7 @@ using System.Security.Claims;
 
 namespace HalloDoc.mvc.Auth
 {
-   
+
 
     [AttributeUsage(AttributeTargets.All)]
     public class CustomAuthorize : Attribute, IAuthorizationFilter

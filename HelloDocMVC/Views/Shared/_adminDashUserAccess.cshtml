@@ -222,7 +222,7 @@
             },
 
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -235,7 +235,7 @@
                 $('#content').html(result);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }

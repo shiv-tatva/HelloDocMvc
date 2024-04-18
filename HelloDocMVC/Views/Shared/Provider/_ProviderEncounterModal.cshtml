@@ -50,9 +50,9 @@
             type: 'POST',
             success: function (result) {
                 $('#EncounterModalBox').modal('hide');
-                activeTabThree();
+                DashboardMain();
                 toastr.success("Option Selected Successfully");
-            },
+            }, 
             error: function () {
                 toastr.error("Error");
             },

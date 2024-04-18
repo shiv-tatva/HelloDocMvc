@@ -38,6 +38,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? state { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Zipcode")]
+        [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
         public string? zipcode { get; set; }
 
         public string? symptoms { get; set; }
@@ -67,5 +68,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? relation { get; set; }
 
         public IFormFile? upload { get; set; }
+
+        public List<DAL_Data_Access_Layer_.DataModels.Region> _RegionTable { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter State Name")]
+        public int? regionId { get; set; }
     }
 }

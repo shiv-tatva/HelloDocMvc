@@ -49,6 +49,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string state { get; set; }
 
+        [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
+
         public string zipcode { get; set; }
 
         public string? fulldateofbirth { get; set; }
@@ -70,6 +72,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int reqid { get; set; }
         public int flag { get; set; }
 
+
+        [Required(ErrorMessage = "Please Enter Notes")]
         public string? notes { get; set; }
 
     }
@@ -99,6 +103,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public IFormFile Upload { get; set; }
 
 
+       
         public reviewAgreement _reviewAgreement { get; set; }
 
     }

@@ -78,7 +78,7 @@
 
             <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
 
-                <button type="submit" id="submitBtn" class="btn btn-info text-white EditBtn">Submit</button>
+                <button type="button" onclick="ActiveOrderSubmit()" id="submitBtn" class="btn btn-info text-white EditBtn">Submit</button>
 
                 <button type="button" id="cancelBtn" class="btn btn-outline-info EditBtn">Cancel</button>
             </div>
@@ -88,11 +88,9 @@
 </div>
 
 
-@section scripts{
-    @{
+
         <partial name="_ValidationScriptsPartial" />
-    }
-            }
+
 
 
 <script>
@@ -119,7 +117,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -144,7 +142,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -179,5 +177,24 @@
         });
     }
 
+
+    function ActiveOrderSubmit(){
+        let action = "/adminDashboard" + "/" + "activeOrders"
+        if ($("#formOrders").valid()) {
+            $.ajax({
+                url: action,
+                type: 'GET',
+                data: $("#formOrders").serialize(),
+                success: function (result) {
+                    activeOrders(result.data);
+                    toastr.success("Order Submit Successfully");
+                },
+                error: function (e) {
+                    console.log(e);
+                    alert('Error   vv loading partial view');
+                }
+            });
+        }
+    }
 
 </script>

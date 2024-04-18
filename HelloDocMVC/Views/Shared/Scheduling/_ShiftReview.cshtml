@@ -165,7 +165,6 @@
             var fileId = $(this).val();
             shiftDetailsId.push(fileId);
         });
-        alert("first");
         ApproveShift(shiftDetailsId, regionId);
     });
 
@@ -199,7 +198,6 @@
     }
 
     function ApproveShift(shiftDetailsId, regionId) {
-        alert(shiftDetailsId + "first" + regionId);
         event.preventDefault();
 
         $.ajax({

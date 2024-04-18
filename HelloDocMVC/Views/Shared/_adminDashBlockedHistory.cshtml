@@ -53,6 +53,7 @@
                 <table class="table Blockrequesttable">
                     <thead class="table-active">
                         <tr class="dark-mode2">
+                            <th scope="col" class="text-center d-none">block history id</th>
                             <th scope="col" class="text-center">Patient Name</th>
                             <th scope="col" class="text-center">Phone Number </th>
                             <th scope="col" class="text-center">Email</th>
@@ -68,6 +69,7 @@
                         {
 
                             <tr class="dark-mode2">
+                                <td class="text-center d-none">@obj.blockId</td>
                                 <td class="text-center">@obj.patientname</td>
                                 <td class="text-center">@obj.phonenumber</td>
                                 <td class="text-center">@obj.email</td>
@@ -209,7 +211,7 @@
                 }
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -236,7 +238,7 @@
                 toastr.success("Request Unblocked");                
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -257,7 +259,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
 
@@ -278,6 +280,7 @@
             },
             "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
             "pageLength": 5,
+            "order": [[0, "desc"]],
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -288,5 +291,30 @@
         });
         $('.dataTables_filter').hide();
     });
+
+
+
+    $("#first_name").keypress(function (event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            $("#search_button").click();
+        }
+    });
+
+    $("#email").keypress(function (event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            $("#search_button").click();
+        }
+    });
+
+
+    $("#phone").keypress(function (event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            $("#search_button").click();
+        }
+    });
+
 
 </script>

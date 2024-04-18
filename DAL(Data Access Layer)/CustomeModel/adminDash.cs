@@ -42,6 +42,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? street { get; set;  }
 
+        [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
+
         public string? zipcode { get; set;  }
 
         public string? state { get; set;  }
@@ -277,7 +279,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class closeCaseMain
     {
         public int reqid { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Email")]
         public string? email { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Mobile Number")]
         public string? mobile_num { get; set; }
 
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
@@ -483,6 +489,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? state { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Zipcode")]
+        [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
+
         public string? zipcode { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Name")]
@@ -575,6 +583,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? country { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Zipcode")]
+        [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
+
         public string? zipcode { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Firstname")]
@@ -675,9 +685,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public bool? indicate { get; set; }
         public string? indicateTwo { get; set; }
 
-        public decimal? longitude { get; set; }
+        public decimal longitude { get; set; }
 
-        public decimal? latitude { get; set; }
+        public decimal latitude { get; set; }
 
         public DateTime? created_date { get; set; }
 

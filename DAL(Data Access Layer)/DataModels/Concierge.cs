@@ -34,7 +34,7 @@ public partial class Concierge
     public string State { get; set; } = null!;
 
     [Column("zipcode")]
-    [StringLength(50)]
+    [StringLength(10)]
     public string Zipcode { get; set; } = null!;
 
     [Column("createddate", TypeName = "timestamp without time zone")]

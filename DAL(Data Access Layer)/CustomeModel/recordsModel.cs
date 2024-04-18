@@ -108,6 +108,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
 
         public int? requestid { get; set; }
+        public int? smsLogId { get; set; }
+        public int? emailLogId { get; set; }
         public string? recipient { get; set; }
         public string? action { get; set; }
         public string? rolename { get; set; }

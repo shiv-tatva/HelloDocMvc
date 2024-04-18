@@ -10,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Collections;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -22,7 +23,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _context = context;
         }
 
-        public void SendRegistrationEmail(string toEmail, string registrationLink)
+        public void SendRegistrationEmail(string toEmail, string registrationLink,string ReqEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -38,11 +39,33 @@ namespace BLL_Business_Logic_Layer_.Services
             MailMessage mailMessage = new MailMessage
             {
                 From = new MailAddress(senderEmail, "HalloDoc"),
-                Subject = "Update Password for Account ",
+                Subject = "Create Account ",
                 IsBodyHtml = true,
                 Body = $"Click the following link to complete your registration: <a href='{registrationLink}'>{registrationLink}</a>"
             };
 
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + toEmail + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = toEmail,
+                Roleid = 2,
+                //Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = ReqEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
+
+            if (_context.Requests.Any(r => r.Email == ReqEmail))
+            {
+                emailLog.Requestid = _context.Requests.Where(r => r.Email == ReqEmail).Select(r => r.Requestid).First();
+            }
+
+
+            _context.Emaillogs.Add(emailLog);
+            _context.SaveChanges();
 
 
             mailMessage.To.Add(toEmail);
@@ -57,6 +80,7 @@ namespace BLL_Business_Logic_Layer_.Services
             Requestbusiness _requestbusiness = new Requestbusiness();
             User _user = new User();
             Aspnetuser _aspnetuser = new Aspnetuser();
+            Aspnetuserrole _role = new Aspnetuserrole();
 
             var userFatch = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
 
@@ -78,14 +102,21 @@ namespace BLL_Business_Logic_Layer_.Services
                 _user.Mobile = obj.phone;
                 _user.Street = obj.street;
                 _user.City = obj.city;
-                _user.State = obj.state;
+                _user.State = _context.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
                 _user.Zipcode = obj.zipcode;
                 _user.Strmonth = obj.dateofbirth.Substring(5, 2);
                 _user.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
                 _user.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+                _user.Regionid = obj.regionId;
                 _user.Createddate = DateTime.Now;
 
                 _context.Users.Add(_user);
+                _context.SaveChanges();
+
+                _role.Userid = _aspnetuser.Id;
+                _role.Roleid = 2;
+
+                _context.Aspnetuserroles.Add(_role);
                 _context.SaveChanges();
             }
 
@@ -94,7 +125,15 @@ namespace BLL_Business_Logic_Layer_.Services
             var user = _context.Users.FirstOrDefault(x => x.Email == obj.email);
 
             _request.Requesttypeid = 4;
-            _request.Userid = _user.Userid;
+            if (userFatch == null)
+            {
+                _request.Userid = _user.Userid;
+            }
+            else
+            {
+                var a = _context.Users.Where(r => r.Email == obj.email).Select(r => r.Userid).First();
+                _request.Userid = a;
+            }
             _request.Firstname = obj.business_firstname;
             _request.Lastname = obj.business_lastname;
             _request.Phonenumber = obj.business_phone;
@@ -107,7 +146,6 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.Requests.Add(_request);
             _context.SaveChanges();
 
-            var userexist = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
 
             _requestclient.Requestid = _request.Requestid;
             _requestclient.Firstname = obj.firstname;
@@ -117,23 +155,24 @@ namespace BLL_Business_Logic_Layer_.Services
             _requestclient.Notes = obj.symptoms;
             _requestclient.Street = obj.street;
             _requestclient.City = obj.city;
-            _requestclient.State = obj.state;
+            _requestclient.State = _context.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
             _requestclient.Zipcode = obj.zipcode;
             _requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
             _requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
             _requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+            _requestclient.Regionid = obj.regionId;
 
-            if (userexist == null)
+            if (userFatch == null)
                 {
                     string emailConfirmationToken = Guid.NewGuid().ToString();
 
-                    string registrationLink = "http://localhost:5145/Home/CreateAccount";
+                string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _aspnetuser.Id;
 
-                    //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
+                //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
 
-                    try
+                try
                     {
-                        SendRegistrationEmail(obj.email, registrationLink);
+                        SendRegistrationEmail(obj.email, registrationLink, obj.business_email);
                     }
                     catch (Exception e)
                     {

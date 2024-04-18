@@ -29,7 +29,7 @@ function ScheduleMain() {
             $("#recordMainTab").removeClass("customactive");
         },
         error: function () {
-            alert("Error");
+            toastr.error("Error To Load Partial View");
         },
     });
 }
@@ -48,7 +48,7 @@ function MyProfileMain() {
         },
         error: function (e) {
             console.log(e);
-            alert('Error loading partial view');
+            toastr.error("Error To Load Partial View");
         }
     });
 }
@@ -175,7 +175,7 @@ function newViewNote(reqid) {
             $("#content").html(result);
         },
         error: function () {
-            alert('Error loading partial view');
+            toastr.error("Error To Load Partial View");
         }
     });
 }
@@ -192,7 +192,7 @@ function newViewCase(reqid) {
             $("#content").html(result);
         },
         error: function () {
-            alert('Error loading partial view');
+            toastr.error("Error To Load Partial View");
         }
     });
 }

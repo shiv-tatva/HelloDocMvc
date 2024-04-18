@@ -28,5 +28,6 @@ namespace BLL_Business_Logic_Layer_.Interface
         public adminDashData ProviderEncounterFormDownload(int reqId);
         public void ProviderConcludeCarePost(adminDashData adminDashData,string sessionEmail);
         public SchedulingCm PhysicainRegionTable(string sessionEmail);
+        public void RequestAdmin(ProviderTransferTab _ProviderTransferTab,string sessionEmail);
     }
 }

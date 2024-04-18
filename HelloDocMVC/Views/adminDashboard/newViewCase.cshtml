@@ -48,37 +48,30 @@
         role = "Business";
     }
 
-    var RequestType = "RequestTypeStatus";
-
-    if (item.status == 1)
+    @functions {
+    public string statusName(short status)
     {
-        RequestType = "New";
+        switch (status)
+        {
+            case 1: return "Unassigned";
+            case 2: return "Accepted";
+            case 3: return "Cancelled";
+            case 4: return "MDEnRoute";
+            case 5: return "MDOnSite";
+            case 6: return "Conclude";
+            case 7: return "Cancelled By Patient";
+            case 8: return "Closed";
+            case 9: return "Unpaid";
+            case 10: return "Clear";
+            default: return "Unknown";
+        }
     }
-    else if (item.status == 2)
-    {
-        RequestType = "Pending";
-    }
-    else if (item.status == 4 || item.status == 5)
-    {
-        RequestType = "Active";
-    }
-    else if (item.status == 6)
-    {
-        RequestType = "Conclude";
-    }
-    else if (item.status == 3 || item.status == 7 || item.status == 8)
-    {
-        RequestType = "To Close";
-    }
-    else if (item.status == 9)
-    {
-        RequestType = "Unpaid";
-    }
+}
 
 
     <div class="container">
         <div class=" mt-5 d-flex justify-content-between align-items-center">
-            <h4> @RequestType Request<span class="badge  rounded-5 Reqtyp" style="background:@bgColor">@role</span></h4>
+            <h4> @statusName((short)item.status) Request<span class="badge  rounded-5 Reqtyp" style="background:@bgColor">@role</span></h4>
 
             @if(Model.data[0].flagId == 2)
             {
@@ -257,7 +250,7 @@
                 $('#newRequestModal').modal('show');
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -278,7 +271,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -294,7 +287,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }

@@ -60,6 +60,17 @@
 
         if ($("#ContactProviderForm").valid()) {
             if (checkboxes[0].id == "SMS") {
+                $.ajax({
+                    url: "/adminDashboard/providerContactModalSms",
+                    data: { phyIdMain: phyId, msg: msg },
+                    type: 'POST',
+                    success: function (result) {
+                        toastr.success("SMS Sent Successfully")
+                    },
+                    error: function () {
+                        toastr.error("Error To Load Partial View");
+                    },
+                });
                 toastr.error("SMS Service Is Not Available!")
             } else if (checkboxes[0].id == "Email") {
                 $.ajax({
@@ -70,12 +81,22 @@
                         toastr.success("Email Sent Successfully")
                     },
                     error: function () {
-                        alert("Error");
+                        toastr.error("Error To Load Partial View");
                     },
                 });
-            } else if (checkboxes[0].id == "Both") {
+            } else if (checkboxes[0].id == "Both") {                
 
-                toastr.error("SMS Service Is Not Available!")
+                $.ajax({
+                    url: "/adminDashboard/providerContactModalSms",
+                    data: { phyIdMain: phyId, msg: msg },
+                    type: 'POST',
+                    success: function (result) {
+                        toastr.success("SMS Sent Successfully")
+                    },
+                    error: function () {
+                        toastr.error("Error To Load Partial View");
+                    },
+                });
 
                 $.ajax({
                     url: "/adminDashboard/providerContactModalEmail",
@@ -85,10 +106,13 @@
                         toastr.success("Email Sent Successfully")
                     },
                     error: function () {
-                        alert("Error");
+                        toastr.error("Error To Load Partial View");
                     },
                 });
             }
         }
     }
 </script>
+
+
+                               

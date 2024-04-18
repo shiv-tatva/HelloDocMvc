@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\Documents\\1\\Background.pdf"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\1\\HIPAA.pdf",
+      "PackagePath": "staticwebassets\\Documents\\1\\HIPAA.pdf"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\1\\Independent_Contractor.pdf",
       "PackagePath": "staticwebassets\\Documents\\1\\Independent_Contractor.pdf"
     },
@@ -109,6 +113,10 @@
       "PackagePath": "staticwebassets\\Documents\\Fig4. Admin dashboard in New state.jpg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig5. Admin dashboard in pending state (1).jpg",
+      "PackagePath": "staticwebassets\\Documents\\Fig5. Admin dashboard in pending state (1).jpg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig5. Admin dashboard in pending state.jpg",
       "PackagePath": "staticwebassets\\Documents\\Fig5. Admin dashboard in pending state.jpg"
     },
@@ -119,6 +127,10 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Fig7. Admin dashboard in Conclude state.jpg",
       "PackagePath": "staticwebassets\\Documents\\Fig7. Admin dashboard in Conclude state.jpg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Git Cheat sheet.pdf",
+      "PackagePath": "staticwebassets\\Documents\\Git Cheat sheet.pdf"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\Plan_till_1Feb2024.pdf",
@@ -147,6 +159,14 @@
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-outline (1).svg",
       "PackagePath": "staticwebassets\\Documents\\cloud-upload-outline (1).svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-outline (3) (1).svg",
+      "PackagePath": "staticwebassets\\Documents\\cloud-upload-outline (3) (1).svg"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-outline (3).svg",
+      "PackagePath": "staticwebassets\\Documents\\cloud-upload-outline (3).svg"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\cloud-upload-outline.svg",
@@ -181,6 +201,10 @@
       "PackagePath": "staticwebassets\\Documents\\dollar-filled.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\downward-arrow (3) (1).svg",
+      "PackagePath": "staticwebassets\\Documents\\downward-arrow (3) (1).svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\downward-arrow (3).svg",
       "PackagePath": "staticwebassets\\Documents\\downward-arrow (3).svg"
     },
@@ -201,12 +225,24 @@
       "PackagePath": "staticwebassets\\Documents\\encounter_16042024_104745.pdf"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\encounter_16042024_105217 (1) (1).pdf",
+      "PackagePath": "staticwebassets\\Documents\\encounter_16042024_105217 (1) (1).pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\encounter_16042024_105217 (1).pdf",
+      "PackagePath": "staticwebassets\\Documents\\encounter_16042024_105217 (1).pdf"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\encounter_16042024_105217.pdf",
       "PackagePath": "staticwebassets\\Documents\\encounter_16042024_105217.pdf"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\encounter_16042024_131442.pdf",
       "PackagePath": "staticwebassets\\Documents\\encounter_16042024_131442.pdf"
+    },
+    {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\encounter_16042024_180105 (1).pdf",
+      "PackagePath": "staticwebassets\\Documents\\encounter_16042024_180105 (1).pdf"
     },
     {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\encounter_16042024_180105.pdf",

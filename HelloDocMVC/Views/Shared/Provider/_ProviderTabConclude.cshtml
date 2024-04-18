@@ -164,7 +164,7 @@
                                         {
                                             <div class="table_phone">
                                                 <a href="">
-                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                    <i class="bi bi-telephone   rounded-5   p-1 text-white" style="color:white!important"></i>
                                                     @item.requestor_mobile_num
                                                 </a>
                                             </div>
@@ -307,10 +307,10 @@
 
 
 
-                            <tr style="display: flex;flex-direction: column" class="@role">
+                            <tr style="display: flex;flex-direction: column" class="@role dark-mode4">
                                 <td>
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <button class="accordion-button collapsed dark-mode4" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
                                             <span class="d-flex flex-column" style="width:100%">
                                                 <span class="d-flex justify-content-between">
                                                     <span class="mb-3">@item.first_name @item.last_name</span>
@@ -359,15 +359,20 @@
                                             <span class="d-flex flex-column">
                                                 <span class="d-flex justify-content-between mt-1">
                                                     <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="activeViewNote(@item.reqid)">View Notes</button>
-                                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;">Doctors Notes</button>
+                                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="ConcludeCare(@item.reqid)">Conclude Care</button>
                                                 </span>
                                                 <span class="d-flex justify-content-between mt-1">
-                                                    <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="activeViewUploads(@item.reqid)">View Uploads</button>
-                                                    <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="activeEncounter(@item.reqid)" class="dropdown-item">Encounter</button>
+                                                    <button class="accBtn me-2" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="pendingViewUploads(@item.reqid)">View Uploads</button>
+                                                    @if (item.isFinalize != null && item.isFinalize[0])
+                                                    {
+                                                        <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="ProviderEncounterFormDownload(@item.reqid)" class="dropdown-item">EncounterDownload</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="ProviderEncounterForm(@item.reqid)" class="dropdown-item">EncounterForm</button>
+                                                    }
                                                 </span>
                                                 <span class="d-flex justify-content-between mt-1">
-                                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="activeOrders(@item.reqid)">Orders</button>
-                                                    <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;">Email</button>
                                                 </span>
                                                 <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="activeViewCase(@item.reqid)">View Case</button>
                                             </span>
@@ -389,18 +394,14 @@
                     <thead>
                         <tr>
                             <th scope="col" class="dark-mode2 ">Name</th>
-                            <th scope="col" class="dark-mode2 ">Date Of Birth</th>
-                            <th scope="col" class="dark-mode2 ">Physician Name</th>
-                            <th scope="col" class="dark-mode2 ">Date Of Service</th>
                             <th scope="col" class="dark-mode2 ">Phone</th>
                             <th scope="col" class="dark-mode2 ">Address</th>
-                            <th scope="col" class="dark-mode2 ">Chat With</th>
                             <th scope="col" class="dark-mode2 ">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="dark-mode2">
-                            <td colspan="8" style="text-align:center;">No Request Found</td>
+                            <td colspan="4" style="text-align:center;">No Request Found</td>
                         </tr>
                     </tbody>
                 </table>
@@ -460,7 +461,7 @@
             },
 
             error: function () {
-                alert("Error loading partial view");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -535,7 +536,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -550,7 +551,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -566,7 +567,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -581,7 +582,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -597,7 +598,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -613,7 +614,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -633,7 +634,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -648,7 +649,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -686,7 +687,7 @@
                 $("#regionFilterConclude").val(value);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
 
@@ -703,7 +704,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -716,7 +717,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -749,7 +750,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -765,7 +766,7 @@
                 $('#EncounterModalBox').modal('show');
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -783,7 +784,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }

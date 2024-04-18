@@ -37,7 +37,7 @@
                                         }
                                     }
                                 </td>
-                            <td>
+                                <td>
                                     @foreach (var item4 in Model._provider._shift)
                                     {
                                         if (item.Physicianid == item4.Physicianid)
@@ -90,7 +90,7 @@
             url: "/adminDashboard/providerContactModal",
             type: 'GET',            data: { phyId: phyId },                success: function (result) {                $("#providerContactModal").html(result);                $('#ContactProviderModal').modal('show');            },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }    function checkBox(phyId) {        $.ajax({
@@ -99,7 +99,7 @@
             type: 'GET',
             success: function (result) {                if (result.indicate == true) {                    toastr.success("Notification Stopped");                } else {                    toastr.success("Notification Started");                }            },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -114,7 +114,7 @@
                 $('#content').html(result);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -133,7 +133,7 @@
                 $("#providerRegionMain").val(abc);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }</script>                                            

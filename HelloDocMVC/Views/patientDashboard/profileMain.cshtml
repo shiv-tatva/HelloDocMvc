@@ -21,7 +21,7 @@
                 <i class="fa-solid fa-angle-left"></i> Back
             </a>
         </div>
-        <form method="post" class="shadow border rounded my-3">
+    <form method="post" asp-action="profileMain" asp-controller="patientDashboard" class="shadow border rounded my-3">
             <div class="mx-3 my-4 ">
                 <div class="mt-3">
                     <h4 class="my-4 pt-4">General Information</h4>
@@ -166,7 +166,8 @@
         var state = $("#floatingInputState").val();
         var zipcode = $("#floatingInputZipcode").val();
 
-        window.location.href = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+        window.open("https://www.google.com/maps/search/?api=1&query=" + street + "+" + city + "+" + state + "+" + zipcode, "_blank");
+
     }
 </script>
 

@@ -70,7 +70,6 @@
                         @item.created_date.Year
                     </td>
                     <td>@Enum[Convert.ToInt32(item.status)]</td>
-                    @if(@item.doc_Count > 0){
                     <td>
                             <button type="button" class="btn documents " style="width:9em;float:left;"  onclick="location.href='@Url.Action("viewDetail","patientDashboard",new {
                             param = item.reqid})' ">
@@ -78,7 +77,6 @@
                             <i class="bi bi-plus-lg d-block d-md-none"></i>
                         </button>
                     </td>
-                    }
                     
                 </tr>
             }

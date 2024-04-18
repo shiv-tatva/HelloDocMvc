@@ -75,8 +75,7 @@
             <form action=" " method="post" id="ResetPasswordForm">
                 <input type="hidden" id="providerEditOne" asp-for="@Model._providerEdit.PhyID" value="@Model._providerEdit.PhyID" />
                 <div style="float:right;">
-                    <button type="button" id="providerReqeustAdmin"
-                            class="btn btn-outline-secondary border-info text-info ms-2">
+                    <button onclick="providerReqeustAdminMain()" type="button" id="providerReqeustAdmin" class="btn btn-outline-secondary border-info text-info ms-2">
                         Request To Admin
                     </button>
                 </div>
@@ -482,6 +481,11 @@
             </form>
         </div>
     </div>
+
+    <div id="RequestToAdminMain">
+
+    </div>
+
 </div>
 
 <partial name="_ValidationScriptsPartial" />
@@ -630,7 +634,7 @@
                     }
                 },
                 error: function () {
-                    alert("Error");
+                    toastr.error("Error To Load Partial View");
                 },
             });
         }
@@ -654,7 +658,7 @@
                     }
                 },
                 error: function () {
-                    alert("Error");
+                    toastr.error("Error To Load Partial View");
                 },
             });
         }
@@ -694,7 +698,7 @@
                     }
                 },
                 error: function () {
-                    alert("Error");
+                    toastr.error("Error To Load Partial View");
                 },
             });
         }
@@ -722,7 +726,7 @@
                         }
                     },
                     error: function () {
-                        alert("Error");
+                        toastr.error("Error To Load Partial View");
                     },
                 });
             }, 1000);
@@ -875,9 +879,26 @@
                 toastr.success("Account Deleted Successfully");
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
+
+    function providerReqeustAdminMain(){
+        let action = "/Provider" + "/" + "RequestAdmin"
+        event.preventDefault();
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                $('#RequestToAdminMain').html(result);
+                $('#EditPremissionModalBox').modal('show');
+            },
+            error: function () {
+                toastr.error("Error To Load Partial View");
+            },
+        });
+    }
+
 
 </script>

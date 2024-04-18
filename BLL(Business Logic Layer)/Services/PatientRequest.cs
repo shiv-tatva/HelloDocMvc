@@ -42,7 +42,8 @@ namespace BLL_Business_Logic_Layer_.Services
             User _user = new User();
             Request _request = new Request();
             Requestclient _requestclient = new Requestclient();
-            Aspnetuser _aspnetuser = new Aspnetuser();  
+            Aspnetuser _aspnetuser = new Aspnetuser();
+            Aspnetuserrole _role = new Aspnetuserrole();
 
             var user = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
             if (user == null)
@@ -68,14 +69,21 @@ namespace BLL_Business_Logic_Layer_.Services
                 _user.Mobile = obj.phone;
                 _user.Street = obj.street;
                 _user.City = obj.city;
-                _user.State = obj.state;
+                _user.State = _context.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
                 _user.Zipcode = obj.zipcode;
                 _user.Strmonth = obj.dateofbirth.Substring(5, 2);
                 _user.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
                 _user.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+                _user.Regionid = obj.regionId;
                 _user.Createddate = DateTime.Now;
 
                 _context.Users.Add(_user);
+                _context.SaveChanges();
+
+                _role.Userid = _aspnetuser.Id;
+                _role.Roleid = 2;
+
+                _context.Aspnetuserroles.Add(_role);
                 _context.SaveChanges();
             }
 
@@ -108,9 +116,10 @@ namespace BLL_Business_Logic_Layer_.Services
             _requestclient.Intyear =  Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
             _requestclient.City = obj.city;
             _requestclient.Street = obj.street;
-            _requestclient.State = obj.state;
+            _requestclient.State = _context.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
             _requestclient.Zipcode = obj.zipcode;
             _requestclient.Notes = obj.symptoms;
+            _requestclient.Regionid = obj.regionId;
 
 
             _context.Requestclients.Add(_requestclient);
@@ -141,5 +150,7 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
+
+        
     }
 } 

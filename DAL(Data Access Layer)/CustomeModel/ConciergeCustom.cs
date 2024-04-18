@@ -40,6 +40,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? concierge_state { get; set; }
 
         [Required(ErrorMessage = "Please Enter Zipcode Name:")]
+        [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
+
         public string? concierge_zipcode { get; set; }
 
         public string? symptoms { get; set; }
@@ -62,5 +64,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? phone { get; set; }
 
         public string? room { get; set; }
+
+        public List<DAL_Data_Access_Layer_.DataModels.Region> _RegionTable { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter State Name")]
+        public int? regionId { get; set; }
     }
 }

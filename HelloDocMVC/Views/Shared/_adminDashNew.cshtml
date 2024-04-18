@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
 
 
+
 <div class="tab-pane fade show active" id="new-tab-pane" role="tabpanel" aria-labelledby="new-tab"
      tabindex="0" >
 
@@ -124,6 +125,7 @@
                 <table class="table" id="tableDataMain">
                     <thead id="table-heading">
                         <tr>
+                            <th scope="col" class="dark-mode2 d-none">Request Id</th>
                             <th scope="col" class="dark-mode2 ">Name</th>
                             <th scope="col" class="dark-mode2 ">Date of Birth</th>
                             <th scope="col" class="dark-mode2 ">Requestor</th>
@@ -165,6 +167,7 @@
                                 }
 
                                 <tr class="tablerows @role">
+                                    <td style="background:@bgColor" class="d-none">@item.reqid</td>
                                     <td style="background:@bgColor">
                                         <div class="table_name_email ps-1">
                                             <div class="d-flex flex-column">
@@ -196,7 +199,7 @@
                                         {
                                             <div class="table_phone">
                                                 <a href="">
-                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info" ></i>
+                                                    <i class="bi bi-telephone   rounded-5   p-1 text-white" ></i>
                                                     @item.requestor_mobile_num
                                                 </a>
                                             </div>
@@ -207,7 +210,7 @@
                                     </td>
                                     <td style="background:@bgColor">@item.address</td>
                                     <td style="background:@bgColor">
-                                    @if(item.notes.Count() != 0)
+                                        @if (item.notes.Count() != 0 && item.phy_id != null)
                                     {
                                             @if (item.notes.Last().Transtophysicianid != null || item.notes.Last().Transtoadmin != null)
                                         {
@@ -219,8 +222,8 @@
                                         }
                                     }
                                     </td>
-                                    <td style="background:@bgColor; ">
-                                        @if (item.notes.Count() != 0)
+                                    <td style="background:@bgColor; "> 
+                                        @if (item.notes.Count() != 0 && item.phy_id != null)
                                         {
                                             @if (item.notes.Last().Transtophysicianid != null)
                                             {
@@ -319,7 +322,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="dark-mode2">
                                 <td colspan="9" style="text-align:center;">No Request Found</td>
                             </tr>
                         </tbody>
@@ -382,12 +385,12 @@
                                     role = "Business";
                                 }
 
-                                <tr style="display: flex;flex-direction: column" class="@role">
+                                <tr style="display: flex;flex-direction: column" class="@role dark-mode4">
 
                                     <td>
                                         <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                <span class="d-flex flex-column" style="width:100%">
+                                            <button class="accordion-button collapsed dark-mode4" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                <span class="d-flex flex-column  " style="width:100%">
                                                     <span class="d-flex justify-content-between">
                                                         <div class="d-flex flex-column">
                                                         <span class="mb-3">@item.first_name @item.last_name</span>
@@ -522,7 +525,7 @@
             },
 
             error: function () {
-                alert("Error loading partial view");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -549,7 +552,7 @@
               
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -568,7 +571,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -587,7 +590,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -609,8 +612,8 @@
             },
             "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
             "pageLength": 5,
-            "order": [[3, "desc"]],
-            "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+            "order": [[0, "desc"]],
+            "columns": [{ "searchable": false },{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -663,7 +666,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -683,7 +686,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -698,7 +701,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -717,7 +720,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -734,7 +737,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -765,7 +768,7 @@
                 $("#regionFilter").val(value);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
 

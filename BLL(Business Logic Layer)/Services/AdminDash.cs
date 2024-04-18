@@ -29,6 +29,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Humanizer;
 using System.Threading.Channels;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -503,7 +505,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
         //*************************************Mail**********************************************
-        public void SendRegistrationEmail(string emailMain, string[] data)
+        public void SendRegistrationEmail(string emailMain, string[] data,string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -530,9 +532,34 @@ namespace BLL_Business_Logic_Layer_.Services
                 Attachment attachment = new Attachment(pathname);
                 mailMessage.Attachments.Add(attachment);
             }
-                
-            
 
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + emailMain + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = emailMain,
+                Roleid = 1,
+                //Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = sessionEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
+
+            if (_context.Admins.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First();
+            }
+
+            if (_context.Physicians.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Physicianid = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r.Physicianid).First();
+                emailLog.Roleid = 3;
+            }
+
+            _context.Emaillogs.Add(emailLog);
+            _context.SaveChanges();
 
             mailMessage.To.Add(emailMain);
 
@@ -541,13 +568,13 @@ namespace BLL_Business_Logic_Layer_.Services
 
     
 
-        public void sendMail(string emailMain, string[] data)
+        public void sendMail(string emailMain, string[] data,string sessionEmail)
         {
             string emailConfirmationToken = Guid.NewGuid().ToString();
             
             try
             {
-                SendRegistrationEmail(emailMain, data);
+                SendRegistrationEmail(emailMain, data, sessionEmail);
             }
             catch (Exception e)
             {
@@ -631,6 +658,7 @@ namespace BLL_Business_Logic_Layer_.Services
             transferRequest.region_id = _context.Regions.Select(y => y.Regionid).ToList();
             transferRequest.regions = _context.Regions.ToList();
             transferRequest.reqid = req;
+            transferRequest.phy_id_main = (int)_context.Requests.Where(r => r.Requestid == req).Select(r => r.Physicianid).First();
 
             //assignCase.phy_req = _context.Physicianregions.ToList();
             return transferRequest;
@@ -646,14 +674,15 @@ namespace BLL_Business_Logic_Layer_.Services
             requeststatuslog.Requestid = data.transferRequest.reqid;
             requeststatuslog.Notes = data.transferRequest.description;
             requeststatuslog.Createddate = DateTime.Now;
-            requeststatuslog.Status = 2;
+            requeststatuslog.Status = 1;
             requeststatuslog.Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First();
             requeststatuslog.Transtophysicianid = data.transferRequest.phy_id_main;
 
-            _context.Add(requeststatuslog);
+            _context.Requeststatuslogs.Add(requeststatuslog);
             _context.SaveChanges();
 
             requestedRowPatient.Physicianid = data.transferRequest.phy_id_main;
+            requestedRowPatient.Status = 1;
             requestedRowPatient.Modifieddate = DateTime.Now;
 
             _context.SaveChanges();
@@ -695,13 +724,13 @@ namespace BLL_Business_Logic_Layer_.Services
             return sendAgreement;
         }
 
-        public void sendAgree(adminDashData dataMain)
+        public void sendAgree(adminDashData dataMain,string sessionEmail)
         {
             string registrationLink = "http://localhost:5145/Home/pendingReviewAgreement?reqId=" + dataMain._sendAgreement.reqid;
 
             try
             {
-                SendRegistrationEmailMain(dataMain._sendAgreement.email, registrationLink);
+                SendRegistrationEmailMain(dataMain._sendAgreement.email, registrationLink, sessionEmail);
             }
             catch (Exception e)
             {
@@ -710,7 +739,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public void SendRegistrationEmailMain(string toEmail, string registrationLink)
+        public void SendRegistrationEmailMain(string toEmail, string registrationLink, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -731,7 +760,33 @@ namespace BLL_Business_Logic_Layer_.Services
                 Body = $"Click the following link to Review Agreement: <a href='{registrationLink}'>{registrationLink}</a>"
             };
 
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + toEmail + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = toEmail,
+                Roleid = 1,
+                //Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = sessionEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
 
+            if(_context.Admins.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First();
+            }
+
+            if (_context.Physicians.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Physicianid = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r.Physicianid).First();
+                emailLog.Roleid = 3;
+            }
+
+                _context.Emaillogs.Add(emailLog);
+            _context.SaveChanges();
 
             mailMessage.To.Add(toEmail);
 
@@ -1093,7 +1148,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public sendLink sendLink(sendLink data)
+        public sendLink sendLink(sendLink data,string sessionEmail)
         {
             sendLink _send = new sendLink();
 
@@ -1101,7 +1156,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             try
             {
-                SendRegistrationEmailSendLink(data.Email, registrationLink);
+                SendRegistrationEmailSendLink(data.Email, registrationLink, sessionEmail);
                 _send.indicate = true;
             }
             catch (Exception e)
@@ -1112,7 +1167,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return _send;
         }
 
-        public void SendRegistrationEmailSendLink(string email,string registrationLink)
+        public void SendRegistrationEmailSendLink(string email,string registrationLink, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -1128,12 +1183,38 @@ namespace BLL_Business_Logic_Layer_.Services
             MailMessage mailMessage = new MailMessage
             {
                 From = new MailAddress(senderEmail, "HalloDoc"),
-                Subject = "Review Agreement",
+                Subject = "SubmitRequest",
                 IsBodyHtml = true,
                 Body = $"Click the following link to Create Request: <a href='{registrationLink}'>{registrationLink}</a>"
             };
 
 
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + email + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = email,
+                Roleid = 1,
+                //Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = sessionEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
+
+            if (_context.Admins.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First();
+            }
+
+            if (_context.Physicians.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Physicianid = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r.Physicianid).First();
+                emailLog.Roleid = 3;
+            }
+            _context.Emaillogs.Add(emailLog);
+            _context.SaveChanges();
 
             mailMessage.To.Add(email);
 
@@ -1148,7 +1229,7 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 createRequest _create = new createRequest();
 
-                var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).FirstOrDefault();
+                var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).FirstOrDefault();
 
                 if (stateMain == null)
                 {
@@ -1204,7 +1285,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
                         try
                         {
-                            SendRegistrationEmailCreateRequest(data.email, registrationLink);
+                            SendRegistrationEmailCreateRequest(data.email, registrationLink, sessionEmail);
                         }
                         catch (Exception e)
                         {
@@ -1213,7 +1294,16 @@ namespace BLL_Business_Logic_Layer_.Services
                     }
 
                     _req.Requesttypeid = 1;
-                    _req.Userid = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
+                    if (existUser == null)
+                    {
+                        _req.Userid = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
+                    }
+                    else
+                    {
+                        var a = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
+                        _req.Userid = a;
+                    }
+
                     _req.Firstname = _admin.Firstname;
                     _req.Lastname = _admin.Lastname;
                     _req.Phonenumber = _admin.Mobile;
@@ -1238,7 +1328,7 @@ namespace BLL_Business_Logic_Layer_.Services
                     _reqClient.City = data.city;
                     _reqClient.State = data.state;
                     _reqClient.Zipcode = data.zipcode;
-                    _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                    _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
                     _reqClient.Email = data.email;
 
                     _context.Requestclients.Add(_reqClient);
@@ -1318,7 +1408,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
                     try
                     {
-                        SendRegistrationEmailCreateRequest(data.email, registrationLink);
+                        SendRegistrationEmailCreateRequest(data.email, registrationLink, sessionEmail);
                     }
                     catch (Exception e)
                     {
@@ -1377,7 +1467,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public void SendRegistrationEmailCreateRequest(string email,string registrationLink)
+        public void SendRegistrationEmailCreateRequest(string email,string registrationLink,string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -1398,6 +1488,32 @@ namespace BLL_Business_Logic_Layer_.Services
                 Body = $"Click the following link to Create Account: <a href='{registrationLink}'>{registrationLink}</a>"
             };
 
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + email + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = email,
+                Roleid = 1,
+                //Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = sessionEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
+
+            if (_context.Admins.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First();
+            }
+
+            if (_context.Physicians.Any(r => r.Email == sessionEmail))
+            {
+                emailLog.Physicianid = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r.Physicianid).First();
+                emailLog.Roleid = 3;
+            }
+            _context.Emaillogs.Add(emailLog);
+            _context.SaveChanges();
 
 
             mailMessage.To.Add(email);
@@ -1409,7 +1525,7 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             createRequest _create = new createRequest();
 
-            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == state.ToLower()).FirstOrDefault();
+            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == state.Trim().ToLower()).FirstOrDefault();
                         
             if(stateMain == null)
             {
@@ -1547,6 +1663,55 @@ namespace BLL_Business_Logic_Layer_.Services
                     
             return _provider;
         }
+        
+        public provider providerContactSms(int phyIdMain,string msg, string sessionEmail)
+        {
+            provider _provider = new provider();
+            
+            _provider.phyId = phyIdMain;
+
+            var provider = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r).First();                       
+
+            try
+            {
+                var accountSid = "ACaebecb91ffc32c15dd5694bbc3a27883";
+                var authToken = "27e0529de8732f6e126c6fcde86a7b91";
+                var twilionumber = "+16562192200";
+
+                var messageBody = $"Hello {provider.Firstname} {provider.Lastname},\n {msg} \n\n\nRegards,\n(HelloDoc Admin)";
+
+                TwilioClient.Init(accountSid, authToken);
+
+                var messagee = MessageResource.Create(
+                from: new Twilio.Types.PhoneNumber(twilionumber),
+                body: messageBody,
+                to: new Twilio.Types.PhoneNumber("+91" + provider.Mobile)
+                );
+
+                Smslog smslog = new Smslog()
+                {
+                    Smstemplate = "Sender : " + twilionumber + "Reciver :" + provider.Mobile + "Message : " + msg,
+                    Mobilenumber = provider.Mobile,
+                    Roleid = 1,
+                    Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First(),
+                    Createdate = DateTime.Now,
+                    Sentdate = DateTime.Now,
+                    Issmssent = new BitArray(1, true),
+                    Confirmationnumber = provider.Firstname.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                    Senttries = 1,
+                };
+
+                _context.Smslogs.Add(smslog);
+                _context.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+                    
+            return _provider;
+        }
 
         private void SendRegistrationproviderContactEmail(string provider,string msg, string sessionEmail, int phyIdMain)
         {
@@ -1577,7 +1742,6 @@ namespace BLL_Business_Logic_Layer_.Services
                 Emailid = provider,
                 Roleid = 1,
                 Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First(),
-                Physicianid = phyIdMain,
                 Createdate = DateTime.Now,
                 Sentdate = DateTime.Now,
                 Isemailsent = new BitArray(1, true),
@@ -1711,7 +1875,16 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             BitArray deletedBit = new BitArray(new[] { false });
 
-            var role = _context.Roles.Where(i => i.Isdeleted.Equals(deletedBit)).ToList();
+            var role = _context.Roles.Where(i => i.Isdeleted.Equals(deletedBit) && i.Accounttype == 3).ToList();
+
+            return role;
+        }
+        
+        public List<Role> adminRole()
+        {
+            BitArray deletedBit = new BitArray(new[] { false });
+
+            var role = _context.Roles.Where(i => i.Isdeleted.Equals(deletedBit) && i.Accounttype == 1).ToList();
 
             return role;
         }
@@ -2116,10 +2289,19 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.Aspnetuserroles.Add(_userRole);
                 _context.SaveChanges();
 
-                
-                    Physicianlocation _phyLoc = new Physicianlocation();
-                    _phyLoc.Physicianid = phy.Physicianid;
+
+                Physicianlocation _phyLoc = new Physicianlocation();
+                _phyLoc.Physicianid = phy.Physicianid;
+
+                if (_context.Physicianlocations.Any(r => r.Latitude == decimal.Round(obj._providerEdit.latitude,6) ))
+                {
+                    _phyLoc.Latitude = obj._providerEdit.latitude + 0.100000m;
+                }
+                else
+                {
+
                     _phyLoc.Latitude = obj._providerEdit.latitude;
+                }
                     _phyLoc.Longitude = obj._providerEdit.longitude;
                     _phyLoc.Createddate = DateTime.Now;
                     _phyLoc.Physicianname = phy.Firstname;
@@ -2490,7 +2672,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 Aspnetuser _user = new Aspnetuser();
                 Admin admin = new Admin();
 
-                _user.Username = obj._providerEdit.username;
+                _user.Username = "AD." + obj._providerEdit.Lastname + obj._providerEdit.Firstname.Substring(0, 1);
                 _user.Passwordhash = obj._providerEdit.password;
                 _user.Email = obj._providerEdit.Email;
                 _user.Phonenumber = obj._providerEdit.PhoneNumber;
@@ -2641,7 +2823,13 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 query.Status = 1;
 
-                query.Roleid = adminDashData._providerEdit.Roleid;
+                //if(query.Roleid != adminDashData._providerEdit.Roleid)
+                //{
+                //    var aspNetUserRole = _context.Aspnetuserroles.Where(r => r.Userid == asp_row.Id).Select(r => r).First();
+                //    var Role = _context.Aspnetroles.Where(r => r.Id == query.Roleid).Select(r => r).First();
+                //    aspNetUserRole.Roleid = Role.Id;
+                //}
+                query.Roleid = (int)adminDashData._providerEdit.Roleid;
 
                 _context.SaveChanges();
 
@@ -3497,6 +3685,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
                         var newRecord = new emailSmsRecords
                         {
+                            emailLogId = item.Emaillogid,
                             email = item.Emailid,
                             createddate = item.Createdate,
                             sentdate = item.Sentdate,
@@ -3544,6 +3733,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
                     var newRecord = new emailSmsRecords
                     {
+                        smsLogId = item.Smslogid,
                         contact = item.Mobilenumber,
                         createddate = item.Createdate,
                         sentdate = item.Sentdate,

@@ -169,7 +169,7 @@
                 $('#datediv').text(datehere);
             },
             error: function () {
-                console.error('Error loading partial view.');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -283,7 +283,7 @@
 
             },
             error: function (e) {
-                console.log(e);
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -303,7 +303,7 @@
 
             },
             error: function (e) {
-                console.log(e);
+                toastr.error("Error To Load Partial View");
             }
         });
     }

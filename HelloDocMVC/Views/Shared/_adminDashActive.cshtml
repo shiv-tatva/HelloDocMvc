@@ -125,6 +125,7 @@
                     <table class="table" id="tableDataMainAdmin">
                         <thead>
                             <tr>
+                                <th scope="col" class="dark-mode2 d-none">Req Id</th>
                                 <th scope="col" class="dark-mode2 ">Name</th>
                                 <th scope="col" class="dark-mode2 ">Date Of Birth</th>
                                 <th scope="col" class="dark-mode2 ">Requestor</th>
@@ -167,6 +168,7 @@
 
 
                                 <tr class="tablerows @role">
+                                    <td class="text-white d-none" style="background:@bgColor;">@item.reqid</td>
                                     <td class="text-white" style="background:@bgColor;">
                                         <div class="table_name_email">
 
@@ -194,7 +196,7 @@
                                         {
                                             <div class="table_phone">
                                                 <a href="">
-                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info" style="color:white!important"></i>
+                                                    <i class="bi bi-telephone   rounded-5   p-1 text-white" style="color:white!important"></i>
                                                     @item.requestor_mobile_num
                                                 </a>
                                             </div>
@@ -223,7 +225,7 @@
                                     <td class="text-white" style="background:@bgColor;">
 
                                         <div style="display:flex;">
-                                            <div class="dropdown mb-1">
+                                            @* <div class="dropdown mb-1">
                                                 <button class="btn text-white border border-white py-1 "
                                                 id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
                                                 aria-expanded="false">
@@ -232,7 +234,7 @@
                                                         Patient
                                                     </span>
                                                 </button>
-                                            </div>
+                                            </div> *@
                                             <div class="dropdown">
                                                 <button class="btn text-white border border-white py-1 "
                                                 id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
@@ -320,7 +322,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="dark-mode2">
                                 <td colspan="10" style="text-align:center;">No Request Found</td>
                             </tr>
                         </tbody>
@@ -380,10 +382,10 @@
                             }
 
 
-                            <tr style="display: flex;flex-direction: column" class="@role">
+                            <tr style="display: flex;flex-direction: column" class="@role dark-mode4">
                                 <td>
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <button class="accordion-button collapsed dark-mode4" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
                                         <span class="d-flex flex-column" style="width:100%">
                                             <span class="d-flex justify-content-between">
                                                 <span class="mb-3">@item.first_name @item.last_name</span>
@@ -423,7 +425,7 @@
                                         <i class="fa-solid fa-phone"></i> Patient: @item.mobile_num
                                     </div>
                                     <div class="accordion-body mt-1">
-                                        <i class="fa-solid fa-phone"></i> Transfer: @item.notes
+                                        <i class="fa-solid fa-phone"></i> Transfer: "Note"
                                     </div>
                                     <div class="accordion-body mt-1">
                                         <i class="fa-solid fa-phone"></i> Date of Service: @item.created_date
@@ -512,7 +514,7 @@
             },
 
             error: function () {
-                alert("Error loading partial view");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -534,8 +536,8 @@
             },
             "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
             "pageLength": 5,
-            "order": [[4, "desc"]],
-            "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+            "order": [[0, "desc"]],
+            "columns": [{ "searchable": false },{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
             language: {
                 oPaginate: {
                     sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -588,7 +590,7 @@
                 $('#content').html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -606,7 +608,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -626,7 +628,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -641,7 +643,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -658,7 +660,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -673,7 +675,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -689,7 +691,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -704,7 +706,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -720,7 +722,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -759,7 +761,7 @@
                 $("#regionFilterActive").val(value);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
 

@@ -39,7 +39,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void viewUploadMain(adminDashData obj);
         public void DeleteFile(bool data,int reqFileId);
-        public void sendMail(string emailMain, string[] data);
+        public void sendMail(string emailMain, string[] data,string sessionEmail);
 
         public activeOrder viewOrder(int reqId);
 
@@ -55,7 +55,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public void clearCase(adminDashData block,string sessionEmail);
 
         public sendAgreement sendAgree(int reqId);
-        public void sendAgree(adminDashData dataMain);
+        public void sendAgree(adminDashData dataMain, string sessionEmail);
 
         public closeCaseMain closeCaseMain(int reqId);
 
@@ -70,7 +70,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public concludeEncounter concludeEncounter(int data);
         public concludeEncounter concludeEncounter(concludeEncounter obj);
-        public sendLink sendLink(sendLink data);
+        public sendLink sendLink(sendLink data,string sessionEmail);
         public createRequest createRequest(createRequest data,string sessionEmail,int flag);
 
         public createRequest verifyState(string state);
@@ -85,6 +85,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public provider providerContact(int phyId);
 
         public provider providerContactEmail(int phyIdMain, string msg,string sessionEmail);
+        public provider providerContactSms(int phyIdMain, string msg,string sessionEmail);
 
         public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId);
 
@@ -92,6 +93,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public List<PhysicianRegionTable> PhyRegionTable(int phyId);
 
         public List<Role> physicainRole();
+        public List<Role> adminRole();
 
         public bool providerResetPass(string email, string password);
 

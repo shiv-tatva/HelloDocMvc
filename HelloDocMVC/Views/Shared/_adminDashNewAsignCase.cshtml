@@ -5,11 +5,11 @@
     <div class="modal fade " id="newRequestModalTwo" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
 
-        <div class="modal-dialog modal-dialog-centered">  
+        <div class="modal-dialog modal-dialog-centered dark-mode5">
             <div class="modal-content">
                 <div class="modal-header " style="background-color:#0dcaf0">
                     <h5 class="modal-title text-white" id="exampleModalLabel">Assign Request</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" 
                             aria-label="Close" style="color:white"></button>
                 </div>
 
@@ -81,7 +81,7 @@
                     
               },
                 error: function () {
-                    alert('Error loading partial view');
+                    toastr.error("Error To Load Partial View");
                 }
             });
     }

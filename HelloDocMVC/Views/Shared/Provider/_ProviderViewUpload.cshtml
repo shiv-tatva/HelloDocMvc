@@ -59,14 +59,14 @@
                         <button onclick="deleteAll(@Model._viewUpload[0].reqid)" type="button"
                                 class="btn btn-outline-dark border-info rounded-2 p-2 text-info deleteAll">
                             <span class="d-none d-sm-inline-block">Delete All</span>
-                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-trash text-info"></i></span>
                         </button>
                     </div>
                     <div class="text-end pt-3 pe-0 mb-4 ms-3">
                         <button type="button" onclick="sendMailTwo()"
                                 class="btn btn-outline-dark border-info rounded-2 p-2 text-info downloadAll">
                             <span class="d-none d-sm-inline-block">Send Mail</span>
-                            <span class="d-inline-block d-sm-none"><i class="bi bi-download text-info"></i></span>
+                            <span class="d-inline-block d-sm-none"><i class="bi bi-envelope text-info"></i></span>
                         </button>
                     </div>
 
@@ -239,7 +239,6 @@
             }
             count++;
         });
-        pendingViewUploads(reqId);
         toastr.success("Download successfully");
     }
 

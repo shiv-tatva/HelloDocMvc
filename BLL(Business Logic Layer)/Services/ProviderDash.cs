@@ -8,7 +8,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -66,7 +68,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return data;
         }
-
+         
         public void PostTransferRequest(string note, int Requestid, string sessionEmail)
         {
             var providerId = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r).First();
@@ -254,6 +256,68 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return model;
 
+        }
+
+        public void RequestAdmin(ProviderTransferTab _ProviderTransferTab, string sessionEmail)
+        {
+            var email = _context.Admins.ToList();
+
+            foreach (var item in email)
+            {
+                try
+                {
+                    SendRegistrationEmailCreateRequest(item.Email, _ProviderTransferTab.Note, sessionEmail);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        public void SendRegistrationEmailCreateRequest(string email,string note, string sessionEmail)
+        {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Request Note To Admin",
+                IsBodyHtml = true,
+                Body = $"Note: '{note}'"
+            };
+
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + email + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = email,
+                Roleid = 3,
+                Physicianid = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r.Physicianid).First(),
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = sessionEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
+
+            
+            _context.Emaillogs.Add(emailLog);
+            _context.SaveChanges();
+
+
+            mailMessage.To.Add(email);
+
+            client.Send(mailMessage);
         }
 
     }

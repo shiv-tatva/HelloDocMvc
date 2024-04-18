@@ -31,7 +31,6 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult CreateAccount(int aspuserId)
         {
-
             ViewBag.Admin = 1;
             var acc = createAccount.createMain(aspuserId);
             return View(acc);

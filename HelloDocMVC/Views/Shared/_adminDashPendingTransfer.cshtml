@@ -14,6 +14,7 @@
                 </div>
 
                  <input value="@Model.transferRequest.reqid" asp-for="@Model.transferRequest.reqid" type="hidden" />
+                 <input value="@Model.transferRequest.phy_id_main" id="transferModalPhyId" type="hidden" />
 @*                 <input value="@Model.closeCase.status" asp-for="@Model.closeCase.status" type="hidden" /> 
  *@                <div class="modal-body ">
 
@@ -69,6 +70,9 @@
     })
 
     function doctorsName(reg_id) {
+
+        var phyId = $("#transferModalPhyId").val();
+
         let action = "/adminDashboard" + "/" + "GetDoctors"
         event.preventDefault();
         $.ajax({
@@ -79,13 +83,16 @@
                 console.log("data_phy" + data.dataPhyId)
                 $('#doctorDropdown').html("<option>" + "Select Physician" + "</option>");
                 for (var i = 0; i < data.dataid.length; i++) {
-                    $("#doctorDropdown").append('<option value = "' + data.dataPhyId[i] + '" >' + data.dataid[i] + '</option>')
-
+                    if (data.dataPhyId[i] == phyId) {
+                        $("#doctorDropdown").append('<option disabled value = "' + data.dataPhyId[i] + '" >' + data.dataid[i] + '</option>')
+                    }else{
+                     $("#doctorDropdown").append('<option value = "' + data.dataPhyId[i] + '" >' + data.dataid[i] + '</option>')
+                    }
                 }
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }

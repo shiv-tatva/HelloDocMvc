@@ -27,7 +27,7 @@
                     <h4 class="my-4 pt-4">Account Information</h4>
                     <div class="row">
                         <div class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating  ">
-                            <input type="text" class="form-control dark-mode2" asp-for="@Model._providerEdit.username" id="floatingInputUsername" placeholder="User Name" aria-label="User Name">
+                            <input disabled type="text" class="form-control dark-mode2" asp-for="@Model._providerEdit.username" id="floatingInputUsername" placeholder="User Name" aria-label="User Name">
                             <label class="ms-2 " for="floatingInputUsername">User Name</label>
                             <span asp-validation-for="@Model._providerEdit.username" class="text-danger"></span>
                         </div>
@@ -224,7 +224,7 @@
                     toastr.success("Account Updated Successfully");
                 },
                 error: function () {
-                    alert("Error");
+                    toastr.error("Error To Load Partial View");
                 },
             });
         }
@@ -241,7 +241,7 @@
                 toastr.success("Account Deleted Successfully");
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
     }

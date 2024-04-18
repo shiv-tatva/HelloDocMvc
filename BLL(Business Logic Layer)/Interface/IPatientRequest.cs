@@ -14,5 +14,6 @@ namespace BLL_Business_Logic_Layer_.Interface
         public void userDetail(Custom obj);
         public int UserExist(string email);
 
+
     }
 }

@@ -14,8 +14,16 @@ namespace HelloDocMVC.Controllers
 
         public IActionResult SubmitRequest()
         {
-            ViewBag.Admin = 3;
-            return View();
+            try
+            {
+                ViewBag.Admin = 3;
+                return View();
+            }
+            catch
+            {
+                return NotFound();
+            }
+           
         }
 
        
@@ -24,87 +32,165 @@ namespace HelloDocMVC.Controllers
         private readonly IConcierge conciergeRequest;
         private readonly IFamilyFriend familyFriend;
         private readonly IBusiness businessRequest;
+        private IAdminDash _IAdminDash;
 
-            ApplicationDbContext db = new ApplicationDbContext();
+
+        ApplicationDbContext db = new ApplicationDbContext();
      
         public IActionResult checkEmailAvailibility(string email) //action
         {
+            try
+            {
+                int codefordata = patientRequest.UserExist(email);
+                return Json(new { code = codefordata });
+            }
+            catch
+            {
+                return NotFound();
+            }
            
-            int codefordata = patientRequest.UserExist(email) ;
-            return Json(new { code = codefordata });
 
         }
 
-        public PatientController(IPatientRequest patientRequest, IConcierge conciergeRequest, IFamilyFriend familyFriend, IBusiness businessRequest)
+        public PatientController(IPatientRequest patientRequest, IConcierge conciergeRequest, IFamilyFriend familyFriend, IBusiness businessRequest, IAdminDash iAdminDash)
             {
                 this.patientRequest = patientRequest;
                 this.conciergeRequest = conciergeRequest;
                 this.familyFriend = familyFriend;
                 this.businessRequest = businessRequest;
-            }
+                _IAdminDash = iAdminDash;
+        }
 
-            public IActionResult PatientInfo()
+        public IActionResult PatientInfo()
+        {
+            try
             {
-            ViewBag.Admin = 3;
-            return View();
-            }
-
-            [HttpPost]
-            public IActionResult PatientInfo(Custom obj)
-            {
-            TempData["success"] = "Request Submitted Successfully!";
-            patientRequest.userDetail(obj);
                 ViewBag.Admin = 3;
-                return View();
+                Custom _Custom = new Custom();
+                _Custom._RegionTable = _IAdminDash.RegionTable();
+                return View(_Custom);
             }
+            catch
+            {
+                return NotFound();
+            }
+            
+        }
 
-        
-       
-   
-       
+        [HttpPost]
+        public IActionResult PatientInfo(Custom obj)
+        {
+            try
+            {
+                TempData["success"] = "Request Submitted Successfully!";
+                patientRequest.userDetail(obj);
+                return RedirectToAction("PatientInfo");
+            }
+            catch
+            {
+                return NotFound();
+            }
+            
+        }
+
+
+
+
+
         public IActionResult BusinessInfo()
         {
-            ViewBag.Admin = 3;
-            return View();
+            try
+            {
+                ViewBag.Admin = 3;
+                BusinessCustome _business = new BusinessCustome();
+                _business._RegionTable = _IAdminDash.RegionTable();
+                return View(_business);
+            }
+            catch
+            {
+                return NotFound();
+            }
+           
         }
 
         [HttpPost]
         public IActionResult BusinessInfo(BusinessCustome obj)
         {
-            TempData["success"] = "Request Submitted Successfully!";
-            businessRequest.businessInfo(obj);
-            ViewBag.Admin = 3;
-            return View();
+            try
+            {
+                TempData["success"] = "Request Submitted Successfully!";
+                businessRequest.businessInfo(obj);
+                return RedirectToAction("BusinessInfo");
+            }
+            catch
+            {
+                return NotFound();
+            }
+            
         }
         public IActionResult ConciergeInfo()
         {
-            ViewBag.Admin = 3;
-            return View();
+            try
+            {
+                ViewBag.Admin = 3;
+                ConciergeCustom _cons = new ConciergeCustom();
+                _cons._RegionTable = _IAdminDash.RegionTable();
+                return View(_cons);
+            }
+            catch
+            {
+                return NotFound();
+            }
+           
         }
 
         [HttpPost]
         public IActionResult ConciergeInfo(ConciergeCustom obj)
         {
-            TempData["success"] = "Request Submitted Successfully!";
-            conciergeRequest.ConciergeDetail(obj);
-            ViewBag.Admin = 3;
-            return View();
+            try
+            {
+                TempData["success"] = "Request Submitted Successfully!";
+                conciergeRequest.ConciergeDetail(obj);
+                return RedirectToAction("ConciergeInfo");
+            }
+            catch
+            {
+                return NotFound();
+            }
+           
         }
 
 
         public IActionResult FamilyFriendInfo()
         {
-            ViewBag.Admin = 3;
-            return View();
+            try
+            {
+                ViewBag.Admin = 3;
+                FamilyFriendData _family = new FamilyFriendData();
+                _family._RegionTable = _IAdminDash.RegionTable();
+                return View(_family);
+            }
+            catch
+            {
+                return NotFound();
+            }
+           
         }
 
         [HttpPost]
         public IActionResult FamilyFriendInfo(FamilyFriendData data)
         {
-            TempData["success"] = "Request Submitted Successfully!";
-            familyFriend.FamilyFriendInfo(data);
-            ViewBag.Admin = 3;
-            return View();
+            try
+            {
+                TempData["success"] = "Request Submitted Successfully!";
+                familyFriend.FamilyFriendInfo(data);
+                return RedirectToAction("FamilyFriendInfo");
+            }
+            catch
+            {
+                return NotFound();
+            }
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

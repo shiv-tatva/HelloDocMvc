@@ -161,7 +161,7 @@
                                         {
                                             <div class="table_phone">
                                                 <a href="">
-                                                    <i class="bi bi-telephone   rounded-5   p-1 text-info"></i>
+                                                    <i class="bi bi-telephone   rounded-5   p-1 text-white"></i>
                                                     @item.requestor_mobile_num
                                                 </a>
                                             </div>
@@ -285,11 +285,11 @@
                                     role = "Business";
                                 }
 
-                                <tr style="display: flex;flex-direction: column" class="@role">
+                                <tr style="display: flex;flex-direction: column" class="@role dark-mode4">
 
                                     <td>
                                         <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            <button class="accordion-button collapsed dark-mode4" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
                                                 <span class="d-flex flex-column" style="width:100%">
                                                     <span class="d-flex justify-content-between">
                                                         <span class="mb-3">@item.first_name @item.last_name</span>
@@ -334,14 +334,12 @@
                                             <div class="accordion-body">
                                                 <span class="d-flex flex-column">
                                                     <span class="d-flex justify-content-between mt-1">
-                                                        <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="assignCase(@item.reqid)">Assign Case</button>
-                                                        <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="calcelCase(@item.reqid)">Cancel Case</button>
+                                                        <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="providerAcceptBtn(@item.reqid)">Accept</button>
+                                                        <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="newViewCase(@item.reqid)">View Case</button>
                                                     </span>
                                                     <span class="d-flex justify-content-between mt-1">
                                                         <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="newViewNote(@item.reqid)">View Notes</button>
-                                                        <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="blockCase(@item.reqid)">Block Patient</button>
                                                     </span>
-                                                    <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="newViewCase(@item.reqid)">View Case</button>
                                                 </span>
                                             </div>
 
@@ -367,19 +365,14 @@
                     <thead id="table-heading">
                         <tr>
                             <th scope="col" class="dark-mode2 ">Name</th>
-                            <th scope="col" class="dark-mode2 ">Date of Birth</th>
-                            <th scope="col" class="dark-mode2 ">Requestor</th>
-                            <th scope="col" class="dark-mode2 ">Requested date</th>
                             <th scope="col" class="dark-mode2 ">Phone</th>
                             <th scope="col" class="dark-mode2 ">Address</th>
-                            <th scope="col" class="dark-mode2 ">Notes</th>
-                            <th scope="col" class="dark-mode2 ">Chat With</th>
                             <th scope="col" class="dark-mode2 ">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="dark-mode2">
-                            <td colspan="9" style="text-align:center;">No Request Found</td>
+                            <td colspan="4" style="text-align:center;">No Request Found</td>
                         </tr>
                     </tbody>
                 </table>
@@ -409,7 +402,7 @@
     function tableFilter1(typeId) {
         $.ajax({
             method: "GET",
-            url: "/adminDashboard/tableRecords",
+            url: "/Provider/tableRecords",
             traditional: true,
             contentType: "application/json",
             data: { arr: [1], typeId: typeId },
@@ -419,7 +412,7 @@
             },
 
             error: function () {
-                alert("Error loading partial view");
+                toastr.error("Error To Load Partial View");
             },
         });
     }
@@ -446,7 +439,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -465,7 +458,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -484,7 +477,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -560,7 +553,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -580,7 +573,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -595,7 +588,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -629,7 +622,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -646,7 +639,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -663,7 +656,7 @@
 
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -676,7 +669,7 @@
                 $("#content").html(result);
             },
             error: function () {
-                alert('Error loading partial view');
+                toastr.error("Error To Load Partial View");
             }
         });
     }
@@ -707,7 +700,7 @@
                 $("#regionFilter").val(value);
             },
             error: function () {
-                alert("Error");
+                toastr.error("Error To Load Partial View");
             },
         });
 
