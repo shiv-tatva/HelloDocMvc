@@ -31,7 +31,7 @@
                     </select>
 
                     <div class="form-floating mt-3">
-                        <input type="Date" class="form-control dclass" asp-for="Shiftdate" placeholder="Shiftdate" disabled>
+                        <input type="Date" class="form-control dclass" asp-for="Shiftdate" placeholder="Shiftdate" disabled id="datePickerId">
                         <label>Shift Date</label>
                         <span asp-validation-for="Shiftdate" class="text-danger"></span>
                     </div>
@@ -124,4 +124,15 @@
 
         getphysician(intialregion);
     }
+
+    var currentDateCreateRequest = new Date().toISOString().split('T')[0];
+
+    document.getElementById('datePickerId').setAttribute('min', currentDateCreateRequest);
+
+    var phoneInputPatientCreateRequest = document.querySelector("#floatingInputPhone");
+    var phoneInputMyProfile = window.intlTelInput(phoneInputPatientCreateRequest, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
 </script>

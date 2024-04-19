@@ -28,13 +28,15 @@ namespace HelloDocMVC.Controllers
         private readonly IPatientDash _patientDashInfo;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationDbContext _db;
+        private IAdminDash _IAdminDash;
 
 
-        public patientDashboardController(IPatientDash patientDashInfo,IWebHostEnvironment webHostEnvironment,ApplicationDbContext db)
+        public patientDashboardController(IPatientDash patientDashInfo,IWebHostEnvironment webHostEnvironment,ApplicationDbContext db, IAdminDash iAdminDash)
         {
             _patientDashInfo = patientDashInfo;
             _webHostEnvironment = webHostEnvironment;
             _db = db;
+            _IAdminDash = iAdminDash;
         }
 
 
@@ -181,6 +183,7 @@ namespace HelloDocMVC.Controllers
 
                     var userEmail = HttpContext.Session.GetString("UserSession").ToString();
                     Custom data = _patientDashInfo.userMeDetail(userEmail);
+                    data._RegionTable = _IAdminDash.RegionTable();
 
                     ViewBag.Admin = 2;
                     return View(data);
@@ -229,6 +232,7 @@ namespace HelloDocMVC.Controllers
 
                     var userEmail = HttpContext.Session.GetString("UserSession").ToString();
                     FamilyFriendData data = _patientDashInfo.userSomeDetail(userEmail);
+                    data._RegionTable = _IAdminDash.RegionTable();
 
                     ViewBag.Admin = 2;
                     return View(data);

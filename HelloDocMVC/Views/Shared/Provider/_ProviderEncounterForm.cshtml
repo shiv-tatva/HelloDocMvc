@@ -367,25 +367,29 @@
    
     
     function FinalizeBtn(reqId) {
-        encounterBtnSub();
 
         let action = "/Provider/FinalizeEncounter";
-        setTimeout(() => {
+       
             if ($("#EncounterFormMain").valid()) {
                 $.ajax({
                     url: action,
                     type: 'GET',
                     data: { reqId: reqId },
                     success: function (result) {
-                        DashboardMain();
-                        toastr.success("Encounter Form Update Successfully");
+                        if (result.isSend){
+                            DashboardMain();
+                        toastr.success("Encounter Form Finalize Successfully");
+                        }else{
+                            toastr.error("Please Save The Form Before Finalize");
+                        }
+                       
                     },
                     error: function () {
                         toastr.error("Error");
                     },
                 });
             }
-        }, 1000);
+       
     }
 
    

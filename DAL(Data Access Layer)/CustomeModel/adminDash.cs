@@ -510,7 +510,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Enter Your Phone Number")]
         public string? phone { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Your Room")]
         public string? room { get; set; }
 
         public string? admin_notes { get; set; }

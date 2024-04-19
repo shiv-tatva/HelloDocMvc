@@ -24,7 +24,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public adminDashData HousecallPopUp(int reqId);
         
         public void HouseCallConclude(int reqId, string sessionEmail);
-        public void FinalizeEncounter(int reqId);
+        public bool FinalizeEncounter(int reqId);
         public adminDashData ProviderEncounterFormDownload(int reqId);
         public void ProviderConcludeCarePost(adminDashData adminDashData,string sessionEmail);
         public SchedulingCm PhysicainRegionTable(string sessionEmail);

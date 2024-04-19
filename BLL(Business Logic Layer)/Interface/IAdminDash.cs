@@ -12,7 +12,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 {
     public interface IAdminDash
     {
-        public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName,int dataFlag);
+        public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName,int dataFlag,string sessionFilter);
 
         public countMain countService(string sessionName,int flagCount);
 

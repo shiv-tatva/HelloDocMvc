@@ -43,9 +43,17 @@ namespace BLL_Business_Logic_Layer_.Services
             _context = context;
         }
 
-        public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName, int dataFlag)
+        public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName, int dataFlag, string sessionFilter)
         {
             var requestList = _context.Requests.Where(i => status.Contains(i.Status));
+
+            if (_context.Physicians.Any(r => r.Email == sessionFilter)){
+                var phyDetail = _context.Physicians.Where(r => r.Email == sessionFilter).Select(r => r).First();
+                requestList = _context.Requests.Where(i => status.Contains(i.Status));
+                requestList = requestList.Where(r => r.Physicianid == phyDetail.Physicianid).Select(r => r);
+            }
+
+
 
             var query = (from r in requestList
                          join rc in _context.Requestclients on r.Requestid equals rc.Requestid
@@ -72,7 +80,7 @@ namespace BLL_Business_Logic_Layer_.Services
                             call_type = (int)r.Calltype,
                             region_id = rc.Regionid,
                             //transfer_notes = r.Requeststatuslogs.OrderBy(i => i.Requeststatuslogid).LastOrDefault().Notes,
-                            notes = r.Requeststatuslogs.Where(x => x.Requestid == r.Requestid && (x.Transtophysicianid != null || x.Transtoadmin != null)).Select(x => x).ToList(),
+                            notes = r.Requeststatuslogs.Where(x => x.Requestid == r.Requestid && (x.Transtophysicianid != null || x.Transtoadmin != null)).OrderBy(x => x.Requeststatuslogid).Select(x => x).ToList(),
                             isFinalize = r.EncounterForms.Where(x => x.Requestid == r.Requestid).Select(x => x.IsFinalized).First(),
                             //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
                             //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
@@ -249,7 +257,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 viewNotes.PhysicianNotes = _context.Requestnotes.FirstOrDefault(p => p.Requestid == reqId).Physiciannotes;
                 //viewNotes.TransferNotes = _context.Requeststatuslogs.Where()
                 viewNotes.cashtagId = Convert.ToInt16(_context.Requests.FirstOrDefault(r => r.Requestid == reqId).Casetag);
-                viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).ToList(); 
+                viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).OrderBy(r => r.Requeststatuslogid).ToList(); 
                 if(b != null)
                 {
                     if(_context.Requeststatuslogs.Any(r => r.Requestid == reqId && r.Status == 3))
@@ -1271,7 +1279,7 @@ namespace BLL_Business_Logic_Layer_.Services
                         _user.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
                         _user.Createdby = _asp.Id;
                         _user.Createddate = DateTime.Now;
-                        _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                        _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
                         _context.Users.Add(_user);
                         _context.SaveChanges();
 
@@ -1352,7 +1360,7 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                  createRequest _create = new createRequest();
 
-            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).FirstOrDefault();
+            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).FirstOrDefault();
 
             if (stateMain == null)
             {
@@ -1394,7 +1402,7 @@ namespace BLL_Business_Logic_Layer_.Services
                     _user.Intyear =  Convert.ToInt16(data.dateofbirth.Substring(0, 4));
                     _user.Createdby = _asp.Id;
                     _user.Createddate = DateTime.Now;
-                    _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                    _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
                     _context.Users.Add(_user);
                     _context.SaveChanges();
 
@@ -1443,7 +1451,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 _reqClient.City = data.city;
                 _reqClient.State = data.state;
                 _reqClient.Zipcode = data.zipcode;
-                _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
                 _reqClient.Email = data.email;
 
                 _context.Requestclients.Add(_reqClient);
@@ -1587,7 +1595,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             provider provider = new provider()
             {
-                _physician = _context.Physicians.ToList(),
+                _physician = _context.Physicians.OrderByDescending(r =>r.Physicianid).Select(r => r).ToList(),
                 _notification = _context.Physiciannotifications.ToList(),
                 _roles = _context.Roles.Where(r => r.Isdeleted.Equals(deletedBit)).Select(r =>r).ToList(),
                 _shift = _context.Shifts.ToList(),
@@ -2658,7 +2666,7 @@ namespace BLL_Business_Logic_Layer_.Services
             }).ToList();
 
 
-            var combineddata = Addata.Concat(phdata).ToList();
+            var combineddata = Addata.Concat(phdata).OrderByDescending(x => x.aspnetid).ToList();
 
             return combineddata;
         }

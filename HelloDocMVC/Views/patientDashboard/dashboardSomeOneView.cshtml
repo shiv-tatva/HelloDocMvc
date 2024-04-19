@@ -93,25 +93,31 @@
                 <div class="row ">
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
-                            <input asp-for="street" type="text" class="form-control" placeholder="Name">
+                            <input asp-for="street" type="text" class="form-control" placeholder="Name" id="floatingInputStreet">
                             <label asp-for="street">Street</label>
                         </div>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
-                            <input asp-for="city" type="text" class="form-control" placeholder="Name">
+                            <input asp-for="city" type="text" class="form-control" placeholder="Name" id="floatingInputCity">
                             <label asp-for="city">City</label>
                         </div>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
-                            <input asp-for="state" type="text" class="form-control" placeholder="Name">
-                            <label asp-for="state">State</label>
+                            <select class="form-select" asp-for="@Model.regionId" id="RegionsList" style="height: 58px;width:100%;" >
+                                <option selected="" disabled>State</option>
+                                @foreach (var obj in Model._RegionTable)
+                                {
+                                    <option value="@obj.Regionid">@obj.Name</option>
+                                }
+                            </select>
                         </div>
+                        <span class="text-danger" asp-validation-for="regionId"></span>
                     </div>
                     <div class="mt-3 col-sm-6 col-md-6">
                         <div class="form-floating">
-                            <input asp-for="zipcode" type="number" class="form-control" placeholder="Name">
+                            <input asp-for="zipcode" type="number" class="form-control" placeholder="Name" id="floatingInputZipcode">
                             <label asp-for="zipcode">Zip code</label>
                         </div>
                     </div>
@@ -122,7 +128,7 @@
                         </div>
                     </div>
                     <div id="backDiv" class="mb-5 mt-3" style="text-align: end;width:15%;height:15%;display:flex;">
-                        <a title="Forgot password" class="link-default ps-3" asp-controller="Patient" asp-action="SubmitRequest"
+                        <a title="Forgot password" class="link-default ps-3" onclick="createReqMap()"
                            style="color: #09d4e3;text-decoration: none;font-weight: 600!important;border: 1px solid #09d4e3;border-radius: 8px;padding: 15px 20px;height:14%;">
                             <i class="fa-solid fa-location-dot me-2 " style="color: #09d4e3;"></i><span>Map</span>
                         </a>
@@ -258,6 +264,26 @@
             }
         })
     }
+
+
+    function createReqMap() {
+        var street = $("#floatingInputStreet").val();
+        var city = $("#floatingInputCity").val();
+        var state = $("#RegionsList").val();
+        var zipcode = $("#floatingInputZipcode").val();
+
+        if (city != "" || zipcode != "") {
+            // Open the Google Maps link if all values are present
+            window.open("https://www.google.com/maps/search/?api=1&query=" + street + "+" + city + "+" + state + "+" + zipcode, "_blank");
+        } else {
+            // Display an error message if any value is missing
+            alert("Please Enter Locations");
+        }
+
+
+    }
+
+
 
     //date validation
     const currentDate = new Date().toISOString().split('T')[0];

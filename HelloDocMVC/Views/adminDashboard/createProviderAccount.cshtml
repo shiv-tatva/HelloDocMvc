@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="pt-4">
-                    <h4 class="mb-4">Administrator Information</h4>
+                    <h4 class="mb-4">Provider Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
                             <input asp-for="@Model._providerEdit.Firstname" type="text" class=" form-control dark-mode2  " id="floatingInputFirstName"
@@ -161,7 +161,8 @@
                             <span class="text-danger" asp-validation-for="@Model._providerEdit.Regionid"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model._providerEdit.zipcode" type="number" class=" form-control dark-mode2  " id="floatingInputZipCode"
+                            <input type="hidden" id="zipcodeFail" value="">
+                            <input asp-for="@Model._providerEdit.zipcode" type="number" class=" form-control dark-mode2  " onkeydown="fetchCoordinates()" id="floatingInputZipCode"
                                    placeholder="Zip Code" aria-label="Zip Code">
 
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>
@@ -426,45 +427,78 @@
     }
 
 
+        function anyRegionCheckboxChecked() {
+            // Select all checkboxes with the class 'region-check'
+            var checkboxes = $('.region-check');
+
+            // Check if any of the checkboxes are checked
+            return checkboxes.is(':checked');
+        }
+
+        // Run the function initially when the page loadsl
+        console.log(anyRegionCheckboxChecked());
+
+        // Add an event listener to check/uncheck status when the input changes
+        $('.region-check').on('change', function () {
+            console.log(anyRegionCheckboxChecked());
+        });
+
+
     function CreatePhysicianAccountForm() {
 
-        event.preventDefault();
-        var zipcode = $("#floatingInputZipCode").val();
-
         if ($("#CreatePhysicianAccountForm").valid()) {
+            if (anyRegionCheckboxChecked()) {
+                event.preventDefault();
+                var zipcode = $("#floatingInputZipCode").val();
+                var zipcodeTwo = $("#zipcodeFail").val();
 
-            fetchCoordinates(zipcode);
 
-            event.preventDefault();
-            setTimeout(() => {
-                $.ajax({
-                    url: "/adminDashboard/createProviderAccount",
-                    type: 'POST',
-                    data: new FormData($('#CreatePhysicianAccountForm')[0]),
-                    processData: false,
-                    contentType: false,
+                if (zipcodeTwo == "1"){
+                    event.preventDefault();
+                    setTimeout(() => {
+                        $.ajax({
+                            url: "/adminDashboard/createProviderAccount",
+                            type: 'POST',
+                            data: new FormData($('#CreatePhysicianAccountForm')[0]),
+                            processData: false,
+                            contentType: false,
 
-                    success: function (result) {
-                        if (result.indicate == "done") {
-                            createProviderAccount();
-                            toastr.success("Account Created Successfully");
-                        } else if (result.indicate == "email") {
-                            toastr.error("Email Already Exists!!");
-                        } else {
-                            toastr.error("Zipcode Not Valid!!");
-                        }
-                    },
-                    error: function () {
-                        toastr.error("Error To Load Partial View");
-                    },
-                });
-            }, 1000);
+                            success: function (result) {
+                                if (result.indicate == "done") {
+                                    createProviderAccount();
+                                    toastr.success("Account Created Successfully");
+                                } else if (result.indicate == "email") {
+                                    toastr.error("Email Already Exists!!");
+                                } else {
+                                    toastr.error("Zipcode Not Valid!!");
+                                }
+                            },
+                            error: function () {
+                                toastr.error("Error To Load Partial View");
+                            },
+                        });
+                    }, 1000);
+                }else{
+                    toastr.error("Please Enter Valid Zipcode");
+                }              
 
+            } else {
+                event.preventDefault();
+                toastr.error("Please Select Atleast Region");
+            }
         }
+
+       
     }
 
 
-    function fetchCoordinates(postalCode) {
+    function fetchCoordinates() {
+
+        var zipcode = $("#floatingInputZipCode").val();
+        if(zipcode != null){
+            var postalCode = zipcode;
+        }
+
         var apiUrl = 'https://nominatim.openstreetmap.org/search?postalcode=' + postalCode + '&format=json';
 
         fetch(apiUrl)
@@ -475,10 +509,12 @@
                     console.log(lat);
                     console.log(lon);
                     document.getElementById("longitude").setAttribute("value", lon);
-                    document.getElementById("latitude").setAttribute("value", lat);                
+                    document.getElementById("latitude").setAttribute("value", lat);
+                document.getElementById("zipcodeFail").setAttribute("value", "1");
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.log("Please Enter Correct Zipcode");
+                document.getElementById("zipcodeFail").setAttribute("value", "2");
             });
     }   
     

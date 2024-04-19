@@ -187,14 +187,23 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
         }
 
-        public void FinalizeEncounter(int reqId)
+        public bool FinalizeEncounter(int reqId)
         {
+            if(_context.EncounterForms.Any(r => r.Requestid == reqId))
+            {
+                var encounter = _context.EncounterForms.Where(r => r.Requestid == reqId).Select(r => r).First();
 
-            var encounter = _context.EncounterForms.Where(r => r.Requestid == reqId).Select(r => r).First();
+                encounter.IsFinalized = new BitArray(1, true);
 
-            encounter.IsFinalized = new BitArray(1, true);
+                _context.SaveChanges();
 
-            _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+           
         }
 
 

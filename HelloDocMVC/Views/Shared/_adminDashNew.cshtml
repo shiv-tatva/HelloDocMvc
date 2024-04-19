@@ -210,7 +210,7 @@
                                     </td>
                                     <td style="background:@bgColor">@item.address</td>
                                     <td style="background:@bgColor">
-                                        @if (item.notes.Count() != 0 && item.phy_id != null)
+                                        @if (item.notes.Count() != 0 )
                                     {
                                             @if (item.notes.Last().Transtophysicianid != null || item.notes.Last().Transtoadmin != null)
                                         {

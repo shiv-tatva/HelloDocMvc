@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -41,7 +42,7 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 created_date = r.Createddate,
                 current_status = r.Status,
-                doc_Count = r.Requestwisefiles.Select(f => f.Filename).Count(),
+                doc_Count = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(f => f.Filename).Count(),
                 //docC = db.Requestwisefiles.Where(x => x.Requestid == r.Requestid).Select(x => x.Filename).Count(),
                 reqid = r.Requestid,
                 cnf_number = r.Confirmationnumber,
@@ -50,10 +51,10 @@ namespace BLL_Business_Logic_Layer_.Services
                 req_type_id = r.Requesttypeid,
                 status = r.Status.ToString(),
                 //phy_fname = db.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).ToList()[0]
-                documentsname = r.Requestwisefiles.Select(f => f.Filename).ToList(),
+                documentsname = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(f => f.Filename).ToList(),
                 phy_fname = db.Physicians.Single(x => x.Physicianid == r.Physicianid).Firstname,
                 user_id_param = r.Requestid
-            }).ToList(); ;
+            }).OrderByDescending(r => r.reqid).ToList(); ;
 
 
             return requestMain;
@@ -80,7 +81,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 lname = r.Lastname,
                 req_type_id = r.Requesttypeid,
                 //phy_fname = db.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).ToList()[0]
-                documentsname = r.Requestwisefiles.Select(f => f.Filename).ToList(),
+                documentsname = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(f => f.Filename).ToList(),
                 phy_fname = db.Physicians.Single(x => x.Physicianid == r.Physicianid).Firstname,
                 user_id_param = param
             }).ToList(); ;
@@ -147,7 +148,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public void userDetail(Custom obj)
         {
-
+             
             User _user = new User();
             Request _request = new Request();
             Requestclient _requestclient = new Requestclient();
@@ -211,6 +212,15 @@ namespace BLL_Business_Logic_Layer_.Services
 
                 _user.Createddate = DateTime.Now;
 
+                _user.Street = obj.street;
+                _user.City = obj.city;
+                _user.State = db.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
+                _user.Zipcode = obj.zipcode;
+                _user.Strmonth = obj.dateofbirth.Substring(5, 2);
+                _user.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+                _user.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+                _user.Regionid = obj.regionId;
+
                 db.Users.Add(_user);
                 db.SaveChanges();
             }
@@ -246,6 +256,8 @@ namespace BLL_Business_Logic_Layer_.Services
 
             _request.Status = 1;
             _request.Createddate = DateTime.Now;
+            _request.Phonenumber = obj.phone;
+        
 
             db.Requests.Add(_request);
             db.SaveChanges();
@@ -271,10 +283,16 @@ namespace BLL_Business_Logic_Layer_.Services
                 _requestclient.Phonenumber = obj.phone;
             }
 
-
-            //_requestclient.Strmonth = data.dateofbirth.Substring(5, 2);
-            //_requestclient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-            //_requestclient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+            _requestclient.Email = obj.email;
+            _requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
+            _requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+            _requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+            _requestclient.City = obj.city;
+            _requestclient.Street = obj.street;
+            _requestclient.State = db.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
+            _requestclient.Zipcode = obj.zipcode;
+            _requestclient.Notes = obj.symptoms;
+            _requestclient.Regionid = obj.regionId;
 
 
             db.Requestclients.Add(_requestclient);
@@ -350,6 +368,9 @@ namespace BLL_Business_Logic_Layer_.Services
             _request.Status = 1;
             _request.Createddate = DateTime.Now;
 
+            _request.Phonenumber = obj.ff_phone;
+            _request.Requesttypeid = 2;
+
             db.Requests.Add(_request);
             db.SaveChanges();
 
@@ -375,9 +396,17 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
 
-            //_requestclient.Strmonth = data.dateofbirth.Substring(5, 2);
-            //_requestclient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-            //_requestclient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+            _requestclient.Email = obj.email;
+            _requestclient.Notes = obj.symptoms;
+            _requestclient.Street = obj.street;
+            _requestclient.City = obj.city;
+            _requestclient.State = db.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
+            _requestclient.Zipcode = obj.zipcode;
+            _requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
+            _requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+            _requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+            _requestclient.Regionid = obj.regionId;
+
 
 
             db.Requestclients.Add(_requestclient);

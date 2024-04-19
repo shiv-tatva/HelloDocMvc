@@ -87,14 +87,13 @@
                 <div class="col-12 col-md-6 form-floating mb-3">
                     <input asp-for="zipcode" type="number" class="form-control bg-transparent dark-mode2" id="floatingInputZipcode"
                            placeholder="zipcode">
-                    <label for="floatingInputZipcode" class="ms-2">Zip Code (Optional)</label>
+                    <label for="floatingInputZipcode" class="ms-2">Zip Code</label>
                     <span asp-validation-for="zipcode" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
                     <input asp-for="room" type="text" class="form-control bg-transparent dark-mode2" id="floatingInputRoom" placeholder="room">
                     <label for="floatingInputRoom" class="ms-2">Room # (Optional)</label>
-                    <span asp-validation-for="room" class="text-danger"></span> 
                 </div>
 
                 <div class="col form-floating mb-3">
@@ -116,7 +115,7 @@
             </div>
             <div class="d-flex gap-2 justify-content-end mb-3">
                 <button onclick="createRequestSubmitMain()" class="btn btn-info text-white" type="button">Submit</button>
-                <button onclick="createRequestClearAll()" id="createRequestClear" type="button" class="btn btn-outline-info">Cancel</button>
+                <button  id="createRequestClear" type="reset" class="btn btn-outline-info">Cancel</button>
             </div>
         </div>
     </form>
