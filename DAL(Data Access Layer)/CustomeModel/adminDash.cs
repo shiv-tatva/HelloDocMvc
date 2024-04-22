@@ -324,6 +324,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? confirm_email { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Mobile number")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? mobile_no { get; set; }
 
         [Required(ErrorMessage = "Please Enter address-1")]
@@ -338,6 +339,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [Required(ErrorMessage = "Please Enter Your Zipcode")]
         public string zip { get; set; }
+
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? altphone { get; set; }
         public int? createdBy {  get; set; } 
         public DateTime createdDate { get; set; }
@@ -474,7 +477,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     public class createRequest 
     {
-
+         
         public int? requesttypeid { get; set; }
 
         public int? userid { get; set;}
@@ -483,6 +486,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? street { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your City Name")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "City is invalid.")]
         public string? city { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your State Name")]
@@ -508,10 +512,13 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? email { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Phone Number")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? phone { get; set; }
 
         public string? room { get; set; }
 
+
+        [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
         public string? admin_notes { get; set; }
 
         public bool? indicate { get; set; }
@@ -553,13 +560,15 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     }
 
-    public class AdminEditPhysicianProfile
+    public class AdminEditPhysicianProfile 
     {
 
         [Required(ErrorMessage = "Please Enter Your User Name")]
         public string? username { get; set; }
 
         [Required(ErrorMessage = "Please Enter Password")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+      ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]
         public string? password { get; set; }
 
         [Required(ErrorMessage = "Please Enter Email")]
@@ -570,12 +579,14 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? Con_Email { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your PhoneNumber")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Street Name")]
         public string? Status { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your City Name")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "City is invalid.")]
         public string? city { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Country Name")]
@@ -641,6 +652,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         //public List<Physicianregion> physicianregions { get; set; }
 
         [Required(ErrorMessage = "Please Enter Alternative Phonenumber")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+      ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]
         public string? altPhone { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your State Name")]

@@ -19,6 +19,7 @@ using HalloDoc.mvc.Auth;
 using Azure.Core;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.AspNetCore.Authorization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HelloDocMVC.Controllers
 {
@@ -140,29 +141,33 @@ namespace HelloDocMVC.Controllers
                     request.Firstname = p.fname;
                     request.Lastname = p.lname;
                     request.Mobile = p.phone_no;
+                    request.Strmonth = p.fulldateofbirth.Substring(5, 2);
+                    request.Intdate = Convert.ToInt16(p.fulldateofbirth.Substring(8, 2));
+                    request.Intyear = Convert.ToInt16(p.fulldateofbirth.Substring(0, 4));
                 }
 
                 _db.SaveChanges();
-                ViewBag.Admin = 2;
 
-                PatientDashboardData viewUpdated_data = new PatientDashboardData();
+                return RedirectToAction("profileMain");
 
-                User updateduserdata = _db.Users.FirstOrDefault(x => x.Email == userEmail);
+                //PatientDashboardData viewUpdated_data = new PatientDashboardData();
 
-                if (updateduserdata != null)
-                {
+                //User updateduserdata = _db.Users.FirstOrDefault(x => x.Email == userEmail);
 
-                    viewUpdated_data.fname = updateduserdata.Firstname;
+                //if (updateduserdata != null)
+                //{
 
-                    viewUpdated_data.lname = updateduserdata.Lastname;
-                    viewUpdated_data.phone_no = updateduserdata.Mobile;
-                    viewUpdated_data.street = updateduserdata.Street;
-                    viewUpdated_data.state = updateduserdata.State;
-                    viewUpdated_data.city = updateduserdata.City;
-                    viewUpdated_data.zipcode = updateduserdata.Zipcode;
-                    viewUpdated_data.email = updateduserdata.Email;
-                }
-                return View(viewUpdated_data);
+                //    viewUpdated_data.fname = updateduserdata.Firstname;
+
+                //    viewUpdated_data.lname = updateduserdata.Lastname;
+                //    viewUpdated_data.phone_no = updateduserdata.Mobile;
+                //    viewUpdated_data.street = updateduserdata.Street;
+                //    viewUpdated_data.state = updateduserdata.State;
+                //    viewUpdated_data.city = updateduserdata.City;
+                //    viewUpdated_data.zipcode = updateduserdata.Zipcode;
+                //    viewUpdated_data.email = updateduserdata.Email;
+                //}
+                //return View(viewUpdated_data);
             }
             catch
             {
@@ -231,10 +236,10 @@ namespace HelloDocMVC.Controllers
                 {
 
                     var userEmail = HttpContext.Session.GetString("UserSession").ToString();
-                    FamilyFriendData data = _patientDashInfo.userSomeDetail(userEmail);
+                    FamilyFriendData data = new FamilyFriendData();
                     data._RegionTable = _IAdminDash.RegionTable();
 
-                    ViewBag.Admin = 2;
+                    ViewBag.Admin = 2; 
                     return View(data);
                 }
                 else
@@ -256,7 +261,8 @@ namespace HelloDocMVC.Controllers
         {
             try
             {
-                _patientDashInfo.userSomeOneDetail(obj);
+                var userEmail = HttpContext.Session.GetString("UserSession").ToString();
+                _patientDashInfo.userSomeOneDetail(obj, userEmail);
                 ViewBag.Admin = 2;
                 return RedirectToAction("patientDashboard");
             }
@@ -268,6 +274,12 @@ namespace HelloDocMVC.Controllers
             
         }
 
+        public IActionResult SubmitElseInfo()
+        {
+            return View();
+        }
+
+       
         public IActionResult viewDetail(int param)
         {
 

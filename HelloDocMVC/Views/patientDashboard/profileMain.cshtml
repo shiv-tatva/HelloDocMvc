@@ -31,18 +31,21 @@
                             <input type="text" class="dclass form-control " id="floatingInputFirst" asp-for="fname"
                                    placeholder="First Name" aria-label="First Name" value="@Model.fname">
                             <label class="ms-2 " for="floatingInputFirst">First Name</label>
+                        <span asp-validation-for="fname" class="text-danger"></span>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
                             <input type="text" class="dclass form-control " id="floatingInputLast" asp-for="lname"
                                    placeholder="Last Name" aria-label="Last Name" value="@Model.lname">
                             <label class="ms-2  " for="floatingInputLast">Last Name</label>
+                        <span asp-validation-for="lname" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating">
                             <input type="date" class="dclass form-control " id="floatingInputdate"
-                                   placeholder="Date Of Birth" aria-label="First Name" value="@Model.fulldateofbirth">
+                               placeholder="Date Of Birth" aria-label="First Name" asp-for="@Model.fulldateofbirth" value="@Model.fulldateofbirth">
                             <label class="ms-2 " for="floatingInputdate">Date Of Birth</label>
+                        <span asp-validation-for="@Model.fulldateofbirth" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -62,12 +65,14 @@
                         <div class=" col-xl-4 col-lg-4 col-md-4 col-sm-9 form-floating mb-3">
                             <input type="tel" class="dclass phone form-control " id="floatingInputcontact" asp-for="phone_no"
                                    placeholder="99XXXXXXXX" aria-label="Contact Number" style="height: 3.7em;" value="@Model.phone_no">
+                        <span asp-validation-for="phone_no" class="text-danger"></span>
 
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="email" class="dclass form-control " id="floatingInputemail" asp-for="email"
                                    placeholder="Email" aria-label="Email" value="@Model.email">
                             <label class="ms-2 " for="floatingInputemail">Email</label>
+                        <span asp-validation-for="email" class="text-danger"></span>
                         </div>
 
                     </div>
@@ -80,11 +85,13 @@
                             <input type="text" class="dclass form-control " id="floatingInputStreet" asp-for="street"
                                    placeholder="Street" aria-label="Street" value="@Model.street">
                             <label class="ms-2 " for="floatingInputStreet">Street</label>
+                        <span asp-validation-for="street" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="text" class="dclass form-control " id="floatingInputCity" placeholder="City" asp-for="city"
                                    aria-label="City" value="@Model.city">
                             <label class="ms-2  " for="floatingInputCity">City</label>
+                        <span asp-validation-for="city" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -92,11 +99,13 @@
                             <input type="text" class="dclass form-control " id="floatingInputState" placeholder="State" asp-for="state"
                                    aria-label="State" value="@Model.state">
                             <label class="ms-2 " for="floatingInputState">State</label>
+                        <span asp-validation-for="state" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-4 col-lg-4 col-md-4 col-sm-9 form-floating mb-3">
                         <input type="number" class="dclass form-control " id="floatingInputZipCode" asp-for="zipcode"
                                    placeholder="Zip Code" aria-label="Zip Code" value="@Model.zipcode">
                             <label class="ms-2  " for="floatingInputZipCode">Zip Code</label>
+                        <span asp-validation-for="zipcode" class="text-danger"></span>
                         </div>
                         <div class=" col-xl-2 col-lg-2 col-md-2 col-sm-3 form-floating mb-3">
                             <button onclick="myProfileMap()" type="button" class="dclass btn btn-outline-dark border-info p-3 text-info w-100">
@@ -121,6 +130,12 @@
     </div>
 
 
+
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+            }
 
 
 <link rel="stylesheet" href="/css/profileMain.css">

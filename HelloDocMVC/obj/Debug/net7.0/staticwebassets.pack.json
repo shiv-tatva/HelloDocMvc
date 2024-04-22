@@ -373,6 +373,10 @@
       "PackagePath": "staticwebassets\\Documents\\success-icon.svg"
     },
     {
+      "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\today.svg",
+      "PackagePath": "staticwebassets\\Documents\\today.svg"
+    },
+    {
       "Id": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\total-product.svg",
       "PackagePath": "staticwebassets\\Documents\\total-product.svg"
     },

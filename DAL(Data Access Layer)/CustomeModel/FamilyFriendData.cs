@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+ 
 namespace DAL_Data_Access_Layer_.CustomeModel
 {
     public class FamilyFriendData
@@ -20,6 +20,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? ff_lastname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Phone Number")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? ff_phone { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Email ")]
@@ -32,15 +33,19 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? street { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your City Name")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "City is invalid.")]
         public string? city { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your State Name")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "State is invalid.")]
         public string? state { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Zipcode")]
         [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
         public string? zipcode { get; set; }
 
+
+        [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
         public string? symptoms { get; set; }
 
 
@@ -64,7 +69,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? room { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Your Relation Name")]
         public string? relation { get; set; }
 
         public IFormFile? upload { get; set; }

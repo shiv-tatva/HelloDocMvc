@@ -423,10 +423,10 @@
     function tableFilter2(typeId) {
         $.ajax({
             method: "GET",
-            url: "/adminDashboard/tableRecords2",
+            url: "/Provider/tableRecords2",
             traditional: true,
             contentType: "application/json",
-            data: { arr: [2], typeId: typeId },
+            data: { arr: [2], typeId: typeId ,flag:21},
             success: function (result) {
                 $("#myTabContent1").html(result);
                 $("#Pending-tab-pane").addClass("show active");

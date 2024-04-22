@@ -45,7 +45,7 @@
             <h4 class="h4Head">Family/Friend Information</h4>
 
 
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
             <div class="row ">
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
@@ -87,9 +87,10 @@
             <h4 class="mt-5 h4Head">Patient Information</h4>
             <div class="row">
                 <div class="form-floating mt-3 col-12" style="overflow: hidden;">
-                    <textarea asp-for="symptoms" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                    <textarea asp-for="symptoms" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" 
                               style="height: 130px;"></textarea>
                     <label asp-for="symptoms" for="floatingTextarea" class="ms-2">Enter Brief Details Of Symptoms(Optional)</label>
+                        <span asp-validation-for="symptoms" class="text-danger"></span>
                 </div>
                 <div class="mt-3 col-sm-6 col-md-6">
                     <div class="form-floating">
@@ -187,7 +188,7 @@
                         <div class="btn btn-outline-primary" type="file" id="button-addon1"
                              style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;background-color: #09d4e3!important;color: #ffffff;">
                             <i class="fa-solid fa-cloud-arrow-up pe-2" style="color: #ffffff;"></i>
-                            <input asp-for="upload" class="form-control d-block" placeholder="" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
+                            <input asp-for="@Model.upload" class="form-control d-block" type="file" aria-label="Example text with button addon" aria-describedby="button-addon1" id="myFile" onchange="myFunction()">
                             <span class="d-none d-sm-none d-md-none d-lg-inline-block" style="color: #ffffff;padding-left: 0;font-size: 20px;">Upload</span>
                         </div>
                     </div>
@@ -263,5 +264,10 @@
             b[i].value = "";
         }
     }
-  
+
+    function myFunction() {
+        var x = document.getElementById("myFile").value;
+        document.getElementById("demo").innerHTML = x;
+    }
+
 </script>

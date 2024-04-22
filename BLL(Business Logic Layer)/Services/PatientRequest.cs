@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -125,7 +127,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
 
-            if(obj.upload != null)
+            if (obj.upload != null)
             {
                 string filename = obj.upload.FileName;
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", filename);

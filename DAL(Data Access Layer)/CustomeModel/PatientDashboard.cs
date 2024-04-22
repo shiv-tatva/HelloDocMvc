@@ -54,6 +54,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string zipcode { get; set; }
 
         public string? fulldateofbirth { get; set; }
+        public DateTime fulldateofbirthMain { get; set; }
 
         public string str_month { get; set; }
         public string status { get; set; }
@@ -85,7 +86,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? aspnetUserId { get; set; }
 
         [Required(ErrorMessage = "Please Enter Password")]
-        [StringLength(15, MinimumLength = 4, ErrorMessage = "Password Have 4 to 15 Char")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+      ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]
 
         public string? password { get; set; }
 

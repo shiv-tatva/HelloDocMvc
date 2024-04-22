@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5GEQ+cGtOvAeY4UueuLsOxdfrs6/p3WLLgsnXlgzAVE=",
+  "Hash": "CeW5/yS4NijyHKCTJVrpafMnHXY+U0Qfz5Ecj0ozgCc=",
   "Source": "HelloDocMVC",
   "BasePath": "_content/HelloDocMVC",
   "Mode": "Default",
@@ -1902,6 +1902,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Documents\\success-icon.svg"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\today.svg",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Documents/today.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Documents\\today.svg"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Documents\\total-product.svg",

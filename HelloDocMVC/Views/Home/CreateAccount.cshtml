@@ -49,12 +49,12 @@
                     </div>
                     <span asp-validation-for="password" class="text-danger"></span>
                     <div class="form-floating mb-3" style="position: relative;">
-                        <input asp-for="confirmPassword" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                        <input asp-for="confirmPassword" type="password" class="form-control" id="floatingPassword2" placeholder="Password"
                                style="border: 1px solid gray;">
                         <label asp-for="confirmPassword" for="floatingPassword">Confirm Password</label>
                         <button class="btn show-password" type="button" id="userBtn">
-                            <i class="fa-regular fa-eye" onclick="passwordVisible()"
-                               id="passHide"></i>
+                            <i class="fa-regular fa-eye" onclick="passwordVisible2()"
+                               id="passHide2"></i>
                         </button>
                     </div>
                     <span asp-validation-for="confirmPassword" class="text-danger"></span>
@@ -102,6 +102,27 @@
         }
 
         var x = document.getElementById("floatingPassword");
+        if (x.type === "password") {
+            x.type = "text";
+            console.log("hi1")
+        } else {
+            x.type = "password";
+            console.log("hi2")
+        }
+    }
+    
+    function passwordVisible2() {
+        let a = document.getElementById("passHide2")
+        console.log(a)
+        if (a.classList.contains("fa-eye")) {
+            a.classList.remove("fa-eye")
+            a.classList.add("fa-eye-slash")
+        } else {
+            a.classList.remove("fa-eye-slash")
+            a.classList.add("fa-eye")
+        }
+
+        var x = document.getElementById("floatingPassword2");
         if (x.type === "password") {
             x.type = "text";
             console.log("hi1")

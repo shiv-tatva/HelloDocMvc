@@ -29,14 +29,14 @@
                     <input asp-for="   firstname" type="text" class="form-control bg-transparent dark-mode2" id="floatingInputFName"
                            placeholder="Firstname">
                     <label for="floatingInputFName" class="ms-2">First Name</label>
-                    <span asp-validation-for="   firstname" class="text-danger"></span>
+                    <span asp-validation-for="firstname" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
                     <input asp-for="   lastname" type="text" class="form-control bg-transparent dark-mode2" id="floatingInputLName"
                            placeholder="LastName">
                     <label for="floatingInputLName" class="ms-2">Last Name</label>
-                    <span asp-validation-for="   lastname" class="text-danger"></span>
+                    <span asp-validation-for="lastname" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
@@ -55,7 +55,7 @@
                     <span asp-validation-for="email" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="   dateofbirth" type="date" class="form-control bg-transparent dark-mode2" id="datePickerId" placeholder="DateOfBirth">
+                    <input asp-for="dateofbirth" type="date" class="form-control bg-transparent dark-mode2" id="datePickerId" placeholder="DateOfBirth">
                     <label for="datePickerId" class="ms-2">Date Of Birth</label>
                     <span asp-validation-for="dateofbirth" class="text-danger"></span>
 
@@ -112,6 +112,7 @@
                 <textarea asp-for="admin_notes" class="form-control bg-transparent border border-2 h-100 dark-mode2" rows="5"
                           placeholder="Leave a comment here" id="floatingTextareaNotes"></textarea>
                 <label for="floatingTextareaNotes" class="text-wrap">Admin Notes(Optional)</label>
+                <span asp-validation-for="admin_notes" class="text-danger"></span>
             </div>
             <div class="d-flex gap-2 justify-content-end mb-3">
                 <button onclick="createRequestSubmitMain()" class="btn btn-info text-white" type="button">Submit</button>

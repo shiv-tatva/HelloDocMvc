@@ -24,7 +24,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void userDetail(Custom obj);
 
-        public void userSomeOneDetail(FamilyFriendData obj);
+        public void userSomeOneDetail(FamilyFriendData obj, string email);
 
         public void viewDocumentUpload(PatientDashboard obj);
 

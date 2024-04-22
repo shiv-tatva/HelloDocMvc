@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.Linq; 
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +19,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? business_lastname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Phone Number")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? business_phone { get; set; }
 
         [Required(ErrorMessage = "Please Enter Email")]
@@ -33,9 +34,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? street { get; set; }
 
         [Required(ErrorMessage = "Please Enter City")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "City is invalid.")]
         public string? city { get; set; }
 
         [Required(ErrorMessage = "Please Enter State")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "State is invalid.")]
         public string? state { get; set; }
 
         [Required(ErrorMessage = "Please Enter zipcode")]
@@ -43,6 +46,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? zipcode { get; set; }
 
+
+        [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
         public string? symptoms { get; set; }
 
         [Required(ErrorMessage = "Please Enter First Name")]
@@ -60,6 +65,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? email { get; set; }
 
         [Required(ErrorMessage = "Please Enter Phone Number")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? phone { get; set; }
 
         public string? room { get; set; }

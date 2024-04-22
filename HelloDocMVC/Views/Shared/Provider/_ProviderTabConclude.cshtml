@@ -451,10 +451,10 @@
     function tableFilter4(typeId) {
         $.ajax({
             method: "GET",
-            url: "/adminDashboard/tableRecords4",
+            url: "/Provider/tableRecords4",
             traditional: true,
             contentType: "application/json",
-            data: { arr: [6], typeId: typeId },
+            data: { arr: [6], typeId: typeId,flag:23 },
             success: function (result) {
                 $("#myTabContent1").html(result);
                 $("#Conclude-tab-pane").addClass("show active")

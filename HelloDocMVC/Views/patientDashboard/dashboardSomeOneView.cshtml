@@ -17,9 +17,10 @@
                 </div>
                 <h4 class="h4Head">Patient Information</h4>
                 <div class="form-floating mt-3 col-12" style="overflow: hidden;">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" asp-for="symptoms"
                               style="height: 130px;"></textarea>
                     <label for="floatingTextarea">Enter Brief Details Of Symptoms(Optional)</label>
+                    <span asp-validation-for="symptoms" class="text-danger"></span>
                 </div>
                 <div class="row ">
                     <div class="mt-3 col-sm-6 col-md-6">
@@ -47,7 +48,7 @@
                 <div class="row">
                     <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-floating">
-                            <input asp-for="email" type="email" class="form-control emailCheck" placeholder="Name" onblur="checkEmailAvail()" id="emailMain" value="@Model.email" readonly>
+                            <input asp-for="email" type="email" class="form-control emailCheck" placeholder="Name" onblur="checkEmailAvail()" id="emailMain" >
                             <label asp-for="email">Email</label>
                             <span asp-validation-for="email" class="text-danger"></span>
                         </div>

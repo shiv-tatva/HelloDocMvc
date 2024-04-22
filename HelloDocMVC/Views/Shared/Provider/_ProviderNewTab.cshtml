@@ -405,7 +405,7 @@
             url: "/Provider/tableRecords",
             traditional: true,
             contentType: "application/json",
-            data: { arr: [1], typeId: typeId },
+            data: { arr: [1], typeId: typeId ,flag:20},
             success: function (result) {
                 $("#myTabContent1").html(result);
                 $("#New-tab-pane").addClass("show active");

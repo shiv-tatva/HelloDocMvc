@@ -11,6 +11,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using Microsoft.AspNetCore.Http;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -82,7 +83,7 @@ namespace BLL_Business_Logic_Layer_.Services
             Requestclient _requestclient = new Requestclient();
             User _user = new User();
             Aspnetuser _aspnetuser = new Aspnetuser();
-            Aspnetuserrole _role = new Aspnetuserrole();
+            Aspnetuserrole _role = new Aspnetuserrole(); 
 
             var user = _context.Aspnetusers.FirstOrDefault(x => x.Email == data.email);
 
@@ -145,6 +146,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.Requests.Add(_request);
             _context.SaveChanges();
 
+
             _requestclient.Requestid = _request.Requestid;
             _requestclient.Firstname = data.firstname;
             _requestclient.Lastname = data.lastname;
@@ -180,6 +182,28 @@ namespace BLL_Business_Logic_Layer_.Services
                               
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
+
+            if (data.upload != null)
+            {
+                string filename = data.upload.FileName;
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", filename);
+                IFormFile file = data.upload;
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+
+                var data3 = new Requestwisefile()
+                {
+                    Requestid = _request.Requestid,
+                    Filename = filename,
+                    Createddate = DateTime.Now,
+                };
+                _context.Requestwisefiles.Add(data3);
+                _context.SaveChanges();
+            }
 
         }
     }

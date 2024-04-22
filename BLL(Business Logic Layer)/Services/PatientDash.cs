@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -105,8 +108,6 @@ namespace BLL_Business_Logic_Layer_.Services
                 zipcode = r.Zipcode,
                 email = email,
                 fulldateofbirth = new DateTime(Convert.ToInt16(r.Intyear), Convert.ToInt16(r.Strmonth), Convert.ToInt16(r.Intdate)).ToString("yyyy-MM-dd"),
-
-
             }).ToList()[0];
 
             return request;
@@ -324,78 +325,135 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
-
-        public void userSomeOneDetail(FamilyFriendData obj)
+        public void SendRegistrationEmail(string toEmail, string registrationLink, string ReqEmail)
         {
+            string senderEmail = "shivsantoki303@outlook.com";
+            string senderPassword = "Shiv@123";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
 
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Create Account ",
+                IsBodyHtml = true,
+                Body = $"Click the following link to complete your registration: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + toEmail + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = toEmail,
+                Roleid = 2,
+                //Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = ReqEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
+
+            if (db.Requests.Any(r => r.Email == ReqEmail))
+            {
+                emailLog.Requestid = db.Requests.Where(r => r.Email == ReqEmail).Select(r => r.Requestid).First();
+            }
+
+
+            db.Emaillogs.Add(emailLog);
+            db.SaveChanges();
+
+            mailMessage.To.Add(toEmail);
+
+            client.Send(mailMessage);
+        }
+
+        public void userSomeOneDetail(FamilyFriendData obj, string email)
+        {
+            User _user = new User();
+            Aspnetuser _aspnetuser = new Aspnetuser();
             Request _request = new Request();
             Requestclient _requestclient = new Requestclient();
+            Aspnetuserrole _role = new Aspnetuserrole();
 
             var clientUser = db.Users.FirstOrDefault(x => x.Email == obj.email);
 
-            if (clientUser != null)
+            var user = db.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
+
+            if (user == null)
             {
-                _request.Userid = clientUser.Userid;
+                _aspnetuser.Username = obj.firstname + "_" + obj.lastname;
+                _aspnetuser.Email = obj.email;
+                _aspnetuser.Phonenumber = obj.phone;
+                _aspnetuser.Createddate = DateTime.Now;
+
+                db.Aspnetusers.Add(_aspnetuser);
+                db.SaveChanges();
+
+                _user.Aspnetuserid = _aspnetuser.Id;
+                _user.Createdby = _aspnetuser.Id;
+                _user.Firstname = obj.firstname;
+                _user.Lastname = obj.lastname;
+                _user.Email = obj.email;
+                _user.Mobile = obj.phone;
+                _user.Street = obj.street;
+                _user.City = obj.city;
+                _user.State = db.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
+                _user.Zipcode = obj.zipcode;
+                _user.Strmonth = obj.dateofbirth.Substring(5, 2);
+                _user.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
+                _user.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+                _user.Createddate = DateTime.Now;
+                _user.Regionid = obj.regionId;
+
+                db.Users.Add(_user);
+                db.SaveChanges();
+
+                _role.Userid = _aspnetuser.Id;
+                _role.Roleid = 2;
+
+                db.Aspnetuserroles.Add(_role);
+                db.SaveChanges();
             }
 
-            if (clientUser.Firstname != null)
-            {
-                _request.Firstname = clientUser.Firstname;
-            }
-
-            if (clientUser.Lastname != null)
-            {
-                _request.Lastname = clientUser.Lastname;
-            }
-
-            if (clientUser.Email != null)
-            {
-                _request.Email = clientUser.Email;
-            }
-
-            if (clientUser.Firstname != null)
-            {
-                _request.Confirmationnumber = clientUser.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);//here do Logic For unique Confirmation number that will be used by requestclient to fetch particular request from Request table
-
-            }
-
-
-            if (obj.relation != null)
-            {
-                _request.Relationname = obj.relation;
-            }
-
-            _request.Status = 1;
-            _request.Createddate = DateTime.Now;
-
-            _request.Phonenumber = obj.ff_phone;
             _request.Requesttypeid = 2;
+
+            if (user == null)
+            {
+                _request.Userid = _user.Userid;
+            }
+            else
+            {
+                var a = db.Users.Where(r => r.Email == obj.email).Select(r => r.Userid).First();
+                _request.Userid = a;
+            }
+
+            var loginPatient = db.Users.Where(x => x.Email == email).FirstOrDefault();
+
+            _request.Firstname = loginPatient.Firstname;
+            _request.Lastname = loginPatient.Lastname;
+            _request.Phonenumber = loginPatient.Mobile;
+            _request.Email = email;
+            _request.Relationname = obj.relation;
+            _request.Confirmationnumber = loginPatient.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+            _request.Createddate = DateTime.Now;
+            _request.Status = 1;
 
             db.Requests.Add(_request);
             db.SaveChanges();
 
 
-            var requestClientId = db.Requests.FirstOrDefault(x => x.Confirmationnumber == _request.Confirmationnumber);
-
-            if (requestClientId != null)
-            {
-                _requestclient.Requestid = requestClientId.Requestid;
-            }
-            if (obj.firstname != null)
-            {
-                _requestclient.Firstname = obj.firstname;
-            }
-            if (obj.lastname != null)
-            {
-                _requestclient.Lastname = obj.lastname;
-            }
-
-            if (obj.phone != null)
-            {
-                _requestclient.Phonenumber = obj.phone;
-            }
-
-
+            _requestclient.Requestid = _request.Requestid;
+            _requestclient.Firstname = obj.firstname;
+            _requestclient.Lastname = obj.lastname;
+            _requestclient.Phonenumber = obj.phone;
             _requestclient.Email = obj.email;
             _requestclient.Notes = obj.symptoms;
             _requestclient.Street = obj.street;
@@ -407,10 +465,26 @@ namespace BLL_Business_Logic_Layer_.Services
             _requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
             _requestclient.Regionid = obj.regionId;
 
-
-
             db.Requestclients.Add(_requestclient);
             db.SaveChanges();
+
+            if (user == null)
+            {
+                string emailConfirmationToken = Guid.NewGuid().ToString();
+
+                string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _aspnetuser.Id;
+
+                //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
+
+                try
+                {
+                    SendRegistrationEmail(obj.email, registrationLink, _request.Email);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
 
             if (obj.upload != null)
             {
@@ -423,8 +497,6 @@ namespace BLL_Business_Logic_Layer_.Services
                     file.CopyTo(fileStream);
                 }
 
-                Request? req = db.Requests.FirstOrDefault(i => i.Email == obj.email);
-                int ReqId = req.Requestid;
 
                 var data3 = new Requestwisefile()
                 {

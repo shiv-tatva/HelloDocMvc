@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DAL_Data_Access_Layer_.CustomeModel
 {
     public class ConciergeCustom
-    {
+    { 
 
 
         [Required(ErrorMessage = "Please Enter Your First Name")]
@@ -21,6 +21,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? concierge_lastname { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Phone Number")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? concierge_phone { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Email")]
@@ -34,6 +35,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? concierge_street { get; set; }
 
         [Required(ErrorMessage = "Please Enter City Name:")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "City is invalid.")]
         public string? concierge_city { get; set; }
 
         [Required(ErrorMessage = "Please Enter State Name:")]
@@ -44,6 +46,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? concierge_zipcode { get; set; }
 
+
+        [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
         public string? symptoms { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your First Name")]
@@ -61,6 +65,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? email { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Phone Number")]
+        [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? phone { get; set; }
 
         public string? room { get; set; }
