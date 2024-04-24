@@ -17,7 +17,7 @@
 
                 <thead>
                     <tr>
-                        <th class="col d-none">Student Id</th>
+                        <th class="col">Student Id</th>
                         <th class="col">First Name</th>
                         <th class="col">Last Name</th>
                         <th class="col">Email</th>
@@ -32,7 +32,7 @@
                     @foreach (var obj in Model.DashboardData)
                     {
                     <tr class="text-left dark-mode2">
-                        <td class="d-none">@obj.StudentID</td>
+                        <td>@obj.StudentID</td>
                         <td>@obj.FirstName</td>
                         <td>@obj.LastName</td>
                         <td>@obj.Email</td>

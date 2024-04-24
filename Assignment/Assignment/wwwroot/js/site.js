@@ -30,8 +30,8 @@ function addStudentModal() {
             success: function (res) {
                 if (res) {
                     $("#addStudentModalView").modal("hide");
-                    toastr.success("Student Added Successfully");
                     window.location.reload();
+                    toastr.success("Student Added Successfully");
                 } else {
                     toastr.error("Something Wrong In Creating Shift");
                 }
