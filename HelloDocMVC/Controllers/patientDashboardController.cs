@@ -1,25 +1,10 @@
-﻿using HelloDocMVC.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using DAL_Data_Access_Layer_.DataContext;
-using DAL_Data_Access_Layer_.DataModels;
-using BLL_Business_Logic_Layer_.Interface;
-using HelloDocMVC.CustomeModel;
+﻿using BLL_Business_Logic_Layer_.Interface;
 using DAL_Data_Access_Layer_.CustomeModel;
-using Microsoft.AspNetCore.Http;
-using static DAL_Data_Access_Layer_.CustomeModel.PatientDashboard;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
-using System.Reflection.Emit;
-using System.Xml.Linq;
-using BLL_Business_Logic_Layer_.Services;
-using NuGet.Protocol;
+using DAL_Data_Access_Layer_.DataContext;
 using HalloDoc.mvc.Auth;
-using Azure.Core;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
+using HelloDocMVC.CustomeModel;
 using Microsoft.AspNetCore.Authorization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HelloDocMVC.Controllers
 {
@@ -32,7 +17,7 @@ namespace HelloDocMVC.Controllers
         private IAdminDash _IAdminDash;
 
 
-        public patientDashboardController(IPatientDash patientDashInfo,IWebHostEnvironment webHostEnvironment,ApplicationDbContext db, IAdminDash iAdminDash)
+        public patientDashboardController(IPatientDash patientDashInfo, IWebHostEnvironment webHostEnvironment, ApplicationDbContext db, IAdminDash iAdminDash)
         {
             _patientDashInfo = patientDashInfo;
             _webHostEnvironment = webHostEnvironment;
@@ -59,7 +44,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -72,10 +57,10 @@ namespace HelloDocMVC.Controllers
 
         //}
 
-       
 
 
-      
+
+
 
         public IActionResult DownloadFile(string data)
         {
@@ -92,7 +77,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
 
         }
 
@@ -120,7 +105,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
 
         }
 
@@ -174,11 +159,11 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
         }
 
-       
+
         public IActionResult dashboardMeView()
         {
             try
@@ -203,11 +188,11 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
-        
-        
-       
+
+
+
 
 
         [HttpPost]
@@ -224,10 +209,10 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
-        
-        
+
+
         public IActionResult dashboardSomeOneView()
         {
             try
@@ -239,7 +224,7 @@ namespace HelloDocMVC.Controllers
                     FamilyFriendData data = new FamilyFriendData();
                     data._RegionTable = _IAdminDash.RegionTable();
 
-                    ViewBag.Admin = 2; 
+                    ViewBag.Admin = 2;
                     return View(data);
                 }
                 else
@@ -252,7 +237,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -271,7 +256,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public IActionResult SubmitElseInfo()
@@ -279,7 +264,7 @@ namespace HelloDocMVC.Controllers
             return View();
         }
 
-       
+
         public IActionResult viewDetail(int param)
         {
 
@@ -309,7 +294,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
 
         }
 
@@ -328,7 +313,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -347,7 +332,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -388,7 +373,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
         }
     }

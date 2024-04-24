@@ -2,16 +2,9 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Collections;
-using Microsoft.AspNetCore.Http;
+using System.Net;
+using System.Net.Mail;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -24,7 +17,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _context = context;
         }
 
-        public void SendRegistrationEmail(string toEmail, string registrationLink,string ReqEmail)
+        public void SendRegistrationEmail(string toEmail, string registrationLink, string ReqEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -76,7 +69,7 @@ namespace BLL_Business_Logic_Layer_.Services
         public void businessInfo(BusinessCustome obj)
         {
             Request _request = new Request();
-            Requestclient _requestclient = new Requestclient();  
+            Requestclient _requestclient = new Requestclient();
             Business _business = new Business();
             Requestbusiness _requestbusiness = new Requestbusiness();
             User _user = new User();
@@ -121,7 +114,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.SaveChanges();
             }
 
-            
+
 
             var user = _context.Users.FirstOrDefault(x => x.Email == obj.email);
 
@@ -164,28 +157,28 @@ namespace BLL_Business_Logic_Layer_.Services
             _requestclient.Regionid = obj.regionId;
 
             if (userFatch == null)
-                {
-                    string emailConfirmationToken = Guid.NewGuid().ToString();
+            {
+                string emailConfirmationToken = Guid.NewGuid().ToString();
 
                 string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _aspnetuser.Id;
 
                 //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
 
                 try
-                    {
-                        SendRegistrationEmail(obj.email, registrationLink, obj.business_email);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                {
+                    SendRegistrationEmail(obj.email, registrationLink, obj.business_email);
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
 
-                
+
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
 
-            
+
             _business.Name = obj.business_property;
             _business.Createddate = DateTime.Now;
 
@@ -199,7 +192,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
 
 
-           
+
 
 
         }

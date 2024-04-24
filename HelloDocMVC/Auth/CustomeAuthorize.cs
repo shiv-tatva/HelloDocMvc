@@ -59,7 +59,7 @@ namespace HalloDoc.mvc.Auth
 
 
             if (_menu != null)
-            {              
+            {
                 List<string> roleMenu = _admin.GetListOfRoleMenu((int)roleMain);
                 bool f = false;
                 if (roleMenu.Any(r => r == _menu))

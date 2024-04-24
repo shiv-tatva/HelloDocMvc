@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL_Data_Access_Layer_.DataModels;
 using System.ComponentModel.DataAnnotations;
-using DAL_Data_Access_Layer_.DataModels;
-using Microsoft.AspNetCore.Http;
 
 namespace DAL_Data_Access_Layer_.CustomeModel
 {

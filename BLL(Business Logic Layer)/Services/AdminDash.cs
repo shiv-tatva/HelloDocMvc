@@ -3,32 +3,12 @@ using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
-using System.Drawing.Drawing2D;
-using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using GoogleMaps.LocationServices;
-using System;
-using System.Threading.Tasks;
-using Geocoding.Microsoft;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using Humanizer;
-using System.Threading.Channels;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections;
+using System.Net;
+using System.Net.Mail;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
@@ -47,7 +27,8 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var requestList = _context.Requests.Where(i => status.Contains(i.Status));
 
-            if (_context.Physicians.Any(r => r.Email == sessionFilter)){
+            if (_context.Physicians.Any(r => r.Email == sessionFilter))
+            {
                 var phyDetail = _context.Physicians.Where(r => r.Email == sessionFilter).Select(r => r).First();
                 requestList = _context.Requests.Where(i => status.Contains(i.Status));
                 requestList = requestList.Where(r => r.Physicianid == phyDetail.Physicianid).Select(r => r);
@@ -57,65 +38,65 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var query = (from r in requestList
                          join rc in _context.Requestclients on r.Requestid equals rc.Requestid
-                        select new adminDash
-                        {
-                            first_name = rc.Firstname,
-                            last_name = rc.Lastname,
-                            int_date = rc.Intdate,
-                            int_year = rc.Intyear,
-                            str_month = rc.Strmonth,
-                            requestor_fname = r.Firstname,
-                            responseor_lname = r.Lastname,
-                            created_date = r.Createddate,
-                            mobile_num = rc.Phonenumber,
-                            requestor_mobile_num = r.Phonenumber,
-                            city = rc.City,
-                            state = rc.State,
-                            street = rc.Street,
-                            phy_id = r.Physicianid,
-                            zipcode = rc.Zipcode,
-                            address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
-                            request_type_id = r.Requesttypeid,
-                            status = r.Status,
-                            call_type = (int)r.Calltype,
-                            region_id = rc.Regionid,
-                            //transfer_notes = r.Requeststatuslogs.OrderBy(i => i.Requeststatuslogid).LastOrDefault().Notes,
-                            notes = r.Requeststatuslogs.Where(x => x.Requestid == r.Requestid && (x.Transtophysicianid != null || x.Transtoadmin != null)).OrderBy(x => x.Requeststatuslogid).Select(x => x).ToList(),
-                            isFinalize = r.EncounterForms.Where(x => x.Requestid == r.Requestid).Select(x => x.IsFinalized).First(),
-                            //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
-                            //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
-                            //region_table = _context.Regions.ToList(),
-                            reqid = r.Requestid,
-                            email = rc.Email,
-                            fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
-                        }).ToList();
+                         select new adminDash
+                         {
+                             first_name = rc.Firstname,
+                             last_name = rc.Lastname,
+                             int_date = rc.Intdate,
+                             int_year = rc.Intyear,
+                             str_month = rc.Strmonth,
+                             requestor_fname = r.Firstname,
+                             responseor_lname = r.Lastname,
+                             created_date = r.Createddate,
+                             mobile_num = rc.Phonenumber,
+                             requestor_mobile_num = r.Phonenumber,
+                             city = rc.City,
+                             state = rc.State,
+                             street = rc.Street,
+                             phy_id = r.Physicianid,
+                             zipcode = rc.Zipcode,
+                             address = r.Requestclients.Select(x => x.Street).First() + "," + r.Requestclients.Select(x => x.City).First() + "," + r.Requestclients.Select(x => x.State).First(),
+                             request_type_id = r.Requesttypeid,
+                             status = r.Status,
+                             call_type = (int)r.Calltype,
+                             region_id = rc.Regionid,
+                             //transfer_notes = r.Requeststatuslogs.OrderBy(i => i.Requeststatuslogid).LastOrDefault().Notes,
+                             notes = r.Requeststatuslogs.Where(x => x.Requestid == r.Requestid && (x.Transtophysicianid != null || x.Transtoadmin != null)).OrderBy(x => x.Requeststatuslogid).Select(x => x).ToList(),
+                             isFinalize = r.EncounterForms.Where(x => x.Requestid == r.Requestid).Select(x => x.IsFinalized).First(),
+                             //phy_name = _context.Physicians.FirstOrDefault(a => a.Physicianid == r.Physicianid).Firstname,
+                             //region = _context.Regions.FirstOrDefault(a => a.Regionid == rc.Regionid).Name,
+                             //region_table = _context.Regions.ToList(),
+                             reqid = r.Requestid,
+                             email = rc.Email,
+                             fulldateofbirth = new DateTime((int)r.Requestclients.Select(x => x.Intyear).First(), Convert.ToInt16(r.Requestclients.Select(x => x.Strmonth).First()), (int)r.Requestclients.Select(x => x.Intdate).First()).ToString("yyyy-MM-dd"),
+                         }).ToList();
 
-            if(typeId > 0)
+            if (typeId > 0)
             {
                 query = query.Where(x => x.request_type_id == typeId).Select(r => r).ToList();
             }
 
-            if(regionId > 0)
+            if (regionId > 0)
             {
                 query = query.Where(x => x.region_id == regionId).Select(r => r).ToList();
             }
 
-            if(dataFlag == 11)
+            if (dataFlag == 11)
             {
                 var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
                 query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && x.status == 1).Select(r => r).ToList();
             }
-            if(dataFlag == 12)
+            if (dataFlag == 12)
             {
                 var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
                 query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && x.status == 2).Select(r => r).ToList();
             }
-            if(dataFlag == 13)
+            if (dataFlag == 13)
             {
                 var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
                 query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && (x.status == 4 || x.status == 5)).Select(r => r).ToList();
             }
-            if(dataFlag == 14)
+            if (dataFlag == 14)
             {
                 var phyDetailMain = _context.Physicians.Where(x => x.Email == sessionName).Select(x => x).First();
                 query = query.Where(x => x.phy_id == phyDetailMain.Physicianid && x.status == 6).Select(r => r).ToList();
@@ -130,9 +111,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return query;
         }
 
-        public countMain countService(string sessionName,int flagCount)
+        public countMain countService(string sessionName, int flagCount)
         {
-            if(flagCount != 10)
+            if (flagCount != 10)
             {
                 var requestsWithClients = _context.Requests
                    .Join(_context.Requestclients,
@@ -231,36 +212,36 @@ namespace BLL_Business_Logic_Layer_.Services
                             cnf_number = r.Confirmationnumber,
                             flagId = flag,
                         };
-                        
+
 
             var result = query.ToList();
 
 
             return result;
-        } 
-        
-        
-        
+        }
+
+
+
         public viewNotes adminDataViewNote(int reqId)
         {
             var a = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId);
 
             viewNotes viewNotes = new viewNotes();
             Requestnote _reqNote = new Requestnote();
-            
+
             var b = _context.Requeststatuslogs.FirstOrDefault(r => r.Requestid == reqId);
 
             if (a != null)
-             {
+            {
 
                 viewNotes.AdminNotes = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId).Adminnotes;
                 viewNotes.PhysicianNotes = _context.Requestnotes.FirstOrDefault(p => p.Requestid == reqId).Physiciannotes;
                 //viewNotes.TransferNotes = _context.Requeststatuslogs.Where()
                 viewNotes.cashtagId = Convert.ToInt16(_context.Requests.FirstOrDefault(r => r.Requestid == reqId).Casetag);
-                viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).OrderBy(r => r.Requeststatuslogid).ToList(); 
-                if(b != null)
+                viewNotes.requeststatuslogs = _context.Requeststatuslogs.Where(r => r.Requestid == reqId).OrderBy(r => r.Requeststatuslogid).ToList();
+                if (b != null)
                 {
-                    if(_context.Requeststatuslogs.Any(r => r.Requestid == reqId && r.Status == 3))
+                    if (_context.Requeststatuslogs.Any(r => r.Requestid == reqId && r.Status == 3))
                         viewNotes.AdminCancleNotes = _context.Requeststatuslogs.Where(r => r.Requestid == reqId && r.Status == 3).Select(x => x.Notes).First();
                     if (_context.Requeststatuslogs.Any(r => r.Requestid == reqId && r.Status == 7))
                         viewNotes.PatientCancleNotes = _context.Requeststatuslogs.Where(x => x.Requestid == reqId && x.Status == 7).Select(x => x.Notes).First();//status 7 is for Request Status Cancelled By Patient 
@@ -268,7 +249,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             }
             else
-             {
+            {
                 _reqNote.Createddate = DateTime.Now.Date;
                 _reqNote.Createdby = (int)_context.Requests.Where(x => x.Requestid == reqId).Select(x => x.User.Aspnetuserid).First();
                 _reqNote.Requestid = _context.Requests.FirstOrDefault(r => r.Requestid == reqId).Requestid;
@@ -279,14 +260,14 @@ namespace BLL_Business_Logic_Layer_.Services
             viewNotes.reqid = reqId;
             return viewNotes;
         }
-        
-        
-        
+
+
+
         public void adminDataViewNote(adminDashData obj)
         {
             var reqNoteId = _context.Requestnotes.FirstOrDefault(r => r.Requestid == obj._viewNote.reqid);
 
-            if(reqNoteId != null)
+            if (reqNoteId != null)
             {
                 reqNoteId.Adminnotes = obj._viewNote.AdminNotes;
                 reqNoteId.Modifiedby = (int)_context.Requests.Where(x => x.Requestid == obj._viewNote.reqid).Select(x => x.User.Aspnetuserid).First();
@@ -297,19 +278,19 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
-        
-        
-        
+
+
+
 
         public CloseCase closeCaseNote(int reqId)
         {
-          
+
             CloseCase _closeCase = new CloseCase();
 
             _closeCase.first_name = _context.Requestclients.FirstOrDefault(r => r.Requestid == reqId).Firstname;
             _closeCase.reqid = reqId;
             _closeCase.status = _context.Requests.FirstOrDefault(r => r.Requestid == reqId).Status;
-           
+
             return _closeCase;
         }
 
@@ -355,7 +336,7 @@ namespace BLL_Business_Logic_Layer_.Services
             assignCase.region_id = _context.Regions.Select(y => y.Regionid).ToList();
             assignCase.regions = _context.Regions.ToList();
             assignCase.reqid = req;
-            
+
             //assignCase.phy_req = _context.Physicianregions.ToList();
             return assignCase;
         }
@@ -364,9 +345,9 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             AssignCase assignCase = new AssignCase();
 
-            assignCase.phy_name = _context.Physicianregions.Where(x=>x.Regionid == regionId).Select(x=>x.Physician.Firstname).ToList();
-            assignCase.phy_id = _context.Physicianregions.Where(x=>x.Regionid == regionId).Select(x=>x.Physician.Physicianid).ToList();
-            
+            assignCase.phy_name = _context.Physicianregions.Where(x => x.Regionid == regionId).Select(x => x.Physician.Firstname).ToList();
+            assignCase.phy_id = _context.Physicianregions.Where(x => x.Regionid == regionId).Select(x => x.Physician.Physicianid).ToList();
+
             return assignCase;
         }
 
@@ -374,25 +355,25 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             Requeststatuslog requeststatuslog = new Requeststatuslog();
             Request _req = new Request();
-            
-                var requestedRowPatient = _context.Requests.Where(x => x.Requestid == assignObj.assignCase.reqid).Select(r => r).First();
 
-                requeststatuslog.Requestid = assignObj.assignCase.reqid;
-                requeststatuslog.Notes = assignObj.assignCase.description;
-                requeststatuslog.Createddate = DateTime.Now;
-                requeststatuslog.Status = 1;
-                requeststatuslog.Adminid = 1;
-                requeststatuslog.Transtophysicianid = assignObj.assignCase.phy_id_main;
+            var requestedRowPatient = _context.Requests.Where(x => x.Requestid == assignObj.assignCase.reqid).Select(r => r).First();
+
+            requeststatuslog.Requestid = assignObj.assignCase.reqid;
+            requeststatuslog.Notes = assignObj.assignCase.description;
+            requeststatuslog.Createddate = DateTime.Now;
+            requeststatuslog.Status = 1;
+            requeststatuslog.Adminid = 1;
+            requeststatuslog.Transtophysicianid = assignObj.assignCase.phy_id_main;
 
 
-                _context.Add(requeststatuslog);
-                _context.SaveChanges();
+            _context.Add(requeststatuslog);
+            _context.SaveChanges();
 
-                requestedRowPatient.Physicianid = assignObj.assignCase.phy_id_main;
-                requestedRowPatient.Status = 1;
+            requestedRowPatient.Physicianid = assignObj.assignCase.phy_id_main;
+            requestedRowPatient.Status = 1;
 
-                _context.SaveChanges();
-            
+            _context.SaveChanges();
+
 
         }
 
@@ -410,7 +391,7 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var request = _context.Requests.FirstOrDefault(r => r.Requestid == obj._blockCaseModel.reqid);
 
-            if(request != null)
+            if (request != null)
             {
                 if (request.Isdeleted == null)
                 {
@@ -455,7 +436,7 @@ namespace BLL_Business_Logic_Layer_.Services
             var query = _context.Requests.Where(r => r.Requestid == reqId).AsNoTracking().Select(r => new viewUploads()
             {
                 reqid = reqId,
-                email = r.Requestclients.Where(r =>r.Requestid == reqId).Select(r => r.Email).First(),
+                email = r.Requestclients.Where(r => r.Requestid == reqId).Select(r => r.Email).First(),
                 fname = r.Requestclients.Where(r => r.Requestid == reqId).Select(r => r.Firstname).First(),
                 lname = r.Requestclients.Where(r => r.Requestid == reqId).Select(r => r.Lastname).First(),
                 cnf_number = r.Confirmationnumber,
@@ -465,7 +446,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 flagId = flag,
                 isFinalize = r.EncounterForms.Where(x => x.Requestid == r.Requestid).Select(x => x.IsFinalized).First(),
             }).ToList();
-             
+
             return query;
         }
 
@@ -500,7 +481,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public void DeleteFile(bool data,int reqFileId)
+        public void DeleteFile(bool data, int reqFileId)
         {
             var reqWiseFile = _context.Requestwisefiles.Where(r => r.Requestwisefileid == reqFileId).Select(r => r).First();
 
@@ -513,7 +494,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
         //*************************************Mail**********************************************
-        public void SendRegistrationEmail(string emailMain, string[] data,string sessionEmail)
+        public void SendRegistrationEmail(string emailMain, string[] data, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -534,7 +515,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 IsBodyHtml = true,
             };
 
-                for(var i = 0;i< data.Length;i++)
+            for (var i = 0; i < data.Length; i++)
             {
                 string pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", data[i]);
                 Attachment attachment = new Attachment(pathname);
@@ -574,12 +555,12 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
-    
 
-        public void sendMail(string emailMain, string[] data,string sessionEmail)
+
+        public void sendMail(string emailMain, string[] data, string sessionEmail)
         {
             string emailConfirmationToken = Guid.NewGuid().ToString();
-            
+
             try
             {
                 SendRegistrationEmail(emailMain, data, sessionEmail);
@@ -597,7 +578,7 @@ namespace BLL_Business_Logic_Layer_.Services
             activeOrder _active = new activeOrder();
 
             _active.reqid = reqId;
-            _active.profession = _context.Healthprofessionaltypes.ToList(); 
+            _active.profession = _context.Healthprofessionaltypes.ToList();
 
             return _active;
         }
@@ -648,7 +629,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var _health = _context.Healthprofessionals.Where(r => r.Vendorid == adminDashData._activeOrder.vendorid).Select(r => r).First();
 
-            if(_health.Email != adminDashData._activeOrder.email || _health.Faxnumber != adminDashData._activeOrder.fax_num || _health.Businesscontact != adminDashData._activeOrder.business_contact)
+            if (_health.Email != adminDashData._activeOrder.email || _health.Faxnumber != adminDashData._activeOrder.fax_num || _health.Businesscontact != adminDashData._activeOrder.business_contact)
             {
                 _health.Email = adminDashData._activeOrder.email;
                 _health.Faxnumber = adminDashData._activeOrder.fax_num;
@@ -719,7 +700,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             _context.SaveChanges();
 
-           
+
         }
 
         public sendAgreement sendAgree(int reqId)
@@ -732,7 +713,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return sendAgreement;
         }
 
-        public void sendAgree(adminDashData dataMain,string sessionEmail)
+        public void sendAgree(adminDashData dataMain, string sessionEmail)
         {
             string registrationLink = "http://localhost:5145/Home/pendingReviewAgreement?reqId=" + dataMain._sendAgreement.reqid;
 
@@ -782,7 +763,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 Senttries = 1,
             };
 
-            if(_context.Admins.Any(r => r.Email == sessionEmail))
+            if (_context.Admins.Any(r => r.Email == sessionEmail))
             {
                 emailLog.Adminid = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r.Adminid).First();
             }
@@ -793,7 +774,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 emailLog.Roleid = 3;
             }
 
-                _context.Emaillogs.Add(emailLog);
+            _context.Emaillogs.Add(emailLog);
             _context.SaveChanges();
 
             mailMessage.To.Add(toEmail);
@@ -803,15 +784,15 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public closeCaseMain closeCaseMain(int reqId)
         {
-            var reqClient = _context.Requestclients.Where(r => r.Requestid == reqId).Select(r=>new closeCaseMain()
+            var reqClient = _context.Requestclients.Where(r => r.Requestid == reqId).Select(r => new closeCaseMain()
             {
                 mobile_num = r.Phonenumber,
                 email = r.Email,
                 fname = r.Firstname,
                 lname = r.Lastname,
                 fulldateofbirth = new DateTime((int)(r.Intyear), Convert.ToInt16(r.Strmonth), (int)(r.Intdate)).ToString("yyyy-MM-dd"),
-                reqid=r.Requestid,
-            }).ToList().FirstOrDefault() ;
+                reqid = r.Requestid,
+            }).ToList().FirstOrDefault();
 
             var cnf = _context.Requests.Where(r => r.Requestid == reqId).FirstOrDefault().Confirmationnumber;
             var requestWiseFile = _context.Requestwisefiles.Where(r => r.Requestid == reqId && r.Isdeleted == null).Select(r => r).ToList();
@@ -823,15 +804,15 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public void closeCaseSaveMain(adminDashData obj) 
-        { 
+        public void closeCaseSaveMain(adminDashData obj)
+        {
 
-        var requestStatus = _context.Requestclients.Where(r => r.Requestid == obj._closeCaseMain.reqid).Select(r => r).First();
-        requestStatus.Email = obj._closeCaseMain.email;
-        requestStatus.Phonenumber = obj._closeCaseMain.mobile_num;
+            var requestStatus = _context.Requestclients.Where(r => r.Requestid == obj._closeCaseMain.reqid).Select(r => r).First();
+            requestStatus.Email = obj._closeCaseMain.email;
+            requestStatus.Phonenumber = obj._closeCaseMain.mobile_num;
 
-        _context.SaveChanges();         
-            
+            _context.SaveChanges();
+
         }
 
         public void closeCaseCloseBtn(int reqId, string sessionEmail)
@@ -848,7 +829,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 Adminid = _context.Admins.FirstOrDefault(x => x.Email == sessionEmail).Adminid,
                 Createddate = DateTime.Now,
             });
-            _context.SaveChanges();         
+            _context.SaveChanges();
         }
 
         public myProfile myProfile(string sessionEmail)
@@ -884,7 +865,7 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var aspUser = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
-            if(aspUser.Passwordhash != obj.password)
+            if (aspUser.Passwordhash != obj.password)
             {
                 var pass = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
                 pass.Passwordhash = obj.password;
@@ -911,24 +892,24 @@ namespace BLL_Business_Logic_Layer_.Services
 
             if (adminInfo.Firstname != obj.fname || adminInfo.Lastname != obj.lname || adminInfo.Email != obj.email || adminInfo.Mobile != obj.mobile_no || changes.Any() || abc.Count() != adminRegions.Count())
             {
-                if(adminInfo.Firstname != obj.fname)
+                if (adminInfo.Firstname != obj.fname)
                 {
                     adminInfo.Firstname = obj.fname;
                     aspUser.Username = obj.fname;
                 }
-                
-                if(adminInfo.Lastname != obj.lname)
+
+                if (adminInfo.Lastname != obj.lname)
                 {
                     adminInfo.Lastname = obj.lname;
                 }
 
-                if(adminInfo.Email != obj.email)
+                if (adminInfo.Email != obj.email)
                 {
                     adminInfo.Email = obj.email;
                     aspUser.Email = obj.email;
                 }
 
-                if(adminInfo.Mobile != obj.mobile_no)
+                if (adminInfo.Mobile != obj.mobile_no)
                 {
                     adminInfo.Mobile = obj.mobile_no;
                     aspUser.Phonenumber = obj.mobile_no;
@@ -972,39 +953,39 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var adminInfo = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
-            if(adminInfo.Address1 != obj.addr1 || adminInfo.Address2 != obj.addr2 || adminInfo.City != obj.city ||adminInfo.Zip != obj.zip || adminInfo.Altphone != obj.altphone || adminInfo.Regionid != obj.regionId)
+            if (adminInfo.Address1 != obj.addr1 || adminInfo.Address2 != obj.addr2 || adminInfo.City != obj.city || adminInfo.Zip != obj.zip || adminInfo.Altphone != obj.altphone || adminInfo.Regionid != obj.regionId)
             {
 
-                if(adminInfo.Address1 != obj.addr1)
+                if (adminInfo.Address1 != obj.addr1)
                 {
                     adminInfo.Address1 = obj.addr1;
                 }
-                
-                if(adminInfo.Address2 != obj.addr2)
+
+                if (adminInfo.Address2 != obj.addr2)
                 {
                     adminInfo.Address2 = obj.addr2;
                 }
-               
-                if(adminInfo.City != obj.city)
+
+                if (adminInfo.City != obj.city)
                 {
                     adminInfo.City = obj.city;
                 }
-                    
-                if(adminInfo.Zip != obj.zip)
+
+                if (adminInfo.Zip != obj.zip)
                 {
                     adminInfo.Zip = obj.zip;
                 }
-                if(adminInfo.Altphone != obj.altphone)
+                if (adminInfo.Altphone != obj.altphone)
                 {
                     adminInfo.Altphone = obj.altphone;
                 }
-                if(adminInfo.Regionid != obj.regionId)
+                if (adminInfo.Regionid != obj.regionId)
                 {
                     adminInfo.Regionid = obj.regionId;
                 }
 
 
-                
+
                 _context.SaveChanges();
 
                 return true;
@@ -1017,7 +998,7 @@ namespace BLL_Business_Logic_Layer_.Services
         public concludeEncounter concludeEncounter(int data)
         {
             var obj = _context.Requestclients.Where(r => r.Requestid == data).Select(r => r).First();
-           
+
             var obj3 = _context.EncounterForms.FirstOrDefault(r => r.Requestid == data);
 
             concludeEncounter _encounterData = new concludeEncounter();
@@ -1029,7 +1010,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _encounterData.BirthDate = new DateTime((int)(obj.Intyear), Convert.ToInt16(obj.Strmonth), (int)(obj.Intdate)).ToString("yyyy-MM-dd");
             _encounterData.PhoneNumber = obj.Phonenumber;
             _encounterData.Email = obj.Email;
-            if(obj3 != null)
+            if (obj3 != null)
             {
                 var obj2 = _context.EncounterForms.Where(r => r.Requestid == data).Select(r => r).First();
 
@@ -1059,10 +1040,10 @@ namespace BLL_Business_Logic_Layer_.Services
                 _encounterData.Procedures = obj2.Procedures;
                 _encounterData.FollowUp = obj2.FollowUp;
             }
-            
+
 
             return _encounterData;
- 
+
         }
 
 
@@ -1070,93 +1051,93 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             concludeEncounter _obj = new concludeEncounter();
 
-                var obj1 = _context.EncounterForms.FirstOrDefault(r => r.Requestid == obj.reqid);
+            var obj1 = _context.EncounterForms.FirstOrDefault(r => r.Requestid == obj.reqid);
 
-                if(obj1 == null)
+            if (obj1 == null)
+            {
+                EncounterForm _encounter = new EncounterForm()
                 {
-                    EncounterForm _encounter = new EncounterForm()
-                    {
-                        Requestid = obj.reqid,
-                        HistoryIllness = obj.HistoryIllness,
-                        MedicalHistory = obj.MedicalHistory,
-                        Date = obj.Date,
-                        Medications = obj.Medications,
-                        Allergies = obj.Allergies,
-                        Temp = obj.Temp,
-                        Hr = obj.Hr,
-                        Rr = obj.Rr,
-                        BpS = obj.BpS,
-                        BpD = obj.BpD,
-                        O2 = obj.O2,
-                        Pain = obj.Pain,
-                        Heent = obj.Heent,
-                        Cv = obj.Cv,
-                        Chest = obj.Chest,
-                        Abd = obj.Abd,
-                        Extr = obj.Extr,
-                        Skin = obj.Skin,
-                        Neuro = obj.Neuro,
-                        Other = obj.Other,
-                        Diagnosis = obj.Diagnosis,
-                        TreatmentPlan = obj.TreatmentPlan,
-                        MedicationDispensed = obj.MedicationDispensed,
-                        Procedures = obj.Procedures,
-                        FollowUp = obj.FollowUp,
-                    };
+                    Requestid = obj.reqid,
+                    HistoryIllness = obj.HistoryIllness,
+                    MedicalHistory = obj.MedicalHistory,
+                    Date = obj.Date,
+                    Medications = obj.Medications,
+                    Allergies = obj.Allergies,
+                    Temp = obj.Temp,
+                    Hr = obj.Hr,
+                    Rr = obj.Rr,
+                    BpS = obj.BpS,
+                    BpD = obj.BpD,
+                    O2 = obj.O2,
+                    Pain = obj.Pain,
+                    Heent = obj.Heent,
+                    Cv = obj.Cv,
+                    Chest = obj.Chest,
+                    Abd = obj.Abd,
+                    Extr = obj.Extr,
+                    Skin = obj.Skin,
+                    Neuro = obj.Neuro,
+                    Other = obj.Other,
+                    Diagnosis = obj.Diagnosis,
+                    TreatmentPlan = obj.TreatmentPlan,
+                    MedicationDispensed = obj.MedicationDispensed,
+                    Procedures = obj.Procedures,
+                    FollowUp = obj.FollowUp,
+                };
 
                 _context.EncounterForms.Add(_encounter);
 
                 _obj.indicate = true;
             }
-                else
-                {
+            else
+            {
                 _obj.indicate = false;
 
                 var obj2 = _context.EncounterForms.Where(r => r.Requestid == obj.reqid).Select(r => r).First();
 
-                    if (obj2.Requestid != obj.reqid || obj2.HistoryIllness != obj.HistoryIllness ||  obj2.MedicalHistory != obj.MedicalHistory || obj2.Date != obj.Date ||  obj2.Medications != obj.Medications ||  obj2.Allergies != obj.Allergies ||  obj2.Temp != obj.Temp || obj2.Hr != obj.Hr || obj2.Rr != obj.Rr ||  obj2.BpS != obj.BpS || obj2.BpD != obj.BpD || obj2.O2 != obj.O2 ||  obj2.Pain != obj.Pain || obj2.Heent != obj.Heent || obj2.Cv != obj.Cv || obj2.Chest != obj.Chest || obj2.Abd != obj.Abd ||  obj2.Extr != obj.Extr || obj2.Skin != obj.Skin ||  obj2.Neuro != obj.Neuro || obj2.Other != obj.Other || obj2.Diagnosis != obj.Diagnosis || obj2.TreatmentPlan != obj.TreatmentPlan || obj2.MedicationDispensed != obj.MedicationDispensed ||  obj2.Procedures != obj.Procedures || obj2.FollowUp != obj.FollowUp)
-                    {
-                        obj2.Requestid = obj.reqid;
-                        obj2.HistoryIllness = obj.HistoryIllness;
-                        obj2.MedicalHistory = obj.MedicalHistory;
-                        obj2.Date = obj.Date;
-                        obj2.Medications = obj.Medications;
-                        obj2.Allergies = obj.Allergies;
-                        obj2.Temp = obj.Temp;
-                        obj2.Hr = obj.Hr;
-                        obj2.Rr = obj.Rr;
-                        obj2.BpS = obj.BpS;
-                        obj2.BpD = obj.BpD;
-                        obj2.O2 = obj.O2;
-                        obj2.Pain = obj.Pain;
-                        obj2.Heent = obj.Heent;
-                        obj2.Cv = obj.Cv;
-                        obj2.Chest = obj.Chest;
-                        obj2.Abd = obj.Abd;
-                        obj2.Extr = obj.Extr;
-                        obj2.Skin = obj.Skin;
-                        obj2.Neuro = obj.Neuro;
-                        obj2.Other = obj.Other;
-                        obj2.Diagnosis = obj.Diagnosis;
-                        obj2.TreatmentPlan = obj.TreatmentPlan;
-                        obj2.MedicationDispensed = obj.MedicationDispensed;
-                        obj2.Procedures = obj.Procedures;
-                        obj2.FollowUp = obj.FollowUp;
+                if (obj2.Requestid != obj.reqid || obj2.HistoryIllness != obj.HistoryIllness || obj2.MedicalHistory != obj.MedicalHistory || obj2.Date != obj.Date || obj2.Medications != obj.Medications || obj2.Allergies != obj.Allergies || obj2.Temp != obj.Temp || obj2.Hr != obj.Hr || obj2.Rr != obj.Rr || obj2.BpS != obj.BpS || obj2.BpD != obj.BpD || obj2.O2 != obj.O2 || obj2.Pain != obj.Pain || obj2.Heent != obj.Heent || obj2.Cv != obj.Cv || obj2.Chest != obj.Chest || obj2.Abd != obj.Abd || obj2.Extr != obj.Extr || obj2.Skin != obj.Skin || obj2.Neuro != obj.Neuro || obj2.Other != obj.Other || obj2.Diagnosis != obj.Diagnosis || obj2.TreatmentPlan != obj.TreatmentPlan || obj2.MedicationDispensed != obj.MedicationDispensed || obj2.Procedures != obj.Procedures || obj2.FollowUp != obj.FollowUp)
+                {
+                    obj2.Requestid = obj.reqid;
+                    obj2.HistoryIllness = obj.HistoryIllness;
+                    obj2.MedicalHistory = obj.MedicalHistory;
+                    obj2.Date = obj.Date;
+                    obj2.Medications = obj.Medications;
+                    obj2.Allergies = obj.Allergies;
+                    obj2.Temp = obj.Temp;
+                    obj2.Hr = obj.Hr;
+                    obj2.Rr = obj.Rr;
+                    obj2.BpS = obj.BpS;
+                    obj2.BpD = obj.BpD;
+                    obj2.O2 = obj.O2;
+                    obj2.Pain = obj.Pain;
+                    obj2.Heent = obj.Heent;
+                    obj2.Cv = obj.Cv;
+                    obj2.Chest = obj.Chest;
+                    obj2.Abd = obj.Abd;
+                    obj2.Extr = obj.Extr;
+                    obj2.Skin = obj.Skin;
+                    obj2.Neuro = obj.Neuro;
+                    obj2.Other = obj.Other;
+                    obj2.Diagnosis = obj.Diagnosis;
+                    obj2.TreatmentPlan = obj.TreatmentPlan;
+                    obj2.MedicationDispensed = obj.MedicationDispensed;
+                    obj2.Procedures = obj.Procedures;
+                    obj2.FollowUp = obj.FollowUp;
 
                     _obj.indicate = true;
                 }
 
-                
+
             };
 
-           
+
             _context.SaveChanges();
 
             return _obj;
         }
 
 
-        public sendLink sendLink(sendLink data,string sessionEmail)
+        public sendLink sendLink(sendLink data, string sessionEmail)
         {
             sendLink _send = new sendLink();
 
@@ -1175,7 +1156,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return _send;
         }
 
-        public void SendRegistrationEmailSendLink(string email,string registrationLink, string sessionEmail)
+        public void SendRegistrationEmailSendLink(string email, string registrationLink, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -1229,11 +1210,11 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
-      
 
-        public createRequest createRequest(createRequest data, string sessionEmail,int flag)
+
+        public createRequest createRequest(createRequest data, string sessionEmail, int flag)
         {
-            if(flag != 15)
+            if (flag != 15)
             {
                 createRequest _create = new createRequest();
 
@@ -1358,124 +1339,124 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             else
             {
-                 createRequest _create = new createRequest();
+                createRequest _create = new createRequest();
 
-            var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).FirstOrDefault();
+                var stateMain = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).FirstOrDefault();
 
-            if (stateMain == null)
-            {
-                _create.indicate = false;
-            }
-            else
-            {
-                Request _req = new Request();
-                Requestclient _reqClient = new Requestclient();
-                User _user = new User();
-                Aspnetuser _asp = new Aspnetuser();
-                Requestnote _note = new Requestnote();
-                Aspnetuserrole _role = new Aspnetuserrole();
-
-                var _phy = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r).First();
-
-                var existUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == data.email);
-
-                if (existUser == null)
+                if (stateMain == null)
                 {
-                    _asp.Username = data.firstname + "_" + data.lastname;
-                    _asp.Email = data.email;
-                    _asp.Phonenumber = data.phone;
-                    _asp.Createddate = DateTime.Now;
-                    _context.Aspnetusers.Add(_asp);
-                    _context.SaveChanges();
+                    _create.indicate = false;
+                }
+                else
+                {
+                    Request _req = new Request();
+                    Requestclient _reqClient = new Requestclient();
+                    User _user = new User();
+                    Aspnetuser _asp = new Aspnetuser();
+                    Requestnote _note = new Requestnote();
+                    Aspnetuserrole _role = new Aspnetuserrole();
 
-                    _user.Aspnetuserid = _asp.Id;
-                    _user.Firstname = data.firstname;
-                    _user.Lastname = data.lastname;
-                    _user.Email = data.email;
-                    _user.Mobile = data.phone;
-                    _user.City = data.city;
-                    _user.State = data.state;
-                    _user.Street = data.street;
-                    _user.Zipcode = data.zipcode;
-                    _user.Strmonth = data.dateofbirth.Substring(5, 2);
-                    _user.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
-                    _user.Intyear =  Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-                    _user.Createdby = _asp.Id;
-                    _user.Createddate = DateTime.Now;
-                    _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
-                    _context.Users.Add(_user);
-                    _context.SaveChanges();
+                    var _phy = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r).First();
 
-                    _role.Userid = _asp.Id;
-                    _role.Roleid = 2;
+                    var existUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == data.email);
 
-                    _context.Aspnetuserroles.Add(_role);
-                    _context.SaveChanges();
-
-                    string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _asp.Id;
-
-                    try
+                    if (existUser == null)
                     {
-                        SendRegistrationEmailCreateRequest(data.email, registrationLink, sessionEmail);
+                        _asp.Username = data.firstname + "_" + data.lastname;
+                        _asp.Email = data.email;
+                        _asp.Phonenumber = data.phone;
+                        _asp.Createddate = DateTime.Now;
+                        _context.Aspnetusers.Add(_asp);
+                        _context.SaveChanges();
+
+                        _user.Aspnetuserid = _asp.Id;
+                        _user.Firstname = data.firstname;
+                        _user.Lastname = data.lastname;
+                        _user.Email = data.email;
+                        _user.Mobile = data.phone;
+                        _user.City = data.city;
+                        _user.State = data.state;
+                        _user.Street = data.street;
+                        _user.Zipcode = data.zipcode;
+                        _user.Strmonth = data.dateofbirth.Substring(5, 2);
+                        _user.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                        _user.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                        _user.Createdby = _asp.Id;
+                        _user.Createddate = DateTime.Now;
+                        _user.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                        _context.Users.Add(_user);
+                        _context.SaveChanges();
+
+                        _role.Userid = _asp.Id;
+                        _role.Roleid = 2;
+
+                        _context.Aspnetuserroles.Add(_role);
+                        _context.SaveChanges();
+
+                        string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _asp.Id;
+
+                        try
+                        {
+                            SendRegistrationEmailCreateRequest(data.email, registrationLink, sessionEmail);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
+
+                    _req.Requesttypeid = 1;
+                    _req.Userid = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
+                    _req.Firstname = _phy.Firstname;
+                    _req.Lastname = _phy.Lastname;
+                    _req.Phonenumber = _phy.Mobile;
+                    _req.Email = _phy.Email;
+                    _req.Status = 2;
+                    _req.Physicianid = _phy.Physicianid;
+                    _req.Confirmationnumber = _phy.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+                    _req.Createddate = DateTime.Now;
+
+                    _context.Requests.Add(_req);
+                    _context.SaveChanges();
+
+
+
+                    _reqClient.Requestid = _req.Requestid;
+                    _reqClient.Firstname = data.firstname;
+                    _reqClient.Lastname = data.lastname;
+                    _reqClient.Phonenumber = data.phone;
+                    _reqClient.Strmonth = data.dateofbirth.Substring(5, 2);
+                    _reqClient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2));
+                    _reqClient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
+                    _reqClient.Street = data.street;
+                    _reqClient.City = data.city;
+                    _reqClient.State = data.state;
+                    _reqClient.Zipcode = data.zipcode;
+                    _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                    _reqClient.Email = data.email;
+
+                    _context.Requestclients.Add(_reqClient);
+                    _context.SaveChanges();
+
+                    _note.Requestid = _req.Requestid;
+                    _note.Adminnotes = data.admin_notes;
+                    _note.Createdby = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r.Id).FirstOrDefault();
+                    _note.Createddate = DateTime.Now;
+                    _context.Requestnotes.Add(_note);
+                    _context.SaveChanges();
+
+                    _create.indicate = true;
+
+
                 }
 
-                _req.Requesttypeid = 1;
-                _req.Userid = _context.Users.Where(r => r.Email == data.email).Select(r => r.Userid).First();
-                _req.Firstname = _phy.Firstname;
-                _req.Lastname = _phy.Lastname;
-                _req.Phonenumber = _phy.Mobile;
-                _req.Email = _phy.Email;
-                _req.Status = 2;
-                _req.Physicianid = _phy.Physicianid;
-                _req.Confirmationnumber = _phy.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
-                _req.Createddate = DateTime.Now;
-
-                _context.Requests.Add(_req);
-                _context.SaveChanges();
-
-               
-
-                _reqClient.Requestid = _req.Requestid;
-                _reqClient.Firstname = data.firstname;
-                _reqClient.Lastname = data.lastname;
-                _reqClient.Phonenumber = data.phone;
-                _reqClient.Strmonth = data.dateofbirth.Substring(5, 2);
-                _reqClient.Intdate = Convert.ToInt16(data.dateofbirth.Substring(8, 2)); 
-                _reqClient.Intyear = Convert.ToInt16(data.dateofbirth.Substring(0, 4));
-                _reqClient.Street = data.street;
-                _reqClient.City = data.city;
-                _reqClient.State = data.state;
-                _reqClient.Zipcode = data.zipcode;
-                _reqClient.Regionid = _context.Regions.Where(r => r.Name.ToLower() == data.state.Trim().ToLower()).Select(r => r.Regionid).FirstOrDefault();
-                _reqClient.Email = data.email;
-
-                _context.Requestclients.Add(_reqClient);
-                _context.SaveChanges();
-
-                _note.Requestid = _req.Requestid;
-                _note.Adminnotes = data.admin_notes;
-                _note.Createdby = _context.Aspnetusers.Where(r => r.Email == data.email).Select(r => r.Id).FirstOrDefault();
-                _note.Createddate = DateTime.Now;
-                _context.Requestnotes.Add(_note);
-                _context.SaveChanges();
-
-                _create.indicate = true;
-
-               
+                return _create;
             }
 
-            return _create;
-            }
-           
         }
 
 
-        public void SendRegistrationEmailCreateRequest(string email,string registrationLink,string sessionEmail)
+        public void SendRegistrationEmailCreateRequest(string email, string registrationLink, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -1534,8 +1515,8 @@ namespace BLL_Business_Logic_Layer_.Services
             createRequest _create = new createRequest();
 
             var stateMain = _context.Regions.Where(r => r.Name.ToLower() == state.Trim().ToLower()).FirstOrDefault();
-                        
-            if(stateMain == null)
+
+            if (stateMain == null)
             {
                 _create.indicate = false;
             }
@@ -1589,23 +1570,23 @@ namespace BLL_Business_Logic_Layer_.Services
 
         //***********************************Provider*************************************
 
-        public provider providerMain(int regionId=0)
+        public provider providerMain(int regionId = 0)
         {
             BitArray deletedBit = new BitArray(new[] { false });
 
             provider provider = new provider()
             {
-                _physician = _context.Physicians.OrderByDescending(r =>r.Physicianid).Select(r => r).ToList(),
+                _physician = _context.Physicians.OrderByDescending(r => r.Physicianid).Select(r => r).ToList(),
                 _notification = _context.Physiciannotifications.ToList(),
-                _roles = _context.Roles.Where(r => r.Isdeleted.Equals(deletedBit)).Select(r =>r).ToList(),
+                _roles = _context.Roles.Where(r => r.Isdeleted.Equals(deletedBit)).Select(r => r).ToList(),
                 _shift = _context.Shifts.ToList(),
                 _shiftDetails = _context.Shiftdetails.ToList(),
                 DateTime = DateTime.Now,
             };
 
-            
 
-            if(regionId != 0)
+
+            if (regionId != 0)
             {
                 provider._physician = _context.Physicians.Where(r => r.Regionid == regionId).ToList();
             }
@@ -1652,13 +1633,13 @@ namespace BLL_Business_Logic_Layer_.Services
             return _provider;
         }
 
-        public provider providerContactEmail(int phyIdMain,string msg, string sessionEmail)
+        public provider providerContactEmail(int phyIdMain, string msg, string sessionEmail)
         {
             provider _provider = new provider();
-            
+
             _provider.phyId = phyIdMain;
 
-            var provider = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r.Email).First();                       
+            var provider = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r.Email).First();
 
             try
             {
@@ -1668,17 +1649,17 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 Console.WriteLine(e);
             }
-                    
+
             return _provider;
         }
-        
-        public provider providerContactSms(int phyIdMain,string msg, string sessionEmail)
+
+        public provider providerContactSms(int phyIdMain, string msg, string sessionEmail)
         {
             provider _provider = new provider();
-            
+
             _provider.phyId = phyIdMain;
 
-            var provider = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r).First();                       
+            var provider = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r).First();
 
             try
             {
@@ -1717,11 +1698,11 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 Console.WriteLine(e);
             }
-                    
+
             return _provider;
         }
 
-        private void SendRegistrationproviderContactEmail(string provider,string msg, string sessionEmail, int phyIdMain)
+        private void SendRegistrationproviderContactEmail(string provider, string msg, string sessionEmail, int phyIdMain)
         {
             var phyName = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r.Firstname).First();
             string senderEmail = "shivsantoki303@outlook.com";
@@ -1755,7 +1736,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 Isemailsent = new BitArray(1, true),
                 Confirmationnumber = phyName.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
                 Senttries = 1,
-        };
+            };
 
             _context.Emaillogs.Add(emailLog);
             _context.SaveChanges();
@@ -1767,7 +1748,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId)
         {
-            if(statusId != 2)
+            if (statusId != 2)
             {
                 var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
 
@@ -1855,7 +1836,7 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
 
-           
+
         }
 
         List<DAL_Data_Access_Layer_.DataModels.Region> IAdminDash.RegionTable()
@@ -1887,7 +1868,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return role;
         }
-        
+
         public List<Role> adminRole()
         {
             BitArray deletedBit = new BitArray(new[] { false });
@@ -1901,7 +1882,7 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var resetPass = _context.Aspnetusers.Where(r => r.Email == email).Select(r => r).First();
 
-            if(resetPass.Passwordhash != password)
+            if (resetPass.Passwordhash != password)
             {
                 resetPass.Passwordhash = password;
                 _context.SaveChanges();
@@ -1912,15 +1893,15 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
-        public bool editProviderForm1(int phyId, int roleId,int statusId )
+        public bool editProviderForm1(int phyId, int roleId, int statusId)
         {
             var user = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
 
-            if(user.Status != (short)statusId || user.Roleid != roleId)
+            if (user.Status != (short)statusId || user.Roleid != roleId)
             {
                 user.Status = (short)statusId;
                 user.Roleid = roleId;
-                    
+
                 _context.SaveChanges();
                 return true;
             }
@@ -1940,12 +1921,12 @@ namespace BLL_Business_Logic_Layer_.Services
             {
                 user.Firstname = fname;
                 user.Lastname = lname;
-                if(user.Email != email)
+                if (user.Email != email)
                 {
                     user.Email = email;
                     aspUser.Email = email;
                 }
-                
+
                 user.Mobile = phone;
                 user.Medicallicense = medical;
                 user.Npinumber = npi;
@@ -1989,7 +1970,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
                 _context.SaveChanges();
                 indicate = true;
-            }         
+            }
 
             return indicate;
         }
@@ -2002,7 +1983,7 @@ namespace BLL_Business_Logic_Layer_.Services
             var data = _context.Physicians.Where(r => r.Physicianid == dataMain._providerEdit.PhyID).Select(r => r).First();
             var location = _context.Physicianlocations.Where(r => r.Physicianid == dataMain._providerEdit.PhyID).Select(r => r).First();
 
-            if(data.Address1 != dataMain._providerEdit.Address1 || data.Address2 != dataMain._providerEdit.Address2 || data.City != dataMain._providerEdit.city || data.Regionid != dataMain._providerEdit.Regionid || data.Zip != dataMain._providerEdit.zipcode || data.Altphone != dataMain._providerEdit.altPhone)
+            if (data.Address1 != dataMain._providerEdit.Address1 || data.Address2 != dataMain._providerEdit.Address2 || data.City != dataMain._providerEdit.city || data.Regionid != dataMain._providerEdit.Regionid || data.Zip != dataMain._providerEdit.zipcode || data.Altphone != dataMain._providerEdit.altPhone)
             {
                 data.Address1 = dataMain._providerEdit.Address1;
                 data.Address2 = dataMain._providerEdit.Address2;
@@ -2031,7 +2012,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return flag;
         }
 
-       public AdminEditPhysicianProfile PhysicianBusinessInfoUpdate(adminDashData dataMain)
+        public AdminEditPhysicianProfile PhysicianBusinessInfoUpdate(adminDashData dataMain)
         {
             AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
 
@@ -2042,7 +2023,7 @@ namespace BLL_Business_Logic_Layer_.Services
             if (physician != null)
             {
 
-                if (physician.Businessname != dataMain._providerEdit.Businessname || physician.Businesswebsite != dataMain._providerEdit.BusinessWebsite || physician.Adminnotes != dataMain._providerEdit.Adminnotes ) 
+                if (physician.Businessname != dataMain._providerEdit.Businessname || physician.Businesswebsite != dataMain._providerEdit.BusinessWebsite || physician.Adminnotes != dataMain._providerEdit.Adminnotes)
                 {
                     physician.Businessname = dataMain._providerEdit.Businessname;
                     physician.Businesswebsite = dataMain._providerEdit.BusinessWebsite;
@@ -2063,7 +2044,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
 
             }
-            
+
             flag.PhyID = dataMain._providerEdit.PhyID;
             return flag;
         }
@@ -2228,9 +2209,9 @@ namespace BLL_Business_Logic_Layer_.Services
             var aspUser = _context.Aspnetusers.FirstOrDefault(r => r.Email == obj._providerEdit.Email);
 
 
-            if(aspUser == null && obj._providerEdit.latitude != null)
+            if (aspUser == null && obj._providerEdit.latitude != null)
             {
-                
+
 
                 Aspnetuser _user = new Aspnetuser();
                 Physician phy = new Physician();
@@ -2301,7 +2282,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 Physicianlocation _phyLoc = new Physicianlocation();
                 _phyLoc.Physicianid = phy.Physicianid;
 
-                if (_context.Physicianlocations.Any(r => r.Latitude == decimal.Round(obj._providerEdit.latitude,6) ))
+                if (_context.Physicianlocations.Any(r => r.Latitude == decimal.Round(obj._providerEdit.latitude, 6)))
                 {
                     _phyLoc.Latitude = obj._providerEdit.latitude + 0.100000m;
                 }
@@ -2310,21 +2291,21 @@ namespace BLL_Business_Logic_Layer_.Services
 
                     _phyLoc.Latitude = obj._providerEdit.latitude;
                 }
-                    _phyLoc.Longitude = obj._providerEdit.longitude;
-                    _phyLoc.Createddate = DateTime.Now;
-                    _phyLoc.Physicianname = phy.Firstname;
-                    _phyLoc.Address = phy.Address1;
+                _phyLoc.Longitude = obj._providerEdit.longitude;
+                _phyLoc.Createddate = DateTime.Now;
+                _phyLoc.Physicianname = phy.Firstname;
+                _phyLoc.Address = phy.Address1;
 
-                    _context.Physicianlocations.Add(_phyLoc);
-                    _context.SaveChanges();
-                             
+                _context.Physicianlocations.Add(_phyLoc);
+                _context.SaveChanges();
+
 
                 AddProviderDocuments(phy.Physicianid, obj._providerEdit.Photo, obj._providerEdit.ContractorAgreement, obj._providerEdit.BackgroundCheck, obj._providerEdit.HIPAA, obj._providerEdit.NonDisclosure);
 
                 flag.indicateTwo = "done";
                 return flag;
             }
-            else if(aspUser != null)
+            else if (aspUser != null)
             {
                 flag.indicateTwo = "email";
                 return flag;
@@ -2424,18 +2405,18 @@ namespace BLL_Business_Logic_Layer_.Services
                 phy.Isdeleted[0] = true;
 
                 _context.SaveChanges();
-            }     
+            }
 
             var phyReg = _context.Physicianregions.Where(r => r.Physicianid == phyId).ToList();
             if (phyReg != null)
-            { 
+            {
                 _context.Physicianregions.RemoveRange(phyReg);
                 _context.SaveChanges();
             }
 
         }
 
-        
+
 
 
         //*************************************************************Access***********************************************************
@@ -2478,7 +2459,7 @@ namespace BLL_Business_Logic_Layer_.Services
         public void SetCreateAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string UserSession)
         {
             var user = _context.Aspnetusers.Where(r => r.Email == UserSession).Select(r => r).First();
-            
+
             if (accountAccess != null)
             {
                 var role = new Role()
@@ -3049,7 +3030,7 @@ namespace BLL_Business_Logic_Layer_.Services
         {
             var vendor = _context.Healthprofessionals.Where(r => r.Vendorid == vendorID).Select(r => r).First();
 
-            if(vendor.Isdeleted == null)
+            if (vendor.Isdeleted == null)
             {
                 vendor.Isdeleted = new BitArray(1, true);
                 _context.SaveChanges();
@@ -3194,7 +3175,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type,int flag,string email)
+        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type, int flag, string email)
         {
 
 
@@ -3283,7 +3264,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 return list;
             }
 
-            
+
         }
 
         public ShiftDetailsmodal GetShift(int shiftdetailsid)
@@ -3467,7 +3448,7 @@ namespace BLL_Business_Logic_Layer_.Services
             //List<requestsRecordModel> listdata = new List<requestsRecordModel>();
             //requestsRecordModel requestsRecordModel = new requestsRecordModel();
 
-          var requestList =  _context.Requests.Where(r => r.Isdeleted == null).Select(x => new requestsRecordModel()
+            var requestList = _context.Requests.Where(r => r.Isdeleted == null).Select(x => new requestsRecordModel()
             {
                 requestid = x.Requestid,
                 requesttypeid = x.Requesttypeid,
@@ -3482,38 +3463,38 @@ namespace BLL_Business_Logic_Layer_.Services
                 physicianNote = x.Requestnotes.Where(r => r.Requestid == x.Requestid).Select(r => r.Physiciannotes).First(),
                 AdminNote = x.Requestnotes.Where(r => r.Requestid == x.Requestid).Select(r => r.Adminnotes).First(),
                 pateintNote = x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Notes).First(),
-            }).ToList(); 
+            }).ToList();
 
-            if(recordsModel.requestListMain != null)
-            {           
+            if (recordsModel.requestListMain != null)
+            {
                 if (recordsModel.requestListMain[0].searchRecordOne != null && recordsModel.requestListMain[0].searchRecordOne != 0)
                 {
-                    requestList = requestList.Where(r => r.statusId != null && r.statusId == recordsModel.requestListMain[0].searchRecordOne).Select(r => r).ToList();                    
-                }
-            
-                if (recordsModel.requestListMain[0].searchRecordTwo != null)
-                {
-                    requestList = requestList.Where(r => r.patientname != null && r.patientname.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();                    
-                } 
-            
-                if (recordsModel.requestListMain[0].searchRecordThree != null && recordsModel.requestListMain[0].searchRecordThree != 0)
-                {
-                    requestList = requestList.Where(r => r.requesttypeid != null && r.requesttypeid == recordsModel.requestListMain[0].searchRecordThree).Select(r => r).ToList();                   
+                    requestList = requestList.Where(r => r.statusId != null && r.statusId == recordsModel.requestListMain[0].searchRecordOne).Select(r => r).ToList();
                 }
 
-                if (recordsModel.requestListMain[0].searchRecordSix != null )
+                if (recordsModel.requestListMain[0].searchRecordTwo != null)
                 {
-                    requestList = requestList.Where(r => r.physician != null && r.physician.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSix.Trim().ToLower())).Select(r => r).ToList();                   
+                    requestList = requestList.Where(r => r.patientname != null && r.patientname.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                }
+
+                if (recordsModel.requestListMain[0].searchRecordThree != null && recordsModel.requestListMain[0].searchRecordThree != 0)
+                {
+                    requestList = requestList.Where(r => r.requesttypeid != null && r.requesttypeid == recordsModel.requestListMain[0].searchRecordThree).Select(r => r).ToList();
+                }
+
+                if (recordsModel.requestListMain[0].searchRecordSix != null)
+                {
+                    requestList = requestList.Where(r => r.physician != null && r.physician.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSix.Trim().ToLower())).Select(r => r).ToList();
                 }
 
                 if (recordsModel.requestListMain[0].searchRecordSeven != null)
                 {
-                    requestList = requestList.Where(r => r.email != null && r.email.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSeven.Trim().ToLower())).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.email != null && r.email.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordSeven.Trim().ToLower())).Select(r => r).ToList();
                 }
 
                 if (recordsModel.requestListMain[0].searchRecordEight != null)
                 {
-                    requestList = requestList.Where(r => r.contact != null && r.contact.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordEight.Trim().ToLower())).Select(r => r).ToList();                    
+                    requestList = requestList.Where(r => r.contact != null && r.contact.Trim().ToLower().Contains(recordsModel.requestListMain[0].searchRecordEight.Trim().ToLower())).Select(r => r).ToList();
                 }
             }
 
@@ -3522,7 +3503,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public void DeleteRecords(int reqId)
         {
-            var reqClient  = _context.Requests.Where(r => r.Requestid == reqId).Select(r => r).First();
+            var reqClient = _context.Requests.Where(r => r.Requestid == reqId).Select(r => r).First();
 
             if (reqClient.Isdeleted == null)
             {
@@ -3580,21 +3561,21 @@ namespace BLL_Business_Logic_Layer_.Services
 
             data.users = _context.Users.ToList();
 
-            if(GetRecordsModel != null)
+            if (GetRecordsModel != null)
             {
-                if(GetRecordsModel.searchRecordOne != null)
+                if (GetRecordsModel.searchRecordOne != null)
                 {
                     data.users = data.users.Where(r => r.Firstname != null && r.Firstname.Trim().ToLower().Contains(GetRecordsModel.searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
                 }
-                if(GetRecordsModel.searchRecordTwo != null)
+                if (GetRecordsModel.searchRecordTwo != null)
                 {
                     data.users = data.users.Where(r => r.Lastname != null && r.Lastname.Trim().ToLower().Contains(GetRecordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
                 }
-                if(GetRecordsModel.searchRecordThree != null)
+                if (GetRecordsModel.searchRecordThree != null)
                 {
                     data.users = data.users.Where(r => r.Email != null && r.Email.Trim().ToLower().Contains(GetRecordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
                 }
-                if(GetRecordsModel.searchRecordFour != null)
+                if (GetRecordsModel.searchRecordFour != null)
                 {
                     data.users = data.users.Where(r => r.Mobile != null && r.Mobile.Trim().ToLower().Contains(GetRecordsModel.searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
                 }
@@ -3634,9 +3615,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 isActive = x.Isactive,
             }).ToList();
 
-            if(recordsModel.blockHistoryMain != null)
+            if (recordsModel.blockHistoryMain != null)
             {
-                if(recordsModel.blockHistoryMain[0].searchRecordOne != null)
+                if (recordsModel.blockHistoryMain[0].searchRecordOne != null)
                 {
                     requestData = requestData.Where(r => r.patientname != null && r.patientname.Trim().ToLower().Contains(recordsModel.blockHistoryMain[0].searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
                 }
@@ -3659,7 +3640,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        
+
 
         public void unblockBlockHistoryMain(int blockId)
         {
@@ -3689,30 +3670,30 @@ namespace BLL_Business_Logic_Layer_.Services
                 var records = _context.Emaillogs.ToList();
                 foreach (var item in records)
                 {
-                    
 
-                        var newRecord = new emailSmsRecords
-                        {
-                            emailLogId = item.Emaillogid,
-                            email = item.Emailid,
-                            createddate = item.Createdate,
-                            sentdate = item.Sentdate,
-                            sent = item.Isemailsent[0] ? "Yes" : "No",
-                            recipient = _context.Aspnetusers.Any(x => x.Email == item.Emailid) ?  _context.Aspnetusers.Where(x => x.Email == item.Emailid).Select(x => x.Username).First() : null,
-                            rolename = _context.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
-                            senttries = item.Senttries,
-                            confirmationNumber = item.Confirmationnumber,
-                        };
 
-                        model.emailRecords.Add(newRecord);
-                   
+                    var newRecord = new emailSmsRecords
+                    {
+                        emailLogId = item.Emaillogid,
+                        email = item.Emailid,
+                        createddate = item.Createdate,
+                        sentdate = item.Sentdate,
+                        sent = item.Isemailsent[0] ? "Yes" : "No",
+                        recipient = _context.Aspnetusers.Any(x => x.Email == item.Emailid) ? _context.Aspnetusers.Where(x => x.Email == item.Emailid).Select(x => x.Username).First() : null,
+                        rolename = _context.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
+                        senttries = item.Senttries,
+                        confirmationNumber = item.Confirmationnumber,
+                    };
+
+                    model.emailRecords.Add(newRecord);
+
                 }
 
-                if(recordsModel != null)
+                if (recordsModel != null)
                 {
                     if (recordsModel.searchRecordOne != null && recordsModel.searchRecordOne != "All")
                     {
-                       model.emailRecords = model.emailRecords.Where(r => r.rolename != null &&  r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
+                        model.emailRecords = model.emailRecords.Where(r => r.rolename != null && r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
                     }
                     if (recordsModel.searchRecordTwo != null)
                     {
@@ -3730,9 +3711,9 @@ namespace BLL_Business_Logic_Layer_.Services
                     {
                         model.emailRecords = model.emailRecords.Where(item => item.createddate != null && item.createddate <= recordsModel.searchRecordFive).Select(r => r).ToList();
                     }
-                }                
+                }
             }
-            
+
             else
             {
                 var records = _context.Smslogs.ToList();

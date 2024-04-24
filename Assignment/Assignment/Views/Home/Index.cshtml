@@ -1,0 +1,152 @@
+﻿@model DataLayer.CustomeModel.SchoolManagementCM;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="container">
+        <div>
+            <div class="form-floating col-12 mt-5">
+                <input class="form-control dark-mode2" type="search" placeholder="Provider Name" aria-label="Search" id="searchTab" >
+                <label class="ms-2">Search</label>
+            </div>
+        </div>
+        <div class="table-responsive d-none d-lg-block p-lg-3" style="min-height:50vh">
+            <table id="SchoolManagementData" class="table mt-3 w-100 SchoolManagementData">
+
+                <thead>
+                    <tr>
+                        <th class="col d-none">Student Id</th>
+                        <th class="col">First Name</th>
+                        <th class="col">Last Name</th>
+                        <th class="col">Email</th>
+                        <th class="col">Age</th>
+                        <th class="col">Gender</th>
+                        <th class="col">Course</th>
+                        <th class="col">Grade</th>
+                        <th class="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.DashboardData)
+                    {
+                    <tr class="text-left dark-mode2">
+                        <td class="d-none">@obj.StudentID</td>
+                        <td>@obj.FirstName</td>
+                        <td>@obj.LastName</td>
+                        <td>@obj.Email</td>
+                        <td>@obj.Age</td>
+                        <td>@obj.Gender</td>
+                        <td>@obj.Course</td>
+                        <td>@obj.Grade</td>
+                        <td>
+                            <button class="btn btn-outline-info" id="editBtn" onclick="editStudentDetails(@obj.StudentID)">Edit</button>
+                            <button class="btn btn-outline-info" id="deleteBtn" onclick="deleteStudentDetail(@obj.StudentID)">Delete</button>
+                        </td>
+                    </tr>
+                     }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-block d-lg-none ">
+            <div class="accordion container-fluid p-0" id="accordionPanelsStayOpenExample">
+                <table class="w-100 searchRecordTable" id="searchRecordTable">
+                    <thead>
+                        <tr class="dark-mode2">
+                            <th class="d-none"></th>
+                            <th class="d-none"></th>
+                        </tr>
+                    </thead>
+                    @{
+                        var counter = 1;
+                    }
+                    <tbody>
+                            @foreach (var obj in Model.DashboardData)
+                            {
+                                <tr class="d-flex flex-column dark-mode2">
+                                    <td>
+                                        <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
+
+                                        <div class="accordion-button collapsed d-flex flex-column pb-0"
+                                             data-bs-toggle="collapse" data-bs-target="#flush-collapse@(counter)"
+                                             aria-expanded="false" aria-controls="flush-collapse@(counter)" id="tableAccordian">
+
+                                            <div class="w-100 ">
+                                                <span class="fw-bolder">
+                                                    @obj.StudentID
+                                                </span>
+                                            </div>
+                                            <div class="w-100">
+                                                <div class="">
+                                                    @obj.FirstName
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div id="flush-collapse@(counter)" class="accordion-collapse collapse"
+                                             aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body main-flex pt-2">
+                                                <div class="w-100">
+                                                    <div class="">
+                                                        <span class="fw-bolder">First Name: </span> @obj.FirstName
+                                                    </div>
+                                                    <div class="">
+                                                        <span class="fw-bolder">Last Name: </span> @obj.LastName
+                                                    </div>
+                                                    <div class="">
+                                                        <span class="fw-bolder">Email: </span> @obj.Email
+                                                    </div>
+                                                    <div class="">
+                                                        <span class="fw-bolder">Age: </span> @obj.Age
+                                                    </div>
+                                                    <div class="">
+                                                        <span class="fw-bolder">Gender: </span> @obj.Gender
+                                                    </div>
+                                                    <div class="">
+                                                        <span class="fw-bolder">Course: </span>@obj.Course
+                                                    </div>
+                                                    <div class="">
+                                                        <span class="fw-bolder">Grade: </span> @obj.Grade
+                                                    </div>
+                                                </div>
+                                                <div class="inner-flex d-flex justify-content-start mt-2">
+
+                                                <button class="btn btn-outline-info me-3" onclick="editStudentDetails(@obj.StudentID)">
+                                                        Edit
+                                                </button>
+                                                <button class="btn btn-outline-info" onclick="deleteStudentDetail(@obj.StudentID)">
+                                                        Delete
+                                                </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                counter++;
+                             }
+                     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
+
+    <div id="addStudentModal">
+
+    </div>
+    
+    <div id="editStudentModal">
+
+    </div>
+    
+    <div id="DeletePopup">
+
+    </div>
+</div>
+
+

@@ -1,11 +1,10 @@
-﻿using HelloDocMVC.Models;
+﻿using BLL_Business_Logic_Layer_.Interface;
+using DAL_Data_Access_Layer_.CustomeModel;
+using DAL_Data_Access_Layer_.DataContext;
+using HelloDocMVC.CustomeModel;
+using HelloDocMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using DAL_Data_Access_Layer_.DataContext;
-using DAL_Data_Access_Layer_.DataModels;
-using BLL_Business_Logic_Layer_.Interface;
-using HelloDocMVC.CustomeModel;
-using DAL_Data_Access_Layer_.CustomeModel;
 
 namespace HelloDocMVC.Controllers
 {
@@ -23,10 +22,10 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-           
+
         }
 
-       
+
 
         private readonly IPatientRequest patientRequest;
         private readonly IConcierge conciergeRequest;
@@ -36,7 +35,7 @@ namespace HelloDocMVC.Controllers
 
 
         ApplicationDbContext db = new ApplicationDbContext();
-     
+
         public IActionResult checkEmailAvailibility(string email) //action
         {
             try
@@ -48,17 +47,17 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-           
+
 
         }
 
         public PatientController(IPatientRequest patientRequest, IConcierge conciergeRequest, IFamilyFriend familyFriend, IBusiness businessRequest, IAdminDash iAdminDash)
-            {
-                this.patientRequest = patientRequest;
-                this.conciergeRequest = conciergeRequest;
-                this.familyFriend = familyFriend;
-                this.businessRequest = businessRequest;
-                _IAdminDash = iAdminDash;
+        {
+            this.patientRequest = patientRequest;
+            this.conciergeRequest = conciergeRequest;
+            this.familyFriend = familyFriend;
+            this.businessRequest = businessRequest;
+            _IAdminDash = iAdminDash;
         }
 
         public IActionResult PatientInfo()
@@ -74,7 +73,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-            
+
         }
 
         [HttpPost]
@@ -90,7 +89,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-            
+
         }
 
 
@@ -110,7 +109,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-           
+
         }
 
         [HttpPost]
@@ -126,7 +125,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-            
+
         }
         public IActionResult ConciergeInfo()
         {
@@ -141,7 +140,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-           
+
         }
 
         [HttpPost]
@@ -157,7 +156,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-           
+
         }
 
 
@@ -174,7 +173,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-           
+
         }
 
         [HttpPost]
@@ -190,7 +189,7 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-            
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

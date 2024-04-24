@@ -1,0 +1,106 @@
+﻿@model DataLayer.CustomeModel.SchoolManagementCM;
+
+<div class="modal fade" id="editStudentModalView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Shift </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="row p-3 dark-mode2" id="editStudentForm" onsubmit="editStudentForm()">
+                <input type="hidden" asp-for="@Model.AddStudent.StudentID" value="@Model.DashboardData[0].StudentID" />
+                <div class="row ">
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="@Model.AddStudent.FirstName" value="@Model.DashboardData[0].FirstName" type="text" class="form-control" placeholder="Name">
+                            <label asp-for="@Model.AddStudent.FirstName">First Name</label>
+                            <span asp-validation-for="@Model.AddStudent.FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="@Model.AddStudent.LastName" value="@Model.DashboardData[0].LastName" class="form-control" placeholder="Name">
+                            <label asp-for="@Model.AddStudent.LastName">Last Name</label>
+                            <span asp-validation-for="@Model.AddStudent.LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class=" mt-3 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-floating">
+                            <input asp-for="@Model.AddStudent.Email" value="@Model.DashboardData[0].Email" type="email" class="form-control emailCheck" placeholder="Name" onblur="checkEmailAvail()" id="emailMain">
+                            <label asp-for="@Model.AddStudent.Email">Email</label>
+                            <span asp-validation-for="@Model.AddStudent.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="@Model.AddStudent.DateOfBirth" value="@Model.DashboardData[0].DateOfBirth" id="DateOfBirth" type="date" class="form-control" placeholder="Name">
+                            <label asp-for="@Model.AddStudent.DateOfBirth">Date of Birth</label>
+                            <span asp-validation-for="@Model.AddStudent.DateOfBirth" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex mt-4">
+                    <span class="me-2">Gender:</span>
+                    <div class="form-check">
+                        <input class="form-check-input me-1" @(Model.DashboardData[0].Gender == "Male" ? "checked" : "") type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
+                        <label class="form-check-label me-3" for="exampleRadios1">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input me-1" @(Model.DashboardData[0].Gender == "Female" ? "checked" : "") type="radio" name="exampleRadios" id="exampleRadios2" value="2">
+                        <label class="form-check-label me-3" for="exampleRadios2">
+                            Female
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input me-1" @(Model.DashboardData[0].Gender == "Other" ? "checked" : "") type="radio" name="exampleRadios" id="exampleRadios3" value="3">
+                        <label class="form-check-label me-3" for="exampleRadios3">
+                            Others
+                        </label>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <select asp-for="@Model.AddStudent.Grade" class="form-select form-select-sm" id="gradeScrollDown" data-allow-clear="true" tabindex="-1" data-control="select2" data-placeholder=" ">
+                            <option disabled>Grade</option>
+                            <option value="1">1st-3rd</option>
+                            <option value="2">4th-6th</option>
+                            <option value="3">7th-9th</option>
+                            <option value="4">10th-12th</option>
+                        </select>
+                        <span asp-validation-for="@Model.AddStudent.Grade" class="text-danger"></span>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="@Model.AddStudent.Course" value="@Model.DashboardData[0].Course" class="form-control" placeholder="Name">
+                            <label asp-for="@Model.AddStudent.Course">Course</label>
+                            <span asp-validation-for="@Model.AddStudent.Course" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <button type="button" class="btn btn-outline-info hover_white m-0 modalBtn modalCancelBtn" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="mt-3 col-sm-6 col-md-6">
+                        <input type="submit" value="Save" class="btn btn-info text-white mx-2 modalBtn modalSaveBtn" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    document.getElementById('DateOfBirth').setAttribute('max', currentDate);
+</script>
+
+
+

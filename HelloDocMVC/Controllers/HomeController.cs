@@ -1,11 +1,8 @@
-﻿using HelloDocMVC.Models;
+﻿using BLL_Business_Logic_Layer_.Interface;
+using DAL_Data_Access_Layer_.CustomeModel;
+using HelloDocMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using DAL_Data_Access_Layer_.DataContext;
-using DAL_Data_Access_Layer_.DataModels;
-using BLL_Business_Logic_Layer_.Interface;
-using DAL_Data_Access_Layer_.CustomeModel;
-using Microsoft.AspNetCore.Authorization;
 
 namespace HelloDocMVC.Controllers
 {
@@ -37,11 +34,11 @@ namespace HelloDocMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAccount(createAcc obj) 
+        public IActionResult CreateAccount(createAcc obj)
         {
             TempData["success"] = "Account Created Successfully!";
             createAccount.createAccount(obj);
-            return RedirectToAction("CreateAccount", new { aspuserId = obj.aspnetUserId});
+            return RedirectToAction("CreateAccount", new { aspuserId = obj.aspnetUserId });
         }
 
 

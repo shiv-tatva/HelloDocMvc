@@ -2,16 +2,10 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
-using HelloDocMVC.CustomeModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using Microsoft.AspNetCore.Http;
+using System.Collections;
+using System.Net;
+using System.Net.Mail;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -19,13 +13,13 @@ namespace BLL_Business_Logic_Layer_.Services
     {
         private readonly ApplicationDbContext _context;
 
-        public FamilyFriend  (ApplicationDbContext context)
+        public FamilyFriend(ApplicationDbContext context)
         {
             _context = context;
         }
 
 
-        public void SendRegistrationEmail(string toEmail, string registrationLink,string ReqEmail)
+        public void SendRegistrationEmail(string toEmail, string registrationLink, string ReqEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -83,7 +77,7 @@ namespace BLL_Business_Logic_Layer_.Services
             Requestclient _requestclient = new Requestclient();
             User _user = new User();
             Aspnetuser _aspnetuser = new Aspnetuser();
-            Aspnetuserrole _role = new Aspnetuserrole(); 
+            Aspnetuserrole _role = new Aspnetuserrole();
 
             var user = _context.Aspnetusers.FirstOrDefault(x => x.Email == data.email);
 
@@ -142,7 +136,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _request.Confirmationnumber = data.firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
             _request.Createddate = DateTime.Now;
             _request.Status = 1;
-           
+
             _context.Requests.Add(_request);
             _context.SaveChanges();
 
@@ -163,23 +157,23 @@ namespace BLL_Business_Logic_Layer_.Services
             _requestclient.Regionid = data.regionId;
 
             if (user == null)
-                {
-                    string emailConfirmationToken = Guid.NewGuid().ToString();
+            {
+                string emailConfirmationToken = Guid.NewGuid().ToString();
 
                 string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _aspnetuser.Id;
 
                 //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
 
                 try
-                    {
-                        SendRegistrationEmail(data.email, registrationLink, _request.Email);
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                {
+                    SendRegistrationEmail(data.email, registrationLink, _request.Email);
                 }
-                              
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
             _context.Requestclients.Add(_requestclient);
             _context.SaveChanges();
 

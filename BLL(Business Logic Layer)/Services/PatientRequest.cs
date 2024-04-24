@@ -3,14 +3,6 @@ using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using HelloDocMVC.CustomeModel;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -55,14 +47,14 @@ namespace BLL_Business_Logic_Layer_.Services
                 _aspnetuser.Phonenumber = obj.phone;
                 _aspnetuser.Passwordhash = obj.password;
                 _aspnetuser.Createddate = DateTime.Now;
-                
+
                 _context.Aspnetusers.Add(_aspnetuser);
                 _context.SaveChanges();
 
 
                 var userexist = _context.Aspnetusers.FirstOrDefault(x => x.Email == obj.email);
 
-                
+
                 _user.Aspnetuserid = userexist.Id;
                 _user.Createdby = userexist.Id;
                 _user.Firstname = obj.firstname;
@@ -92,7 +84,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var clientUser = _context.Users.FirstOrDefault(x => x.Email == obj.email);
 
-           
+
             _request.Userid = clientUser.Userid;
             _request.Firstname = obj.firstname;
             _request.Lastname = obj.lastname;
@@ -101,13 +93,13 @@ namespace BLL_Business_Logic_Layer_.Services
             _request.Confirmationnumber = obj.firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);//here do Logic For unique Confirmation number that will be used by requestclient to fetch particular request from Request table
             _request.Status = 1;
             _request.Createddate = DateTime.Now;
-            
+
             _context.Requests.Add(_request);
             _context.SaveChanges();
 
 
             var requestClientId = _context.Requests.FirstOrDefault(x => x.Confirmationnumber == _request.Confirmationnumber);
-                   
+
             _requestclient.Requestid = requestClientId.Requestid;
             _requestclient.Firstname = obj.firstname;
             _requestclient.Lastname = obj.lastname;
@@ -115,7 +107,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _requestclient.Email = obj.email;
             _requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
             _requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
-            _requestclient.Intyear =  Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+            _requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
             _requestclient.City = obj.city;
             _requestclient.Street = obj.street;
             _requestclient.State = _context.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
@@ -153,6 +145,6 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
-        
+
     }
-} 
+}

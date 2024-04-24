@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DAL_Data_Access_Layer_.DataModels;
+﻿using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Data_Access_Layer_.DataContext;

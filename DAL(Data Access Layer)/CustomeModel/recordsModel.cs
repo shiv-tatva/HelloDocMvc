@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using DAL_Data_Access_Layer_.DataModels;
-using Microsoft.AspNetCore.Http;
+﻿using DAL_Data_Access_Layer_.DataModels;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL_Data_Access_Layer_.CustomeModel
 {
@@ -90,7 +84,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? phonenumber { get; set; }
         public string? email { get; set; }
         public string? createddate { get; set; }
-        public BitArray? isActive  { get; set; }
+        public BitArray? isActive { get; set; }
         public string? notes { get; set; }
 
         public int? blockId { get; set; }

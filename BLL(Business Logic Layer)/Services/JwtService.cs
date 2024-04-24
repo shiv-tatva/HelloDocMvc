@@ -1,15 +1,10 @@
 ﻿using BusinessLogic.Interfaces;
 using DAL_Data_Access_Layer_.CustomeModel;
-using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL_Business_Logic_Layer_.Services
 {

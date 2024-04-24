@@ -1,0 +1,25 @@
+﻿@model DataLayer.CustomeModel.AddStudent;
+
+<div class="modal fade" id="DeletePopupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-5">
+                    <form method="post" id="DeleteConfirmForm">
+                        <input type="hidden" asp-for="@Model.StudentID" value="@Model.StudentID" />
+                        <div class="d-flex justify-content-center ">
+                            <i class="bi bi-info-circle-fill text-success d-flex justify-content-center display-4 mb-3 border border-2 border-success  rounded-circle  p-2" ></i>
+                        </div>
+                        <h5 class="d-flex justify-content-center mb-3">You Need To Confirm Before Delete</h5>
+                        <p class="text-secondary fw-lighter text-center  mb-3">
+                        Are You Sure You Want To Delete?
+                        </p>
+
+                        <div class="mt-4 d-flex justify-content-center">
+                        <button type="button" onclick="DeleteConfirm()" class="btn text-white continue-btn mx-2" style="background-color:#734d26;">Delete</button>
+                            <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

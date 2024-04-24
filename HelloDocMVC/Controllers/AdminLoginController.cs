@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace HelloDocMVC.Controllers
 {
@@ -10,7 +9,7 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 1;
             return View();
         }
-        
+
         public IActionResult forgotPage()
         {
             ViewBag.Admin = 1;

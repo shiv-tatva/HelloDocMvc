@@ -1,13 +1,7 @@
 ﻿using DAL_Data_Access_Layer_.DataModels;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL_Data_Access_Layer_.CustomeModel
 {
@@ -15,7 +9,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
 
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
-        public string? first_name {  get; set; }
+        public string? first_name { get; set; }
 
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? last_name { get; set; }
@@ -28,9 +22,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? int_date { get; set; }
 
         public string? phy_name { get; set; }
-        public string? requestor_fname { get; set;}
+        public string? requestor_fname { get; set; }
 
-        public string? responseor_lname { get;set;} 
+        public string? responseor_lname { get; set; }
 
         public DateTime? created_date { get; set; }
 
@@ -38,17 +32,17 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? mobile_num { get; set; }
 
-        public string? city { get; set;  }
+        public string? city { get; set; }
 
-        public string? street { get; set;  }
+        public string? street { get; set; }
 
         [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
 
-        public string? zipcode { get; set;  }
+        public string? zipcode { get; set; }
 
-        public string? state { get; set;  }
+        public string? state { get; set; }
 
-        public string? address { get; set;  }
+        public string? address { get; set; }
 
         public List<Requeststatuslog>? notes { get; set; }
         public string? transfer_notes { get; set; }
@@ -72,11 +66,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? region_table_id { get; set; }
         public int? phy_id { get; set; }
 
-        public int? flagId {  get; set; }
+        public int? flagId { get; set; }
 
-        public int? assignCaseIndicate {  get; set; }
-        public BitArray isFinalize {  get; set; }
-                      
+        public int? assignCaseIndicate { get; set; }
+        public BitArray isFinalize { get; set; }
+
     }
 
     public class countMain
@@ -98,7 +92,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int cashtagId { get; set; }
 
         [Required(ErrorMessage = "Please Enter Admin Note")]
-        public string? aditional_notes { get; set; } 
+        public string? aditional_notes { get; set; }
         public List<char> TransferNotes { get; set; }
 
 
@@ -112,8 +106,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public List<Requeststatuslog> requeststatuslogs { get; set; }
     }
-    
-    
+
+
     public class CloseCase
     {
         public int reqid { get; set; }
@@ -126,14 +120,14 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? status { get; set; }
 
     }
-    
-    
-   
+
+
+
     public class casetageNote
     {
         public int reqid { get; set; }
         public string? reasons { get; set; }
-      
+
     }
 
     public class AssignCase
@@ -150,10 +144,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<int> region_id { get; set; }
         public List<string> region_name { get; set; }
 
-       
+
         public List<Region> regions { get; set; }
 
-        
+
         public List<string> phy_name { get; set; }
 
         //public List<Physicianregion> phy_req { get; set; }
@@ -197,11 +191,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public bool dlt_data { get; set; }
 
-        public int? flagId {  get; set; }
+        public int? flagId { get; set; }
 
 
         [Required(ErrorMessage = "Please Enter Note")]
-        public string? notes {  get; set; }
+        public string? notes { get; set; }
 
         public BitArray isFinalize { get; set; }
     }
@@ -224,11 +218,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Select Profession")]
         public int? healthId { get; set; }
 
-        
-        public List<Healthprofessionaltype> profession  {  get; set; }
+
+        public List<Healthprofessionaltype> profession { get; set; }
 
         [Required(ErrorMessage = "Please Enter Prescription")]
-        public string? prescription { get;  set; }
+        public string? prescription { get; set; }
 
         [Required(ErrorMessage = "Please Enter Fax Number")]
         public string? fax_num { get; set; }
@@ -236,7 +230,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Enter Number")]
         public string? business_contact { get; set; }
 
-        public int Refill {  get; set; }
+        public int Refill { get; set; }
     }
 
     public class transferRequest
@@ -331,7 +325,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? addr1 { get; set; }
 
         [Required(ErrorMessage = "Please Enter address-2")]
-        public string? addr2 { get; set;}
+        public string? addr2 { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your City")]
         public string? city { get; set; }
@@ -342,7 +336,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? altphone { get; set; }
-        public int? createdBy {  get; set; } 
+        public int? createdBy { get; set; }
         public DateTime createdDate { get; set; }
         public int status { get; set; }
         public int? roleid { get; set; }
@@ -475,13 +469,13 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public bool? indicate { get; set; }
     }
 
-    public class createRequest 
+    public class createRequest
     {
-         
+
         public int? requesttypeid { get; set; }
 
-        public int? userid { get; set;}
-        
+        public int? userid { get; set; }
+
         [Required(ErrorMessage = "Please Enter Your Street Name")]
         public string? street { get; set; }
 
@@ -532,14 +526,14 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     public class provider
     {
-        public List<Physician> _physician {  get; set; }
+        public List<Physician> _physician { get; set; }
 
-        public List<Physiciannotification> _notification {  get; set; }
+        public List<Physiciannotification> _notification { get; set; }
 
         public List<Role> _roles { get; set; }
         public List<Shift> _shift { get; set; }
         public List<Shiftdetail> _shiftDetails { get; set; }
-        
+
         public string? onCallStatus { get; set; }
 
         public string? status { get; set; }
@@ -551,16 +545,16 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Enter A Message")]
         public string? message { get; set; }
 
-        public int? statusId {  get; set; }
-        public int? shiftId {  get; set; }
+        public int? statusId { get; set; }
+        public int? shiftId { get; set; }
 
         public DateTime DateTime { get; set; }
-        
-        
+
+
 
     }
 
-    public class AdminEditPhysicianProfile 
+    public class AdminEditPhysicianProfile
     {
 
         [Required(ErrorMessage = "Please Enter Your User Name")]
@@ -644,7 +638,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public int adminId { get; set; }
 
-    
+
         public int aspnetUserId { get; set; }
 
         public List<Region> regions { get; set; }
@@ -704,7 +698,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public DateTime? created_date { get; set; }
 
         public int? createdBy { get; set; }
-        
+
         public DateTime? modified_date { get; set; }
 
         public int? modifiedBy { get; set; }
@@ -743,8 +737,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? Note { get; set; }
 
     }
-    
-    
+
+
     public class ProviderEncounterPopUp
     {
         public int? reqId { get; set; }
@@ -757,7 +751,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     //*****************************************************************************************************
     public class adminDashData
     {
-        public List<adminDash> data { get; set;}
+        public List<adminDash> data { get; set; }
 
         public viewNotes? _viewNote { get; set; }
 
@@ -769,7 +763,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public blockCaseModel _blockCaseModel { get; set; }
 
-        public List<viewUploads> _viewUpload {  get; set; }
+        public List<viewUploads> _viewUpload { get; set; }
 
         public activeOrder _activeOrder { get; set; }
 
@@ -781,7 +775,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public myProfile _myProfile { get; set; }
 
-        public concludeEncounter _encounter { get; set; } 
+        public concludeEncounter _encounter { get; set; }
 
         public sendLink _sendLink { get; set; }
 
@@ -796,12 +790,12 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<PhysicianRegionTable> _phyRegionTable { get; set; }
         public List<AdminregionTable> _adminRegionTable { get; set; }
 
-        public List<Role> _role {  get; set; }
+        public List<Role> _role { get; set; }
 
-        public int? flag {  get; set; }
+        public int? flag { get; set; }
 
-        public ProviderTransferTab _ProviderTransferTab {  get; set; }
+        public ProviderTransferTab _ProviderTransferTab { get; set; }
 
-        public ProviderEncounterPopUp _ProviderEncounterPopUp {  get; set; }
+        public ProviderEncounterPopUp _ProviderEncounterPopUp { get; set; }
     }
 }

@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloDocMVC.CustomeModel
 {
-    public class Custom 
+    public class Custom
     {
 
         [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
@@ -72,7 +66,7 @@ namespace HelloDocMVC.CustomeModel
         public List<DAL_Data_Access_Layer_.DataModels.Region> _RegionTable { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your State")]
-        public int? regionId {  get; set; }
+        public int? regionId { get; set; }
 
     }
 }

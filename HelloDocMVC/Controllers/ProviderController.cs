@@ -1,18 +1,9 @@
 ﻿using BLL_Business_Logic_Layer_.Interface;
 using DAL_Data_Access_Layer_.CustomeModel;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Mail;
-using System.Net;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using HalloDoc.mvc.Auth;
-using System.Text;
-using System.Reflection;
-using BLL_Business_Logic_Layer_.Services;
-using DAL_Data_Access_Layer_.DataModels;
-using DAL_Data_Access_Layer_.DataContext;
+using Microsoft.AspNetCore.Mvc;
 using Rotativa.AspNetCore;
+using System.Text;
 
 namespace HelloDocMVC.Controllers
 {
@@ -22,7 +13,7 @@ namespace HelloDocMVC.Controllers
         private IProviderDash _IProviderDash;
         private IAdminDash _IAdminDash;
 
-        public ProviderController (IProviderDash IProviderDash,IAdminDash IAdminDash)
+        public ProviderController(IProviderDash IProviderDash, IAdminDash IAdminDash)
         {
             _IProviderDash = IProviderDash;
             _IAdminDash = IAdminDash;
@@ -49,7 +40,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -73,7 +64,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public IActionResult newTabTwo(int[] arr, int dataFlag)
@@ -84,7 +75,7 @@ namespace HelloDocMVC.Controllers
                 int regionId = 0;
                 adminDashData adminDashObj = new adminDashData();
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
-                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag,sessionEmail);
+                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
                 return PartialView("Provider/_ProviderNewTab", adminDashObj);
@@ -112,7 +103,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public IActionResult tableRecords2(int[] arr, int typeId)
@@ -122,7 +113,7 @@ namespace HelloDocMVC.Controllers
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 int regionId = 0;
                 adminDashData adminDashObj = new adminDashData();
-                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0,sessionEmail);
+                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
                 return PartialView("Provider/_ProviderTabPending", adminDashObj);
             }
@@ -131,7 +122,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
         public IActionResult tableRecords3(int[] arr, int typeId)
         {
@@ -140,7 +131,7 @@ namespace HelloDocMVC.Controllers
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 int regionId = 0;
                 adminDashData adminDashObj = new adminDashData();
-                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0,sessionEmail);
+                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
                 return PartialView("Provider/_ProviderTabActive", adminDashObj);
             }
@@ -149,7 +140,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult tableRecords4(int[] arr, int typeId)
@@ -159,7 +150,7 @@ namespace HelloDocMVC.Controllers
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 int regionId = 0;
                 adminDashData adminDashObj = new adminDashData();
-                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0,sessionEmail);
+                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
                 return PartialView("Provider/_ProviderTabConclude", adminDashObj);
             }
@@ -168,7 +159,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -185,7 +176,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public IActionResult newViewCase(int data, int flag)
@@ -201,7 +192,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-         
+
         }
 
 
@@ -218,7 +209,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-          
+
         }
 
         [HttpPost]
@@ -234,7 +225,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-          
+
         }
 
         public IActionResult pendingViewUploadMain(int data, int flag)
@@ -250,7 +241,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -268,7 +259,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public IActionResult DownloadFile(string data)
@@ -285,7 +276,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
         }
 
@@ -304,7 +295,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
         }
 
@@ -321,7 +312,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
         }
 
@@ -334,7 +325,7 @@ namespace HelloDocMVC.Controllers
                 int regionId = 0;
                 adminDashData adminDashObj = new adminDashData();
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
-                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag,sessionEmail);
+                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
                 return PartialView("Provider/_ProviderTabPending", adminDashObj);
@@ -344,7 +335,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -361,7 +352,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -380,7 +371,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         //provider Transfer request
@@ -398,7 +389,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -415,7 +406,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult activeOrders(int data)
@@ -431,7 +422,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-          
+
         }
 
         public IActionResult GetBusiness(int profession_id)
@@ -448,7 +439,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-          
+
         }
 
 
@@ -466,7 +457,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         [HttpPost]
@@ -483,10 +474,10 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
-        
-        
+
+
 
 
 
@@ -498,7 +489,7 @@ namespace HelloDocMVC.Controllers
                 int regionId = 0;
                 adminDashData adminDashObj = new adminDashData();
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
-                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag,sessionEmail);
+                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
@@ -509,7 +500,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
 
@@ -526,7 +517,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         [HttpPost]
@@ -543,7 +534,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public IActionResult HousecallPopUp(int reqId)
@@ -559,10 +550,10 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
-        
-        
+
+
         public IActionResult HouseCallConclude(int reqId)
         {
             try
@@ -576,7 +567,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult concludeEncounter(int data)
@@ -592,7 +583,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         [HttpPost]
@@ -608,25 +599,25 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-          
+
         }
-        
+
         public IActionResult FinalizeEncounter(int reqId)
         {
             try
             {
-              var indicate =  _IProviderDash.FinalizeEncounter(reqId);
-                return Json(new {isSend = indicate });
+                var indicate = _IProviderDash.FinalizeEncounter(reqId);
+                return Json(new { isSend = indicate });
             }
             catch
             {
                 return NotFound();
             }
 
-           
+
         }
-        
-        
+
+
         public IActionResult ProviderEncounterFormDownload(int data)
         {
             try
@@ -639,10 +630,10 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
-        
-        
+
+
         public IActionResult FinalizePopup(int data)
         {
             try
@@ -655,7 +646,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult GeneratePDF(int requestid)
@@ -684,7 +675,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
         }
 
@@ -697,7 +688,7 @@ namespace HelloDocMVC.Controllers
                 int regionId = 0;
                 adminDashData adminDashObj = new adminDashData();
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
-                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag,sessionEmail);
+                adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
 
 
@@ -708,7 +699,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -725,7 +716,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -743,11 +734,11 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
-        
-        
-        
+
+
+
         [HttpPost]
         public IActionResult ProviderConcludeCarePost(adminDashData obj)
         {
@@ -763,7 +754,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -786,7 +777,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult createRequest()
@@ -806,7 +797,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         [HttpPost]
@@ -824,7 +815,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         //*****************************************************My Profile******************************************************************************
@@ -849,7 +840,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         [HttpPost]
@@ -865,10 +856,10 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
-        
-        
+
+
         public IActionResult RequestAdmin()
         {
             return PartialView("Provider/_ProviderRequestAdmin");
@@ -888,7 +879,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -916,7 +907,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -932,7 +923,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         [HttpPost]
@@ -952,7 +943,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
 
 
         }
@@ -1032,7 +1023,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
         }
 
@@ -1065,7 +1056,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
         public IActionResult OpenScheduledModalWeek(string sundaystring, string saturdaystring, string datestring, DateTime shiftdate, int physicianid)
         {
@@ -1086,7 +1077,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
 
 
         }
@@ -1104,7 +1095,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public IActionResult deleteShift(int shiftdetailid)
@@ -1120,7 +1111,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult EditShiftDetails(ShiftDetailsmodal shiftDetailsmodal)
@@ -1139,7 +1130,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
 
@@ -1157,7 +1148,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult ShiftReview(int regionId, int callId)
@@ -1179,7 +1170,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult ApproveShift(int[] shiftDetailsId)
@@ -1197,7 +1188,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
         public IActionResult DeleteSelectedShift(int[] shiftDetailsId)
@@ -1215,7 +1206,7 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-           
+
         }
 
     }

@@ -1,18 +1,10 @@
 ﻿using BLL_Business_Logic_Layer_.Interface;
-using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.CustomeModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelloDocMVC.CustomeModel;
+using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Mail;
-using System.Net;
 using System.Collections;
+using System.Net;
+using System.Net.Mail;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -26,7 +18,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
 
 
-        public void SendRegistrationEmail(string toEmail, string registrationLink,string ReqEmail)
+        public void SendRegistrationEmail(string toEmail, string registrationLink, string ReqEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
             string senderPassword = "Shiv@123";
@@ -129,7 +121,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _concierge.State = _db.Regions.Where(r => r.Regionid == obj.regionId).Select(r => r.Name).First();
             _concierge.Zipcode = obj.concierge_zipcode;
             _concierge.Createddate = DateTime.Now;
-            _db.Concierges.Add( _concierge );
+            _db.Concierges.Add(_concierge);
             _db.SaveChanges();
 
             var userMain = _db.Users.FirstOrDefault(x => x.Email == obj.email);
@@ -153,19 +145,19 @@ namespace BLL_Business_Logic_Layer_.Services
             _request.Status = 1;
             _request.Createddate = DateTime.Now;
 
-            _db.Requests.Add( _request );
+            _db.Requests.Add(_request);
             _db.SaveChanges();
 
 
-            
-             _requestclient.Requestid = _request.Requestid;
-             _requestclient.Firstname = obj.firstname;
-             _requestclient.Lastname = obj.lastname;
-             _requestclient.Phonenumber = obj.phone;
-             _requestclient.Email = obj.email;
+
+            _requestclient.Requestid = _request.Requestid;
+            _requestclient.Firstname = obj.firstname;
+            _requestclient.Lastname = obj.lastname;
+            _requestclient.Phonenumber = obj.phone;
+            _requestclient.Email = obj.email;
             _requestclient.Strmonth = obj.dateofbirth.Substring(5, 2);
             _requestclient.Intdate = Convert.ToInt16(obj.dateofbirth.Substring(8, 2));
-            _requestclient.Intyear =  Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
+            _requestclient.Intyear = Convert.ToInt16(obj.dateofbirth.Substring(0, 4));
             _requestclient.Regionid = obj.regionId;
             _requestclient.City = obj.concierge_city;
             _requestclient.Street = obj.concierge_street;
@@ -175,22 +167,22 @@ namespace BLL_Business_Logic_Layer_.Services
 
 
             if (user == null)
-                {
-                    string emailConfirmationToken = Guid.NewGuid().ToString();
+            {
+                string emailConfirmationToken = Guid.NewGuid().ToString();
 
                 string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _aspnetuser.Id;
 
                 //string registrationLink = $"/Home/CreateAccount?token={emailConfirmationToken}";
 
                 try
-                    {
-                        SendRegistrationEmail(obj.email, registrationLink, obj.concierge_email);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                {
+                    SendRegistrationEmail(obj.email, registrationLink, obj.concierge_email);
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
 
             _db.Requestclients.Add(_requestclient);
             _db.SaveChanges();

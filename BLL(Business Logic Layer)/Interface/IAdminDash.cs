@@ -1,20 +1,13 @@
 ﻿using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL_Business_Logic_Layer_.Interface
 {
     public interface IAdminDash
     {
-        public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName,int dataFlag,string sessionFilter);
+        public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName, int dataFlag, string sessionFilter);
 
-        public countMain countService(string sessionName,int flagCount);
+        public countMain countService(string sessionName, int flagCount);
 
         public List<string> GetListOfRoleMenu(int roleId);
         public List<adminDash> adminDataViewCase(int reqId, int flag);
@@ -28,7 +21,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public AssignCase adminDataAssignCase(int req);
         public void adminDataAssignCase(adminDashData assignObj);
-        
+
         public AssignCase adminDataAssignCaseDocList(int regionId);
 
         public blockCaseModel blockcase(int req);
@@ -38,8 +31,8 @@ namespace BLL_Business_Logic_Layer_.Interface
         public List<viewUploads> viewUploadMain(int reqId, int flag);
 
         public void viewUploadMain(adminDashData obj);
-        public void DeleteFile(bool data,int reqFileId);
-        public void sendMail(string emailMain, string[] data,string sessionEmail);
+        public void DeleteFile(bool data, int reqFileId);
+        public void sendMail(string emailMain, string[] data, string sessionEmail);
 
         public activeOrder viewOrder(int reqId);
 
@@ -49,10 +42,10 @@ namespace BLL_Business_Logic_Layer_.Interface
         public void viewOrder(adminDashData adminDashData);
 
         public transferRequest transferReq(int req);
-        public void transferReq(adminDashData data,string sessionEmail);
+        public void transferReq(adminDashData data, string sessionEmail);
 
         public blockCaseModel clearCase(int reqId);
-        public void clearCase(adminDashData block,string sessionEmail);
+        public void clearCase(adminDashData block, string sessionEmail);
 
         public sendAgreement sendAgree(int reqId);
         public void sendAgree(adminDashData dataMain, string sessionEmail);
@@ -70,8 +63,8 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public concludeEncounter concludeEncounter(int data);
         public concludeEncounter concludeEncounter(concludeEncounter obj);
-        public sendLink sendLink(sendLink data,string sessionEmail);
-        public createRequest createRequest(createRequest data,string sessionEmail,int flag);
+        public sendLink sendLink(sendLink data, string sessionEmail);
+        public createRequest createRequest(createRequest data, string sessionEmail, int flag);
 
         public createRequest verifyState(string state);
 
@@ -84,8 +77,8 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public provider providerContact(int phyId);
 
-        public provider providerContactEmail(int phyIdMain, string msg,string sessionEmail);
-        public provider providerContactSms(int phyIdMain, string msg,string sessionEmail);
+        public provider providerContactEmail(int phyIdMain, string msg, string sessionEmail);
+        public provider providerContactSms(int phyIdMain, string msg, string sessionEmail);
 
         public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId);
 
@@ -148,7 +141,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<Physician> GetRegionvalue(int selectedregion);
 
-        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type,int flag,string email);
+        public List<ShiftDetailsmodal> ShiftDetailsmodal(DateTime date, DateTime sunday, DateTime saturday, string type, int flag, string email);
         ShiftDetailsmodal GetShift(int shiftdetailsid);
         bool createShift(ScheduleModel scheduleModel, int Aspid);
         void SetReturnShift(int status, int shiftdetailid, int Aspid);
@@ -171,7 +164,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<User> patientRecords(GetRecordsModel GetRecordsModel);
 
-        public List<GetRecordExplore>  GetPatientRecordExplore(int userId);
+        public List<GetRecordExplore> GetPatientRecordExplore(int userId);
 
         public List<blockHistory> blockHistory(recordsModel recordsModel);
 

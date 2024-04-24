@@ -4,18 +4,10 @@ using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using HelloDocMVC.CustomeModel;
 using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BLL_Business_Logic_Layer_.Services
 {
@@ -64,9 +56,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
 
         }
-        
-        
-        public List<PatientDashboardData> patientDashInfoTwo(string email,int param)
+
+
+        public List<PatientDashboardData> patientDashInfoTwo(string email, int param)
         {
 
             var uid = db.Users.Where(r => r.Email == email).Select(x => x.Userid).First();
@@ -149,7 +141,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public void userDetail(Custom obj)
         {
-             
+
             User _user = new User();
             Request _request = new Request();
             Requestclient _requestclient = new Requestclient();
@@ -258,7 +250,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _request.Status = 1;
             _request.Createddate = DateTime.Now;
             _request.Phonenumber = obj.phone;
-        
+
 
             db.Requests.Add(_request);
             db.SaveChanges();
@@ -562,7 +554,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public void reviewAgree(PatientDashboard obj)
         {
-            Requeststatuslog requeststatuslog = new Requeststatuslog(); 
+            Requeststatuslog requeststatuslog = new Requeststatuslog();
 
             requeststatuslog.Requestid = obj._reviewAgreement.reqid;
             requeststatuslog.Status = 7;

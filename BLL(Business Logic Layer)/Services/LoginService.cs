@@ -1,18 +1,11 @@
 ﻿using BLL_Business_Logic_Layer_.Interface;
-using DAL_Data_Access_Layer_.DataModels;
-using DAL_Data_Access_Layer_.DataContext;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL_Data_Access_Layer_.CustomeModel;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Mail;
+using DAL_Data_Access_Layer_.DataContext;
 using System.Net;
+using System.Net.Mail;
 
 namespace BLL_Business_Logic_Layer_.Services
-{ 
+{
     public class LoginService : ILoginService
     {
 
@@ -20,7 +13,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public LoginService(ApplicationDbContext _db)
         {
-               db = _db;
+            db = _db;
         }
 
         public Users login(Users obj)
@@ -42,7 +35,7 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
             var check = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).FirstOrDefault();
-            if(check != null)
+            if (check != null)
             {
                 var data = db.Aspnetusers.Where(x => x.Email == obj.Email && x.Passwordhash == obj.Passwordhash).Select(r => new Users()
                 {
@@ -57,9 +50,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             else
             {
-               
 
-                 if(db.Aspnetusers.Where(r => r.Email == obj.Email).FirstOrDefault() == null)
+
+                if (db.Aspnetusers.Where(r => r.Email == obj.Email).FirstOrDefault() == null)
                 {
                     users.emailcheck = "emailFalse";
                 }
@@ -78,7 +71,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
             var emailMain = db.Aspnetusers.Any(x => x.Email == obj.Email);
 
-            if(emailMain == true)
+            if (emailMain == true)
             {
                 var emailMainTwo = db.Aspnetusers.Where(x => x.Email == obj.Email).Select(r => r).First();
 

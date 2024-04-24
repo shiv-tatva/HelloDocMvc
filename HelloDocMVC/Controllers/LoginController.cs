@@ -1,17 +1,13 @@
-﻿using HelloDocMVC.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using DAL_Data_Access_Layer_.DataContext;
-using DAL_Data_Access_Layer_.DataModels;
-using BLL_Business_Logic_Layer_.Interface;
+﻿using BLL_Business_Logic_Layer_.Interface;
+using BusinessLogic.Interfaces;
 using DAL_Data_Access_Layer_.CustomeModel;
-using Microsoft.AspNetCore.Http;
+using HelloDocMVC.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using BusinessLogic.Interfaces;
 
 namespace HelloDocMVC.Controllers
 {
@@ -63,10 +59,10 @@ namespace HelloDocMVC.Controllers
             var data = _login.login(obj);
 
             IActionResult response = Unauthorized();
-                        
+
 
             //TempData["email"] = obj.Email;
-            var sessionUser  = obj.Email;
+            var sessionUser = obj.Email;
             var userName = obj.Email.Substring(0, obj.Email.IndexOf('@'));
 
             ViewBag.Admin = 1;
@@ -84,19 +80,19 @@ namespace HelloDocMVC.Controllers
 
                 TempData["name"] = data.Username;
 
-                
+
 
                 if (data.RoleMain == "User")
                 {
                     TempData["success"] = "Login Successfully!";
                     return RedirectToAction("patientDashboard", "patientDashboard");
                 }
-                else if(data.RoleMain == "Admin")
+                else if (data.RoleMain == "Admin")
                 {
                     TempData["success"] = "Login Successfully!";
                     return RedirectToAction("adminDashboard", "adminDashboard");
                 }
-                else if(data.RoleMain == "Provider")
+                else if (data.RoleMain == "Provider")
                 {
                     TempData["success"] = "Login Successfully!";
                     return RedirectToAction("Provider", "Provider");
@@ -105,20 +101,20 @@ namespace HelloDocMVC.Controllers
                 {
                     return View();
                 }
-               
+
             }
             else
             {
-                if(data.emailcheck == "emailFalse" && data.passwordcheck == "passwordFalse")
+                if (data.emailcheck == "emailFalse" && data.passwordcheck == "passwordFalse")
                 {
                     TempData["email"] = "Email is incorrect";
                     TempData["password"] = "Password is incorrect";
                 }
-                if(data.emailcheck == "emailFalse")
+                if (data.emailcheck == "emailFalse")
                 {
                     TempData["email"] = "Email is incorrect";
                 }
-                else if(data.passwordcheck == "passwordFalse")
+                else if (data.passwordcheck == "passwordFalse")
                 {
                     TempData["password"] = "Password is incorrect";
                 }
@@ -138,7 +134,7 @@ namespace HelloDocMVC.Controllers
             ViewBag.Admin = 1;
             return View();
         }
-        
+
         public IActionResult AccessDenied()
         {
             return View();
@@ -153,7 +149,7 @@ namespace HelloDocMVC.Controllers
         public IActionResult ForgotPasswordPage(Users obj)
         {
             var user = _login.forgotPassword(obj);
-            return Json(new {isSend = user.flagId});
+            return Json(new { isSend = user.flagId });
         }
     }
 }

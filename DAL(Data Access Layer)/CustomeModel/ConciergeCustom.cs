@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DAL_Data_Access_Layer_.CustomeModel
 {
     public class ConciergeCustom
-    { 
+    {
 
 
         [Required(ErrorMessage = "Please Enter Your First Name")]

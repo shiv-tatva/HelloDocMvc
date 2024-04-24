@@ -1,0 +1,137 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+.nav-link {
+    border: none !important;
+}
+
+.nav-item .active {
+    border-bottom: 2px solid skyblue !important;
+    color: #0dcaf0 !important;
+}
+
+.border {
+    border: 1px solid #dee2e6 !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 40px;
+    background-color: #734d26;
+    color: white;
+}
+
+.tnc {
+    float: right;
+}
+
+#navbar {
+    align-items: center;
+    justify-content: center;
+    background-color: #734d26;
+    color: white;
+    position:relative;
+    height:50px;
+}
+
+#navbarDiv {
+    display: contents;
+}
+
+th{
+    border:0!important;
+    text-align:left;
+}
+
+tr{
+    text-align:left;
+}
+
+#addStudent{
+    position:absolute;
+    right:25px;
+    background-color:white;
+    color:black;
+    border:0;
+}
+
+#editBtn {
+    background-color: #734d26;
+    color: white;
+    border: 0;
+}
+
+#deleteBtn{
+    background-color:black;
+    color:white;
+    border:0;
+}
+
+#tableAccordian {
+    background-color: #734d26;
+    color: white;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #734d26!important;
+}
+
+.modal-header {
+    background-color: #734d26!important;
+    color:white!important;
+}
+
+#gradeScrollDown{
+    height:58px;
+    width:100%;
+}
+
+.modalBtn {
+    height: 58px;
+    width: 100%;
+}
+
+.modalSaveBtn {
+    background-color: #3333cc;
+    border: 0;
+}
+.modalCancelBtn{
+    color:black;
+    border-color:black;
+}
+
+.dataTables_info{
+    float:left;
+}
+
+.dataTables_paginate {
+    float:right;
+}
+
+.dataTables_length{
+    float:left;
+}
