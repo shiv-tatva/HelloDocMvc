@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL_Data_Access_Layer_.CustomeModel
 {
+    /// <summary>
+    /// accessModel main CM
+    /// </summary>
     public class accessModel
     {
         public List<AccountAccess> AccountAccess { get; set; }
@@ -30,10 +33,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public int Adminid { get; set; }
 
-
         [Required(ErrorMessage = "Role Name Is Required")]
         public string name { get; set; }
-
 
         public string accounttype { get; set; }
 
@@ -60,14 +61,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int aspnetid { get; set; }
         public string Accounttype { get; set; }
-
         public string accountname { get; set; }
-
         public string phone { get; set; }
-
         public int status { get; set; }
         public int openrequest { get; set; }
-
         public int roleid { get; set; }
 
     }

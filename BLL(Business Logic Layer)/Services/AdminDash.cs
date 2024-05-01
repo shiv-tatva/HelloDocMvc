@@ -23,6 +23,8 @@ namespace BLL_Business_Logic_Layer_.Services
             _context = context;
         }
 
+
+        #region adminData
         public List<adminDash> adminData(int[] status, int typeId, int regionId, string sessionName, int dataFlag, string sessionFilter)
         {
             var requestList = _context.Requests.Where(i => status.Contains(i.Status));
@@ -110,7 +112,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return query;
         }
+        #endregion
 
+        #region countService
         public countMain countService(string sessionName, int flagCount)
         {
             if (flagCount != 10)
@@ -160,7 +164,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 return statusCount;
             }
         }
+        #endregion
 
+        #region GetListOfRoleMenu
         public List<string> GetListOfRoleMenu(int roleId)
         {
             List<Rolemenu> roleMenus = _context.Rolemenus.Where(u => u.Roleid == roleId).ToList();
@@ -178,11 +184,11 @@ namespace BLL_Business_Logic_Layer_.Services
                 return new List<string>();
             }
         }
+        #endregion
 
+        #region adminDataViewCase
         public List<adminDash> adminDataViewCase(int reqId, int flag = 1)
         {
-
-
             var query = from r in _context.Requests
                         join rc in _context.Requestclients on r.Requestid equals rc.Requestid
                         where r.Requestid == reqId
@@ -219,9 +225,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return result;
         }
+        #endregion
 
-
-
+        #region adminDataViewNote
         public viewNotes adminDataViewNote(int reqId)
         {
             var a = _context.Requestnotes.FirstOrDefault(r => r.Requestid == reqId);
@@ -260,9 +266,9 @@ namespace BLL_Business_Logic_Layer_.Services
             viewNotes.reqid = reqId;
             return viewNotes;
         }
+        #endregion
 
-
-
+        #region adminDataViewNote
         public void adminDataViewNote(adminDashData obj)
         {
             var reqNoteId = _context.Requestnotes.FirstOrDefault(r => r.Requestid == obj._viewNote.reqid);
@@ -278,10 +284,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
+        #endregion
 
-
-
-
+        #region closeCaseNote
         public CloseCase closeCaseNote(int reqId)
         {
 
@@ -293,7 +298,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _closeCase;
         }
+        #endregion
 
+        #region casetag
         public List<casetageNote> casetag()
         {
             var query = from r in _context.Casetags
@@ -304,7 +311,9 @@ namespace BLL_Business_Logic_Layer_.Services
                         });
             return query.ToList();
         }
+        #endregion
 
+        #region MyRegion
         public void closeCaseNote(adminDashData obj)
         {
             Requeststatuslog _log = new Requeststatuslog();
@@ -326,8 +335,9 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
 
         }
+        #endregion
 
-
+        #region adminDataAssignCase
         public AssignCase adminDataAssignCase(int req)
         {
             AssignCase assignCase = new AssignCase();
@@ -340,7 +350,9 @@ namespace BLL_Business_Logic_Layer_.Services
             //assignCase.phy_req = _context.Physicianregions.ToList();
             return assignCase;
         }
+        #endregion
 
+        #region adminDataAssignCaseDocList
         public AssignCase adminDataAssignCaseDocList(int regionId)
         {
             AssignCase assignCase = new AssignCase();
@@ -350,7 +362,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return assignCase;
         }
+        #endregion
 
+        #region adminDataAssignCase
         public void adminDataAssignCase(adminDashData assignObj)
         {
             Requeststatuslog requeststatuslog = new Requeststatuslog();
@@ -376,7 +390,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
 
         }
+        #endregion
 
+        #region blockcase
         public blockCaseModel blockcase(int req)
         {
             blockCaseModel _block = new blockCaseModel();
@@ -386,7 +402,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _block;
         }
+        #endregion
 
+        #region blockcase
         public void blockcase(adminDashData obj, string sessionEmail)
         {
             var request = _context.Requests.FirstOrDefault(r => r.Requestid == obj._blockCaseModel.reqid);
@@ -426,7 +444,9 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.Blockrequests.Add(blockrequest);
             _context.SaveChanges();
         }
+        #endregion
 
+        #region viewUploadMain
         public List<viewUploads> viewUploadMain(int reqId, int flag)
         {
 
@@ -449,8 +469,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return query;
         }
+        #endregion
 
-
+        #region viewUploadMain
         public void viewUploadMain(adminDashData obj)
         {
             Request _request = new Request();
@@ -479,8 +500,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.SaveChanges();
             }
         }
+        #endregion
 
-
+        #region DeleteFile
         public void DeleteFile(bool data, int reqFileId)
         {
             var reqWiseFile = _context.Requestwisefiles.Where(r => r.Requestwisefileid == reqFileId).Select(r => r).First();
@@ -492,8 +514,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             _context.SaveChanges();
         }
+        #endregion
 
-        //*************************************Mail**********************************************
+        #region SendRegistrationEmail
         public void SendRegistrationEmail(string emailMain, string[] data, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
@@ -554,9 +577,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             client.Send(mailMessage);
         }
+        #endregion
 
-
-
+        #region sendMail
         public void sendMail(string emailMain, string[] data, string sessionEmail)
         {
             string emailConfirmationToken = Guid.NewGuid().ToString();
@@ -570,9 +593,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 Console.WriteLine(e.Message);
             }
         }
+        #endregion
 
-        //**************************************************************************************
-
+        #region viewOrder
         public activeOrder viewOrder(int reqId)
         {
             activeOrder _active = new activeOrder();
@@ -582,9 +605,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _active;
         }
+        #endregion
 
-
-
+        #region businessName
         public activeOrder businessName(int profession_id)
         {
             activeOrder _active = new activeOrder();
@@ -594,8 +617,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _active;
         }
+        #endregion
 
-
+        #region businessDetail
         public activeOrder businessDetail(int businessDetail)
         {
             activeOrder _active = new activeOrder();
@@ -609,8 +633,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return query.ToList().FirstOrDefault();
         }
+        #endregion
 
-
+        #region viewOrder
         public void viewOrder(adminDashData adminDashData)
         {
             Orderdetail orderdetail = new Orderdetail();
@@ -639,6 +664,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.SaveChanges();
             }
         }
+        #endregion
+
+        #region transferReq
         public transferRequest transferReq(int req)
         {
             transferRequest transferRequest = new transferRequest();
@@ -648,10 +676,9 @@ namespace BLL_Business_Logic_Layer_.Services
             transferRequest.regions = _context.Regions.ToList();
             transferRequest.reqid = req;
             transferRequest.phy_id_main = (int)_context.Requests.Where(r => r.Requestid == req).Select(r => r.Physicianid).First();
-
-            //assignCase.phy_req = _context.Physicianregions.ToList();
             return transferRequest;
         }
+        #endregion
 
         public void transferReq(adminDashData data, string sessionEmail)
         {
@@ -3762,33 +3789,6 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             return model;
         }
-
-
-        //public blockHistory stopNotificationBlock(int blockId)
-        //{
-        //    blockHistory blockMain = new blockHistory();
-
-        //    var block = _context.Blockrequests.Where(r => r.Blockrequestid == blockId).Select(r => r).First();            
-
-        //    if (block.Isactive == null)
-        //    {
-        //        block.Isactive = new BitArray(1);
-        //        block.Isactive[0] = true;
-        //        _context.SaveChanges();
-
-        //        blockMain.indicate = true;
-        //        return blockMain;
-        //    }
-        //    else
-        //    {
-        //        block.Isactive = new BitArray(1);
-        //        block.Isactive[0] = false;
-        //        _context.SaveChanges();
-
-        //        blockMain.indicate = false;
-        //        return blockMain;
-        //    }
-        //}
 
     }
 }

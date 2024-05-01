@@ -20,6 +20,11 @@ namespace HelloDocMVC.Controllers
         }
 
 
+        /// <summary>
+        /// this action is for provider side
+        /// </summary>
+        /// <returns></returns>
+
         [CustomAuthorize("Provider", "Dashboard")]
         public IActionResult Provider()
         {
@@ -40,12 +45,14 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
 
-        //*************************************************Dashboard****************************************************************
+        /// <summary>
+        /// this action is for loading data in dashboard
+        /// </summary>
+        /// <returns></returns>
 
         [CustomAuthorize("Provider", "Dashboard")]
         public IActionResult LoadPartialDashboard()
@@ -64,9 +71,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+        /// <summary>
+        /// this action is for new tab
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="dataFlag"></param>
+        /// <returns></returns>
         public IActionResult newTabTwo(int[] arr, int dataFlag)
         {
             try
@@ -87,6 +101,15 @@ namespace HelloDocMVC.Controllers
 
         }
 
+
+
+
+        /// <summary>
+        /// this action is for table record
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
         public IActionResult tableRecords(int[] arr, int typeId)
         {
             try
@@ -103,9 +126,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+        /// <summary>
+        /// this action is for table record2
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
         public IActionResult tableRecords2(int[] arr, int typeId)
         {
             try
@@ -122,8 +152,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
+
+
+
+        /// <summary>
+        /// this action is for table record3
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
         public IActionResult tableRecords3(int[] arr, int typeId)
         {
             try
@@ -140,9 +178,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+        /// <summary>
+        /// this action is for table record 4
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
         public IActionResult tableRecords4(int[] arr, int typeId)
         {
             try
@@ -159,10 +204,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+        /// <summary>
+        /// this action is for ProivderAccept
+        /// </summary>
+        /// <param name="reqId"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult ProivderAccept(int reqId)
         {
@@ -176,9 +226,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for newViewCase
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
         public IActionResult newViewCase(int data, int flag)
         {
             try
@@ -192,10 +250,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for newViewNote
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult newViewNote(int data)
         {
             try
@@ -209,9 +273,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+        /// <summary>
+        /// this action is for newViewNote
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult newViewNote(adminDashData obj)
         {
@@ -225,9 +295,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for pendingViewUploadMain
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
         public IActionResult pendingViewUploadMain(int data, int flag)
         {
             try
@@ -241,10 +319,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for pendingViewUploadMain
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult pendingViewUploadMain(adminDashData obj)
         {
@@ -259,9 +343,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for DownloadFile
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult DownloadFile(string data)
         {
             try
@@ -276,10 +367,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
+
+
+        /// <summary>
+        /// this action is for sendMail
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="id"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult sendMail(string email, string id, string[] data)
         {
             try
@@ -295,10 +393,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
+
+
+        /// <summary>
+        /// this action is for DownloadFile
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="id"></param>
+        /// <param name="reqFileId"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult DeleteFile(bool data, int id, int reqFileId)
         {
@@ -312,11 +417,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for pendingTabTwo
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="dataFlag"></param>
+        /// <returns></returns>
         public IActionResult pendingTabTwo(int[] arr, int dataFlag)
         {
             try
@@ -335,10 +446,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for sendAgreement
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         public IActionResult sendAgreement(int req)
         {
             try
@@ -352,10 +469,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for sendAgreement
+        /// </summary>
+        /// <param name="dataMain"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult sendAgreement(adminDashData dataMain)
         {
@@ -371,10 +494,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
-        //provider Transfer request
+
+
+
+        /// <summary>
+        /// this action is for ProviderTransferRequest
+        /// </summary>
+        /// <param name="requestid"></param>
+        /// <returns></returns>
         public IActionResult ProviderTransferRequest(int requestid)
         {
 
@@ -389,10 +518,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+        /// <summary>
+        /// this action is for PostTransferRequest
+        /// </summary>
+        /// <param name="adminDashData"></param>
+        /// <returns></returns>
         public IActionResult PostTransferRequest(adminDashData adminDashData)
         {
             try
@@ -406,9 +540,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+        /// <summary>
+        /// this action is for activeOrders
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult activeOrders(int data)
         {
             try
@@ -422,9 +562,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+        /// <summary>
+        /// this action is for GetBusiness
+        /// </summary>
+        /// <param name="profession_id"></param>
+        /// <returns></returns>
         public IActionResult GetBusiness(int profession_id)
         {
             try
@@ -439,10 +585,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for BusinessDetail
+        /// </summary>
+        /// <param name="business_id"></param>
+        /// <returns></returns>
         public IActionResult BusinessDetail(int business_id)
         {
             try
@@ -457,9 +609,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+        /// <summary>
+        /// this action is for activeOrders
+        /// </summary>
+        /// <param name="adminDashData"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult activeOrders(adminDashData adminDashData)
         {
@@ -474,13 +632,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
 
 
-
+        /// <summary>
+        /// this action is for activeTabTwo
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="dataFlag"></param>
+        /// <returns></returns>
         public IActionResult activeTabTwo(int[] arr, int dataFlag)
         {
             try
@@ -500,10 +662,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for ProviderEncounterPopUp
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult ProviderEncounterPopUp(int data)
         {
             try
@@ -517,9 +685,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for ProviderEncounterPopUp
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult ProviderEncounterPopUp(adminDashData data)
         {
@@ -534,9 +709,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for HousecallPopUp
+        /// </summary>
+        /// <param name="reqId"></param>
+        /// <returns></returns>
         public IActionResult HousecallPopUp(int reqId)
         {
             try
@@ -550,10 +732,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for HouseCallConclude
+        /// </summary>
+        /// <param name="reqId"></param>
+        /// <returns></returns>
         public IActionResult HouseCallConclude(int reqId)
         {
             try
@@ -567,9 +755,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for concludeEncounter
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult concludeEncounter(int data)
         {
             try
@@ -583,9 +778,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for concludeEncounter
+        /// </summary>
+        /// <param name="encounter"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult concludeEncounter(concludeEncounter encounter)
         {
@@ -599,9 +801,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for FinalizeEncounter
+        /// </summary>
+        /// <param name="reqId"></param>
+        /// <returns></returns>
         public IActionResult FinalizeEncounter(int reqId)
         {
             try
@@ -614,10 +824,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+
+        /// <summary>
+        /// this action is for ProviderEncounterFormDownload
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult ProviderEncounterFormDownload(int data)
         {
             try
@@ -630,10 +847,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for FinalizePopup
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult FinalizePopup(int data)
         {
             try
@@ -646,9 +869,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for GeneratePDF
+        /// </summary>
+        /// <param name="requestid"></param>
+        /// <returns></returns>
         public IActionResult GeneratePDF(int requestid)
         {
             try
@@ -675,11 +906,18 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
 
+
+
+
+        /// <summary>
+        /// this action is for concludeTabTwo
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="dataFlag"></param>
+        /// <returns></returns>
         public IActionResult concludeTabTwo(int[] arr, int dataFlag)
         {
             try
@@ -699,10 +937,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for ConcludeCare
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
         public IActionResult ConcludeCare(int data, int flag)
         {
             try
@@ -716,10 +961,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+
+        /// <summary>
+        /// this action is for ConcludeViewUploadMain
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult ConcludeViewUploadMain(adminDashData obj)
         {
@@ -734,11 +986,18 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
 
+
+
+
+        /// <summary>
+        /// this action is for ProviderConcludeCarePost
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult ProviderConcludeCarePost(adminDashData obj)
         {
@@ -754,10 +1013,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+
+        /// <summary>
+        /// this action is for sendLinkPopUp
+        /// </summary>
+        /// <returns></returns>
         public IActionResult sendLinkPopUp()
         {
             return PartialView("Provider/_ProviderSendLink");
@@ -777,9 +1042,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for createRequest
+        /// </summary>
+        /// <returns></returns>
         public IActionResult createRequest()
         {
             return PartialView("Provider/_ProviderCreateRequest");
@@ -797,9 +1069,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for createRequestMain
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult createRequestMain(createRequest data)
         {
@@ -815,12 +1094,18 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
-        //*****************************************************My Profile******************************************************************************
 
 
+
+
+        /// <summary>
+        /// this action is for myProfile
+        /// </summary>
+        /// <param name="statusId"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
 
         [CustomAuthorize("Provider", "My Profile")]
         public IActionResult myProfile(int statusId, int flag)
@@ -840,9 +1125,18 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for providerEditFirst
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="phyId"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult providerEditFirst(string password, int phyId, string email)
         {
@@ -856,15 +1150,28 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for RequestAdmin
+        /// </summary>
+        /// <returns></returns>
         public IActionResult RequestAdmin()
         {
             return PartialView("Provider/_ProviderRequestAdmin");
         }
 
+
+
+
+        /// <summary>
+        /// this action is for RequestAdmin
+        /// </summary>
+        /// <param name="_ProviderTransferTab"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult RequestAdmin(ProviderTransferTab _ProviderTransferTab)
         {
@@ -879,13 +1186,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
-        //*****************************************************Scheduling******************************************************************************
 
 
+
+        /// <summary>
+        /// this action is for GetScheduling
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthorize("Provider", "My Schedule")]
         public IActionResult GetScheduling()
         {
@@ -893,6 +1203,13 @@ namespace HelloDocMVC.Controllers
         }
 
 
+
+
+
+        /// <summary>
+        /// this action is for CreateNewShift
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CreateNewShift()
         {
             try
@@ -907,10 +1224,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+
+        /// <summary>
+        /// this action is for GetRegion
+        /// </summary>
+        /// <param name="selectedregion"></param>
+        /// <returns></returns>
         public ActionResult GetRegion(int selectedregion)
         {
             try
@@ -923,8 +1247,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
+
+
+
+
+
+        /// <summary>
+        /// this action is for createShiftPost
+        /// </summary>
+        /// <param name="schedulingCm"></param>
+        /// <returns></returns>
 
         [HttpPost]
         public IActionResult createShiftPost(SchedulingCm schedulingCm)
@@ -942,13 +1275,22 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-
-
-
-
         }
 
 
+
+
+
+
+        /// <summary>
+        /// this action is for loadshift
+        /// </summary>
+        /// <param name="datestring"></param>
+        /// <param name="sundaystring"></param>
+        /// <param name="saturdaystring"></param>
+        /// <param name="shifttype"></param>
+        /// <param name="regionid"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult loadshift(string datestring, string sundaystring, string saturdaystring, string shifttype, int regionid)
         {
@@ -1023,10 +1365,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for OpenScheduledModal
+        /// </summary>
+        /// <param name="viewShiftModal"></param>
+        /// <returns></returns>
         public IActionResult OpenScheduledModal(ViewShiftModal viewShiftModal)
         {
             try
@@ -1056,8 +1405,21 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
+
+
+
+
+
+        /// <summary>
+        /// this action is for OpenScheduledModalWeek
+        /// </summary>
+        /// <param name="sundaystring"></param>
+        /// <param name="saturdaystring"></param>
+        /// <param name="datestring"></param>
+        /// <param name="shiftdate"></param>
+        /// <param name="physicianid"></param>
+        /// <returns></returns>
         public IActionResult OpenScheduledModalWeek(string sundaystring, string saturdaystring, string datestring, DateTime shiftdate, int physicianid)
         {
             try
@@ -1077,11 +1439,18 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for ReturnShift
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="shiftdetailid"></param>
+        /// <returns></returns>
         public IActionResult ReturnShift(int status, int shiftdetailid)
         {
             try
@@ -1095,9 +1464,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for deleteShift
+        /// </summary>
+        /// <param name="shiftdetailid"></param>
+        /// <returns></returns>
         public IActionResult deleteShift(int shiftdetailid)
         {
             try
@@ -1111,9 +1487,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for EditShiftDetails
+        /// </summary>
+        /// <param name="shiftDetailsmodal"></param>
+        /// <returns></returns>
         public IActionResult EditShiftDetails(ShiftDetailsmodal shiftDetailsmodal)
         {
             try
@@ -1130,11 +1513,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
-        //MD's On Call
+
+
+
+        /// <summary>
+        /// this action is for GetOnCall
+        /// </summary>
+        /// <param name="regionid"></param>
+        /// <returns></returns>
         public IActionResult GetOnCall(int regionid)
         {
 
@@ -1148,9 +1537,18 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for ShiftReview
+        /// </summary>
+        /// <param name="regionId"></param>
+        /// <param name="callId"></param>
+        /// <returns></returns>
         public IActionResult ShiftReview(int regionId, int callId)
         {
             try
@@ -1170,9 +1568,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for ApproveShift
+        /// </summary>
+        /// <param name="shiftDetailsId"></param>
+        /// <returns></returns>
         public IActionResult ApproveShift(int[] shiftDetailsId)
         {
             try
@@ -1188,9 +1594,17 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+
+        /// <summary>
+        /// this action is for DeleteSelectedShift
+        /// </summary>
+        /// <param name="shiftDetailsId"></param>
+        /// <returns></returns>
         public IActionResult DeleteSelectedShift(int[] shiftDetailsId)
         {
             try
@@ -1205,7 +1619,6 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-
 
         }
 

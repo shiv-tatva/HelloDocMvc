@@ -3,9 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL_Data_Access_Layer_.CustomeModel
 {
+
+    /// <summary>
+    /// PartnerModel Main Custome Model
+    /// </summary>
     public class partnerModel
     {
         public List<Region> regions { get; set; }
+
         public List<Healthprofessionaltype> Professions { get; set; }
 
         public List<Partnersdata> Partnersdata { get; set; }
@@ -24,7 +29,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [Required(ErrorMessage = "Business Name Is Required")]
         [StringLength(16, ErrorMessage = "Only 16 Characaters are Accepted")]
-        // [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Business Name Accepts Only Text Characters")]
         public string? BusinessName { get; set; }
 
         [Required(ErrorMessage = "Email Is Required")]
@@ -36,7 +40,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "FAX NO. Is Required")]
         public string FAXNumber { get; set; }
         [Required(ErrorMessage = "Business Contact Is Required")]
+
         public string? BusinessContact { get; set; }
+
         public int? vendorID { get; set; }
     }
 

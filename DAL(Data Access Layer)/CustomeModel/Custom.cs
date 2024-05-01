@@ -49,10 +49,10 @@ namespace HelloDocMVC.CustomeModel
         public string? zipcode { get; set; }
 
         public string? room { get; set; }
+
         public string? admin_note { get; set; }
 
         public IFormFile? upload { get; set; }
-
 
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
       ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]

@@ -5,8 +5,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 {
     public class PatientDashboardData
     {
-
-
         public int reqid { get; set; }
 
         public DateTime created_date { get; set; }
@@ -49,9 +47,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string zipcode { get; set; }
 
         public string? fulldateofbirth { get; set; }
+
         public DateTime fulldateofbirthMain { get; set; }
 
         public string str_month { get; set; }
+
         public string status { get; set; }
 
         public int? int_year { get; set; }
@@ -60,12 +60,12 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public List<string> documentsname { get; set; }
 
-
     }
 
     public class reviewAgreement
     {
         public int reqid { get; set; }
+
         public int flag { get; set; }
 
 
@@ -91,17 +91,13 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? confirmPassword { get; set; }
 
     }
-
+        
     public class PatientDashboard
     {
         public List<PatientDashboardData> data { get; set; }
 
-
         [Required(ErrorMessage = "Please Select Atleast One File")]
         public IFormFile Upload { get; set; }
-
-
-
         public reviewAgreement _reviewAgreement { get; set; }
 
     }

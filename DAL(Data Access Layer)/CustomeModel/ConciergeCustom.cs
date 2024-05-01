@@ -4,8 +4,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 {
     public class ConciergeCustom
     {
-
-
         [Required(ErrorMessage = "Please Enter Your First Name")]
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? concierge_firstname { get; set; }
@@ -38,9 +36,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [Required(ErrorMessage = "Please Enter Zipcode Name:")]
         [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
-
         public string? concierge_zipcode { get; set; }
-
 
         [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
         public string? symptoms { get; set; }

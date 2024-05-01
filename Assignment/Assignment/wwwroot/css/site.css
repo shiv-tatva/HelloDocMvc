@@ -134,4 +134,5 @@ tr{
 
 .dataTables_length{
     float:left;
+    display:none;
 }

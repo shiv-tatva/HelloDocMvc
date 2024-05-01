@@ -39,9 +39,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? RoleMain { get; set; }
 
         public string? passwordcheck { get; set; }
+
         public string? emailcheck { get; set; }
 
         public int roleId { get; set; }
+
         public int? flagId { get; set; }
     }
 

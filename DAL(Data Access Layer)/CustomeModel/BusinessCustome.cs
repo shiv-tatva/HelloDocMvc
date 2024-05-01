@@ -38,9 +38,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [Required(ErrorMessage = "Please Enter zipcode")]
         [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
-
         public string? zipcode { get; set; }
-
 
         [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
         public string? symptoms { get; set; }

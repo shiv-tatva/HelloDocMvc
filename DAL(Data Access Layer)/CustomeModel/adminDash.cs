@@ -13,61 +13,37 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? last_name { get; set; }
-
-
         public string? fulldateofbirth { get; set; }
-
         public string? str_month { get; set; }
         public int? int_year { get; set; }
         public int? int_date { get; set; }
-
         public string? phy_name { get; set; }
         public string? requestor_fname { get; set; }
-
         public string? responseor_lname { get; set; }
-
         public DateTime? created_date { get; set; }
-
         public string? requestor_mobile_num { get; set; }
-
         public string? mobile_num { get; set; }
-
         public string? city { get; set; }
-
         public string? street { get; set; }
 
         [StringLength(6, ErrorMessage = "Zipcode should less than 6 char")]
-
         public string? zipcode { get; set; }
-
         public string? state { get; set; }
-
         public string? address { get; set; }
-
         public List<Requeststatuslog>? notes { get; set; }
         public string? transfer_notes { get; set; }
-
         public string? region { get; set; }
         public int? region_id { get; set; }
         public int? call_type { get; set; }
-
         public int? request_type_id { get; set; }
-
         public int? status { get; set; }
-
         public string? email { get; set; }
-
         public int? reqid { get; set; }
-
         public string? cnf_number { get; set; }
-
         public List<Region> region_table { get; set; }
-
         public int? region_table_id { get; set; }
         public int? phy_id { get; set; }
-
         public int? flagId { get; set; }
-
         public int? assignCaseIndicate { get; set; }
         public BitArray isFinalize { get; set; }
 
@@ -81,7 +57,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? count4 { get; set; }
         public int? count5 { get; set; }
         public int? count6 { get; set; }
-
         public int roleId { get; set; }
 
     }
@@ -95,7 +70,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? aditional_notes { get; set; }
         public List<char> TransferNotes { get; set; }
 
-
         [Required(ErrorMessage = "Please Enter Physician Note")]
         public string? PhysicianNotes { get; set; }
 
@@ -103,7 +77,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? AdminNotes { get; set; }
         public string? AdminCancleNotes { get; set; }
         public string? PatientCancleNotes { get; set; }
-
         public List<Requeststatuslog> requeststatuslogs { get; set; }
     }
 
@@ -120,7 +93,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? status { get; set; }
 
     }
-
 
 
     public class casetageNote
@@ -143,15 +115,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<int> phy_id { get; set; }
         public List<int> region_id { get; set; }
         public List<string> region_name { get; set; }
-
-
         public List<Region> regions { get; set; }
-
-
         public List<string> phy_name { get; set; }
-
-        //public List<Physicianregion> phy_req { get; set; }
-
     }
 
     public class blockCaseModel
@@ -166,37 +131,26 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int reqid { get; set; }
         public string? email { get; set; }
-
         public List<DateTime> created_date { get; set; }
-
         public string? docname { get; set; }
-
         public string? cnf_number { get; set; }
-
 
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string fname { get; set; }
 
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string lname { get; set; }
-
         public int? user_id_param { get; set; }
-
         public List<string> documentsname { get; set; }
         public List<int> requestWiseFileId { get; set; }
 
-
         [Required(ErrorMessage = "Please Enter Atleast One File")]
         public IFormFile Upload { get; set; }
-
         public bool dlt_data { get; set; }
-
         public int? flagId { get; set; }
-
 
         [Required(ErrorMessage = "Please Enter Note")]
         public string? notes { get; set; }
-
         public BitArray isFinalize { get; set; }
     }
 
@@ -217,7 +171,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [Required(ErrorMessage = "Please Select Profession")]
         public int? healthId { get; set; }
-
 
         public List<Healthprofessionaltype> profession { get; set; }
 
@@ -247,12 +200,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<int> phy_id { get; set; }
         public List<int> region_id { get; set; }
         public List<string> region_name { get; set; }
-
         public List<Region> regions { get; set; }
-
         public List<string> phy_name { get; set; }
-
-        //public List<Physicianregion> phy_req { get; set; }
 
     }
 
@@ -260,7 +209,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int reqid { get; set; }
         public int? request_type_id { get; set; }
-
         public int? status { get; set; }
 
         [Required(ErrorMessage = "Please Enter Email")]
@@ -357,10 +305,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int reqid { get; set; }
 
-
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? FirstName { get; set; }
-
 
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "Last Name must contain only letters")]
         public string? LastName { get; set; }
@@ -442,21 +388,17 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Enter MedicationDispensed")]
         public string? MedicationDispensed { get; set; }
 
-
         [Required(ErrorMessage = "Please Enter Procedures")]
         public string? Procedures { get; set; }
 
-
         [Required(ErrorMessage = "Please Enter FollowUp")]
         public string? FollowUp { get; set; }
-
         public bool? indicate { get; set; }
         public BitArray isFinalize { get; set; }
     }
 
     public class sendLink
     {
-
         [RegularExpression(@"^\s*[A-Za-z]+\s*$", ErrorMessage = "First Name must contain only letters")]
         public string? FirstName { get; set; }
 
@@ -471,9 +413,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     public class createRequest
     {
-
         public int? requesttypeid { get; set; }
-
         public int? userid { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Street Name")]
@@ -508,13 +448,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Enter Your Phone Number")]
         [StringLength(10, ErrorMessage = "Mobile Number should less than 10 char")]
         public string? phone { get; set; }
-
         public string? room { get; set; }
-
 
         [RegularExpression(@"^\S.*$", ErrorMessage = "Symptoms cannot be null or whitespace.")]
         public string? admin_notes { get; set; }
-
         public bool? indicate { get; set; }
     }
 
@@ -527,30 +464,20 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class provider
     {
         public List<Physician> _physician { get; set; }
-
         public List<Physiciannotification> _notification { get; set; }
-
         public List<Role> _roles { get; set; }
         public List<Shift> _shift { get; set; }
         public List<Shiftdetail> _shiftDetails { get; set; }
-
         public string? onCallStatus { get; set; }
-
         public string? status { get; set; }
-
         public bool indicate { get; set; }
-
         public int? phyId { get; set; }
 
         [Required(ErrorMessage = "Please Enter A Message")]
         public string? message { get; set; }
-
         public int? statusId { get; set; }
         public int? shiftId { get; set; }
-
         public DateTime DateTime { get; set; }
-
-
 
     }
 
@@ -629,21 +556,15 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Required(ErrorMessage = "Please Enter Your Address2")]
         public string? Address2 { get; set; }
 
-
         public int PhyID { get; set; }
-
 
         public int statusId { get; set; }
 
-
         public int adminId { get; set; }
-
 
         public int aspnetUserId { get; set; }
 
         public List<Region> regions { get; set; }
-
-        //public List<Physicianregion> physicianregions { get; set; }
 
         [Required(ErrorMessage = "Please Enter Alternative Phonenumber")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
@@ -702,6 +623,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public DateTime? modified_date { get; set; }
 
         public int? modifiedBy { get; set; }
+
         public int? flagId { get; set; }
     }
 
@@ -748,7 +670,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     }
 
 
-    //*****************************************************************************************************
+    /// <summary>
+    /// adminDashData main CM
+    /// </summary>
     public class adminDashData
     {
         public List<adminDash> data { get; set; }
@@ -786,8 +710,11 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public provider _provider { get; set; }
 
         public AdminEditPhysicianProfile _providerEdit { get; set; }
+
         public List<Region> _RegionTable { get; set; }
+
         public List<PhysicianRegionTable> _phyRegionTable { get; set; }
+
         public List<AdminregionTable> _adminRegionTable { get; set; }
 
         public List<Role> _role { get; set; }

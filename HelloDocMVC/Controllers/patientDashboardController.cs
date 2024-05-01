@@ -27,6 +27,10 @@ namespace HelloDocMVC.Controllers
 
 
 
+        /// <summary>
+        /// this action is for patientDashboard
+        /// </summary>
+        /// <returns></returns>
         public IActionResult patientDashboard()
         {
             try
@@ -44,24 +48,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
 
-        //public IActionResult logoutSession()
-        //{
-
-        //    HttpContext.Session.Clear();
-        //    return RedirectToAction("LoginPage", "Login");
-
-        //}
-
-
-
-
-
-
+        /// <summary>
+        /// this action is for DownloadFile
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public IActionResult DownloadFile(string data)
         {
             try
@@ -77,11 +72,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for profile
+        /// </summary>
+        /// <returns></returns>
         public IActionResult profileMain()
         {
             try
@@ -105,10 +104,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
+
+
+        /// <summary>
+        /// this action is for profile
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult profileMain(PatientDashboardData p)
         {
@@ -134,36 +138,21 @@ namespace HelloDocMVC.Controllers
                 _db.SaveChanges();
 
                 return RedirectToAction("profileMain");
-
-                //PatientDashboardData viewUpdated_data = new PatientDashboardData();
-
-                //User updateduserdata = _db.Users.FirstOrDefault(x => x.Email == userEmail);
-
-                //if (updateduserdata != null)
-                //{
-
-                //    viewUpdated_data.fname = updateduserdata.Firstname;
-
-                //    viewUpdated_data.lname = updateduserdata.Lastname;
-                //    viewUpdated_data.phone_no = updateduserdata.Mobile;
-                //    viewUpdated_data.street = updateduserdata.Street;
-                //    viewUpdated_data.state = updateduserdata.State;
-                //    viewUpdated_data.city = updateduserdata.City;
-                //    viewUpdated_data.zipcode = updateduserdata.Zipcode;
-                //    viewUpdated_data.email = updateduserdata.Email;
-                //}
-                //return View(viewUpdated_data);
             }
             catch
             {
                 return NotFound();
             }
 
-
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for dashboard view(ME)
+        /// </summary>
+        /// <returns></returns>
         public IActionResult dashboardMeView()
         {
             try
@@ -188,13 +177,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
 
 
-
+        /// <summary>
+        /// this action is for dashboard me view
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult dashboardMeView(Custom obj)
         {
@@ -209,10 +201,15 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for dashboard someone view
+        /// </summary>
+        /// <returns></returns>
         public IActionResult dashboardSomeOneView()
         {
             try
@@ -237,10 +234,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for dashboardSomeOneView
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult dashboardSomeOneView(FamilyFriendData obj)
         {
@@ -256,18 +259,30 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for SubmitElseInfo
+        /// </summary>
+        /// <returns></returns>
         public IActionResult SubmitElseInfo()
         {
             return View();
         }
 
 
+
+
+        /// <summary>
+        /// this action is for viewDetail
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         public IActionResult viewDetail(int param)
         {
-
             try
             {
                 if (HttpContext.Session.GetString("UserSession").ToString() != null)
@@ -294,10 +309,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
-
         }
 
+
+
+
+        /// <summary>
+        /// this action is for viewDetail
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult viewDetail(PatientDashboard obj)
         {
@@ -313,10 +334,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for pendingReviewAgreement
+        /// </summary>
+        /// <param name="reqId"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public IActionResult pendingReviewAgreement(int reqId)
         {
@@ -332,10 +359,16 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
 
+
+
+        /// <summary>
+        /// this action is for pendingReviewAgreement
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public IActionResult pendingReviewAgreement(PatientDashboard obj)
@@ -372,8 +405,6 @@ namespace HelloDocMVC.Controllers
             {
                 return NotFound();
             }
-
-
 
         }
     }

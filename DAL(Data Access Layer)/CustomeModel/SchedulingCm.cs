@@ -8,7 +8,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public ScheduleModel ScheduleModel { get; set; }
 
-
         public List<Region> regions { get; set; }
 
         public DayShiftModal DayShiftModal { get; set; }
@@ -28,6 +27,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int regionId { get; set; }
 
         public int callId { get; set; }
+
         public int? phyId { get; set; }
     }
 
@@ -38,16 +38,20 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         [Required(ErrorMessage = "Please Select the Physician")]
         public int Physicianid { get; set; }
+
         public string? PhysicianName { get; set; }
+
         public string? PhysicianPhoto { get; set; }
 
         [Required(ErrorMessage = "Please Select the region")]
         public int Regionid { get; set; }
+
         public string? RegionName { get; set; }
 
 
         [Required(ErrorMessage = "Please Select the Start Date")]
         public DateOnly Startdate { get; set; }
+
         public DateTime Shiftdate { get; set; }
 
         [Required(ErrorMessage = "Please Select the Start Time")]
@@ -61,7 +65,9 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? checkWeekday { get; set; }
 
         public int? Repeatupto { get; set; }
+
         public short Status { get; set; }
+
         public List<ScheduleModel> DayList { get; set; }
 
     }
@@ -106,9 +112,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int physicianid { get; set; }
         public int shiftdetailsid { get; set; }
         public string datestring { get; set; }
-
         public DateTime columnDate { get; set; }
-
         public int physicianobj { get; set; }
     }
 
@@ -136,15 +140,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public short Status { get; set; }
         public BitArray Isdeleted { get; set; }
         public string? Eventid { get; set; }
-
         public string? Abberaviation { get; set; }
-
         public string regionname { get; set; }
-
-
         public List<Region> regions { get; set; }
         public List<Physician> Physicians { get; set; }
-
         public List<ShiftDetailsmodal> ViewAllList { get; set; }
     }
 
@@ -152,7 +151,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public int startdate { get; set; }
         public int enddate { get; set; }
-
         public string[] dayNames { get; set; }
         public List<int> datelist { get; set; }
         public List<ShiftDetailsmodal> shiftDetailsmodals { get; set; }
@@ -161,11 +159,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     public class OnCallModal
     {
-
         public List<Physician> OnCall { get; set; }
-
         public List<Physician> OffDuty { get; set; }
-
         public List<Region> regions { get; set; }
     }
 

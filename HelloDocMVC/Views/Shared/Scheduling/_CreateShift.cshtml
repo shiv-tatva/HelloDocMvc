@@ -8,48 +8,50 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" class="row p-3 dark-mode2" id="createShiftForm" onsubmit="createShiftPost()">
+                @*<input type="hidden" asp-for="Shiftid" />*@
+
                 <div class="form-floating my-3">
-                   @*  <select asp-for="@Model.ScheduleModel.Regionid" class="p-2 px-2 form-select w-100 " id="selectregion" onchange="regionChange2()">
+                    <select asp-for="@Model.ScheduleModel.Regionid" class="p-2 px-2 form-select w-100 " id="selectregion" onchange="regionChange2()">
                         <option value="" selected disabled>Regions</option>
                         @foreach (var region in Model.regions)
                         {
                             <option value="@region.Regionid">@region.Name</option>
                         }
                     </select>
-                    <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Regionid"></span> *@
+                    <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Regionid"></span>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <select class="form-select p-2"  id="physicianlist" aria-label="Default select example" disabled>
+                    <select class="form-select p-2" asp-for="@Model.ScheduleModel.Physicianid" id="physicianlist" aria-label="Default select example" disabled>
                         <option value="" selected disabled>Physician</option>
                     </select>
-@*                     <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Physicianid"></span>
- *@                </div>
+                    <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Physicianid"></span>
+                </div>
 
                 <div class="col-md-12 form-floating mb-3">
-                    <input id="StartDate"  class="form-control rounded vcs" type="date" placeholder=Suchtext autocomplete=off>
+                    <input id="StartDate" asp-for="@Model.ScheduleModel.Startdate" class="form-control rounded vcs" type="date" placeholder=Suchtext autocomplete=off>
                     <label class="ms-2" for="floatingInput">Starting Date</label>
-@*                     <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Startdate"></span>
- *@                </div>
+                    <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Startdate"></span>
+                </div>
                 <div class="col-md-6 form-floating mb-3">
-                    <input id="StartTime"  class="form-control rounded vcs" type="time" placeholder=Suchtext autocomplete=off>
+                    <input id="StartTime" asp-for="@Model.ScheduleModel.Starttime" class="form-control rounded vcs" type="time" placeholder=Suchtext autocomplete=off>
                     <label class="ms-2" for="floatingInput">Start</label>
-@*                     <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Starttime"></span>
- *@                </div>
+                    <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Starttime"></span>
+                </div>
                 <div class="col-md-6 form-floating mb-3">
-                    <input id="EndTime"  class="form-control rounded vcs" type="time" placeholder=Suchtext autocomplete=off>
+                    <input id="EndTime" asp-for="@Model.ScheduleModel.Endtime" class="form-control rounded vcs" type="time" placeholder=Suchtext autocomplete=off>
                     <label class="ms-2" for="floatingInput">End</label>
-                    @* <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Endtime"></span> *@
+                    <span class="text-danger" asp-validation-for="@Model.ScheduleModel.Endtime"></span>
                 </div>
 
 
                 <div class="form-check form-switch col-md-6 d-flex align-items-center justify-content-start mb-3 mx-3">
-                    <input class="form-check-input"  id="Isrepeat" type="checkbox" role="switch" onchange="toggleCheckboxes()">
+                    <input class="form-check-input" asp-for="@Model.ScheduleModel.Isrepeat" id="Isrepeat" type="checkbox" role="switch" onchange="toggleCheckboxes()">
                     <label class="form-check-label mx-2" for="Isrepeat">Repet</label>
                 </div>
 
                 <label class="my-2" for="Sunday">Repeat Days</label>
-                @* <input type="hidden" asp-for="@Model.ScheduleModel.checkWeekday" id="checkWeekday" /> *@
+                <input type="hidden" asp-for="@Model.ScheduleModel.checkWeekday" id="checkWeekday" />
 
                 <div class="col-md-12 row form-floating">
 
@@ -259,6 +261,6 @@
     });
 
 
-    
+
 
 </script>

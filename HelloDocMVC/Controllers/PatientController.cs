@@ -48,7 +48,6 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
-
         }
 
         public PatientController(IPatientRequest patientRequest, IConcierge conciergeRequest, IFamilyFriend familyFriend, IBusiness businessRequest, IAdminDash iAdminDash)
@@ -91,9 +90,6 @@ namespace HelloDocMVC.Controllers
             }
 
         }
-
-
-
 
 
         public IActionResult BusinessInfo()
