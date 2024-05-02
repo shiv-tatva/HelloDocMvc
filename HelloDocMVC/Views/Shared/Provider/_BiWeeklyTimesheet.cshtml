@@ -29,7 +29,7 @@
         }
     </div>
 </div>
-<form asp-action="HandleSubmitTimeSheet" method="post" asp-controller="Home" enctype="multipart/form-data">
+<form  method="post" enctype="multipart/form-data" id="BiWeeklyForm">
     <input type="hidden" asp-for="startDate" value="@Model.startDate">
     <input type="hidden" asp-for="endDate" value="@Model.endDate">
     <input type="hidden" asp-for="PhysicianId" />
@@ -87,7 +87,7 @@
             }
         </table>
         <div class="d-flex gap-2 justify-content-end mb-3" style="padding-left:15%;">
-            <button class="btn btn-info text-white submit" type="submit" name="command" value="Submit">Submit</button>
+            <button class="btn btn-info text-white submit" type="button" onclick="BiWeeklyTimeSubmit()" name="command" value="Submit">Submit</button>
         </div>
     </div>
     <div class="d-flex gap-2 justify-content-start mb-3 mt-3" style="padding-left:15%;">
@@ -100,7 +100,7 @@
                 <td width="10%" class="ViewUploadtd">Date</td>
                 <td width="15%" class="ViewUploadtd">Item</td>
                 <td width="15%" class="ViewUploadtd">Amount</td>
-                <td width="40%" class="ViewUploadtd">Bill</td>
+                <td width="40%" class="ViewUploadtd ps-5">Bill</td>
                 <td width="20%" class="ViewUploadtd">Action</td>
             </tr>
             @for (int i = 0; i <= Model.differentDays; i++)
@@ -112,7 +112,7 @@
                     <td class="ViewUploadtd">
                         @if (Model.timesheets[i].BillName == null && Model.isAdminSide == false)
                         {
-                            <div class="input-group w-75 m-auto">
+                            <div class="input-group w-75 m-auto ps-4" style="float:left;">
                                 <input asp-for="timesheets[i].BillName" type="text" id="file-input-@i" class="form-control pe-0" placeholder="Select File"
                                        style="border-right: none !important; height:58px !important" aria-label="Recipient's username" disabled
                                        aria-describedby="basic-addon2" />
@@ -120,7 +120,7 @@
                                     <label for="uploadbtn-@i" class="btn btn-info text-white uploadbtn py-2" style="height: 100%;display: flex;align-items: center;">
                                         <i class="bi bi-cloud-upload me-1"></i>
                                         <span class="up">Upload</span>
-                                        <input asp-for=timesheets[i].Bill type="file" id="uploadbtn-@i" style="display: none;" class="enabled3" onchange="FileUpload(@i)">
+                                        <input asp-for="timesheets[i].Bill" type="file" id="uploadbtn-@i" style="display: none;" class="enabled3" onchange="FileUpload(@i)">
                                     </label>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                         }
                         else
                         {
-                            <div class="w-100 m-auto" style="text-align:center">@Model.timesheets[i].BillName</div>
+                            <div class="w-100 m-auto ps-4" style="text-align:left">@Model.timesheets[i].BillName</div>
                         }
                     </td>
                     <td class="ViewUploadtd">
@@ -143,10 +143,10 @@
                         }
                         else
                         {
-                            <a type="button" href="~/Uploaded_files/ProviderBills/@Model.PhysicianId-@Model.startDate.AddDays(i)-@Model.timesheets[i].BillName" target="_blank" class="submit1">View</a>
+                            <a type="button" href="~/Uploaded_files/ProviderBills/@Model.PhysicianId-@Model.startDate.AddDays(i)-@Model.timesheets[i].BillName" target="_blank" class="submit1 btn shadow  btn-outline-info px-3">View</a>
                             if (Model.isAdminSide == false)
                             {
-                                <button type="button" class="submit1" onclick="location.href='@Url.Action("DeleteBill","Home",new{ id = Model.timesheets[i].WeeklyTimesheetDeatilsId,startDate = Model.startDate,endDate = Model.endDate})'">Delete</button>
+                                <button type="button" class="submit1 btn shadow  btn-outline-info px-3" onclick="DeleteBill('@Model.timesheets[i].WeeklyTimesheetDeatilsId','@Model.startDate','@Model.endDate')">Delete</button>
                             }
                         }
                     </td>
@@ -159,8 +159,8 @@
 
     @if (Model.IsFinalized == true && Model.isAdminSide == false)
     {
-        <div class="m-auto py-3 d-flex justify-content-end" style="width:70%">
-            <a class="submit" asp-action="FinalizeTimeSheet" asp-route-id="@Model.TimeSheetId">Finalize</a>
+        <div class="d-flex gap-2 justify-content-end mb-3 mt-3" style="padding-right:15%;">
+            <button onclick="FinalizeTimeSheet()" class="btn btn-info text-white" type="button">Finalize</button>
         </div>
     }
     @if (Model.isAdminSide == true)
@@ -202,6 +202,7 @@
     }
 </script>
 <script>
+
     function toggleDivVisibility() {
         var div = document.getElementById("ReciptsDiv");
         if (div.style.display === "none") {
@@ -210,4 +211,41 @@
             div.style.display = "none";
         }
     }
+
+    function BiWeeklyTimeSubmit() {
+        $.ajax({
+            url: "/Provider/SubmitTimeSheet",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: new FormData($('#BiWeeklyForm')[0]),
+            success: function (result) {
+                InvoicingMain();
+                toastr.success("TimeSheet Saved Succesfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
+    function DeleteBill(id, startDate, endDate) {   
+        $.ajax({
+            url: "/Provider/DeleteBill",
+            type: 'POST',
+            data: {
+                id: id,
+                startDate: startDate,
+                endDate: endDate
+            },
+            success: function (result) {
+                InvoicingMain();
+                toastr.success("Bill Deleted Successfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });    
+    }
+
 </script>

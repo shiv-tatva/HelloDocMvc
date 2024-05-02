@@ -98,6 +98,7 @@
     function FinalizeNew() {
         var PhyscianID = $('#PhyscianID').val();
         var timesheetdropdown = $('#timesheetdropdown').val();
+        console.log(timesheetdropdown);
         $.ajax({
             url: "/Provider/BiWeeklyTimesheet",
             method: 'GET',

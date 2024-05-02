@@ -3,6 +3,7 @@ using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
 using LinqKit;
+using Microsoft.AspNetCore.Http;
 using System.Collections;
 using System.Linq.Expressions;
 using System.Net;
@@ -16,13 +17,15 @@ namespace BLL_Business_Logic_Layer_.Services
         private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> _weeklyTimeSheetRepo;
         private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> _weeklyTimeSheetDetailRepo;
         private readonly IGenericRepository<PayRate> _payRateRepo;
+        private readonly IGenericRepository<Shiftdetail> _shiftDetailrepo;
 
-        public ProviderDash(ApplicationDbContext context, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> weeklyTimeSheetDetailRepo,IGenericRepository<PayRate> payRateRepo)
+        public ProviderDash(ApplicationDbContext context, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> weeklyTimeSheetDetailRepo,IGenericRepository<PayRate> payRateRepo, IGenericRepository<Shiftdetail> shiftDetailrepo)
         {
             _context = context;
             _weeklyTimeSheetRepo = weeklyTimeSheetRepo;
             _weeklyTimeSheetDetailRepo = weeklyTimeSheetDetailRepo;
             _payRateRepo = payRateRepo;
+            _shiftDetailrepo = shiftDetailrepo;
         }
 
         public void ProivderAccept(int reqId)
@@ -537,6 +540,115 @@ namespace BLL_Business_Logic_Layer_.Services
             model.IsFinalized = weeklyTimeSheet == null ? false : true;
             model.isAdminSide = AdminID == null ? false : true;
             return model;
+
+        }
+
+        public void AprooveTimeSheet(InvoicingViewModel model, int? AdminID)
+        {
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == model.PhysicianId && u.StartDate == model.startDate && u.EndDate == model.endDate);
+            if (weeklyTimeSheet != null)
+            {
+                weeklyTimeSheet.AdminId = AdminID;
+                weeklyTimeSheet.Status = 2;
+                weeklyTimeSheet.BonusAmount = model.BonusAmount;
+                weeklyTimeSheet.AdminNote = model.AdminNotes;
+                _weeklyTimeSheetRepo.Update(weeklyTimeSheet);
+            }
+        }
+
+        public void SubmitTimeSheet(InvoicingViewModel model, int? PhysicianId)
+        {
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet existingWeekltTimesheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == model.startDate && u.EndDate == model.endDate);
+            if (existingWeekltTimesheet == null)
+            {
+                DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = new DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet();
+                weeklyTimeSheet.StartDate = model.startDate;
+                weeklyTimeSheet.EndDate = model.endDate;
+                weeklyTimeSheet.Status = 1;
+                weeklyTimeSheet.CreatedDate = DateTime.Now;
+                weeklyTimeSheet.ProviderId = PhysicianId ?? 0;
+                _weeklyTimeSheetRepo.Add(weeklyTimeSheet);
+
+                foreach (var item in model.timesheets)
+                {
+                    BitArray deletedBit = new BitArray(new[] { false });
+
+                    DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail detail = new DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail();
+                    detail.Date = item.Date;
+                    detail.NumberOfShifts = _shiftDetailrepo.Count(u => u.Shift.Physicianid == PhysicianId && DateOnly.FromDateTime(u.Shiftdate) == item.Date && u.Isdeleted == deletedBit);
+                    detail.TotalHours = item.TotalHours;
+                    detail.IsWeekendHoliday = item.Weekend;
+                    detail.HouseCall = item.NumberOfHouseCall;
+                    detail.PhoneConsult = item.NumberOfPhoneConsults;
+                    detail.OnCallHours = item.OnCallhours;
+                    detail.TimeSheetId = weeklyTimeSheet.TimeSheetId;
+                    if (item.Bill != null)
+                    {
+                        IFormFile newFile = item.Bill;
+                        detail.Bill = newFile.FileName;
+                        var filePath = Path.Combine("wwwroot", "Uploaded_files", "ProviderBills", PhysicianId + "-" + item.Date + "-" + Path.GetFileName(newFile.FileName));
+                        using (FileStream stream = System.IO.File.Create(filePath))
+                        {
+                            newFile.CopyTo(stream);
+                        }
+                    }
+                    detail.Item = item.Items;
+                    detail.Amount = item.Amount;
+                    _weeklyTimeSheetDetailRepo.Add(detail);
+                }
+            }
+            else
+            {
+                var exsitingTimeSheetDetail = _weeklyTimeSheetDetailRepo.GetList(u => u.TimeSheetId == existingWeekltTimesheet.TimeSheetId && u.Date >= model.startDate && u.Date <= model.endDate);
+                List<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> list = new List<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail>();
+
+                for (int i = 0; i < model.timesheets.Count; i++)
+                {
+                    var currentDate = model.timesheets[i].Date;
+                    DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail weeklyTimeSheetDetail = exsitingTimeSheetDetail.FirstOrDefault(detail => detail.Date == currentDate)!;
+                    if (weeklyTimeSheetDetail != null)
+                    {
+                        weeklyTimeSheetDetail.Date = model.timesheets[i].Date;
+                        weeklyTimeSheetDetail.HouseCall = model.timesheets[i].NumberOfHouseCall;
+                        weeklyTimeSheetDetail.PhoneConsult = model.timesheets[i].NumberOfPhoneConsults;
+                        weeklyTimeSheetDetail.Item = model.timesheets[i].Items ?? null;
+                        weeklyTimeSheetDetail.Amount = model.timesheets[i].Amount;
+                        weeklyTimeSheetDetail.OnCallHours = model.timesheets[i].OnCallhours;
+                        weeklyTimeSheetDetail.TotalHours = model.timesheets[i].TotalHours;
+                        weeklyTimeSheetDetail.IsWeekendHoliday = model.timesheets[i].Weekend;
+                        if (model.timesheets[i].Bill != null && model.timesheets[i].Bill!.Length > 0)
+                        {
+                            IFormFile newFile = model.timesheets[i].Bill!;
+                            weeklyTimeSheetDetail.Bill = newFile.FileName;
+                            var filePath = Path.Combine("wwwroot", "Uploaded_files", "ProviderBills", PhysicianId + "-" + model.timesheets[i].Date + "-" + Path.GetFileName(newFile.FileName));
+                            FileStream stream = null;
+                            try
+                            {
+                                stream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+                                newFile.CopyToAsync(stream)
+;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"An error occurred: {ex.Message}");
+                            }
+                        }
+                        list.Add(weeklyTimeSheetDetail);
+                    }
+                }
+                foreach (DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail item in list)
+                {
+                    _weeklyTimeSheetDetailRepo.Update(item);
+                }
+            }
+
+        }
+
+        public void DeleteBill(int id)
+        {
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail weeklyTimeSheetDetail = _weeklyTimeSheetDetailRepo.GetFirstOrDefault(u => u.TimeSheetDetailId == id);
+            weeklyTimeSheetDetail.Bill = null;
+            _weeklyTimeSheetDetailRepo.Update(weeklyTimeSheetDetail);
 
         }
     }

@@ -1645,7 +1645,7 @@ namespace BLL_Business_Logic_Layer_.Services
         //***********************************Provider*************************************
 
         public provider providerMain(int regionId = 0)
-        {
+        { 
             BitArray deletedBit = new BitArray(new[] { false });
 
             provider provider = new provider()

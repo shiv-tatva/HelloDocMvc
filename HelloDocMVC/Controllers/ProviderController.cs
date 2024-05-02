@@ -1623,7 +1623,6 @@ namespace HelloDocMVC.Controllers
         }
 
 
-
         public IActionResult Invoicing()
         {
             try
@@ -1641,7 +1640,6 @@ namespace HelloDocMVC.Controllers
         }
 
 
-
         public IActionResult GetInvoicingDataonChangeOfDate(string selectedValue, int PhysicianId)
         {
             int? AdminID = HttpContext.Session.GetInt32("AdminId");
@@ -1653,7 +1651,6 @@ namespace HelloDocMVC.Controllers
         }
 
 
-
         public IActionResult GetUploadedDataonChangeOfDate(string selectedValue, int PhysicianId, int pageNumber, int pagesize)
         {
             string[] dateRange = selectedValue.Split('*');
@@ -1662,7 +1659,6 @@ namespace HelloDocMVC.Controllers
             InvoicingViewModel model = _IProviderDash.GetUploadedDataonChangeOfDate(startDate, endDate, PhysicianId, pageNumber, pagesize);
             return PartialView("Provider/_TimeSheetReiembursementPartialView", model);
         }
-
 
 
         public IActionResult BiWeeklyTimesheet(string selectedValue, int PhysicianId)
@@ -1681,6 +1677,53 @@ namespace HelloDocMVC.Controllers
             DateOnly endDate = DateOnly.Parse(dateRange[1]);
             InvoicingViewModel model = _IProviderDash.getDataOfTimesheet(startDate, endDate, PhysicianId, AdminID);
             return PartialView("Provider/_BiWeeklyTimesheet", model);
+        }
+
+
+        
+        //public IActionResult HandleSubmitTimeSheet(InvoicingViewModel model, string command)
+        //{
+        //    if (command == "Aproove")
+        //    {
+        //        return AprooveTimeSheet(model);
+        //    }
+        //    else
+        //    {
+        //        return SubmitTimeSheet(model);
+        //    }
+        //}
+
+
+        [HttpPost]
+        public IActionResult AprooveTimeSheet(InvoicingViewModel model)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            _IProviderDash.AprooveTimeSheet(model, AdminID);
+            TempData["successrequest"] = "TimeSheet Aprooved Succesfully";
+            return Ok();
+        }
+
+
+        [HttpPost]
+        public IActionResult SubmitTimeSheet(InvoicingViewModel model)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            _IProviderDash.SubmitTimeSheet(model, model.PhysicianId);
+            TempData["success"] = "TimeSheet Saved Succesfully";
+            if (AdminID == null)
+            {
+                return RedirectToAction("Invoicing", "Provider");
+            }
+            else
+            {
+                return RedirectToAction("Invoicing", "Admin");
+            }
+        }
+
+        public IActionResult DeleteBill(int id, DateOnly startDate, DateOnly endDate)
+        {
+            _IProviderDash.DeleteBill(id);
+            return Ok();
         }
     }
 }

@@ -54,8 +54,6 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             else
             {
-
-
                 if (db.Aspnetusers.Where(r => r.Email == obj.Email).FirstOrDefault() == null)
                 {
                     users.emailcheck = "emailFalse";

@@ -151,6 +151,7 @@
     <Folder Include="wwwroot\lib\jquery\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
     <Folder Include="wwwroot\rotativa\" />
+    <Folder Include="wwwroot\Uploaded_files\ProviderBills\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -22,6 +22,8 @@ namespace BLL_Business_Logic_Layer_.Interface
         public InvoicingViewModel GetInvoicingDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID);
         public InvoicingViewModel GetUploadedDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int pageNumber, int pagesize);
         public InvoicingViewModel getDataOfTimesheet(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID);
-
+        public void AprooveTimeSheet(InvoicingViewModel model, int? AdminID);
+        public void SubmitTimeSheet(InvoicingViewModel model, int? PhysicianId);
+        public void DeleteBill(int id);
     }
 }
