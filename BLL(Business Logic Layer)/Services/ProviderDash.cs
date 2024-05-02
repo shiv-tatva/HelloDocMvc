@@ -651,5 +651,14 @@ namespace BLL_Business_Logic_Layer_.Services
             _weeklyTimeSheetDetailRepo.Update(weeklyTimeSheetDetail);
 
         }
+        public void FinalizeTimeSheet(int id)
+        {
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.TimeSheetId == id);
+            if (weeklyTimeSheet != null)
+            {
+                weeklyTimeSheet.IsFinalized = true;
+                _weeklyTimeSheetRepo.Update(weeklyTimeSheet);
+            }
+        }
     }
 }

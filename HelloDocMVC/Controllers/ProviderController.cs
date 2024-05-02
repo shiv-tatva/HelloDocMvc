@@ -1720,9 +1720,17 @@ namespace HelloDocMVC.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult DeleteBill(int id, DateOnly startDate, DateOnly endDate)
         {
             _IProviderDash.DeleteBill(id);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult FinalizeTimeSheet(int id)
+        {
+            _IProviderDash.FinalizeTimeSheet(id);
             return Ok();
         }
     }

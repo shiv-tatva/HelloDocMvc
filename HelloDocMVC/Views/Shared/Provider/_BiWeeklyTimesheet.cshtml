@@ -100,7 +100,7 @@
                 <td width="10%" class="ViewUploadtd">Date</td>
                 <td width="15%" class="ViewUploadtd">Item</td>
                 <td width="15%" class="ViewUploadtd">Amount</td>
-                <td width="40%" class="ViewUploadtd ps-5">Bill</td>
+                <td width="30%" class="ViewUploadtd ps-5">Bill</td>
                 <td width="20%" class="ViewUploadtd">Action</td>
             </tr>
             @for (int i = 0; i <= Model.differentDays; i++)
@@ -143,6 +143,7 @@
                         }
                         else
                         {
+                            <button type="button" class="submit1 btn shadow  btn-outline-info px-3" onclick="EditBill()">Edit</button>
                             <a type="button" href="~/Uploaded_files/ProviderBills/@Model.PhysicianId-@Model.startDate.AddDays(i)-@Model.timesheets[i].BillName" target="_blank" class="submit1 btn shadow  btn-outline-info px-3">View</a>
                             if (Model.isAdminSide == false)
                             {
@@ -160,7 +161,7 @@
     @if (Model.IsFinalized == true && Model.isAdminSide == false)
     {
         <div class="d-flex gap-2 justify-content-end mb-3 mt-3" style="padding-right:15%;">
-            <button onclick="FinalizeTimeSheet()" class="btn btn-info text-white" type="button">Finalize</button>
+            <button onclick="FinalizeTimeSheet(@Model.TimeSheetId)" class="btn btn-info text-white" type="button">Finalize</button>
         </div>
     }
     @if (Model.isAdminSide == true)
@@ -246,6 +247,25 @@
                 toastr.error("Error");
             },
         });    
+    }
+
+    function FinalizeTimeSheet(id){
+        $.ajax({
+            url: "/Provider/FinalizeTimeSheet",
+            type: 'POST',
+            data: {id: id},
+            success: function (result) {
+                InvoicingMain();
+                toastr.success("TimeSheet Finalized Succesfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
+    function EditBill(){
+        alert("Edit Clicked");
     }
 
 </script>
