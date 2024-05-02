@@ -1622,5 +1622,44 @@ namespace HelloDocMVC.Controllers
 
         }
 
+
+
+
+        public IActionResult Invoicing()
+        {
+            try
+            {         
+                InvoicingViewModel invoicingViewModel = new InvoicingViewModel();
+                invoicingViewModel.dates = _IProviderDash.GetDates();
+                return PartialView("Provider/_Invoicing", invoicingViewModel);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+
+
+        public IActionResult GetInvoicingDataonChangeOfDate(string selectedValue, int PhysicianId)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _IProviderDash.GetInvoicingDataonChangeOfDate(startDate, endDate, PhysicianId, AdminID);
+            return PartialView("Provider/_InvoicingPartialView", model);
+        }
+
+
+
+        public IActionResult GetUploadedDataonChangeOfDate(string selectedValue, int PhysicianId, int pageNumber, int pagesize)
+        {
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _IProviderDash.GetUploadedDataonChangeOfDate(startDate, endDate, PhysicianId, pageNumber, pagesize);
+            return PartialView("Provider/_TimeSheetReiembursementPartialView", model);
+        }
     }
 }

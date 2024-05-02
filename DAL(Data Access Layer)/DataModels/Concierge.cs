@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Data_Access_Layer_.DataModels;
 
@@ -31,7 +34,7 @@ public partial class Concierge
     public string State { get; set; } = null!;
 
     [Column("zipcode")]
-    [StringLength(10)]
+    [StringLength(50)]
     public string Zipcode { get; set; } = null!;
 
     [Column("createddate", TypeName = "timestamp without time zone")]

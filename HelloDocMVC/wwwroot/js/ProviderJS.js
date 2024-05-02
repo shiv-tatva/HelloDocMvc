@@ -53,6 +53,21 @@ function MyProfileMain() {
     });
 }
 
+function InvoicingMain() {
+    let action = "/Provider" + "/" + "Invoicing"
+    $.ajax({
+        url: action,
+        type: 'GET',
+        success: function (result) {
+            $('#content').html(result);
+        },
+        error: function (e) {
+            console.log(e);
+            toastr.error("Error To Load Partial View");
+        }
+    });
+}
+
 function newTabThree() {
     document.getElementById("triangle1").style.display = "block"
     document.getElementById("triangle2").style.display = "none"

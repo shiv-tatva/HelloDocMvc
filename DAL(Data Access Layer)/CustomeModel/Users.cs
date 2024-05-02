@@ -9,6 +9,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         [Key]
         [Column("id")]
         public int? Id { get; set; }
+        public int adminId { get; set; }
 
         [Column("username")]
         [StringLength(256)]

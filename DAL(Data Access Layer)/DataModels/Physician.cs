@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Data_Access_Layer_.DataModels;
 
@@ -140,6 +143,9 @@ public partial class Physician
     public virtual Aspnetuser? ModifiedbyNavigation { get; set; }
 
     [InverseProperty("Physician")]
+    public virtual ICollection<PayRate> PayRates { get; set; } = new List<PayRate>();
+
+    [InverseProperty("Physician")]
     public virtual ICollection<Physicianlocation> Physicianlocations { get; set; } = new List<Physicianlocation>();
 
     [InverseProperty("Physician")]
@@ -162,4 +168,7 @@ public partial class Physician
 
     [InverseProperty("Physician")]
     public virtual ICollection<Shift> Shifts { get; set; } = new List<Shift>();
+
+    [InverseProperty("Provider")]
+    public virtual ICollection<WeeklyTimeSheet> WeeklyTimeSheets { get; set; } = new List<WeeklyTimeSheet>();
 }

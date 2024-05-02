@@ -11,6 +11,7 @@
           "EPPlus": "7.0.10",
           "Geocoding.Microsoft": "4.0.1",
           "GoogleMaps.LocationServices": "1.2.0.5",
+          "Hangfire.Core": "1.8.12",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.0",
           "Microsoft.AspNetCore.Http.Features": "3.1.32",
           "Microsoft.EntityFrameworkCore": "7.0.15",
@@ -93,6 +94,61 @@
           "lib/netstandard2.0/GoogleMaps.LocationServices.dll": {
             "assemblyVersion": "1.2.0.5",
             "fileVersion": "1.2.0.5"
+          }
+        }
+      },
+      "Hangfire.Core/1.8.12": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.Core.dll": {
+            "assemblyVersion": "1.8.12.0",
+            "fileVersion": "1.8.12.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/ca/Hangfire.Core.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/netstandard2.0/de/Hangfire.Core.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/Hangfire.Core.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fa/Hangfire.Core.resources.dll": {
+            "locale": "fa"
+          },
+          "lib/netstandard2.0/fr/Hangfire.Core.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/nb/Hangfire.Core.resources.dll": {
+            "locale": "nb"
+          },
+          "lib/netstandard2.0/nl/Hangfire.Core.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/netstandard2.0/pt-BR/Hangfire.Core.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.0/pt-PT/Hangfire.Core.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/netstandard2.0/pt/Hangfire.Core.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/netstandard2.0/sv/Hangfire.Core.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/netstandard2.0/tr-TR/Hangfire.Core.resources.dll": {
+            "locale": "tr-TR"
+          },
+          "lib/netstandard2.0/zh-TW/Hangfire.Core.resources.dll": {
+            "locale": "zh-TW"
+          },
+          "lib/netstandard2.0/zh/Hangfire.Core.resources.dll": {
+            "locale": "zh"
           }
         }
       },
@@ -2665,6 +2721,13 @@
       "sha512": "sha512-0j3RL5+acxYgQNz72JdXJ1nUKxMGaY+6UvrOIOxZfp0qpJOUmo/ivCAm53atbnuy0z3vrZK+j9mZifh35UBqag==",
       "path": "googlemaps.locationservices/1.2.0.5",
       "hashPath": "googlemaps.locationservices.1.2.0.5.nupkg.sha512"
+    },
+    "Hangfire.Core/1.8.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EP2JbfDiOAo6Jo3VmQAbRm7Cq6tcldiI2V/xYYjilIGutWuhgxM7aP+uJW6sE5LAnrLL54ahYfBISJLdE1VimQ==",
+      "path": "hangfire.core/1.8.12",
+      "hashPath": "hangfire.core.1.8.12.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",

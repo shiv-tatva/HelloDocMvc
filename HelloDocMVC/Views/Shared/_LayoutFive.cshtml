@@ -150,6 +150,16 @@
                                 </button>
                             </li>
                             }
+                            @if (ViewBag.Menu.Contains("Invoicing"))
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link text-muted px-3 dark-mode3" id="invoicing-tab" data-bs-toggle="tab"
+                                            data-bs-target="#invoicing-tab-pane" type="button" role="tab" aria-controls="invoicing-tab-pane"
+                                            aria-selected="false" onclick="InvoicingMain()">
+                                        Invoicing
+                                    </button>
+                                </li>
+                            }
                             @if (ViewBag.Menu.Contains("My Schedule"))
                             {
                                 <li class="nav-item" role="presentation">

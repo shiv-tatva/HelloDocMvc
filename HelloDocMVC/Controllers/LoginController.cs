@@ -1,6 +1,7 @@
 ﻿using BLL_Business_Logic_Layer_.Interface;
 using BusinessLogic.Interfaces;
 using DAL_Data_Access_Layer_.CustomeModel;
+using Hangfire.Logging;
 using HelloDocMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -73,6 +74,10 @@ namespace HelloDocMVC.Controllers
                 HttpContext.Session.SetString("UserSessionName", userName);
                 HttpContext.Session.SetInt32("AspNetUserID", (int)data.Id);
                 HttpContext.Session.SetInt32("roleId", data.roleId);
+                if(data.adminId != 0)
+                {
+                    HttpContext.Session.SetInt32("AdminId", data.adminId);
+                }
 
 
                 var jwtToken = _jwtService.GetJwtToken(data);

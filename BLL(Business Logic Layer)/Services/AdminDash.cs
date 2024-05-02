@@ -680,6 +680,7 @@ namespace BLL_Business_Logic_Layer_.Services
         }
         #endregion
 
+        #region transferReq
         public void transferReq(adminDashData data, string sessionEmail)
         {
             Requeststatuslog requeststatuslog = new Requeststatuslog();
@@ -704,12 +705,19 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
         }
 
+        #endregion
+
+        #region clearCase
         public blockCaseModel clearCase(int reqId)
         {
             blockCaseModel blockCaseModel = new blockCaseModel();
             blockCaseModel.reqid = reqId;
             return blockCaseModel;
         }
+
+        #endregion
+
+        #region clearCase
         public void clearCase(adminDashData block, string sessionEmail)
         {
             var req_id = _context.Requests.Where(x => x.Requestid == block._blockCaseModel.reqid).Select(r => r).First();
@@ -730,6 +738,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+        #endregion
+
+        #region sendAgree
         public sendAgreement sendAgree(int reqId)
         {
             sendAgreement sendAgreement = new sendAgreement();
@@ -740,6 +751,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return sendAgreement;
         }
 
+        #endregion
+
+        #region sendAgree
         public void sendAgree(adminDashData dataMain, string sessionEmail)
         {
             string registrationLink = "http://localhost:5145/Home/pendingReviewAgreement?reqId=" + dataMain._sendAgreement.reqid;
@@ -754,7 +768,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
         }
 
+        #endregion
 
+        #region SendRegistrationEmailMain
         public void SendRegistrationEmailMain(string toEmail, string registrationLink, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
@@ -809,6 +825,9 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
+        #endregion
+
+        #region closeCaseMain
         public closeCaseMain closeCaseMain(int reqId)
         {
             var reqClient = _context.Requestclients.Where(r => r.Requestid == reqId).Select(r => new closeCaseMain()
@@ -830,7 +849,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return reqClient;
         }
 
+        #endregion
 
+        #region closeCaseSaveMain
         public void closeCaseSaveMain(adminDashData obj)
         {
 
@@ -842,6 +863,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+        #endregion
+
+        #region closeCaseCloseBtn
         public void closeCaseCloseBtn(int reqId, string sessionEmail)
         {
 
@@ -859,6 +883,9 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
         }
 
+        #endregion
+
+        #region myProfile
         public myProfile myProfile(string sessionEmail)
         {
             var myProfileMain = _context.Admins.Where(x => x.Email == sessionEmail).Select(x => new myProfile()
@@ -887,7 +914,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return myProfileMain;
         }
 
+        #endregion
 
+        #region myProfileReset
         public bool myProfileReset(myProfile obj, string sessionEmail)
         {
             var aspUser = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
@@ -905,7 +934,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+        #endregion
 
+        #region myProfileAdminInfo
         public myProfile myProfileAdminInfo(myProfile obj, string sessionEmail, List<int> adminRegions)
         {
             myProfile _myprofile = new myProfile();
@@ -976,6 +1007,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return _myprofile;
         }
 
+        #endregion
+
+        #region myProfileAdminBillingInfo
         public bool myProfileAdminBillingInfo(myProfile obj, string sessionEmail)
         {
             var adminInfo = _context.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
@@ -1021,7 +1055,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return false;
         }
 
+        #endregion
 
+        #region concludeEncounter
         public concludeEncounter concludeEncounter(int data)
         {
             var obj = _context.Requestclients.Where(r => r.Requestid == data).Select(r => r).First();
@@ -1073,7 +1109,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+        #endregion
 
+        #region concludeEncounter
         public concludeEncounter concludeEncounter(concludeEncounter obj)
         {
             concludeEncounter _obj = new concludeEncounter();
@@ -1163,7 +1201,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return _obj;
         }
 
+        #endregion
 
+        #region sendLink
         public sendLink sendLink(sendLink data, string sessionEmail)
         {
             sendLink _send = new sendLink();
@@ -1183,6 +1223,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return _send;
         }
 
+        #endregion
+
+        #region SendRegistrationEmailSendLink
         public void SendRegistrationEmailSendLink(string email, string registrationLink, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
@@ -1237,8 +1280,9 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
+        #endregion
 
-
+        #region createRequest
         public createRequest createRequest(createRequest data, string sessionEmail, int flag)
         {
             if (flag != 15)
@@ -1481,6 +1525,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
+
+        #endregion
+
 
 
         public void SendRegistrationEmailCreateRequest(string email, string registrationLink, string sessionEmail)

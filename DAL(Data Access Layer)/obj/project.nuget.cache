@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "En9QhgyDzP5h4YCv8kp8ovScxEAJWlF3PD+583eKdKPw/oXSybAIt/QLYn5jGCws0V1j8RThTj0T3NDvcqHgQQ==",
+  "dgSpecHash": "gBUV5p17Wku3/kCeC6fcrCgBtjnHE0TAc4UAqB9Zoyk1c0jhwPWwbnV5XeUI9qzJ/psm142T4ZfxXOvG0H1XeQ==",
   "success": true,
   "projectFilePath": "D:\\Project\\HelloDocMVC\\DAL(Data Access Layer)\\DAL(Data Access Layer).csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\pce151\\.nuget\\packages\\geocoding.core\\4.0.1\\geocoding.core.4.0.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\geocoding.microsoft\\4.0.1\\geocoding.microsoft.4.0.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\googlemaps.locationservices\\1.2.0.5\\googlemaps.locationservices.1.2.0.5.nupkg.sha512",
+    "C:\\Users\\pce151\\.nuget\\packages\\hangfire.core\\1.8.12\\hangfire.core.1.8.12.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\pce151\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

@@ -46,6 +46,10 @@ namespace BLL_Business_Logic_Layer_.Services
                     RoleMain = db.Aspnetroles.Where(y => y.Id == db.Aspnetuserroles.Where(x => x.Userid == r.Id).Select(x => x.Roleid).First()).Select(y => y.Name).First(),
                     roleId = (int)roleIdMain,
                 }).ToList().FirstOrDefault();
+                if (checkRoleId != null)
+                {
+                    data.adminId = db.Admins.Where(r => r.Email == obj.Email).Select(x => x.Adminid).First();
+                }
                 return data;
             }
             else

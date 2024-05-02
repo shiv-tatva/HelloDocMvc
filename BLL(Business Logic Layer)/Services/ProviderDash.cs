@@ -2,7 +2,9 @@
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataContext;
 using DAL_Data_Access_Layer_.DataModels;
+using LinqKit;
 using System.Collections;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Mail;
 
@@ -11,10 +13,14 @@ namespace BLL_Business_Logic_Layer_.Services
     public class ProviderDash : IProviderDash
     {
         private readonly ApplicationDbContext _context;
+        private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> _weeklyTimeSheetRepo;
+        private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> _weeklyTimeSheetDetailRepo;
 
-        public ProviderDash(ApplicationDbContext context)
+        public ProviderDash(ApplicationDbContext context, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> weeklyTimeSheetDetailRepo)
         {
             _context = context;
+            _weeklyTimeSheetRepo = weeklyTimeSheetRepo;
+            _weeklyTimeSheetDetailRepo = weeklyTimeSheetDetailRepo;
         }
 
         public void ProivderAccept(int reqId)
@@ -320,5 +326,142 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
+        public List<DateViewModel> GetDates()
+        {
+            List<DateViewModel> dates = new List<DateViewModel>();
+            int startMonth = 0;
+            int startYear = 0;
+            int startDate = 1;
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            int nextDate = 1;
+            if (today.Day > 15)
+            {
+                nextDate = 2;
+            }
+            if (today.Month - 6 < 0)
+            {
+                startMonth = 12 - (6 - today.Month) + 1;
+                startYear = today.Year - 1;
+            }
+            else if (today.Month - 6 == 0)
+            {
+                startMonth = 1;
+                startYear = today.Year;
+            }
+            else
+            {
+                startMonth = today.Month - 6;
+                startYear = today.Year;
+            }
+            int count = 12;
+            if (nextDate == 1)
+            {
+                count = 11;
+            }
+            for (int i = 1; i <= count; i++)
+            {
+
+                if (i % 2 == 0)
+                {
+                    startDate = 16;
+                }
+                else
+                {
+                    startDate = 1;
+
+                }
+                if (startMonth > 12)
+                {
+                    startMonth = 1;
+                    startYear = today.Year;
+                }
+                DateViewModel date = new DateViewModel();
+                date.StartDate = new DateOnly(startYear, startMonth, startDate);
+                if (startDate != 1)
+                    date.EndDate = date.StartDate.AddMonths(1).AddDays(-16);
+                else
+                    date.EndDate = new DateOnly(startYear, startMonth, 15);
+                dates.Add(date);
+                if (startDate == 16)
+                    startMonth += 1;
+            }
+            dates.Reverse();
+            return dates;
+        }
+
+        public InvoicingViewModel GetInvoicingDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID)
+        {
+            InvoicingViewModel model = new InvoicingViewModel();
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && (u.StartDate == startDate && u.EndDate == endDate));
+            if (weeklyTimeSheet != null)
+            {
+                var TimehseetsData = _weeklyTimeSheetDetailRepo.SelectWhereOrderBy(x => new Timesheet
+                {
+                    Date = x.Date,
+                    NumberofShift = x.NumberOfShifts ?? 0,
+                    NightShiftWeekend = x.IsWeekendHoliday == true ? 1 : 0,
+                    NumberOfHouseCall = (x.IsWeekendHoliday == false ? x.HouseCall : 0) ?? 0,
+                    HousecallNightsWeekend = (x.IsWeekendHoliday == true ? x.HouseCall : 0) ?? 0,
+                    NumberOfPhoneConsults = (x.IsWeekendHoliday == false ? x.PhoneConsult : 0) ?? 0,
+                    phoneConsultNightsWeekend = (x.IsWeekendHoliday == true ? x.PhoneConsult : 0) ?? 0,
+                    BatchTesting = x.BatchTesting ?? 0
+                }, x => x.TimeSheetId == weeklyTimeSheet.TimeSheetId, x => x.Date);
+                List<Timesheet> list = new List<Timesheet>();
+                foreach (Timesheet item in TimehseetsData)
+                {
+                    list.Add(item);
+                }
+                model.timesheets = list;
+                model.PhysicianId = PhysicianId ?? 0;
+                model.IsFinalized = weeklyTimeSheet.IsFinalized == true ? true : false;
+                model.startDate = startDate;
+                model.endDate = endDate;
+                model.Status = weeklyTimeSheet.Status == 1 ? "Pending" : "Aprooved";
+            }
+            else
+            {
+                model.timesheets = new List<Timesheet>();
+            }
+            model.isAdminSide = AdminID == null ? false : true;
+            return model;
+        }
+
+
+        public InvoicingViewModel GetUploadedDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int pageNumber, int pagesize)
+        {
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && (u.StartDate == startDate && u.EndDate == endDate));
+            InvoicingViewModel model = new InvoicingViewModel();
+            Expression<Func<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail, bool>> whereClauseSyntax = PredicateBuilder.New<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail>();
+            whereClauseSyntax = x => x.Bill != null && x.TimeSheetId == weeklyTimeSheet.TimeSheetId;
+            if (weeklyTimeSheet != null)
+            {
+                var UploadedItems = _weeklyTimeSheetDetailRepo.GetAllWithPagination(x => new Timesheet
+                {
+                    Date = x.Date,
+                    Items = x.Item ?? "-",
+                    Amount = x.Amount ?? 0,
+                    BillName = x.Bill ?? "-",
+                }, whereClauseSyntax, pageNumber, pagesize, x => x.Date, true);
+                List<Timesheet> list = new List<Timesheet>();
+                foreach (Timesheet item in UploadedItems)
+                {
+                    list.Add(item);
+                }
+                model.timesheets = list;
+
+                model.pager = new DAL_Data_Access_Layer_.CustomeModel.Pager
+                {
+                    TotalItems = _weeklyTimeSheetDetailRepo.GetTotalcount(whereClauseSyntax),
+                    CurrentPage = pageNumber,
+                    ItemsPerPage = pagesize
+                };
+                model.SkipCount = (pageNumber - 1) * pagesize;
+                model.CurrentPage = pageNumber;
+                model.TotalPages = (int)Math.Ceiling((decimal)model.pager.TotalItems / pagesize);
+                model.IsFinalized = weeklyTimeSheet.IsFinalized == true ? true : false;
+            }
+            model.PhysicianId = PhysicianId ?? 0;
+            return model;
+        }
     }
 }
