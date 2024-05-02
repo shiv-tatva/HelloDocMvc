@@ -18,8 +18,10 @@ namespace BLL_Business_Logic_Layer_.Interface
         public SchedulingCm PhysicainRegionTable(string sessionEmail);
         public void RequestAdmin(ProviderTransferTab _ProviderTransferTab, string sessionEmail);
         public List<DateViewModel> GetDates();
+        public int GetPhyID(string sessionEmail);
         public InvoicingViewModel GetInvoicingDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID);
         public InvoicingViewModel GetUploadedDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int pageNumber, int pagesize);
+        public InvoicingViewModel getDataOfTimesheet(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID);
 
     }
 }

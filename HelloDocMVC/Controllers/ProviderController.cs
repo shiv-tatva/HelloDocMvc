@@ -1624,13 +1624,14 @@ namespace HelloDocMVC.Controllers
 
 
 
-
         public IActionResult Invoicing()
         {
             try
-            {         
+            {
+                var sessionEmail = HttpContext.Session.GetString("UserSession");
                 InvoicingViewModel invoicingViewModel = new InvoicingViewModel();
                 invoicingViewModel.dates = _IProviderDash.GetDates();
+                invoicingViewModel.PhysicianId = _IProviderDash.GetPhyID(sessionEmail);
                 return PartialView("Provider/_Invoicing", invoicingViewModel);
             }
             catch
@@ -1660,6 +1661,26 @@ namespace HelloDocMVC.Controllers
             DateOnly endDate = DateOnly.Parse(dateRange[1]);
             InvoicingViewModel model = _IProviderDash.GetUploadedDataonChangeOfDate(startDate, endDate, PhysicianId, pageNumber, pagesize);
             return PartialView("Provider/_TimeSheetReiembursementPartialView", model);
+        }
+
+
+
+        public IActionResult BiWeeklyTimesheet(string selectedValue, int PhysicianId)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            if (AdminID == null)
+            {
+                ViewBag.username = HttpContext.Session.GetString("Provider");
+            }
+            else
+            {
+                ViewBag.username = HttpContext.Session.GetString("Admin");
+            }
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _IProviderDash.getDataOfTimesheet(startDate, endDate, PhysicianId, AdminID);
+            return PartialView("Provider/_BiWeeklyTimesheet", model);
         }
     }
 }

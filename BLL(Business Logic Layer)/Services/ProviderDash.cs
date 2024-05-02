@@ -15,12 +15,14 @@ namespace BLL_Business_Logic_Layer_.Services
         private readonly ApplicationDbContext _context;
         private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> _weeklyTimeSheetRepo;
         private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> _weeklyTimeSheetDetailRepo;
+        private readonly IGenericRepository<PayRate> _payRateRepo;
 
-        public ProviderDash(ApplicationDbContext context, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> weeklyTimeSheetDetailRepo)
+        public ProviderDash(ApplicationDbContext context, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo, IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail> weeklyTimeSheetDetailRepo,IGenericRepository<PayRate> payRateRepo)
         {
             _context = context;
             _weeklyTimeSheetRepo = weeklyTimeSheetRepo;
             _weeklyTimeSheetDetailRepo = weeklyTimeSheetDetailRepo;
+            _payRateRepo = payRateRepo;
         }
 
         public void ProivderAccept(int reqId)
@@ -389,6 +391,13 @@ namespace BLL_Business_Logic_Layer_.Services
             return dates;
         }
 
+        public int GetPhyID(string sessionEmail)
+        {
+            var phyId = _context.Physicians.Where(r => r.Email == sessionEmail).Select(r => r.Physicianid).First();
+
+            return phyId;
+        }
+
         public InvoicingViewModel GetInvoicingDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID)
         {
             InvoicingViewModel model = new InvoicingViewModel();
@@ -462,6 +471,73 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             model.PhysicianId = PhysicianId ?? 0;
             return model;
+        }
+
+        public InvoicingViewModel getDataOfTimesheet(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID)
+        {
+            InvoicingViewModel model = new InvoicingViewModel();
+            model.startDate = startDate;
+            model.endDate = endDate;
+            model.differentDays = endDate.Day - startDate.Day;
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == startDate && u.EndDate == endDate);
+            Expression<Func<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail, bool>> whereClauseSyntax1 = PredicateBuilder.New<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheetDetail>();
+
+            if (weeklyTimeSheet != null)
+            {
+                PayRate payRate = _payRateRepo.GetFirstOrDefault(u => u.PhysicianId == weeklyTimeSheet.ProviderId);
+                whereClauseSyntax1 = x => x.TimeSheet!.ProviderId == PhysicianId && x.TimeSheet.StartDate == startDate && x.TimeSheet.EndDate == endDate;
+                model.TimeSheetId = weeklyTimeSheet.TimeSheetId;
+                var ExistingTimeshet = _weeklyTimeSheetDetailRepo.SelectWhereOrderBy(x => new Timesheet
+                {
+                    Date = x.Date,
+                    NumberOfHouseCall = x.HouseCall ?? 0,
+                    NumberOfPhoneConsults = x.PhoneConsult ?? 0,
+                    Weekend = x.IsWeekendHoliday ?? false,
+                    TotalHours = x.TotalHours ?? 0,
+                    OnCallhours = x.OnCallHours ?? 0,
+                    Amount = x.Amount ?? 0,
+                    Items = x.Item,
+                    BillName = x.Bill,
+                    WeeklyTimesheetDeatilsId = x.TimeSheetDetailId,
+                }, whereClauseSyntax1, x => x.Date);
+                List<Timesheet> list = new List<Timesheet>();
+                foreach (Timesheet item in ExistingTimeshet)
+                {
+                    model.shiftTotal += (item.TotalHours * payRate.Shift) ?? 0;
+                    model.weekendTotal += item.Weekend == true ? (1 * payRate.NightShiftWeekend) ?? 0 : 0;
+                    model.HouseCallTotal += (item.NumberOfHouseCall * payRate.HouseCall) ?? 0;
+                    model.phoneconsultTotal += (item.NumberOfPhoneConsults * payRate.PhoneConsult) ?? 0;
+                    list.Add(item);
+                }
+                model.timesheets = list;
+                model.shiftPayrate = payRate.Shift ?? 0;
+                model.weekendPayrate = payRate.NightShiftWeekend ?? 0;
+                model.HouseCallPayrate = payRate.HouseCall ?? 0;
+                model.phoneConsultPayrate = payRate.PhoneConsult ?? 0;
+                model.GrandTotal = model.shiftTotal + model.weekendTotal + model.HouseCallTotal + model.phoneconsultTotal;
+
+            }
+            else
+            {
+                DateOnly currentDate = startDate;
+                while (currentDate <= endDate)
+                {
+                    model.timesheets.Add(new Timesheet
+                    {
+                        Date = currentDate,
+
+                    });
+
+                    currentDate = currentDate.AddDays(1);
+                }
+            }
+            model.startDate = startDate;
+            model.endDate = endDate;
+            model.PhysicianId = PhysicianId ?? 0;
+            model.IsFinalized = weeklyTimeSheet == null ? false : true;
+            model.isAdminSide = AdminID == null ? false : true;
+            return model;
+
         }
     }
 }

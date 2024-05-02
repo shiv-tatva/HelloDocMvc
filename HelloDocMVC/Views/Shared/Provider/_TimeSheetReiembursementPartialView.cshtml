@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "TimeSheetReiembursementPartialView";
 }
+
 @model DAL_Data_Access_Layer_.CustomeModel.InvoicingViewModel;
 
 @if (Model.timesheets.Count != 0)
@@ -70,6 +71,7 @@
 }
 else
 {
-    <div>
+    <div class="d-flex justify-content-center mb-1 pt-3">
+        <h6 style="color:gray !important">No Records Found</h6>
     </div>
 }

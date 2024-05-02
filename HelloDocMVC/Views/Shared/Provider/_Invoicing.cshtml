@@ -1,11 +1,11 @@
 ﻿@model DAL_Data_Access_Layer_.CustomeModel.InvoicingViewModel;
 
 <div class="head5">
-    <div style="display: flex; align-items: center;">
-        <span class="newrequest">Timesheets</span>
-    </div>
-    <div class="backbtn">
-        <a asp-action="ProviderDashboard" asp-controller="Provider" onclick="setNavId(1)" type="button" class="btnforback "><i class="bi bi-chevron-left backicon"></i>&nbsp;&nbsp;Back</a>
+    <div class=" mt-4 d-flex justify-content-between align-items-center" style="width:100%">
+        <h4>Timesheet</h4>
+        <a onclick="DashboardMain()" class="btn shadow  btn-outline-info px-3 ">
+            <i class="fa-solid fa-angle-left fs-6"></i> Back
+        </a>
     </div>
 </div>
 <div class="outerbox2">
@@ -23,17 +23,24 @@
             </div>
         </div>
         <div>
-
-            <button class="cancel1" id="FinalizeBtn" onclick="FinalizeNew()">Finalize Timesheet</button>
-
+            <a id="FinalizeBtn" onclick="FinalizeNew()" class="btn shadow btn-outline-info px-3 cancel1"> Finalize Timesheet </a>
         </div>
     </div>
     <div id="partialView"></div>
 </div>
 
-<div id="partialViewForUploadedFiles"></div>
+<div class="head5">
+    <div class=" mt-4 d-flex justify-content-between align-items-center" style="width:100%">
+        <h4>TimeSheet Reimbursement</h4>
+    </div>
+</div>
 
-@* <input type="hidden" value="@Model.PhysicianId" id="PhyscianID" /> *@
+<div class="outerbox2">
+    <div id="partialViewForUploadedFiles"></div>
+</div>
+
+
+<input type="hidden" value="@Model.PhysicianId" id="PhyscianID" /> 
 
 <script>
 
@@ -89,10 +96,23 @@
     }
 
     function FinalizeNew() {
-            var PhyscianID = $('#PhyscianID').val();
-            var timesheetdropdown = $('#timesheetdropdown').val();
-            window.location = '@Url.Action("BiWeeklyTimesheet", "Home")?' + 'selectedValue=' + timesheetdropdown + '&PhysicianId=' + PhyscianID;
-        }
+        var PhyscianID = $('#PhyscianID').val();
+        var timesheetdropdown = $('#timesheetdropdown').val();
+        $.ajax({
+            url: "/Provider/BiWeeklyTimesheet",
+            method: 'GET',
+            data: {
+                selectedValue: timesheetdropdown,
+                PhysicianId: PhyscianID
+            },
+            success: function (result) {
+                $('#content').html(result);
+            },
+            error: function () {
+                console.log("Function Fail")
+            },
+        });
+    }
 
 </script>
 
