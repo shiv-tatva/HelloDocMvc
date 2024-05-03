@@ -1680,20 +1680,6 @@ namespace HelloDocMVC.Controllers
         }
 
 
-        
-        //public IActionResult HandleSubmitTimeSheet(InvoicingViewModel model, string command)
-        //{
-        //    if (command == "Aproove")
-        //    {
-        //        return AprooveTimeSheet(model);
-        //    }
-        //    else
-        //    {
-        //        return SubmitTimeSheet(model);
-        //    }
-        //}
-
-
         [HttpPost]
         public IActionResult AprooveTimeSheet(InvoicingViewModel model)
         {
@@ -1712,11 +1698,11 @@ namespace HelloDocMVC.Controllers
             TempData["success"] = "TimeSheet Saved Succesfully";
             if (AdminID == null)
             {
-                return RedirectToAction("Invoicing", "Provider");
+                return Json(new {isSend = 1});
             }
             else
             {
-                return RedirectToAction("Invoicing", "Admin");
+                return Json(new { isSend = 2 });
             }
         }
 

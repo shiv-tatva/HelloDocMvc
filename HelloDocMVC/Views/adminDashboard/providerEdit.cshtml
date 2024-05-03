@@ -62,7 +62,7 @@
 
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
-        <h4>My Profile</h4>
+        <h4>Edit Phycisian Account</h4>
         @if (Model._providerEdit.flagId == 1)
         {
             <button onclick="providers()"
@@ -221,6 +221,22 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mt-3 mb-3">
+                        @if (Model._providerEdit.flagId == 1)
+                        {
+                            <button type="button" id="PayRate" class="btn btn-info text-white EditBtn"
+                                    onclick="GetPayRate(1,@Model._providerEdit.PhyID)">
+                                Enter Payrate
+                            </button>
+                        }
+
+                        @if (Model._providerEdit.flagId == 2)
+                        {
+                            <button type="button" id="PayRate" class="btn btn-info text-white EditBtn"
+                                    onclick="GetPayRate(2,@Model._providerEdit.PhyID)">
+                                PayRate
+                            </button>
+                        }                      
+
                         <button type="button" id="editBtn2" class="btn btn-info text-white EditBtn"
                                 onclick="enableFields(2)">
                             Edit
@@ -884,6 +900,22 @@
             },
         });
     }
+
+    function GetPayRate(callid, physicianId) {
+        console.log(callid + " " + physicianId)
+        $.ajax({
+            method: "GET",
+            url: "/adminDashboard/GetPayRate",
+            data: { callid: callid, physicianId: physicianId },
+            success: function (res) {
+                $("#content").html(res);
+            },
+
+            error: function () {
+                toastr.error("Error To Load Partial View");
+            },
+        });
+    }    
 
 </script>
 

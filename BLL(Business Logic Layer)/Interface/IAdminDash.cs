@@ -186,5 +186,10 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public void AprooveTimeSheet(InvoicingViewModel model, int? AdminID);
 
+        public GetPayRate GetPayRate(int physicianId, int callid);
+
+        public bool SetPayRate(GetPayRate getPayRate);
+
+
     }
 }

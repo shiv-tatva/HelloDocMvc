@@ -497,7 +497,7 @@ namespace BLL_Business_Logic_Layer_.Services
                     NumberOfPhoneConsults = x.PhoneConsult ?? 0,
                     Weekend = x.IsWeekendHoliday ?? false,
                     TotalHours = x.TotalHours ?? 0,
-                    OnCallhours = x.OnCallHours ?? 0,
+                    OnCallhours = x.NumberOfShifts ?? 0,
                     Amount = x.Amount ?? 0,
                     Items = x.Item,
                     BillName = x.Bill,
@@ -580,7 +580,6 @@ namespace BLL_Business_Logic_Layer_.Services
                     detail.IsWeekendHoliday = item.Weekend;
                     detail.HouseCall = item.NumberOfHouseCall;
                     detail.PhoneConsult = item.NumberOfPhoneConsults;
-                    detail.OnCallHours = item.OnCallhours;
                     detail.TimeSheetId = weeklyTimeSheet.TimeSheetId;
                     if (item.Bill != null)
                     {
@@ -613,7 +612,6 @@ namespace BLL_Business_Logic_Layer_.Services
                         weeklyTimeSheetDetail.PhoneConsult = model.timesheets[i].NumberOfPhoneConsults;
                         weeklyTimeSheetDetail.Item = model.timesheets[i].Items ?? null;
                         weeklyTimeSheetDetail.Amount = model.timesheets[i].Amount;
-                        weeklyTimeSheetDetail.OnCallHours = model.timesheets[i].OnCallhours;
                         weeklyTimeSheetDetail.TotalHours = model.timesheets[i].TotalHours;
                         weeklyTimeSheetDetail.IsWeekendHoliday = model.timesheets[i].Weekend;
                         if (model.timesheets[i].Bill != null && model.timesheets[i].Bill!.Length > 0)

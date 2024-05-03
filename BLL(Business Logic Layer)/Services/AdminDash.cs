@@ -1533,8 +1533,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         #endregion
 
-
-
+        #region SendRegistrationEmailCreateRequest
         public void SendRegistrationEmailCreateRequest(string email, string registrationLink, string sessionEmail)
         {
             string senderEmail = "shivsantoki303@outlook.com";
@@ -1588,7 +1587,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             client.Send(mailMessage);
         }
+        #endregion
 
+        #region verifyState
         public createRequest verifyState(string state)
         {
             createRequest _create = new createRequest();
@@ -1606,8 +1607,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _create;
         }
+        #endregion
 
-
+        #region GenerateExcelFile
         public byte[] GenerateExcelFile(List<adminDash> adminData)
         {
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; using (var excelPackage = new ExcelPackage())
@@ -1646,11 +1648,11 @@ namespace BLL_Business_Logic_Layer_.Services
                 return excelPackage.GetAsByteArray();
             }
         }
+        #endregion
 
-        //***********************************Provider*************************************
-
+        #region providerMain
         public provider providerMain(int regionId = 0)
-        { 
+        {
             BitArray deletedBit = new BitArray(new[] { false });
 
             provider provider = new provider()
@@ -1672,7 +1674,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return provider;
         }
+        #endregion
 
+        #region stopNotification
         public provider stopNotification(int phyId)
         {
             provider provider = new provider();
@@ -1702,6 +1706,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
         }
 
+        #endregion
+
+        #region providerContact
         public provider providerContact(int phyId)
         {
             provider _provider = new provider()
@@ -1711,7 +1718,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _provider;
         }
+        #endregion
 
+        #region providerContactEmail
         public provider providerContactEmail(int phyIdMain, string msg, string sessionEmail)
         {
             provider _provider = new provider();
@@ -1731,7 +1740,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _provider;
         }
+        #endregion
 
+        #region providerContactSms
         public provider providerContactSms(int phyIdMain, string msg, string sessionEmail)
         {
             provider _provider = new provider();
@@ -1780,7 +1791,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return _provider;
         }
+        #endregion
 
+        #region SendRegistrationproviderContactEmail
         private void SendRegistrationproviderContactEmail(string provider, string msg, string sessionEmail, int phyIdMain)
         {
             var phyName = _context.Physicians.Where(r => r.Physicianid == phyIdMain).Select(r => r.Firstname).First();
@@ -1825,6 +1838,9 @@ namespace BLL_Business_Logic_Layer_.Services
             client.Send(mailMessage);
         }
 
+        #endregion
+
+        #region adminEditPhysicianProfile
         public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId)
         {
             if (statusId != 2)
@@ -1918,12 +1934,17 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+        #endregion
+
+        #region RegionTable
         List<DAL_Data_Access_Layer_.DataModels.Region> IAdminDash.RegionTable()
         {
             var region = _context.Regions.ToList();
             return region;
         }
+        #endregion
 
+        #region PhyRegionTable
         public List<PhysicianRegionTable> PhyRegionTable(int phyId)
         {
             var region = _context.Regions.ToList();
@@ -1938,7 +1959,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return checkedRegion;
         }
+        #endregion
 
+        #region physicainRole
         public List<Role> physicainRole()
         {
             BitArray deletedBit = new BitArray(new[] { false });
@@ -1947,7 +1970,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return role;
         }
+        #endregion
 
+        #region adminRole
         public List<Role> adminRole()
         {
             BitArray deletedBit = new BitArray(new[] { false });
@@ -1956,7 +1981,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return role;
         }
+        #endregion
 
+        #region providerResetPass
         public bool providerResetPass(string email, string password)
         {
             var resetPass = _context.Aspnetusers.Where(r => r.Email == email).Select(r => r).First();
@@ -1971,7 +1998,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return false;
 
         }
+        #endregion
 
+        #region editProviderForm1
         public bool editProviderForm1(int phyId, int roleId, int statusId)
         {
             var user = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
@@ -1986,7 +2015,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             return false;
         }
+        #endregion
 
+        #region editProviderForm2
         public bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray)
         {
             var indicate = false;
@@ -2054,7 +2085,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return indicate;
         }
 
+        #endregion
 
+        #region editProviderForm3
         public AdminEditPhysicianProfile editProviderForm3(adminDashData dataMain)
         {
             AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
@@ -2090,7 +2123,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
             return flag;
         }
+        #endregion
 
+        #region PhysicianBusinessInfoUpdate
         public AdminEditPhysicianProfile PhysicianBusinessInfoUpdate(adminDashData dataMain)
         {
             AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
@@ -2127,7 +2162,9 @@ namespace BLL_Business_Logic_Layer_.Services
             flag.PhyID = dataMain._providerEdit.PhyID;
             return flag;
         }
+        #endregion
 
+        #region MyRegion
         public void AddProviderBusinessPhotos(IFormFile photo, IFormFile signature, int phyId)
         {
             var physician = _context.Physicians.FirstOrDefault(x => x.Physicianid == phyId);
@@ -2159,10 +2196,9 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
 
         }
+        #endregion
 
-
-
-
+        #region EditOnBoardingData
         public AdminEditPhysicianProfile EditOnBoardingData(adminDashData dataMain)
         {
             AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
@@ -2281,6 +2317,9 @@ namespace BLL_Business_Logic_Layer_.Services
 
         }
 
+        #endregion
+
+        #region createProviderAccount
         public AdminEditPhysicianProfile createProviderAccount(adminDashData obj, List<int> physicianRegions)
         {
             AdminEditPhysicianProfile flag = new AdminEditPhysicianProfile();
@@ -2330,7 +2369,13 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.Physicians.Add(phy);
                 _context.SaveChanges();
 
+                PayRate payRate = new PayRate();
 
+                payRate.PhysicianId = phy.Physicianid;
+                payRate.CreatedDate = DateTime.Now;
+
+                _context.PayRates.Add(payRate);
+                _context.SaveChanges();
 
                 foreach (var item in physicianRegions)
                 {
@@ -2398,6 +2443,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return flag;
         }
 
+        #endregion
+
+        #region AddProviderDocuments
         public void AddProviderDocuments(int Physicianid, IFormFile Photo, IFormFile ContractorAgreement, IFormFile BackgroundCheck, IFormFile HIPAA, IFormFile NonDisclosure)
         {
             var physicianData = _context.Physicians.FirstOrDefault(x => x.Physicianid == Physicianid);
@@ -2474,6 +2522,9 @@ namespace BLL_Business_Logic_Layer_.Services
             _context.SaveChanges();
         }
 
+        #endregion
+
+        #region editProviderDeleteAccount
         public void editProviderDeleteAccount(int phyId)
         {
             var phy = _context.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
@@ -2494,12 +2545,14 @@ namespace BLL_Business_Logic_Layer_.Services
             }
 
         }
+        #endregion
 
+        /// <summary>
+        /// Access
+        /// </summary>
+        /// <returns></returns>
 
-
-
-        //*************************************************************Access***********************************************************
-
+        #region GetAccountAccessData
         public List<AccountAccess> GetAccountAccessData()
         {
             BitArray deletedBit = new BitArray(new[] { false });
@@ -2513,13 +2566,17 @@ namespace BLL_Business_Logic_Layer_.Services
             }).ToList();
             return Accessdata;
         }
+        #endregion
 
+        #region GetAccountType
         public List<Aspnetrole> GetAccountType()
         {
             var role = _context.Aspnetroles.ToList();
             return role;
         }
+        #endregion
 
+        #region GetMenu
         public List<Menu> GetMenu(int accounttype)
         {
             if (accounttype != 0)
@@ -2534,7 +2591,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 return menu;
             }
         }
+        #endregion
 
+        #region SetCreateAccessAccount
         public void SetCreateAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string UserSession)
         {
             var user = _context.Aspnetusers.Where(r => r.Email == UserSession).Select(r => r).First();
@@ -2566,7 +2625,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
             }
         }
+        #endregion
 
+        #region GetAccountMenu
         public List<AccountMenu> GetAccountMenu(int accounttype, int roleid)
         {
 
@@ -2586,6 +2647,9 @@ namespace BLL_Business_Logic_Layer_.Services
             return checkedMenu;
 
         }
+        #endregion
+
+        #region GetEditAccessData
         public AccountAccess GetEditAccessData(int roleid)
         {
             var role = _context.Roles.FirstOrDefault(i => i.Roleid == roleid);
@@ -2601,7 +2665,9 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             return null;
         }
+        #endregion
 
+        #region SetEditAccessAccount
         public void SetEditAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string sessionEmail)
         {
             var user = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
@@ -2636,7 +2702,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 }
             }
         }
+        #endregion
 
+        #region DeleteAccountAccess
         public void DeleteAccountAccess(int roleid)
         {
             var role = _context.Roles.FirstOrDefault(x => x.Roleid == roleid);
@@ -2653,6 +2721,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 _context.SaveChanges();
             }
         }
+        #endregion
+
+
 
         public List<Aspnetrole> GetAccountTypeRoles()
         {
@@ -3982,6 +4053,82 @@ namespace BLL_Business_Logic_Layer_.Services
                 weeklyTimeSheet.AdminNote = model.AdminNotes;
                 _weeklyTimeSheetRepo.Update(weeklyTimeSheet);
             }
+        }
+
+        public GetPayRate GetPayRate(int physicianId, int callid)
+        {
+            var payrate = _context.PayRates.FirstOrDefault(i => i.PhysicianId == physicianId);
+            var Aspid = _context.Physicians.FirstOrDefault(a => a.Physicianid == physicianId).Aspnetuserid;
+            if (payrate == null)
+            {
+                var GetPayRate = new GetPayRate()
+                {
+                    PhysicianId = physicianId,
+                    callid = callid,
+                };
+                return GetPayRate;
+            }
+            else
+            {
+                var GetPayRate = new GetPayRate()
+                {
+                    PhysicianId = physicianId,
+                    NightShift_Weekend = payrate.NightShiftWeekend != 0 ? payrate.NightShiftWeekend : default,
+                    Shift = payrate.Shift != 0 ? payrate.Shift : default,
+                    HouseCalls_Nights_Weekend = payrate.HouseCallNightWeekend != 0 ? payrate.HouseCallNightWeekend : default,
+                    PhoneConsult = payrate.PhoneConsult != 0 ? payrate.PhoneConsult : default,
+                    PhoneConsults_Nights_Weekend = payrate.PhoneConsultNightWeekend != 0 ? payrate.PhoneConsultNightWeekend : default,
+                    BatchTesting = payrate.BatchTesting != 0 ? payrate.BatchTesting : default,
+                    HouseCalls = payrate.HouseCall != 0 ? payrate.HouseCall : default,
+                    callid = callid,
+                };
+                return GetPayRate;
+            }
+        }
+
+        public bool SetPayRate(GetPayRate getPayRate)
+        {
+            var payrate = _context.PayRates.FirstOrDefault(i => i.PhysicianId == getPayRate.PhysicianId);
+
+            var phyDetails = _context.Physicians.Where(r => r.Physicianid == getPayRate.PhysicianId).Select(r => r).First();
+
+            PayRate payRate = new PayRate();
+
+            if (payrate == null)
+            {
+                payRate.PhysicianId = phyDetails.Physicianid;
+                payRate.NightShiftWeekend = getPayRate.NightShift_Weekend;
+                payRate.Shift = getPayRate.Shift;
+                payRate.HouseCallNightWeekend = getPayRate.HouseCalls_Nights_Weekend;
+                payRate.PhoneConsult = getPayRate.PhoneConsult;
+                payRate.PhoneConsultNightWeekend = getPayRate.PhoneConsults_Nights_Weekend;
+                payRate.BatchTesting = getPayRate.BatchTesting;
+                payRate.HouseCall = getPayRate.HouseCalls;
+                payRate.CreatedDate = DateTime.Now;
+
+                _context.PayRates.Add(payRate);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                if (getPayRate.NightShift_Weekend != payrate.NightShiftWeekend || getPayRate.Shift != payrate.Shift || getPayRate.HouseCalls_Nights_Weekend != payrate.HouseCallNightWeekend ||
+                getPayRate.PhoneConsult != payrate.PhoneConsult || getPayRate.PhoneConsults_Nights_Weekend != payrate.PhoneConsultNightWeekend || getPayRate.BatchTesting != payrate.BatchTesting ||
+                getPayRate.HouseCalls != payrate.HouseCall)
+                {
+                    payrate.NightShiftWeekend = getPayRate.NightShift_Weekend;
+                    payrate.Shift = getPayRate.Shift;
+                    payrate.HouseCallNightWeekend = getPayRate.HouseCalls_Nights_Weekend;
+                    payrate.PhoneConsult = getPayRate.PhoneConsult;
+                    payrate.PhoneConsultNightWeekend = getPayRate.PhoneConsults_Nights_Weekend;
+                    payrate.BatchTesting = getPayRate.BatchTesting;
+                    payrate.HouseCall = getPayRate.HouseCalls;
+
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
         }
 
 

@@ -3133,5 +3133,21 @@ namespace HelloDocMVC.Controllers
             return Ok();
         }
 
+        public IActionResult GetPayRate(int callid, int physicianId)
+        {
+            adminDashData adminDashCM = new adminDashData
+            {
+                _GetPayRate = _IAdminDash.GetPayRate(physicianId, callid),
+            };
+            return PartialView("_PayRate", adminDashCM);
+        }
+        [HttpPost]
+        public IActionResult SetPayRates(adminDashData adminDashData)
+        {
+            bool isSend = _IAdminDash.SetPayRate(adminDashData._GetPayRate);
+            return Json(new { isSend = isSend, callid = adminDashData._GetPayRate.callid, PhysicianId = adminDashData._GetPayRate.PhysicianId });
+        }
+
+
     }
 }

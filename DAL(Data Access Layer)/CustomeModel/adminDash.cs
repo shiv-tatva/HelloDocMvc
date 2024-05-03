@@ -567,8 +567,6 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public List<Region> regions { get; set; }
 
         [Required(ErrorMessage = "Please Enter Alternative Phonenumber")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-      ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]
         public string? altPhone { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your State Name")]
@@ -669,6 +667,24 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
     }
 
+    public class GetPayRate
+    {
+        public int PhysicianId { get; set; }
+        public int? NightShift_Weekend { get; set; }
+        public int? Shift { get; set; }
+        public int? HouseCalls_Nights_Weekend { get; set; }
+        public int? PhoneConsult { get; set; }
+        public int? PhoneConsults_Nights_Weekend { get; set; }
+        public int? BatchTesting { get; set; }
+        public int? HouseCalls { get; set; }
+        public string? AspId { get; set; }
+        public int callid { get; set; }
+        public DateTime? created_date { get; set; }
+
+    }
+
+
+
 
     /// <summary>
     /// adminDashData main CM
@@ -724,5 +740,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public ProviderTransferTab _ProviderTransferTab { get; set; }
 
         public ProviderEncounterPopUp _ProviderEncounterPopUp { get; set; }
+
+        public GetPayRate _GetPayRate { get; set; }
     }
 }
