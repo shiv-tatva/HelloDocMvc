@@ -83,6 +83,8 @@ namespace BLL_Business_Logic_Layer_.Interface
         public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId);
 
         public List<Region> RegionTable();
+
+
         public List<PhysicianRegionTable> PhyRegionTable(int phyId);
 
         public List<Role> physicainRole();
@@ -174,5 +176,15 @@ namespace BLL_Business_Logic_Layer_.Interface
         public recordsModel emailLogsMain(int tempId, recordsModel recordsModel);
 
         //public blockHistory stopNotificationBlock(int blockId);
+        public List<DateViewModel> GetDates();
+
+        public List<PhysicianViewModel> GetPhysiciansForInvoicing();
+
+        public string CheckInvoicingAproove(string selectedValue, int PhysicianId);
+
+        public InvoicingViewModel GetApprovedViewData(string selectedValue, int PhysicianId);
+
+        public void AprooveTimeSheet(InvoicingViewModel model, int? AdminID);
+
     }
 }

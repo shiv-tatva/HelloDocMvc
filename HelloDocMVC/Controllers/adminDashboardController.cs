@@ -1,4 +1,5 @@
 ﻿using BLL_Business_Logic_Layer_.Interface;
+using BLL_Business_Logic_Layer_.Services;
 using DAL_Data_Access_Layer_.CustomeModel;
 using DAL_Data_Access_Layer_.DataModels;
 using HalloDoc.mvc.Auth;
@@ -13,10 +14,11 @@ namespace HelloDocMVC.Controllers
     public class adminDashboardController : Controller
     {
         private IAdminDash _IAdminDash;
-
-        public adminDashboardController(IAdminDash iAdminDash)
+        private IProviderDash _IProviderDash;
+        public adminDashboardController(IAdminDash iAdminDash, IProviderDash iProviderDash)
         {
             _IAdminDash = iAdminDash;
+            _IProviderDash = iProviderDash; 
         }
 
 
@@ -1882,8 +1884,7 @@ namespace HelloDocMVC.Controllers
             }
 
         }
-
-
+      
 
 
         /// <summary>
@@ -3061,6 +3062,75 @@ namespace HelloDocMVC.Controllers
                 return NotFound();
             }
 
+        }
+
+
+
+        public IActionResult Invoicing()
+        {
+            ViewBag.username = HttpContext.Session.GetString("Admin");
+            InvoicingViewModel model = new InvoicingViewModel();
+            model.dates = _IAdminDash.GetDates();
+            model.PhysiciansList = _IAdminDash.GetPhysiciansForInvoicing();
+            return PartialView("_adminInvoicing", model);
+        }
+
+
+        public IActionResult CheckInvoicingAproove(string selectedValue, int PhysicianId)
+        {
+            string result = _IAdminDash.CheckInvoicingAproove(selectedValue, PhysicianId);
+            return Json(result);
+        }
+
+        public IActionResult GetApprovedViewData(string selectedValue, int PhysicianId)
+        {
+            InvoicingViewModel model = _IAdminDash.GetApprovedViewData(selectedValue, PhysicianId);
+            return PartialView("_AprooveInvoicingPartialView", model);
+        }
+
+        public IActionResult GetInvoicingDataonChangeOfDate(string selectedValue, int PhysicianId)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _IProviderDash.GetInvoicingDataonChangeOfDate(startDate, endDate, PhysicianId, AdminID);
+            return PartialView("Provider/_InvoicingPartialView", model);
+        }
+
+        public IActionResult GetUploadedDataonChangeOfDate(string selectedValue, int PhysicianId, int pageNumber, int pagesize)
+        {
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _IProviderDash.GetUploadedDataonChangeOfDate(startDate, endDate, PhysicianId, pageNumber, pagesize);
+            return PartialView("Provider/_TimeSheetReiembursementPartialView", model);
+        }
+
+        public IActionResult BiWeeklyTimesheet(string selectedValue, int PhysicianId)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            if (AdminID == null)
+            {
+                ViewBag.username = HttpContext.Session.GetString("Provider");
+            }
+            else
+            {
+                ViewBag.username = HttpContext.Session.GetString("Admin");
+            }
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _IProviderDash.getDataOfTimesheet(startDate, endDate, PhysicianId, AdminID);
+            return PartialView("Provider/_BiWeeklyTimesheet", model);
+        }
+
+        [HttpPost]
+        public IActionResult AprooveTimeSheet(InvoicingViewModel model)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            _IAdminDash.AprooveTimeSheet(model, AdminID);
+            return Ok();
         }
 
     }

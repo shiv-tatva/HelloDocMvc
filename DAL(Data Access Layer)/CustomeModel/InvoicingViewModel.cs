@@ -21,6 +21,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public List<PhysicianMain>? Physicians { get; set; }
 
+        public List<PhysicianViewModel>? PhysiciansList { get; set; }
+
         public int PhysicianId { get; set; }
 
         public int TimeSheetId { get; set; }
@@ -210,6 +212,25 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int ItemsPerPage { get; set; }
 
     }
+
+    public class PhysicianViewModel
+    {
+        public int PhysicianId { get; set; }
+
+        public string? PhysicianName { get; set; }
+
+        public string? role { get; set; }
+
+        public string? OnCallStatus { get; set; }
+
+        public int region { get; set; }
+
+        public bool IsNotificatonStopped { get; set; }
+
+        public string? Email { get; set; }
+    }
+
+
 
 }
 

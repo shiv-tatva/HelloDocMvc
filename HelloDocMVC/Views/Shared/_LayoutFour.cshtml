@@ -205,6 +205,14 @@
                                                     Scheduling
                                                 </button>
                                             }
+                                            @if (ViewBag.Menu.Contains("Invoicing"))
+                                            {
+                                                <button style="width:100%;" onclick="Invoicing()" class="nav-link dark-mode2 text-muted px-3" id="Invoicing-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#Invoicing-tab-pane" type="button" role="tab" aria-controls="Invoicing-tab-pane"
+                                                        aria-selected="false">
+                                                    Invoicing
+                                                </button>
+                                            }
                                         </div>
                                     </div>
                                 </li>

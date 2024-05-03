@@ -17,10 +17,15 @@ namespace BLL_Business_Logic_Layer_.Services
     public class AdminDash : IAdminDash
     {
         private readonly ApplicationDbContext _context;
+        private readonly IGenericRepository<Physician> _physicianrepo;
+        private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> _weeklyTimeSheetRepo;
 
-        public AdminDash(ApplicationDbContext context)
+        public AdminDash(ApplicationDbContext context, IGenericRepository<Physician> physicianrepo , IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo)
         {
             _context = context;
+            _physicianrepo = physicianrepo;
+            _weeklyTimeSheetRepo = weeklyTimeSheetRepo;
+
         }
 
 
@@ -3836,6 +3841,149 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             return model;
         }
+
+        public List<DateViewModel> GetDates()
+        {
+            List<DateViewModel> dates = new List<DateViewModel>();
+            int startMonth = 0;
+            int startYear = 0;
+            int startDate = 1;
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            int nextDate = 1;
+            if (today.Day > 15)
+            {
+                nextDate = 2;
+            }
+            if (today.Month - 6 < 0)
+            {
+                startMonth = 12 - (6 - today.Month) + 1;
+                startYear = today.Year - 1;
+            }
+            else if (today.Month - 6 == 0)
+            {
+                startMonth = 1;
+                startYear = today.Year;
+            }
+            else
+            {
+                startMonth = today.Month - 6;
+                startYear = today.Year;
+            }
+            int count = 12;
+            if (nextDate == 1)
+            {
+                count = 11;
+            }
+            for (int i = 1; i <= count; i++)
+            {
+
+                if (i % 2 == 0)
+                {
+                    startDate = 16;
+                }
+                else
+                {
+                    startDate = 1;
+
+                }
+                if (startMonth > 12)
+                {
+                    startMonth = 1;
+                    startYear = today.Year;
+                }
+                DateViewModel date = new DateViewModel();
+                date.StartDate = new DateOnly(startYear, startMonth, startDate);
+                if (startDate != 1)
+                    date.EndDate = date.StartDate.AddMonths(1).AddDays(-16);
+                else
+                    date.EndDate = new DateOnly(startYear, startMonth, 15);
+                dates.Add(date);
+                if (startDate == 16)
+                    startMonth += 1;
+            }
+            dates.Reverse();
+            return dates;
+        }
+
+
+        public List<PhysicianViewModel> GetPhysiciansForInvoicing()
+        {
+            var physicians = _physicianrepo.SelectWhere(x => new PhysicianViewModel
+            {
+                PhysicianId = x.Physicianid,
+                PhysicianName = x.Firstname + " " + x.Lastname,
+            }, x => x.Isdeleted == null);
+            List<PhysicianViewModel> PhysicianList = new List<PhysicianViewModel>();
+            foreach (PhysicianViewModel item in physicians)
+            {
+                PhysicianList.Add(item);
+            }
+            return PhysicianList;
+        }
+
+
+        public string CheckInvoicingAproove(string selectedValue, int PhysicianId)
+        {
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            string result = "";
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == startDate && u.EndDate == endDate);
+            if (weeklyTimeSheet != null)
+            {
+                if (weeklyTimeSheet.IsFinalized != true && weeklyTimeSheet.Status == 1)
+                {
+                    result = "NotFinalized-NotAprooved";
+                }
+                else if (weeklyTimeSheet.IsFinalized == true && weeklyTimeSheet.Status == 1)
+                {
+                    result = "Finalized-NotAprooved";
+                }
+                else if (weeklyTimeSheet.IsFinalized == true && weeklyTimeSheet.Status == 2)
+                {
+                    result = "Finalized-Aprooved";
+                }
+            }
+            else
+            {
+                result = "False";
+            }
+            return result;
+        }
+
+        public InvoicingViewModel GetApprovedViewData(string selectedValue, int PhysicianId)
+        {
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == startDate && u.EndDate == endDate);
+
+            InvoicingViewModel model = new InvoicingViewModel();
+            if (weeklyTimeSheet != null)
+            {
+                model.startDate = weeklyTimeSheet.StartDate;
+                model.endDate = weeklyTimeSheet.EndDate;
+                model.Status = weeklyTimeSheet.Status == 1 ? "Pending" : "Aprooved";
+                model.TimeSheetId = weeklyTimeSheet.TimeSheetId;
+                model.IsFinalized = weeklyTimeSheet.IsFinalized == true ? true : false;
+            }
+            return model;
+
+        }
+
+        public void AprooveTimeSheet(InvoicingViewModel model, int? AdminID)
+        {
+            DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == model.PhysicianId && u.StartDate == model.startDate && u.EndDate == model.endDate);
+            if (weeklyTimeSheet != null)
+            {
+                weeklyTimeSheet.AdminId = AdminID;
+                weeklyTimeSheet.Status = 2;
+                weeklyTimeSheet.BonusAmount = model.BonusAmount;
+                weeklyTimeSheet.AdminNote = model.AdminNotes;
+                _weeklyTimeSheetRepo.Update(weeklyTimeSheet);
+            }
+        }
+
 
     }
 }

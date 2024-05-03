@@ -119,6 +119,23 @@
             },
         });
     }
+    
+    function Invoicing() {
+        $.ajax({
+            url: "/adminDashboard/Invoicing",
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+                document.getElementById("Providers-tab").classList.remove("active");
+                $("#providerTabMain").addClass("customactive");
+                $("#accessTabMain").removeClass("customactive");
+                $("#recordMainTab").removeClass("customactive");
+            },
+            error: function () {
+                toastr.error("Error To Load Partial View");
+            },
+        });
+    }
 
     function providerLocation() {
         $.ajax({

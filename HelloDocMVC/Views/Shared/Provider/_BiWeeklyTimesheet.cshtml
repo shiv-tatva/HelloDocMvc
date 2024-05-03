@@ -100,7 +100,7 @@
                 <td width="10%" class="ViewUploadtd">Date</td>
                 <td width="15%" class="ViewUploadtd">Item</td>
                 <td width="15%" class="ViewUploadtd">Amount</td>
-                <td width="30%" class="ViewUploadtd ps-5">Bill</td>
+                <td width="40%" class="ViewUploadtd ps-5">Bill</td>
                 <td width="20%" class="ViewUploadtd">Action</td>
             </tr>
             @for (int i = 0; i <= Model.differentDays; i++)
@@ -143,7 +143,6 @@
                         }
                         else
                         {
-                            <button type="button" class="submit1 btn shadow  btn-outline-info px-3" onclick="EditBill()">Edit</button>
                             <a type="button" href="~/Uploaded_files/ProviderBills/@Model.PhysicianId-@Model.startDate.AddDays(i)-@Model.timesheets[i].BillName" target="_blank" class="submit1 btn shadow  btn-outline-info px-3">View</a>
                             if (Model.isAdminSide == false)
                             {
@@ -182,7 +181,7 @@
                 </div>
             </div>
             <div class="d-flex align-items-center">
-                <button class="submit" type="submit" name="command" value="Aproove">Aproove</button>
+                <button class="submit btn btn-info text-white" type="button" name="command" value="Aproove" style="height:58px;" onclick="AprooveBtn()">Aproove</button>
             </div>
         </div>
     }
@@ -266,6 +265,23 @@
 
     function EditBill(){
         alert("Edit Clicked");
+    }
+
+    function AprooveBtn() {
+        $.ajax({
+            url: "/adminDashboard/AprooveTimeSheet",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: new FormData($('#BiWeeklyForm')[0]),
+            success: function (result) {
+                Invoicing();
+                toastr.success("TimeSheet Aprooved Succesfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
     }
 
 </script>

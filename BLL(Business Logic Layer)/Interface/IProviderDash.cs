@@ -25,6 +25,6 @@ namespace BLL_Business_Logic_Layer_.Interface
         public void AprooveTimeSheet(InvoicingViewModel model, int? AdminID);
         public void SubmitTimeSheet(InvoicingViewModel model, int? PhysicianId);
         public void DeleteBill(int id);
-        public void FinalizeTimeSheet(int id);
+        public void FinalizeTimeSheet(int id);       
     }
 }
