@@ -12,6 +12,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? current_status { get; set; }
 
         public int? physician_id { get; set; }
+        public int? admin_id { get; set; }
 
         public int? req_type_id { get; set; }
 
@@ -100,6 +101,29 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public IFormFile Upload { get; set; }
         public reviewAgreement _reviewAgreement { get; set; }
 
+    }
+
+    public class ChatViewModel
+    {
+        public int ChatId { get; set; }
+
+        public int AdminId { get; set; }
+
+        public int ProviderId { get; set; }
+
+        public int RequestId { get; set; }
+
+        public string? Message { get; set; }
+
+        public string? ChatDate { get; set; }
+
+        public int SentBy { get; set; }
+
+        public string? ChatBoxClass { get; set; }
+
+        public string? RecieverName { get; set; }
+
+        public List<ChatViewModel> Chats { get; set; }
     }
 
 }

@@ -76,7 +76,7 @@
         let action = "/adminDashboard" + "/" + "GetDoctors"
         event.preventDefault();
         $.ajax({
-            url: action,
+            url: action, 
             type: 'GET',
             data: { regionId: reg_id },
             success: function (data) {

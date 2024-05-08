@@ -48,7 +48,9 @@ namespace BLL_Business_Logic_Layer_.Services
                 //phy_fname = db.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).ToList()[0]
                 documentsname = r.Requestwisefiles.Where(r => r.Isdeleted == null).Select(f => f.Filename).ToList(),
                 phy_fname = db.Physicians.Single(x => x.Physicianid == r.Physicianid).Firstname,
-                user_id_param = r.Requestid
+                user_id_param = r.Requestid,
+                physician_id = r.Physicianid ?? 0,
+                admin_id = 1,
             }).OrderByDescending(r => r.reqid).ToList(); ;
 
 
@@ -586,6 +588,7 @@ namespace BLL_Business_Logic_Layer_.Services
             req.Status = 4;
             db.SaveChanges();
         }
+       
     }
 }
 

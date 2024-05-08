@@ -19,11 +19,13 @@ namespace HelloDocMVC.Controllers
 
         private readonly IPatientDash _patientDashInfo;
         private readonly ICreateAccount createAccount;
+        private IAdminDash _IAdminDash;
 
-        public HomeController(ICreateAccount createAccount, IPatientDash patientDashInfo)
+        public HomeController(ICreateAccount createAccount, IPatientDash patientDashInfo, IAdminDash iAdminDash)
         {
             this.createAccount = createAccount;
             _patientDashInfo = patientDashInfo;
+            _IAdminDash = iAdminDash;
         }
 
         public IActionResult CreateAccount(int aspuserId)
@@ -95,6 +97,21 @@ namespace HelloDocMVC.Controllers
             }
             return RedirectToAction("pendingReviewAgreement", new { reqId = obj._reviewAgreement.reqid });
 
+        } 
+
+        public IActionResult Chat(int RequestId, int AdminID, int ProviderId)
+        {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            ChatViewModel model = _IAdminDash.GetChats(RequestId, AdminID, ProviderId, (int)roleMain);
+            return PartialView("_ChatPartialView", model);
+        }
+
+        [HttpPost]
+        public IActionResult Chat(ChatViewModel model) 
+        {
+            var roleMain = HttpContext.Session.GetInt32("roleId");
+            _IAdminDash.NewChat(model, (int)roleMain);
+            return Json("success");
         }
 
     }

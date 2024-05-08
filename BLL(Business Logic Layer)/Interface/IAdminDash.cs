@@ -190,6 +190,8 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public bool SetPayRate(GetPayRate getPayRate);
 
+        public ChatViewModel GetChats(int RequestId, int AdminID, int ProviderId, int RoleId);
 
+        public void NewChat(ChatViewModel model, int RoleID);
     }
 }

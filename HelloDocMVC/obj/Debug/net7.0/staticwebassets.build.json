@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+0Y1tqAGBEcAav/jIDvhnhilDgM8z4KoKa1DU+mDkFQ=",
+  "Hash": "1/el+edqJzFMjoeh6OOME45DN8QDJMzAu/KyNTKmKx4=",
   "Source": "HelloDocMVC",
   "BasePath": "_content/HelloDocMVC",
   "Mode": "Default",
@@ -5916,6 +5916,23 @@
       "OriginalItemSpec": "wwwroot\\Uploaded_files\\ProviderBills\\37-03-05-2024-Fig7. Admin dashboard in Conclude state.jpg"
     },
     {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Uploaded_files\\ProviderBills\\37-16-01-2024-data-graph (3).png",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Uploaded_files/ProviderBills/37-16-01-2024-data-graph (3).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploaded_files\\ProviderBills\\37-16-01-2024-data-graph (3).png"
+    },
+    {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Uploaded_files\\ProviderBills\\37-16-03-2024-Fig24. Provider Menu.jpg",
       "SourceId": "HelloDocMVC",
       "SourceType": "Discovered",
@@ -5931,6 +5948,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploaded_files\\ProviderBills\\37-16-03-2024-Fig24. Provider Menu.jpg"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Uploaded_files\\ProviderBills\\37-16-04-2024-Fig Contact your Provider.jpg",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Uploaded_files/ProviderBills/37-16-04-2024-Fig Contact your Provider.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploaded_files\\ProviderBills\\37-16-04-2024-Fig Contact your Provider.jpg"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Uploaded_files\\ProviderBills\\37-16-04-2024-Fig5. Admin dashboard in pending state.jpg",
@@ -5982,6 +6016,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploaded_files\\ProviderBills\\37-16-12-2023-docLogo.png"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Uploaded_files\\ProviderBills\\37-17-01-2024-docLogo.png",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Uploaded_files/ProviderBills/37-17-01-2024-docLogo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploaded_files\\ProviderBills\\37-17-01-2024-docLogo.png"
+    },
+    {
+      "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Uploaded_files\\ProviderBills\\37-17-04-2024-docLogo.png",
+      "SourceId": "HelloDocMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\",
+      "BasePath": "_content/HelloDocMVC",
+      "RelativePath": "Uploaded_files/ProviderBills/37-17-04-2024-docLogo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploaded_files\\ProviderBills\\37-17-04-2024-docLogo.png"
     },
     {
       "Identity": "D:\\Project\\HelloDocMVC\\HelloDocMVC\\wwwroot\\Uploaded_files\\ProviderBills\\37-18-04-2024-hero-image.png",

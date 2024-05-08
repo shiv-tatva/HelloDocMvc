@@ -1,0 +1,187 @@
+﻿@model DAL_Data_Access_Layer_.CustomeModel.ChatViewModel;
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="color:black!important">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">@Model.RecieverName</h5>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-x text-white" style="font-size:20px"></i></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="ChatDiv">
+            @foreach (var item in Model.Chats)
+            {
+                var outDiv = (item.ChatBoxClass == "Sender" ? "end" : "start");
+                <div class="d-flex flex-column align-items-@outDiv mb-2">
+                    <div class="@item.ChatBoxClass">@item.Message</div>
+                    <div class="chatDate">@item.ChatDate</div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="d-flex" style="gap:10px; padding : 1rem">
+        <input type="text" placeholder="Message" class="chatInput" id="Message" />
+        <button class="submit" type="submit" onclick="ChatSubmit()"><i class="bi bi-send"></i></button>
+        <input type="hidden" asp-for="RequestId" id="RequestID" />
+        <input type="hidden" asp-for="ProviderId" id="ProviderID" />
+        <input type="hidden" asp-for="AdminId" id="AdminID" />
+    </div>
+@*     <section style="background-color: #eee;height:100%;">
+        <div style="height:100%;">
+
+            <div class="d-flex justify-content-center" style="height:100%;width:100%;">
+                <div class="col-12">
+
+                    <div class="card" id="chat1" style="border-radius: 15px;height:100%;">
+                        <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0">
+                            <i class="fas fa-angle-left"></i>
+                            <p class="mb-0 fw-bold">Live chat</p>
+                            <button class="fas fa-times btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="card-body" style="overflow:scroll;" id="offCanvasCardBody">
+                            <div id="discussionTwo">
+                            </div>
+
+                            <div class="form-outline mb-3" style="position: fixed;width: 20%;bottom: 0;">
+                                <input type="text" style="width:84%;height:35px;" id="message" />
+                                <button style="background-color: #0d6efd;border: none;border-radius: 5px;height:35px;width:35px;" id="sendmessage" value="send">
+                                    <i class="bi bi-send" style="color:white;"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+ *@</div>
+
+<script>    
+
+    function ChatSubmit() {
+        var RequestID = $('#RequestID').val();
+        var ProviderID = $('#ProviderID').val();
+        var AdminID = $('#AdminID').val();
+        var Message = $('#Message').val();
+        var Items = {
+            RequestId: RequestID,
+            ProviderId: ProviderID,
+            AdminId: AdminID,
+            Message: Message,
+        }
+        $.ajax({
+            method: "POST",
+            url: "/Home/Chat",
+            data: {
+                model: Items,
+            },
+            success: function (response) {
+                chatafter();
+                ChatMessage();
+            },
+            error: function () {
+                console.log("Function Fail")
+            }
+
+        })
+
+    }
+
+    //Chat Function
+
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chat")
+        .build();
+
+
+    connection.start().then(function () {
+        console.log("connection succ");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendmessage").addEventListener("click", function (event) {
+        var message = document.getElementById("message").value;
+
+        connection.invoke("SendMessage", "admin", message).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        event.preventDefault();
+    });
+
+    connection.on("ReceiveMessage", function (user, message) {
+        if (user == "admin") {
+            var encodedMsg = message;
+            var messageDiv = document.createElement("div");
+            var innerDiv = document.createElement("div");
+            var pTag = document.createElement("p");
+            var img = document.createElement("img");
+            var span = document.createElement("span");
+
+            messageDiv.className = "d-flex flex-row justify-content-end mb-4";
+            messageDiv.style.borderRadius = "15px";
+            messageDiv.style.backgroundColor = "#fbfbfb";
+            messageDiv.style.position = "relative";
+
+            innerDiv.className = "p-3 me-3";
+            innerDiv.style.borderRadius = "15px";
+
+            pTag.className = "small mb-0";
+            pTag.textContent = encodedMsg;
+            pTag.style.fontSize = "18px";
+            pTag.style.color = "black";
+
+            img.src = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp";
+            img.alt = "avatar 1";
+            img.style.width = "45px";
+            img.style.height = "100%";
+
+            span.className = "small text-muted chatTime";
+            span.textContent = new Date().toLocaleTimeString();
+
+            messageDiv.appendChild(innerDiv);
+            messageDiv.appendChild(img);
+            innerDiv.appendChild(pTag);
+            messageDiv.appendChild(span);
+            document.getElementById("discussionTwo").appendChild(messageDiv);
+            document.getElementById("offCanvasCardBody").scrollTop = document.getElementById("offCanvasCardBody").scrollHeight;
+        } else if (user == "user") {
+            var encodedMsg = message;
+            var messageDiv = document.createElement("div");
+            var innerDiv = document.createElement("div");
+            var pTag = document.createElement("p");
+            var img = document.createElement("img");
+            var span = document.createElement("span");
+
+            messageDiv.className = "d-flex flex-row justify-content-start mb-4";
+            messageDiv.style.borderRadius = "15px";
+            messageDiv.style.backgroundColor = "rgba(57, 192, 237,.2)";
+            messageDiv.style.position = "relative";
+
+            innerDiv.className = "p-3 ms-3";
+
+            pTag.className = "small mb-0";
+            pTag.textContent = encodedMsg;
+            pTag.style.fontSize = "18px";
+            pTag.style.color = "black";
+
+            img.src = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp";
+            img.alt = "avatar 1";
+            img.style.width = "45px";
+            img.style.height = "100%";
+
+            span.className = "small text-muted chatTimeTwo";
+            span.textContent = new Date().toLocaleTimeString();
+
+            messageDiv.appendChild(img);
+            messageDiv.appendChild(innerDiv);
+            innerDiv.appendChild(pTag);
+            messageDiv.appendChild(span);
+            document.getElementById("discussionTwo").appendChild(messageDiv);
+            document.getElementById("offCanvasCardBody").scrollTop = document.getElementById("offCanvasCardBody").scrollHeight;
+        }
+    });
+    
+</script>

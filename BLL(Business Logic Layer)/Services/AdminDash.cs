@@ -19,13 +19,14 @@ namespace BLL_Business_Logic_Layer_.Services
         private readonly ApplicationDbContext _context;
         private readonly IGenericRepository<Physician> _physicianrepo;
         private readonly IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> _weeklyTimeSheetRepo;
+        private readonly IGenericRepository<Chat> _chatRepo;
 
-        public AdminDash(ApplicationDbContext context, IGenericRepository<Physician> physicianrepo , IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo)
+        public AdminDash(ApplicationDbContext context, IGenericRepository<Physician> physicianrepo , IGenericRepository<DAL_Data_Access_Layer_.DataModels.WeeklyTimeSheet> weeklyTimeSheetRepo, IGenericRepository<Chat> chatRepo)
         {
             _context = context;
             _physicianrepo = physicianrepo;
             _weeklyTimeSheetRepo = weeklyTimeSheetRepo;
-
+            _chatRepo = chatRepo;
         }
 
 
@@ -2723,8 +2724,6 @@ namespace BLL_Business_Logic_Layer_.Services
         }
         #endregion
 
-
-
         public List<Aspnetrole> GetAccountTypeRoles()
         {
             var role = _context.Aspnetroles.Where(i => i.Id != 2).ToList();
@@ -4131,6 +4130,55 @@ namespace BLL_Business_Logic_Layer_.Services
             return false;
         }
 
+        public ChatViewModel GetChats(int RequestId, int AdminID, int ProviderId, int RoleId)
+        {
+            var requestClient = _context.Requestclients.FirstOrDefault(u => u.Requestid == RequestId);
+            var physician = _context.Physicians.FirstOrDefault(u => u.Physicianid == ProviderId);
+            var admin = _context.Admins.FirstOrDefault(u => u.Adminid == AdminID);
+            ChatViewModel model = new ChatViewModel();
+            var chats = _chatRepo.SelectWhereOrderBy(x => new ChatViewModel
+            {
+                ChatId = x.ChatId,
+                Message = x.Message ?? "",
+                ChatDate = x.SentDate!.Value.ToString("hh:mm tt"),
+                SentBy = x.SentBy ?? 0,
 
+            }, x => x.AdminId == AdminID && x.RequestId == RequestId && x.PhyscainId == ProviderId, x => x.SentDate!);
+            List<ChatViewModel> list = new List<ChatViewModel>();
+            foreach (ChatViewModel item in chats)
+            {
+                item.ChatBoxClass = (item.SentBy == Convert.ToInt32(RoleId) ? "Sender" : "Reciever");
+                list.Add(item);
+            }
+            if (ProviderId == 0)
+            {
+                model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : admin.Firstname + " " + admin.Lastname);
+            }
+            if (RequestId == 0)
+            {
+                model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : admin.Firstname + " " + admin.Lastname);
+            }
+            if (AdminID == 0)
+            {
+                model.RecieverName = (RoleId == 2 ? physician.Firstname + " " + physician.Lastname : requestClient.Firstname + " " + requestClient.Lastname);
+            }
+            model.Chats = list;
+            model.RequestId = RequestId;
+            model.ProviderId = ProviderId;
+            model.AdminId = AdminID;
+            return model;
+        }
+
+        public void NewChat(ChatViewModel model, int RoleID)
+        {
+            Chat chat = new Chat();
+            chat.Message = model.Message;
+            chat.SentBy = Convert.ToInt32(RoleID);
+            chat.AdminId = model.AdminId;
+            chat.RequestId = model.RequestId;
+            chat.PhyscainId = model.ProviderId;
+            chat.SentDate = DateTime.Now;
+            _chatRepo.Add(chat);
+        }
     }
 }

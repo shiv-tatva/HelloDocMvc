@@ -28,5 +28,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public void agreeMain(int reqId);
 
         public bool checkstatus(int reqId);
+
+        
     }
 }
