@@ -106,13 +106,13 @@ namespace HelloDocMVC.Controllers
             return PartialView("_ChatPartialView", model);
         }
 
-        [HttpPost]
-        public IActionResult Chat(ChatViewModel model) 
-        {
-            var roleMain = HttpContext.Session.GetInt32("roleId");
-            _IAdminDash.NewChat(model, (int)roleMain);
-            return Json("success");
-        }
+        //[HttpPost]
+        //public IActionResult Chat(ChatViewModel model) 
+        //{
+        //    var roleMain = HttpContext.Session.GetInt32("roleId");
+        //    _IAdminDash.NewChat(model, (int)roleMain);
+        //    return Json("success");
+        //}
 
     }
-}
+} 

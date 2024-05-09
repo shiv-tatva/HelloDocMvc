@@ -533,7 +533,8 @@
     <div id="requestSupportPopUp">
     </div>
 
-    <div id="partialViewForChat"></div>    
+    <div id="partialViewForChat">
+    </div>    
 
 </div>
 
@@ -577,7 +578,6 @@
             type: 'GET',
             data: { req: reqid },
             success: function (result) {
-                console.log(result)
                 $('#contentCancelNote').html(result);
                 $('#newRequestModal').modal('show');
               
@@ -615,7 +615,6 @@
             type: 'GET',
             data: { req: reqid },
             success: function (result) {
-                console.log(result)
                 $('#contentBlockNote').html(result);
                 $('#newRequestModalThree').modal('show');
 
@@ -711,7 +710,6 @@
             url: action,
             type: 'GET',
             success: function (result) {
-                console.log(result)
                 $('#requestSupportPopUp').html(result);
                 $('#requestSupportPopUpOne').modal('show');
 
@@ -776,7 +774,6 @@
     function exportBtnNew() {
         // Get the HTML content of the table
         var htmlContent = $("#tableParentDiv").html();
-        console.log(htmlContent)
 
         // Set the modified HTML content to the input value
         $("input[name='GridHtml']").val(htmlContent);
@@ -833,7 +830,6 @@
 
             },
             success: function (data) {
-                console.log(data);
                 $('#partialViewForChat').html(data);
                 $('#offcanvasRight').offcanvas("show");
             },

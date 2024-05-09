@@ -56,7 +56,7 @@
                             {
                                 <option value="@item.Regionid">@item.Name</option>
                             }
-                        </select>
+                        </select> 
                     </div>
 
                 </div>
@@ -108,6 +108,7 @@
                                 <th scope="col" class="dark-mode2 ">Name</th>
                                 <th scope="col" class="dark-mode2 ">Phone</th>
                                 <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Chat With</th>
                                 <th scope="col" class="dark-mode2 ">Actions</th>
                             </tr>
                         </thead>
@@ -174,6 +175,31 @@
                                         }
                                     </td>
                                     <td class="text-white" style="background:@bgColor">@item.address</td>
+                                    <td class="text-white" style="background:@bgColor;">
+
+                                        <div style="display:flex;">
+                                            <div class="dropdown mb-1">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown" onclick="ChatWith(@item.reqid,@item.phy_id,0)"
+                                                        aria-expanded="false">
+                                                    <i class="bi bi-person me-2 d-none d-sm-inline"></i>
+                                                    <span>
+                                                        Patient
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn text-white border border-white py-1 "
+                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown" onclick="ChatWith(0,@item.phy_id,1)"
+                                                        aria-expanded="false">
+                                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
+                                                    <span>
+                                                        Admin
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="text-white" style="background:@bgColor">
                                         <div>
                                             <div class="dropdown">
@@ -244,6 +270,7 @@
                                 <th scope="col" class="dark-mode2 ">Name</th>
                                 <th scope="col" class="dark-mode2 ">Phone</th>
                                 <th scope="col" class="dark-mode2 ">Address</th>
+                                <th scope="col" class="dark-mode2 ">Chat With</th>
                                 <th scope="col" class="dark-mode2 ">Actions</th>
                             </tr>
                         </thead>
@@ -396,6 +423,7 @@
                             <th scope="col" class="dark-mode2 ">Name</th>
                             <th scope="col" class="dark-mode2 ">Phone</th>
                             <th scope="col" class="dark-mode2 ">Address</th>
+                            <th scope="col" class="dark-mode2 ">Chat With</th>
                             <th scope="col" class="dark-mode2 ">Actions</th>
                         </tr>
                     </thead>
@@ -439,6 +467,9 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="partialViewForChat">
     </div>
 
 </div>
@@ -788,6 +819,38 @@
             }
         });
     }
+
+    var REQUESTID = 0;
+    var ADMINID = 0;
+    var PROVIDERID = 0;
+    function ChatWith(x, y, z) {
+        REQUESTID = x;
+        ADMINID = z;
+        PROVIDERID = y;
+        chatafter();
+    }
+    function chatafter() {
+        $.ajax({
+            method: "GET",
+            url: "/Home/Chat",
+            data: {
+                RequestId: REQUESTID,
+                AdminID: ADMINID,
+                ProviderId: PROVIDERID,
+
+            },
+            success: function (data) {
+                console.log(data);
+                $('#partialViewForChat').html(data);
+                $('#offcanvasRight').offcanvas("show");
+            },
+            error: function () {
+                console.log("Function Fail");
+            }
+
+        });
+    }
+
 
 </script>
 

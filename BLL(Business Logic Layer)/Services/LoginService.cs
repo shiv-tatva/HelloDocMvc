@@ -23,7 +23,7 @@ namespace BLL_Business_Logic_Layer_.Services
             var checkRoleId = db.Admins.FirstOrDefault(r => r.Email == obj.Email);
             var checkRoleIdTwo = db.Physicians.FirstOrDefault(r => r.Email == obj.Email);
 
-            var roleIdMain = 0;
+            var roleIdMain = 2;
 
             if (checkRoleId != null)
             {

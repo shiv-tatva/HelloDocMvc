@@ -151,7 +151,7 @@ namespace BLL_Business_Logic_Layer_.Services
             return _dbSet.Where(where).Select(select).ToList();
 
         }
-        public List<string> SelectWhere(Expression<Func<T, string>> select, Expression<Func<T, bool>> where)
+        public List<string> SelectWhere(Expression<Func<T, string>> select, Expression<Func<T, bool>> where) 
         {
             return _dbSet.Where(where).Select(select).ToList();
 

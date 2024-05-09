@@ -4152,11 +4152,11 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             if (ProviderId == 0)
             {
-                model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : admin.Firstname + " " + admin.Lastname);
+                model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : "Admins");
             }
             if (RequestId == 0)
             {
-                model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : admin.Firstname + " " + admin.Lastname);
+                model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : "Admins");
             }
             if (AdminID == 0)
             {
@@ -4166,19 +4166,40 @@ namespace BLL_Business_Logic_Layer_.Services
             model.RequestId = RequestId;
             model.ProviderId = ProviderId;
             model.AdminId = AdminID;
+            model.RoleId = RoleId;
             return model;
         }
 
         public void NewChat(ChatViewModel model, int RoleID)
         {
-            Chat chat = new Chat();
-            chat.Message = model.Message;
-            chat.SentBy = Convert.ToInt32(RoleID);
-            chat.AdminId = model.AdminId;
-            chat.RequestId = model.RequestId;
-            chat.PhyscainId = model.ProviderId;
-            chat.SentDate = DateTime.Now;
-            _chatRepo.Add(chat);
+            if(model.AdminId == 1 && model.flag != "Admin")
+            {
+                var adminData = _context.Admins.ToList();
+
+                foreach(var item in adminData)
+                {
+                    Chat chat = new Chat();
+                    chat.Message = model.Message;
+                    chat.SentBy = Convert.ToInt32(RoleID);
+                    chat.AdminId = item.Adminid;
+                    chat.RequestId = model.RequestId;
+                    chat.PhyscainId = model.ProviderId;
+                    chat.SentDate = DateTime.Now;
+                    _chatRepo.Add(chat);
+                }
+            }
+            else
+            {
+                Chat chat = new Chat();
+                chat.Message = model.Message;
+                chat.SentBy = Convert.ToInt32(RoleID);
+                chat.AdminId = model.AdminId;
+                chat.RequestId = model.RequestId;
+                chat.PhyscainId = model.ProviderId;
+                chat.SentDate = DateTime.Now;
+                _chatRepo.Add(chat);
+            }
+            
         }
     }
 }

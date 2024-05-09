@@ -113,6 +113,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public int RequestId { get; set; }
 
+        public int RoleId { get; set; }
+
         public string? Message { get; set; }
 
         public string? ChatDate { get; set; }
@@ -122,6 +124,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public string? ChatBoxClass { get; set; }
 
         public string? RecieverName { get; set; }
+
+        public string? flag { get; set; }
 
         public List<ChatViewModel> Chats { get; set; }
     }

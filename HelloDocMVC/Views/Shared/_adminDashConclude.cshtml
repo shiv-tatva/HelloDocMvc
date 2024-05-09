@@ -204,30 +204,40 @@
                                         }
                                     </td>
                                     <td class="text-white" style="background:@bgColor">@item.address</td>
-                                    <td class="text-white" style="background:@bgColor">
-
+                                    <td style="background:@bgColor; ">
+                                        @if (item.notes.Count() != 0 && item.phy_id != null)
+                                        {
+                                            @if (item.notes.Last().Transtophysicianid != null)
+                                            {
+                                                <div style="display:flex;">
+                                                    <div class="dropdown mb-1">
+                                                        <button class="btn text-white border border-white py-2 navbar-toggler" type="button" onclick="ChatWith(0,@item.phy_id,1)"
+                                                                id="chat_with_dropdown2" aria-expanded="false">
+                                                            <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
+                                                            <span>
+                                                                Provider
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <span>-</span>
+                                            }
+                                        }
                                         <div style="display:flex;">
-                                            @* <div class="dropdown mb-1">
-                                                <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="bi bi-person me-2 d-none d-sm-inline"></i>
+                                            <div class="dropdown">
+                                                <button class="btn text-white border border-white py-2 navbar-toggler" type="button" onclick="ChatWith(@item.reqid,0,1)"
+                                                        id="chat_with_dropdown2" aria-expanded="false">
+                                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
                                                     <span>
                                                         Patient
                                                     </span>
                                                 </button>
-                                            </div> *@
-                                            <div class="dropdown">
-                                                <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
-                                                    <span>
-                                                        Provider
-                                                    </span>
-                                                </button>
                                             </div>
                                         </div>
+
                                     </td>
                                     <td class="text-white" style="background:@bgColor">
                                         <div>
@@ -470,6 +480,10 @@
 
     <div id="requestSupportConcludePopUp">
     </div>
+
+    <div id="partialViewForChat">
+    </div>
+
 </div>
 
 
@@ -736,6 +750,37 @@
             },
         });
 
+    }
+
+    var REQUESTID = 0;
+    var ADMINID = 0;
+    var PROVIDERID = 0;
+    function ChatWith(x, y, z) {
+        REQUESTID = x;
+        ADMINID = z;
+        PROVIDERID = y;
+        chatafter();
+    }
+    function chatafter() {
+        $.ajax({
+            method: "GET",
+            url: "/Home/Chat",
+            data: {
+                RequestId: REQUESTID,
+                AdminID: ADMINID,
+                ProviderId: PROVIDERID,
+
+            },
+            success: function (data) {
+                console.log(data);
+                $('#partialViewForChat').html(data);
+                $('#offcanvasRight').offcanvas("show");
+            },
+            error: function () {
+                console.log("Function Fail");
+            }
+
+        });
     }
 
 </script>
