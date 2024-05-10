@@ -1,4 +1,5 @@
 ﻿using DAL_Data_Access_Layer_.CustomeModel;
+using DAL_Data_Access_Layer_.DataModels;
 using HelloDocMVC.CustomeModel;
 
 namespace BLL_Business_Logic_Layer_.Interface
@@ -9,6 +10,7 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public List<PatientDashboardData> patientDashInfo(string email);
 
+        public List<Admin> adminDataMain();
         PatientDashboardData UserProfile(string email);
 
         Custom userMeDetail(string email);

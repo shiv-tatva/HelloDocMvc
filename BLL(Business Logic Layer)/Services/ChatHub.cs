@@ -25,24 +25,24 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public async Task SendMessage(string message,string RequestID,string ProviderID,string AdminID,string RoleID)
         {
-            if (RoleID != "1" && AdminID != "0")
-            {
-                var adminData = _context.Admins.ToList();
+            //if (RoleID != "1" && AdminID != "0")
+            //{
+            //    var adminData = _context.Admins.ToList();
 
-                foreach (var item in adminData)
-                {
-                    Chat chat = new Chat();
-                    chat.Message = message;
-                    chat.SentBy = Convert.ToInt32(RoleID);
-                    chat.AdminId = item.Adminid;
-                    chat.RequestId = Convert.ToInt32(RequestID);
-                    chat.PhyscainId = Convert.ToInt32(ProviderID);
-                    chat.SentDate = DateTime.Now;
-                    _chatRepo.Add(chat);
-                }
-            }
-            else
-            {
+            //    foreach (var item in adminData)
+            //    {
+            //        Chat chat = new Chat();
+            //        chat.Message = message;
+            //        chat.SentBy = Convert.ToInt32(RoleID);
+            //        chat.AdminId = item.Adminid;
+            //        chat.RequestId = Convert.ToInt32(RequestID);
+            //        chat.PhyscainId = Convert.ToInt32(ProviderID);
+            //        chat.SentDate = DateTime.Now;
+            //        _chatRepo.Add(chat);
+            //    }
+            //}
+            //else
+            //{
                 Chat chat = new Chat();
                 chat.Message = message;
                 chat.SentBy = Convert.ToInt32(RoleID);
@@ -51,7 +51,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 chat.PhyscainId = Convert.ToInt32(ProviderID);
                 chat.SentDate = DateTime.Now;
                 _chatRepo.Add(chat);
-            }
+            //}
 
             await Clients.All.SendAsync("ReceiveMessage", message);
         }

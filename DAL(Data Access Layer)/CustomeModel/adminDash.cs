@@ -693,6 +693,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     {
         public List<adminDash> data { get; set; }
 
+        public List<Admin> adminData { get; set; }
+
         public viewNotes? _viewNote { get; set; }
 
         public CloseCase? closeCase { get; set; }

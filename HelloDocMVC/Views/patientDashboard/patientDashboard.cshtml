@@ -99,7 +99,7 @@
                         </button>
                     </td>
                     <td style="display:flex;">
-                        @if(item.physician_id != null)
+                        @if(item.physician_id != 0)
                         {                            
                             <div style="display:flex;">
                             <div class="dropdown me-3">
@@ -112,17 +112,49 @@
                             </div>
                         </div>
                         }
-                        <div style="display:flex;">
-                            <div class="dropdown">
-                                <button style="border:1px solid black!important;border-radius:5px;" class="btn border border-white p-2 navbar-toggler" type="button" onclick="ChatWith(@item.reqid,0,@item.admin_id)"
+                            <div>
+                                <div class="dropdown">
+                                    <button class="btn border py-1 border-black"
+                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <span>
+                                            <i class="fa-regular fa-user pe-1"></i>Admin
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
+                                        @foreach (var obj in Model.adminData)
+                                        {
+                                            <li>
+                                                <button type="button" class="dropdown-item" onclick="ChatWith(@item.reqid,0,@obj.Adminid)">                                                    
+                                                    @obj.Firstname  @obj.Lastname
+                                                </button>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                                
+                                @* <select class="form-select mb-2" aria-label="Default select example" style="border:1px solid black;" id="ChatWithAdminDropDown">
+                                    <option value="" disabled selected>
+                                        <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>Admin
+                                    </option>
+                                    @foreach (var obj in Model.adminData)
+                                    {
+                                        <option value="@obj.Adminid">@obj.Firstname  @obj.Lastname</option>
+                                    }
+                                </select>
+                                <input type="hidden" id="@item.reqid" value="@item.reqid" /> *@
+
+                                @* <button style="border:1px solid black!important;border-radius:5px;" class="btn border border-white p-2 navbar-toggler" type="button" onclick="ChatWith(@item.reqid,0,@item.admin_id)"
                                          aria-expanded="false">
                                     <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
                                     <span>
                                         Admin
                                     </span>
-                                </button>
-                            </div>
-                        </div>
+                                    
+                                </button> *@
+                            
                     </td>
                 </tr>
             }
@@ -280,8 +312,13 @@
         } else if (forRequestId == 1) {
             location.href = '@Url.Action("dashboardSomeOneView","patientDashboard")';
         }
-    }   
+    }
 
+    // $("#ChatWithAdminDropDown").on("change", function () {
+
+    //     ChatWith(,0,$(this).val());
+    // })
+ 
     var REQUESTID = 0;
     var ADMINID = 0;
     var PROVIDERID = 0;
@@ -311,5 +348,19 @@
 
         });
     }
+
+    
+
+    // var dropdowns = document.querySelectorAll('#adminDropdownContainer select');
+    // dropdowns.forEach(function (dropdown) {
+    //     dropdown.addEventListener('change', function () {
+    //         var selectedAdminId = this.value;
+    //         var reqId = this.id.split('_')[1];
+    //         var reqIdInput = document.getElementById('reqId_' + reqId);
+    //         var reqIdValue = reqIdInput.value;
+    //         ChatWith(reqIdValue, 0, selectedAdminId);
+    //     });
+    // });
+
 
 </script>

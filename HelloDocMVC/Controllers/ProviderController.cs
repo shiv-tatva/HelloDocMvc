@@ -91,6 +91,7 @@ namespace HelloDocMVC.Controllers
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
 
                 return PartialView("Provider/_ProviderNewTab", adminDashObj);
             }
@@ -119,6 +120,7 @@ namespace HelloDocMVC.Controllers
                 adminDashData adminDashObj = new adminDashData();
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
                 return PartialView("Provider/_ProviderNewTab", adminDashObj);
             }
             catch
@@ -145,6 +147,7 @@ namespace HelloDocMVC.Controllers
                 adminDashData adminDashObj = new adminDashData();
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
                 return PartialView("Provider/_ProviderTabPending", adminDashObj);
             }
             catch
@@ -171,6 +174,7 @@ namespace HelloDocMVC.Controllers
                 adminDashData adminDashObj = new adminDashData();
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
                 return PartialView("Provider/_ProviderTabActive", adminDashObj);
             }
             catch
@@ -197,6 +201,7 @@ namespace HelloDocMVC.Controllers
                 adminDashData adminDashObj = new adminDashData();
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, null, 0, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
                 return PartialView("Provider/_ProviderTabConclude", adminDashObj);
             }
             catch
@@ -438,6 +443,7 @@ namespace HelloDocMVC.Controllers
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
 
                 return PartialView("Provider/_ProviderTabPending", adminDashObj);
             }
@@ -653,6 +659,7 @@ namespace HelloDocMVC.Controllers
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
 
 
                 return PartialView("Provider/_ProviderTabActive", adminDashObj);
@@ -928,7 +935,7 @@ namespace HelloDocMVC.Controllers
                 var sessionEmail = HttpContext.Session.GetString("UserSession");
                 adminDashObj.data = _IAdminDash.adminData(arr, typeId, regionId, sessionEmail, dataFlag, sessionEmail);
                 adminDashObj._RegionTable = _IAdminDash.RegionTable();
-
+                adminDashObj.adminData = _IAdminDash.AdminDetails();
 
                 return PartialView("Provider/_ProviderTabConclude", adminDashObj);
             }

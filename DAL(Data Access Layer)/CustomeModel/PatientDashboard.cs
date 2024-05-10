@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DAL_Data_Access_Layer_.DataModels;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace DAL_Data_Access_Layer_.CustomeModel
@@ -60,6 +61,7 @@ namespace DAL_Data_Access_Layer_.CustomeModel
         public int? int_date { get; set; }
 
         public List<string> documentsname { get; set; }
+        
 
     }
 
@@ -96,6 +98,8 @@ namespace DAL_Data_Access_Layer_.CustomeModel
     public class PatientDashboard
     {
         public List<PatientDashboardData> data { get; set; }
+
+        public List<Admin> adminData { get; set; }
 
         [Required(ErrorMessage = "Please Select Atleast One File")]
         public IFormFile Upload { get; set; }

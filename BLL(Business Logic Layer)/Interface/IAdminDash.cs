@@ -83,8 +83,7 @@ namespace BLL_Business_Logic_Layer_.Interface
         public AdminEditPhysicianProfile adminEditPhysicianProfile(int phyId, string sessionEmail, int flag, int statusId);
 
         public List<Region> RegionTable();
-
-
+        public List<Admin> AdminDetails();
         public List<PhysicianRegionTable> PhyRegionTable(int phyId);
 
         public List<Role> physicainRole();

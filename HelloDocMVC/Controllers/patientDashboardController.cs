@@ -39,7 +39,7 @@ namespace HelloDocMVC.Controllers
                 PatientDashboard patientDashboard = new PatientDashboard();
                 string emailpatient = HttpContext.Session.GetString("UserSession").ToString();
                 patientDashboard.data = _patientDashInfo.patientDashInfo(emailpatient);
-
+                patientDashboard.adminData = _patientDashInfo.adminDataMain();
                 ViewBag.Admin = 2;
                 return View(patientDashboard);
             }

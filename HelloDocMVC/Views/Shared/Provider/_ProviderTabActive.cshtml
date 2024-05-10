@@ -188,8 +188,8 @@
 
                                         <div style="display:flex;">
                                             <div class="dropdown mb-1">
-                                                <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown" onclick="ChatWith(@item.reqid,@item.phy_id,0)"
+                                                <button class="btn text-white border border-white py-1 " onclick="ChatWith(@item.reqid,@item.phy_id,0)"
+                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
                                                         aria-expanded="false">
                                                     <i class="bi bi-person me-2 d-none d-sm-inline"></i>
                                                     <span>
@@ -197,15 +197,27 @@
                                                     </span>
                                                 </button>
                                             </div>
-                                            <div class="dropdown">
-                                                <button class="btn text-white border border-white py-1 "
-                                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown" onclick="ChatWith(0,@item.phy_id,1)"
-                                                        aria-expanded="false">
-                                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
-                                                    <span>
-                                                        Admin
-                                                    </span>
-                                                </button>
+                                            <div>
+                                                <div class="dropdown">
+                                                    <button class="btn border py-1 border-black text-light"
+                                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                        <span>
+                                                            <i class="fa-regular fa-user pe-1"></i>Admin
+                                                        </span>
+                                                    </button>
+                                                    <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
+                                                        @foreach (var obj in Model.adminData)
+                                                        {
+                                                            <li>
+                                                                <button type="button" class="dropdown-item" onclick="ChatWith(0,@item.phy_id,@obj.Adminid)">
+                                                                    @obj.Firstname  @obj.Lastname
+                                                                </button>
+                                                            </li>
+                                                        }
+
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>

@@ -1945,6 +1945,15 @@ namespace BLL_Business_Logic_Layer_.Services
         }
         #endregion
 
+        #region AdminDetails
+        public List<Admin> AdminDetails()
+        {
+            var adminDetails = _context.Admins.ToList();
+
+            return adminDetails;
+        }
+        #endregion
+
         #region PhyRegionTable
         public List<PhysicianRegionTable> PhyRegionTable(int phyId)
         {
@@ -4152,11 +4161,11 @@ namespace BLL_Business_Logic_Layer_.Services
             }
             if (ProviderId == 0)
             {
-                model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : "Admins");
+                model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : admin.Firstname + " " + admin.Lastname);
             }
             if (RequestId == 0)
             {
-                model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : "Admins");
+                model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : admin.Firstname + " " + admin.Lastname);
             }
             if (AdminID == 0)
             {

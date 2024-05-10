@@ -30,6 +30,7 @@ namespace BLL_Business_Logic_Layer_.Services
 
         public List<PatientDashboardData> patientDashInfo(string email)
         {
+
             var uid = db.Users.Where(r => r.Email == email).Select(x => x.Userid).First();
             var request = db.Requests.Where(r => r.Userid == uid).AsNoTracking();
 
@@ -54,9 +55,17 @@ namespace BLL_Business_Logic_Layer_.Services
             }).OrderByDescending(r => r.reqid).ToList(); ;
 
 
+
             return requestMain;
 
 
+        }
+
+        public List<Admin> adminDataMain()
+        {
+            var adminData = db.Admins.ToList();
+
+            return adminData;
         }
 
 
