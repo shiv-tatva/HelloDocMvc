@@ -112,21 +112,45 @@
                             </div>
                         </div>
                         }
-                            <div>
+                        <div style="margin-right:10px;">
+                            <div class="dropdown">
+                                <button class="btn border py-1 border-black"
+                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <span>
+                                        <i class="fa-regular fa-user pe-1"></i>Admin
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
+                                    @foreach (var obj in Model.adminData)
+                                    {
+                                        <li>
+                                            <button type="button" class="dropdown-item" onclick="ChatWith(@item.reqid,0,@obj.Adminid)">
+                                                @obj.Firstname  @obj.Lastname
+                                            </button>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                        @if (item.physician_id != 0)
+                        {
+                            <div style="margin-right:10px;">
                                 <div class="dropdown">
                                     <button class="btn border py-1 border-black"
                                             id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
                                             aria-expanded="false">
                                         <span>
-                                            <i class="fa-regular fa-user pe-1"></i>Admin
+                                            <i class="fa-regular fa-user pe-1"></i>Group Chat
                                         </span>
                                     </button>
                                     <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
                                         @foreach (var obj in Model.adminData)
                                         {
                                             <li>
-                                                <button type="button" class="dropdown-item" onclick="ChatWith(@item.reqid,0,@obj.Adminid)">                                                    
-                                                    @obj.Firstname  @obj.Lastname
+                                                <button type="button" class="dropdown-item" onclick="ChatWith(@item.reqid,@item.physician_id,@obj.Adminid,5)">
+                                                  Admin : @obj.Firstname  @obj.Lastname
                                                 </button>
                                             </li>
                                         }
@@ -134,27 +158,17 @@
                                     </ul>
                                 </div>
                             </div>
-                                
-                                @* <select class="form-select mb-2" aria-label="Default select example" style="border:1px solid black;" id="ChatWithAdminDropDown">
-                                    <option value="" disabled selected>
-                                        <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>Admin
-                                    </option>
-                                    @foreach (var obj in Model.adminData)
-                                    {
-                                        <option value="@obj.Adminid">@obj.Firstname  @obj.Lastname</option>
-                                    }
-                                </select>
-                                <input type="hidden" id="@item.reqid" value="@item.reqid" /> *@
-
-                                @* <button style="border:1px solid black!important;border-radius:5px;" class="btn border border-white p-2 navbar-toggler" type="button" onclick="ChatWith(@item.reqid,0,@item.admin_id)"
-                                         aria-expanded="false">
-                                    <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
-                                    <span>
-                                        Admin
-                                    </span>
-                                    
-                                </button> *@
-                            
+                            @* <div style="display:flex;">
+                                <div class="dropdown me-3">
+                                    <button type="button" style="border:1px solid black!important;border-radius:5px;" class="btn border border-white p-2 navbar-toggler" onclick="ChatWith(@item.reqid,@item.physician_id,0)">
+                                        <i class="fa-regular fa-user"></i>
+                                        <span class="px-2 ">
+                                            Group Chat
+                                        </span>
+                                    </button>
+                                </div>
+                            </div> *@
+                        }
                     </td>
                 </tr>
             }
@@ -318,25 +332,27 @@
 
     //     ChatWith(,0,$(this).val());
     // })
- 
+
     var REQUESTID = 0;
     var ADMINID = 0;
     var PROVIDERID = 0;
-    function ChatWith(x, y, z) {
+    var FLAG = 0;
+    function ChatWith(x, y, z, flag) {
         REQUESTID = x;
         ADMINID = z;
         PROVIDERID = y;
+        FLAG = flag;
         chatafter();
     }
     function chatafter() {
-        $.ajax({ 
+        $.ajax({
             method: "GET",
             url: "/Home/Chat",
             data: {
                 RequestId: REQUESTID,
                 AdminID: ADMINID,
                 ProviderId: PROVIDERID,
-
+                FlagId: FLAG,
             },
             success: function (data) {
                 $('#partialViewForChat').html(data);

@@ -208,7 +208,7 @@ th{
                                             {
                                                 <div style="display:flex;">
                                                     <div class="dropdown mb-1">
-                                                        <button class="btn text-white border border-white py-2 navbar-toggler" type="button" onclick="ChatWith(0,@item.phy_id,1)"
+                                                        <button class="btn text-white border border-white py-2 navbar-toggler" type="button" onclick="ChatWith(@item.reqid,@item.phy_id,1)"
                                                                 id="chat_with_dropdown2" aria-expanded="false">
                                                             <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
                                                             <span>
@@ -217,13 +217,14 @@ th{
                                                         </button>
                                                     </div>
                                                 </div>
+
                                             }
                                             else
                                             {
                                                 <span>-</span>
                                             }
                                         }
-                                        <div style="display:flex;">
+                                        <div style="display:flex;margin-bottom:5px;">
                                             <div class="dropdown">
                                                 <button class="btn text-white border border-white py-2 navbar-toggler" type="button" onclick="ChatWith(@item.reqid,0,1)"
                                                         id="chat_with_dropdown2" aria-expanded="false">
@@ -234,6 +235,29 @@ th{
                                                 </button>
                                             </div>
                                         </div>
+
+                                        @if (item.notes.Count() != 0 && item.phy_id != null)
+                                        {
+                                            @if (item.notes.Last().Transtophysicianid != null)
+                                            {
+                                                <div style="display:flex;">
+                                                    <div class="dropdown mb-1">
+                                                        <button class="btn text-white border border-white py-2 navbar-toggler" type="button" onclick="ChatWith(@item.reqid,@item.phy_id,1,5)"
+                                                                id="chat_with_dropdown2" aria-expanded="false">
+                                                            <i class="fa-solid fa-user-doctor me-2 d-none d-sm-inline"></i>
+                                                            <span>
+                                                                Group Chat
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            }
+                                            else
+                                            {
+                                                <span>-</span>
+                                            }
+                                        }
 
                                     </td>
                                     <td class="text-white" style="background:@bgColor">

@@ -23,7 +23,7 @@ namespace BLL_Business_Logic_Layer_.Services
             _chatRepo = chatRepo;
         }
 
-        public async Task SendMessage(string message,string RequestID,string ProviderID,string AdminID,string RoleID)
+        public async Task SendMessage(string message,string RequestID,string ProviderID,string AdminID,string RoleID,string GroupFlagID)
         {
             //if (RoleID != "1" && AdminID != "0")
             //{
@@ -50,6 +50,7 @@ namespace BLL_Business_Logic_Layer_.Services
                 chat.RequestId = Convert.ToInt32(RequestID);
                 chat.PhyscainId = Convert.ToInt32(ProviderID);
                 chat.SentDate = DateTime.Now;
+                chat.ChatType = Convert.ToInt32(GroupFlagID);
                 _chatRepo.Add(chat);
             //}
 

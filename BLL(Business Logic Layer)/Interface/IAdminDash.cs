@@ -187,9 +187,9 @@ namespace BLL_Business_Logic_Layer_.Interface
 
         public GetPayRate GetPayRate(int physicianId, int callid);
 
-        public bool SetPayRate(GetPayRate getPayRate);
+        public bool SetPayRate(GetPayRate getPayRate); 
 
-        public ChatViewModel GetChats(int RequestId, int AdminID, int ProviderId, int RoleId);
+        public ChatViewModel GetChats(int RequestId, int AdminID, int ProviderId, int RoleId,int FlagId);
 
         public void NewChat(ChatViewModel model, int RoleID);
     }

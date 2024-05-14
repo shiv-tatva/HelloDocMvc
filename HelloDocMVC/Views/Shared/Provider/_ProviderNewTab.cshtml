@@ -198,7 +198,7 @@
                                                         @foreach (var obj in Model.adminData)
                                                         {
                                                             <li>
-                                                                <button type="button" class="dropdown-item" onclick="ChatWith(0,@item.phy_id,@obj.Adminid)">
+                                                                <button type="button" class="dropdown-item" onclick="ChatWith(@item.reqid,@item.phy_id,@obj.Adminid)">
                                                                     @obj.Firstname  @obj.Lastname
                                                                 </button>
                                                             </li>
@@ -207,6 +207,38 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <div>
+                                                <div class="dropdown">
+                                                    <button class="btn border py-1 border-black text-light"
+                                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                        <span>
+                                                            <i class="fa-regular fa-user pe-1"></i>Group Chat
+                                                        </span>
+                                                    </button>
+                                                    <ul class="dropdown-menu table_dropdowns" style="--bs-dropdown-link-hover-bg: lightgrey;">
+                                                        @foreach (var obj in Model.adminData)
+                                                        {
+                                                            <li>
+                                                                <button type="button" class="dropdown-item" onclick="ChatWith(@item.reqid,@item.phy_id,@obj.Adminid,5)">
+                                                                    Admin : @obj.Firstname  @obj.Lastname
+                                                                </button>
+                                                            </li>
+                                                        }
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            @* <div class="dropdown mb-1">
+                                                <button class="btn text-white border border-white py-1 " onclick="ChatWith(@item.reqid,@item.phy_id,,5)"
+                                                        id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                    <i class="bi bi-person me-2 d-none d-sm-inline"></i>
+                                                    <span>
+                                                        Group Chat
+                                                    </span>
+                                                </button>
+                                            </div> *@
                                         </div>
                                     </td>
                                     <td style="background:@bgColor">
@@ -761,10 +793,12 @@
     var REQUESTID = 0;
     var ADMINID = 0;
     var PROVIDERID = 0;
-    function ChatWith(x, y, z) {
+    var FLAG = 0;
+    function ChatWith(x, y, z, flag) {
         REQUESTID = x;
         ADMINID = z;
         PROVIDERID = y;
+        FLAG = flag;
         chatafter();
     }
     function chatafter() {
@@ -775,10 +809,9 @@
                 RequestId: REQUESTID,
                 AdminID: ADMINID,
                 ProviderId: PROVIDERID,
-
+                FlagId: FLAG,
             },
             success: function (data) {
-                console.log(data);
                 $('#partialViewForChat').html(data);
                 $('#offcanvasRight').offcanvas("show");
             },

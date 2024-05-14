@@ -99,10 +99,10 @@ namespace HelloDocMVC.Controllers
 
         } 
 
-        public IActionResult Chat(int RequestId, int AdminID, int ProviderId)
+        public IActionResult Chat(int RequestId, int AdminID, int ProviderId, int FlagId)
         {
             var roleMain = HttpContext.Session.GetInt32("roleId");
-            ChatViewModel model = _IAdminDash.GetChats(RequestId, AdminID, ProviderId, (int)roleMain);
+            ChatViewModel model = _IAdminDash.GetChats(RequestId, AdminID, ProviderId, (int)roleMain, FlagId);
             return PartialView("_ChatPartialView", model);
         }
 

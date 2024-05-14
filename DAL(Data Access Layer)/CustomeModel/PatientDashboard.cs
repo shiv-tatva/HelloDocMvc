@@ -131,6 +131,10 @@ namespace DAL_Data_Access_Layer_.CustomeModel
 
         public string? flag { get; set; }
 
+        public int GroupFlag { get; set; }
+        public int Reciever1 { get; set; }
+        public int Receiver2 { get; set; }
+
         public List<ChatViewModel> Chats { get; set; }
     }
 

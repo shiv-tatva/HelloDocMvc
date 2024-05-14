@@ -4139,44 +4139,119 @@ namespace BLL_Business_Logic_Layer_.Services
             return false;
         }
 
-        public ChatViewModel GetChats(int RequestId, int AdminID, int ProviderId, int RoleId)
+        public ChatViewModel GetChats(int RequestId, int AdminID, int ProviderId, int RoleId,int FlagId)
         {
             var requestClient = _context.Requestclients.FirstOrDefault(u => u.Requestid == RequestId);
             var physician = _context.Physicians.FirstOrDefault(u => u.Physicianid == ProviderId);
             var admin = _context.Admins.FirstOrDefault(u => u.Adminid == AdminID);
             ChatViewModel model = new ChatViewModel();
-            var chats = _chatRepo.SelectWhereOrderBy(x => new ChatViewModel
-            {
-                ChatId = x.ChatId,
-                Message = x.Message ?? "",
-                ChatDate = x.SentDate!.Value.ToString("hh:mm tt"),
-                SentBy = x.SentBy ?? 0,
 
-            }, x => x.AdminId == AdminID && x.RequestId == RequestId && x.PhyscainId == ProviderId, x => x.SentDate!);
-            List<ChatViewModel> list = new List<ChatViewModel>();
-            foreach (ChatViewModel item in chats)
+            if(FlagId != 5)
             {
-                item.ChatBoxClass = (item.SentBy == Convert.ToInt32(RoleId) ? "Sender" : "Reciever");
-                list.Add(item);
+                var chats = _chatRepo.SelectWhereOrderBy(x => new ChatViewModel
+                {
+                    ChatId = x.ChatId,
+                    Message = x.Message ?? "",
+                    ChatDate = x.SentDate!.Value.ToString("hh:mm tt"),
+                    SentBy = x.SentBy ?? 0,
+                    GroupFlag = FlagId,
+                }, x => x.AdminId == AdminID && x.RequestId == RequestId && x.PhyscainId == ProviderId && x.ChatType == 1, x => x.SentDate!);
+
+                List<ChatViewModel> list = new List<ChatViewModel>();
+                foreach (ChatViewModel item in chats)
+                {
+                    item.ChatBoxClass = (item.SentBy == Convert.ToInt32(RoleId) ? "Sender" : "Reciever");
+                    list.Add(item);
+                }
+                if (ProviderId == 0)
+                {
+                    model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : admin.Firstname + " " + admin.Lastname);
+                }
+                if (RequestId == 0)
+                {
+                    model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : admin.Firstname + " " + admin.Lastname);
+                }
+                if (AdminID == 0)
+                {
+                    model.RecieverName = (RoleId == 2 ? physician.Firstname + " " + physician.Lastname : requestClient.Firstname + " " + requestClient.Lastname);
+                }
+                if (ProviderId != 0 && RequestId != 0 && AdminID != 0)
+                {
+                    model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : admin.Firstname + " " + admin.Lastname);
+                }
+
+                model.Chats = list;
+                model.RequestId = RequestId;
+                model.ProviderId = ProviderId;
+                model.AdminId = AdminID;
+                model.RoleId = RoleId;
+                model.GroupFlag = FlagId;
+                return model;
             }
-            if (ProviderId == 0)
+            else
             {
-                model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : admin.Firstname + " " + admin.Lastname);
+                var chats = _chatRepo.SelectWhereOrderBy(x => new ChatViewModel
+                {
+                    ChatId = x.ChatId,
+                    Message = x.Message ?? "",
+                    ChatDate = x.SentDate!.Value.ToString("hh:mm tt"),
+                    SentBy = x.SentBy ?? 0,
+                    GroupFlag = FlagId,
+                }, x => x.AdminId == AdminID && x.RequestId == RequestId && x.PhyscainId == ProviderId && x.ChatType == 2, x => x.SentDate!);
+
+                List<ChatViewModel> list = new List<ChatViewModel>();
+
+                List<int> arr = new List<int>();
+
+                foreach (ChatViewModel item in chats)
+                {                    
+                    item.ChatBoxClass = (item.SentBy == Convert.ToInt32(RoleId) ? "Sender" : "Reciever");
+                    if (item.ChatBoxClass == "Reciever")
+                    {
+                        if (!arr.Contains(item.SentBy))
+                        {
+                            arr.Add(item.SentBy);
+                        }
+
+                        if (arr[0] == arr[arr.IndexOf(item.SentBy)])
+                        {
+                            item.Reciever1 = 1;
+                        }
+                        else
+                        {
+                            item.Receiver2 = 2;
+                        }
+
+                    }
+                    list.Add(item);
+                }
+                if (ProviderId == 0)
+                {
+                    model.RecieverName = (RoleId == 1 ? requestClient.Firstname + " " + requestClient.Lastname : admin.Firstname + " " + admin.Lastname);
+                }
+                if (RequestId == 0)
+                {
+                    model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : admin.Firstname + " " + admin.Lastname);
+                }
+                if (AdminID == 0)
+                {
+                    model.RecieverName = (RoleId == 2 ? physician.Firstname + " " + physician.Lastname : requestClient.Firstname + " " + requestClient.Lastname);
+                }
+                if (ProviderId != 0 && RequestId != 0 && AdminID != 0)
+                {
+                    model.RecieverName = "Physician:  " + physician.Firstname + ",    Admin:  " + admin.Firstname + ",    Patient:  " + requestClient.Firstname;
+                }
+
+                model.Chats = list;
+                model.RequestId = RequestId;
+                model.ProviderId = ProviderId;
+                model.AdminId = AdminID;
+                model.RoleId = RoleId;
+                model.GroupFlag = FlagId;
+                return model;
             }
-            if (RequestId == 0)
-            {
-                model.RecieverName = (RoleId == 1 ? physician.Firstname + " " + physician.Lastname : admin.Firstname + " " + admin.Lastname);
-            }
-            if (AdminID == 0)
-            {
-                model.RecieverName = (RoleId == 2 ? physician.Firstname + " " + physician.Lastname : requestClient.Firstname + " " + requestClient.Lastname);
-            }
-            model.Chats = list;
-            model.RequestId = RequestId;
-            model.ProviderId = ProviderId;
-            model.AdminId = AdminID;
-            model.RoleId = RoleId;
-            return model;
+           
+           
         }
 
         public void NewChat(ChatViewModel model, int RoleID)

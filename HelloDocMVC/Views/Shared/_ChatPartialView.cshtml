@@ -9,7 +9,18 @@
 
                     <div class="card" id="chat1" style="border-radius: 15px;height:100%;">
                         <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0">
-                            <p class="mb-0 fw-bold">@Model.RecieverName</p>
+                            @if(Model.GroupFlag == 5)
+                            {
+                                <div >
+                                    <h4 >Group Chat</h4>
+                                    <p class="mb-0" style="font-size:14px;">(@Model.RecieverName)</p>
+                                </div>
+                                
+                            }
+                            else
+                            {                                
+                                <p class="mb-0 fw-bold">@Model.RecieverName</p>
+                            }
                             <button class="fas fa-times btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="card-body" id="cardBodyScroll" style="overflow:scroll;">
@@ -19,7 +30,7 @@
                                 {                                   
                                     <div class="d-flex flex-row justify-content-end mb-4">
                                         <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
-                                            <p class="small mb-0" style="font-size:large;">@item.Message</p>
+                                            <p class="small mb-0" style="font-size:large;">@item.Message</p> 
                                             <div class="chatDate" style="font-size:12px;text-align:end;">@item.ChatDate</div>
                                         </div>
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp" alt="avatar 1"
@@ -28,14 +39,43 @@
                                 }
                                 else
                                 {
-                                    <div class="d-flex flex-row justify-content-start mb-4">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar 1"
-                                             style="width: 45px; height: 100%;">
-                                        <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                                            <p class="small mb-0" style="font-size:large;">@item.Message</p>
-                                            <div class="chatDate" style="font-size:12px;">@item.ChatDate</div>
+                                    @if(item.GroupFlag != 5)
+                                    {
+                                        <div class="d-flex flex-row justify-content-start mb-4">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar 1"
+                                                 style="width: 45px; height: 100%;">
+                                            <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                                <p class="small mb-0" style="font-size:large;">@item.Message</p>
+                                                <div class="chatDate" style="font-size:12px;">@item.ChatDate</div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        @if(item.Reciever1 != 0)
+                                        {
+                                            <div class="d-flex flex-row justify-content-start mb-4">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar 1"
+                                                     style="width: 45px; height: 100%;">
+                                                <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                                    <p class="small mb-0" style="font-size:large;">@item.Message</p>
+                                                    <div class="chatDate" style="font-size:12px;">@item.ChatDate</div>
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (item.Receiver2 != 0)
+                                        {
+                                            <div class="d-flex flex-row justify-content-start mb-4">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp" alt="avatar 1"
+                                                     style="width: 45px; height: 100%;">
+                                                <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                                    <p class="small mb-0" style="font-size:large;">@item.Message</p>
+                                                    <div class="chatDate" style="font-size:12px;">@item.ChatDate</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
                                 }
                             }
                             <form id="chatFormMain">
@@ -49,6 +89,14 @@
                                 <input type="hidden" asp-for="ProviderId" id="ProviderID" />
                                 <input type="hidden" asp-for="AdminId" id="AdminID" />
                                 <input type="hidden" asp-for="RoleId" id="RoleID" />
+                                @if (Model.GroupFlag != 5)
+                                {
+                                    <input type="hidden" asp-for="GroupFlag" id="GroupFlagID" value="1" />
+                                }
+                                else
+                                {
+                                    <input type="hidden" asp-for="GroupFlag" id="GroupFlagID" value="2" />
+                                }
                             </form>
                            
                         </div>
@@ -100,8 +148,9 @@
         var ProviderID = $('#ProviderID').val();
         var AdminID = $('#AdminID').val();
         var RoleID = $('#RoleID').val();
+        var GroupFlagID = $('#GroupFlagID').val();
 
-        connection.invoke("SendMessage", message, RequestID, ProviderID, AdminID, RoleID).catch(function (err) {
+        connection.invoke("SendMessage", message, RequestID, ProviderID, AdminID, RoleID, GroupFlagID).catch(function (err) {
             return console.error(err.toString());
         });
 
@@ -114,9 +163,13 @@
         var RequestID = $('#RequestID').val();
         var ProviderID = $('#ProviderID').val();
         var AdminID = $('#AdminID').val();
-
+        var GroupFlagID = $('#GroupFlagID').val();
+        var flagMain = 0;
+        if (GroupFlagID == 2){
+            flagMain = 5;
+        }
         event.preventDefault();
-        ChatWith(RequestID, ProviderID, AdminID);
+        ChatWith(RequestID, ProviderID, AdminID, flagMain);
         event.preventDefault();
 
     });    

@@ -25,4 +25,6 @@ public partial class Chat
     public DateTime? SentDate { get; set; }
 
     public int? SentBy { get; set; }
+
+    public int? ChatType { get; set; }
 }
